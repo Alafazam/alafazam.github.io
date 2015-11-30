@@ -1,0 +1,40 @@
+---
+
+port: 4000
+host: 0.0.0.0
+safe: false
+
+
+### site serving configuration ###
+exclude: [CNAME, README.md, .gitignore]
+pretty_style: html_extension
+permalink: /:year/:month/:title
+lsi: false
+markdown: kramdown
+highlighter: pygments
+
+excerpt_separator: <!--more-->
+paginate: 4
+
+
+### content configuration ###
+url: http://t413.com
+name: Tim O'Brien # "Hi, I'm _______"
+email: timo@t413.com
+tagline: "fun stuff"
+favicon:     "res/favicon.ico"
+touch_icon:  "res/icon.png"
+touch_icon2x:  "res/Icon60-2x.png"
+keywords: "design, android, ios, db, github, drones, databases, iphone, app, tim, o'brien, voice, t413, tool, talks, project, json, server, flying"
+google_analytics_key: UA-49607422-1
+
+highlight_color: '#188F79' #Color for top bar, links, etc
+
+social: #sidebar links, leave blank to ignore
+  github: t413
+  stackoverflow: 783100
+  facebook: etobrien
+  linkedin: etobrien
+  gplus: 106594292653831578871
+  spotify: t4obrien
+

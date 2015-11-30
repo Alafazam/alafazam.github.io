@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div id="tagpage-header">
+  <span id="bigtag">{{ page.tag }} <i class="fa fa-tag"></i></span><span class="mdash">&mdash;</span>Articles by tag
+</div>
+
+<div id="posts">
+
+  {% for page in site.tags[page.tag] %}
+  <h2><a href="{{ page.url }}">{{ page.title }}</a></h2>
+  <p class="meta">
+    {{ page.date | date: "%B %d, %Y" }}
+
+    {% if page.tags.size > 0 %}
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        {% for tag in page.tags %}
+          <a href="/tag/{{ tag }}/">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+      </span>
+    {% endif %}
+  </p>
+
+  {{ page.excerpt }}
+
+  <b><a class="continue" href="{{ page.url }}">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  {% endfor %}
+</div>

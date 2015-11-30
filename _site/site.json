@@ -1,0 +1,387 @@
+[
+	
+	{
+	"date":    "2014-08-07 00:00:00 +0530",
+	"tags":    ["tools","github","python"],
+	"title":   "Universal SMS Conversion Tool",
+	"url":     "/2014/08/sms-conversion",
+	"excerpt": Edit: Now available in pip, just pip install smstools.
+
+Working on a project at INQ Mobile I started this tool to convert downloaded
+Google Voice messages to native Android smsmms.db sqlite databases. I was doing
+local analytics and wanted a big real-world dataset. I built what I called
+Android-SMS-DB-importer to import six years of SMS history from two iPhones,
+Google Voice, and Android into one Android smsmms.db file. Since then I’ve expanded
+the tool’s scope to be a universal SMS translator.
+
+There are lots of real use cases for such a tool. Migrating from/to iPhone from/to
+Android? Leaving Google Voice? Want a searchable CSV, JSON, or XML file of
+your conversations? Also making a sweet SMS processing app and you want to
+run on all your past texts at once? Want to move all your messages from your
+past into a new, date-sorted, database? It should be ready to roll.
+
+1
+2pip install smstools
+smstools iphone.db androids.xml android.db out.csv
+
+
+
+
+Imported. Normalized. Sorted. Exported. Easy.
+
+Go clone it at [github.com/t413/SMS-Tools](https://github.com/t413/SMS-Tools)
+
+Convert your message history between:
+- iOS 5, 6, and 7 databases directly (from backup or from your jailbroken phone directly)
+- Android mmssms.db database (directly from phone)
+- Android XML from the [SMS Backup &amp;amp; Restore](http://android.riteshsahu.com/apps/sms-backup-restore) app
+- CSV files
+- JSON files
+- google voice data dump (see more details below)
+
+
+	}
+	, 
+	
+	{
+	"date":    "2014-07-29 00:00:00 +0530",
+	"tags":    ["youtube","talks","flying"],
+	"title":   "Talk on Drones at the IFTF",
+	"url":     "/2014/07/talk-at-itft",
+	"excerpt": 
+
+I gave this talk at the Institute for the Future back in January. It’s on drones / UAVs / sUAVs, their past and what they can do today. I gave a call-to-build to make these things yourself and understand the whole system.
+
+Full link: youtu.be/WWPnZ4fqvYE – See the other talks at the IFTF site.
+
+	}
+	, 
+	
+	{
+	"date":    "2014-07-28 00:00:00 +0530",
+	"tags":    ["projects","web"],
+	"title":   "Web Design",
+	"url":     "/2014/07/web-design",
+	"excerpt": Here’s a look at some old web projects I’ve built in the past. Some I’ve built for fun, some freelance, some for family.
+
+
+
+
+
+The second generation t413.com. Built 2010-2012. Made full use of html5 push/pop-state for a dynamic preloaded javascript experience with static fallback. Dynamic and interactive charts and plots of photo EXIF data to interact with over 30,000 images in real-time. Self designed, developed, and hosted.
+
+
+	}
+	, 
+	
+	{
+	"date":    "2014-07-27 00:00:00 +0530",
+	"tags":    ["meta","web"],
+	"title":   "Starting Over (this site)",
+	"url":     "/2014/07/starting-over",
+	"excerpt": My web site, t413.com, has been down for 6 months. It’s time I fixed it.
+
+What happened?
+
+My server was a intel atom nettop running behind someone’s desk back in North Carolina.
+
+They got a new desk.
+
+My site went down.
+
+My server disappeared.
+
+
+	}
+	, 
+	
+	{
+	"date":    "2012-03-13 00:00:00 +0530",
+	"tags":    ["github","projects","embedded"],
+	"title":   "Senior Designing: Robot Arm Style",
+	"url":     "/2012/03/senior-design-arm",
+	"excerpt": For my ECE senior design project I’m building a robotic arm for the NCSU Terrestrial Robotics Club as they take on the University Rover Challenge. 
+
+Ever wanted a high-strength robotic arm that’s made entirely of 3D prtinted and laser-cut parts and off-the-shelf compodents and electronics? I have, and that’s why I’m building it with my group of 4.
+
+I put together a google site page to keep track of the project’s status and eventually host tutorials, APIs, and other documents you’ll need to build your own! Check it out.
+
+	}
+	, 
+	
+	{
+	"date":    "2012-03-13 00:00:00 +0530",
+	"tags":    ["youtube","flying"],
+	"title":   "Flying at Dorathea",
+	"url":     "/2012/03/flying-at-dorathea",
+	"excerpt": The NCSU Aerial Robotics team went out to Dorothea to fly a few weekends ago, and RJ brought his 18 pound 88” wingspan 60cc Extra 300. Add my gopro, some handy ground footage, and a dubstep remix of ‘fly like an eagle’ and you get this:
+
+
+
+	}
+	, 
+	
+	{
+	"date":    "2011-09-08 00:00:00 +0530",
+	"tags":    ["youtube","flying"],
+	"title":   "New video: slow motion quadcopter flying in EB2",
+	"url":     "/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2",
+	"excerpt": 
+
+This was taken on my friend Hardik’s Canon 60D. Music is from the band State Radio and the song: Wicker Plane.
+
+http://itunes.apple.com/us/album/year-of-the-crow/id395632644
+
+I used ffmpeg extensively to get the 60fps video to slow-mo 30fps, then ffmpeg again to extract the audio to wav, then Sound Studio (mac app) to resample the audio to the same speed as the video. Next I used Sound Studio to splice, in rythem, the intro, solo, and final few seconds of ‘Wicker Plane’ together, then mix it together with the slow-mo sound of my quad and just imovie to put together the timeline of video.
+
+	}
+	, 
+	
+	{
+	"date":    "2011-01-29 00:00:00 +0530",
+	"tags":    ["projects","youtube","flying","embedded","xbee"],
+	"title":   "ARM7 mini quad with xbee remote",
+	"url":     "/2011/01/arm7-mini-quad-with-xbee-remote",
+	"excerpt": Also take a look at the DIY-drones post I made, (it made it to the front page!).
+
+
+
+Using an Phillips NXP LPC20148 ARM7 processor, a Nintendo Wii motion+, and some xbees I’ve made a really stable platform for quads. (mode details here) It is running FreeRTOS which makes it very expandable in the future. My old frame flew great with it, but I wanted something smaller. Enter my new carbon fiber mini-quad:
+
+
+	}
+	, 
+	
+	{
+	"date":    "2010-12-23 00:00:00 +0530",
+	"tags":    ["projects","youtube","flying"],
+	"title":   "Quadcopter: New photos and video",
+	"url":     "/2010/12/quadcopter-new-photos-and-video",
+	"excerpt": Video:
+
+
+
+Photos:
+
+
+
+	}
+	, 
+	
+	{
+	"date":    "2010-12-21 00:00:00 +0530",
+	"tags":    ["projects","flying","embedded"],
+	"title":   "RTOS quadcopter flight computer",
+	"url":     "/2010/12/rtos-quadcopter-flight-computer",
+	"excerpt": Update: firmware, remote,
+and packet library all now on github.
+
+
+
+The advent of the modern Chinese manufacturing empire has fueled an explosion of high performance, high quality, reliable, accessible, and low-cost hobby electronics like never before. That, coupled with technological advances, have made electric systems more than just an alternative to nitro fuel powered models. The technology improvements have also enabled, for the first time, hobby-level computer flight control systems and even autopilots. Many commercial and community projects have been developed to perform these tasks and out of them have come low-cost, electric powered, computer controlled planes, cars, conventional helicopters, and helicopters that defy convention. Copters with two, three, four, six, and even eight rotors have taken root in the community as a simple and effective way to lift large payloads, film smooth aerial video, and perform unbelievable acrobatics.
+
+As part of a previous project I built a quadcopter with a laser-cut ABS plastic frame and modified version of the open source AeroQuad project. This semester I built my own open source flight software for quadcopters using the NXP LPC2148 ARM 7 processor on an FreeRTOS system. This allows the inherently unstable quadcopter to fly as a human controllable helicopter with only the addition of a wii motion plus as a gyroscope sensor for rotational acceleration.
+
+
+
+
+  Technology breakdown
+  CPU: Phillips NXP LPC2148 ARM7
+  FreeRTOS, compiled with arm-elf-gcc
+  32-bit, 40kB RAM, 60Mh, 512kB Flash
+  Nintendo Wii Motion+ gyroscope, I2C
+  4xPWM PPM Brushless speed controllers
+  Packetized XBee communication
+  Accurate, 10bit remote with backlit LCD
+    
+      Four level menu system
+    
+  
+
+
+
+
+Background
+
+I like remote controlled gadgets a lot. Moving beyond the 2d world of RC cars has long been my dream, but until last year it was just that: a dream. I designed and built a simple rover, controlled by a mint tin that you could simply tilt in the direction you wanted it to drive. After mastering a simple $40 mall-bought helicopter I wanted to move bigger. Rather than shell out several hundred dollars for a regular helicopter I decided to build an AeroQuad quadcopter using parts from hobbyking.com and sparkfun.com. I built my first frame, crashed a lot, and had many issues with my 15 year old FM radio controller. I designed a basic laser-cut acrylic remote and wrote modifications to fly it over a digital XBee connection. I then designed and built a laser-cut ABS plastic frame for the copter.
+
+When I dealt with speed and reliability issues when sending ascii values over serial I decided to design a data packet transfer method similar to UDP. Upon arriving to SJSU I implemented although never finished testing a method for altitude control. I started the year with no idea for how the stabilization with PID control worked, specifically how any of the data busses were implemented, or how the sensor data was processed or used. In the course of this past year of reading, taking apart, fixing, and implementing my own features I’ve learned a great deal. I decided for my open-ended project for CMPE 146 that I’d design and  implement my own flight computer program using the real-time operating system FreeRTOS.
+
+
+	}
+	, 
+	
+	{
+	"date":    "2010-11-19 00:00:00 +0530",
+	"tags":    ["github","projects","embedded"],
+	"title":   "mp3 player design",
+	"url":     "/2010/11/mp3-player-design",
+	"excerpt": Recent edit: The project is now on github! with all the original svn commit history included.
+
+Background
+
+
+I’m participating in a national student exchange this semester at San Jose State University in Silicon Valley California. One of my classes is CMPE 146, Embedded Microprocessor System Design. For one of our projects we were told to make an mp3 player on the dev board we had to buy for the class. Since the final goal was the same for each person the design was especially important. Here’s my design:
+
+There is also a handy PDF version.
+
+Technology breakdown:
+
+
+  CPU: Phillips NXP LPC2148 ARM7
+  FreeRTOS, compiled with arm-elf-gcc
+  32-bit, 40kB RAM, 60Mh, 512kB Flash
+  512Kbyte SPI based Flash memory
+  SD Card with elm-chan.org FAT-FS
+  TI PCM1774 DAC &amp;amp; Amplifier
+  Phillips PCA9535 I2C Port expander
+  ST STA013 SPI MP3 Decoder
+
+
+Downloads
+
+This project is open source. My hope is that it helps others get started on their ARM without breaking their legs. If you’re taking CMPE 146 want to bum off my code then be warned: my style is pretty distinctive and the TA knows my site.
+
+The project is now on github! with all the original svn commit history included.
+
+Overarching Design Process
+
+I was adamant to have a fully functional audio player that I could use on a regular basis. The button control must be straightforward and the song selection must be dynamic. Using the serial terminal to change settings, select songs, or to do anything at all necessary for playing music was off the table. The interface must be usable by anyone who’s used an iPod despite not having an lcd.
+
+
+	}
+	, 
+	
+	{
+	"date":    "2010-10-29 00:00:00 +0530",
+	"tags":    ["github","projects","embedded"],
+	"title":   "Lightweight C MP3 ID3v2 Reader",
+	"url":     "/2010/10/lightweight-mp3-id3-metadata-tag-reader",
+	"excerpt": Super lightweight MP3 ID3 metadata tag reader made for embedded systems.
+
+Now on GitHub!
+
+Background
+
+I’m writing a full-featured mp3 player for the SJSU class CMPE 146, Embedded Microprocessor System Design, that runs on the LPC2148 ARM7 Board from sjvalley. The project is running RTOS and has reads files from a SD card streams them through an MP3 decoder to a DAC and finally your headphones.
+
+The project is coming along nicely but I wanted a way to read ID3 tags so read_ID3_info() was born.
+
+
+	}
+	, 
+	
+	{
+	"date":    "2010-03-18 00:00:00 +0530",
+	"tags":    ["projects","xbee","embedded"],
+	"title":   "Fast 2-way XBEE series 2 data",
+	"url":     "/2010/03/fast-2-way-xbee-series-2-data",
+	"excerpt": 
+
+Say that title out loud. It’s a mouthful– any yet it’s not enough. There are so many names for these modules and a better title would be Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT Communication. In my trials and tribulations building my quadcopter remote (soon I’ll post about it) I’ve run across problems getting two way, full speed, and reliable communication between my modules. Here’s what I discovered after a lot of manual reading:
+
+Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT
+
+The heart of the issue is that Xbee 2.5 modules are not designed (spesificlly) to be point-to-point direct communicators. Whereas Series 1 modules can communicate directly with zero configuration, these series 2 ZNET modules need some work. Here’s a great article on the difference. There’s a few great articles on how to setup these znet modules, however they’re really hard to find. (I can’t even find which ones I’ve already manged to run across). Here’s the basic setup:
+
+
+	}
+	, 
+	
+	{
+	"date":    "2009-12-23 00:00:00 +0530",
+	"tags":    ["projects","youtube","xbee","embedded"],
+	"title":   "Wireless Wii Robot",
+	"url":     "/2009/12/wireless-wii-robot",
+	"excerpt": 
+
+Physical computing -&amp;gt; wireless two-way data -&amp;gt; physical control. This is a intuitive, durable, and fun way to control almost anything. Here I’ve built a transmitter which reads data from the Wii nunchuck and sends it over xbee. The rover receives the xbee broadcast, decodes it, maps it to drive the tank-like dual motor setup, and controls the motor driver IC. To achieve my goal of a small mint-tin fitted remote I used a lithium polymer (LiPo) battery, and to make them safer I included a voltage monitoring subroutine. The result is modular, easily incorporated into future projects, or disassembled for different use. Here are more details:
+
+
+
+Transmitter
+
+Arduino pro mini (3.3V version), xbee series 2.5, used wii nunchuck, lipo battery, old off-brand mint tin.
+
+Receiver
+
+9V battery, Xbee, ATmega168, SN754410 H-Bridge motor IC, lego motors
+
+Pictures!
+
+
+
+Source Files
+
+View and download on GitHub
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19int ledPin =  13;
+
+void setup(){
+  Serial.begin(115200);
+  nunchuck_init();
+  pinMode(ledPin, OUTPUT);
+  //print inital battery charge
+  Serial.print(&amp;quot;b=&amp;quot;);
+  Serial.print(update_batt_status());
+  Serial.println(&amp;quot;%&amp;quot;);
+}
+
+void loop() {
+  nunchuck_get_data();
+  if (((nunchuck_buf[5] &amp;gt;&amp;gt; 0) &amp;amp; 1) ? 0 : 1){
+    digitalWrite(ledPin, HIGH);
+    send_packet();
+  }
+  else digitalWrite(ledPin, LOW);
+
+
+
+
+
+These are provided under the same licence as my photos: [Creative Commons Attribution-Noncommercial-Share Alike 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/us/). Click on either image to download the one of the sketches.
+
+## Software Requirements
+
+*   Arduino IDE 017 or later (for the new Wire library)
+*   That&#39;s it.
+
+## Helpful links/Resources
+
+*   Here&#39;s a great tutorial on how to understand/control this H-bridge motor IC: [DC Motor Control Using an H-Bridge](http://itp.nyu.edu/physcomp/Labs/DCMotorControl)
+*   [Background and Power Supply](http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=57), a SparkFun lecture on how to make a regulated power supply.
+*   [Make Blog](http://blog.makezine.com) and [Make Magizine](http://makezine.com) - Great community with unparalleled creativity and originality. Notice the make magazines my bot crawls over?
+*   Did you like my [Arduino AVR sticker label](http://todbot.com/blog/2009/05/23/arduino-chip-sticker-label/)? it&#39;s from todbot blog.
+
+## Future Directions:
+
+*   Packetized data transfer
+*   Bigger bot: (I have a wheelchair I can&#39;t wait to get running..)
+*   Put in an on/off switch and status leds.
+*   Miniaturize the receiver into it&#39;s own mint tin once I have a more permanent (not lego) rover.
+*   Force feedback by measuring of current draw on the motors, rumbling the nunchuck (or something).
+*   Generally more two-way communication.
+
+
+	}
+	
+	
+]

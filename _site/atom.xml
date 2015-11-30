@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>The blog of </title>
+ <link href="http://alafazam.com/atom.xml" rel="self"/>
+ <link href="http://alafazam.com"/>
+ <updated>2015-11-30T13:57:50+05:30</updated>
+ <id>http://alafazam.com</id>
+ <author>
+   <name>Alaf Azam</name>
+   <email>alafazam@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Universal SMS Conversion Tool</title>
+   <link href="http://alafazam.com/2014/08/sms-conversion"/>
+   <updated>2014-08-07T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2014/08/sms-conversion</id>
+   <content type="html">&lt;p&gt;Edit: Now available in pip, just &lt;code&gt;pip install smstools&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Working on a project at INQ Mobile I started this tool to convert downloaded
+Google Voice messages to native Android smsmms.db sqlite databases. I was doing
+local analytics and wanted a big real-world dataset. I built what I called
+&lt;em&gt;Android-SMS-DB-importer&lt;/em&gt; to import six years of SMS history from two iPhones,
+Google Voice, and Android into one Android smsmms.db file. Since then I’ve expanded
+the tool’s scope to be a universal SMS translator.&lt;/p&gt;
+
+&lt;p&gt;There are lots of real use cases for such a tool. Migrating from/to iPhone from/to
+Android? Leaving Google Voice? Want a searchable CSV, JSON, or XML file of
+your conversations? Also making a sweet SMS processing app and you want to
+run on &lt;em&gt;all&lt;/em&gt; your past texts at once? Want to move all your messages from your
+past into a new, date-sorted, database? It should be ready to roll.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;table class=&quot;highlighttable&quot;&gt;&lt;tr&gt;&lt;td class=&quot;linenos&quot;&gt;&lt;div class=&quot;linenodiv&quot;&gt;&lt;pre&gt;1
+2&lt;td class=&quot;code&quot;&gt;pip install smstools
+smstools iphone.db androids.xml android.db out.csv
+
+&lt;/td&gt;&lt;/pre&gt;
+
+
+Imported. Normalized. Sorted. Exported. Easy.
+
+Go clone it at [github.com/t413/SMS-Tools](https://github.com/t413/SMS-Tools)
+
+Convert your message history between:
+- iOS 5, 6, and 7 databases directly (from backup or from your jailbroken phone directly)
+- Android mmssms.db database (directly from phone)
+- Android XML from the [SMS Backup &amp;amp; Restore](http://android.riteshsahu.com/apps/sms-backup-restore) app
+- CSV files
+- JSON files
+- google voice data dump (see more details below)
+&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Talk on Drones at the IFTF</title>
+   <link href="http://alafazam.com/2014/07/talk-at-itft"/>
+   <updated>2014-07-29T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2014/07/talk-at-itft</id>
+   <content type="html">&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/WWPnZ4fqvYE&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;I gave this talk at the &lt;a href=&quot;http://plustech.iftf.org/&quot;&gt;Institute for the Future&lt;/a&gt; back in January. It’s on drones / UAVs / sUAVs, their past and what they can do today. I gave a call-to-build to make these things yourself and understand the whole system.&lt;/p&gt;
+
+&lt;p&gt;Full link: &lt;a href=&quot;http://youtu.be/WWPnZ4fqvYE&quot;&gt;youtu.be/WWPnZ4fqvYE&lt;/a&gt; – See the other talks at the &lt;a href=&quot;http://plustech.iftf.org/?p=128&quot;&gt;IFTF site&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Web Design</title>
+   <link href="http://alafazam.com/2014/07/web-design"/>
+   <updated>2014-07-28T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2014/07/web-design</id>
+   <content type="html">&lt;p&gt;Here’s a look at some old web projects I’ve built in the past. Some I’ve built for fun, some freelance, some for family.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;/res/webdesign/t413v2.png&quot; alt=&quot;t413.com&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The second generation t413.com. Built 2010-2012. Made full use of html5 push/pop-state for a dynamic preloaded javascript experience with static fallback. Dynamic and interactive charts and plots of photo EXIF data to interact with over 30,000 images in real-time. Self designed, developed, and hosted.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/windhover/&quot;&gt;&lt;img src=&quot;/res/webdesign/windhover.png&quot; alt=&quot;ncsu.edu/windhover&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/windhover/&quot;&gt;ncsu.edu/windhover&lt;/a&gt;, designed for the award winning NC State Literary Magazine, Windhover in 2012.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/sma/&quot;&gt;&lt;img src=&quot;/res/webdesign/sma.png&quot; alt=&quot;ncsu.edu/sma&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/sma/&quot;&gt;ncsu.edu/sma&lt;/a&gt;, designed for NC State Student Media in 2010 (Site since changed).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://hammondcarpentry.com&quot;&gt;&lt;img src=&quot;/res/webdesign/hammond.png&quot; alt=&quot;hammondcarpentry.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://hammondcarpentry.com&quot;&gt;HammondCarpentry.com&lt;/a&gt;, designed for James Hammond of Virginia Beach in 2010.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/agromeck&quot;&gt;&lt;img src=&quot;/res/webdesign/agromeck.png&quot; alt=&quot;ncsu.edu/agromeck&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://ncsu.edu/agromeck&quot;&gt;ncsu.edu/agromeck&lt;/a&gt;, designed for NC State Student Media in 2009. (since changed)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/res/webdesign/e115_project/&quot;&gt;&lt;img src=&quot;/res/webdesign/b-w.png&quot; alt=&quot;b&amp;amp;w&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/res/webdesign/e115_project/&quot;&gt;B&amp;amp;W photography&lt;/a&gt;, designed for my e115 project in 2009. I went a little overboard on the design.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wildhairlivingroomtour.com&quot;&gt;&lt;img src=&quot;/res/webdesign/wild-hair.png&quot; alt=&quot;wildhairlivingroomtour.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wildhairlivingroomtour.com&quot;&gt;WildHairLivingRoomTour.com&lt;/a&gt;, designed for James Hammond of Virginia Beach.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://t413.com&quot;&gt;&lt;img src=&quot;/res/webdesign/t413.png&quot; alt=&quot;t413.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This site’s previous design, &lt;a href=&quot;http://t413.com&quot;&gt;t413.com&lt;/a&gt;, created to share pictures. Started in 2006.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Starting Over (this site)</title>
+   <link href="http://alafazam.com/2014/07/starting-over"/>
+   <updated>2014-07-27T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2014/07/starting-over</id>
+   <content type="html">&lt;p&gt;My web site, t413.com, has been down for 6 months. It’s time I fixed it.&lt;/p&gt;
+
+&lt;h4 id=&quot;what-happened&quot;&gt;What happened?&lt;/h4&gt;
+
+&lt;p&gt;My server was a intel atom nettop running behind someone’s desk back in North Carolina.&lt;/p&gt;
+
+&lt;p&gt;They got a new desk.&lt;/p&gt;
+
+&lt;p&gt;My site went down.&lt;/p&gt;
+
+&lt;p&gt;My server disappeared.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;why-was-i-running-my-site-like-that&quot;&gt;Why was I running my site like that?&lt;/h4&gt;
+
+&lt;p&gt;Lots of reasons. I was hosting several hundred gigabytes of photos which would have been
+prohibitively expensive to host anywhere else. Running my own server was a great
+teaching tool and challenge when I was in middle school and I kept the habit
+all through college and beyond.&lt;/p&gt;
+
+&lt;p&gt;Now-adays I don’t want to pay for rack space for a personal gallery and deal with
+the very very real problem of security on my own box. Github pages to the rescue!&lt;/p&gt;
+
+&lt;h4 id=&quot;wheres-the-gallery&quot;&gt;Where’s the gallery?&lt;/h4&gt;
+
+&lt;p&gt;Yeah yeah. There were tens of thousands of priceless images, carefully curated,
+that told the story of my middle school, high school and college life. They
+showed the world around me and highlighted communities I think are great. I put
+years of work into developing the style, technology, and photography that went
+into it.&lt;/p&gt;
+
+&lt;p&gt;Don’t worry, I’ve got a few backups. I’ll do something with them.&lt;/p&gt;
+
+&lt;h4 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h4&gt;
+
+&lt;p&gt;Dunno. Haven’t written that far ye&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Senior Designing: Robot Arm Style</title>
+   <link href="http://alafazam.com/2012/03/senior-design-arm"/>
+   <updated>2012-03-13T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2012/03/senior-design-arm</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;https://sites.google.com/a/ncsu.edu/robot-manipulator-arm/_/rsrc/1329116601555/home/arm.png?height=212&amp;amp;width=320&quot; alt=&quot;Arm 3D view&quot; /&gt;For my ECE senior design project I’m building a robotic arm for the NCSU &lt;a href=&quot;http://www.ncsumarsrover.com/&quot;&gt;Terrestrial Robotics Club&lt;/a&gt; as they take on the &lt;a href=&quot;http://urc.marssociety.org/&quot;&gt;University Rover Challenge&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;Ever wanted a high-strength robotic arm that’s made entirely of 3D prtinted and laser-cut parts and off-the-shelf compodents and electronics? I have, and that’s why I’m building it with my group of 4.&lt;/p&gt;
+
+&lt;p&gt;I put together a &lt;a href=&quot;https://sites.google.com/a/ncsu.edu/robot-manipulator-arm/home&quot;&gt;google site page&lt;/a&gt; to keep track of the project’s status and eventually host tutorials, APIs, and other documents you’ll need to build your own! Check it out.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Flying at Dorathea</title>
+   <link href="http://alafazam.com/2012/03/flying-at-dorathea"/>
+   <updated>2012-03-13T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2012/03/flying-at-dorathea</id>
+   <content type="html">&lt;p&gt;The &lt;a href=&quot;http://www4.ncsu.edu/~aimeriza/&quot;&gt;NCSU Aerial Robotics team&lt;/a&gt; went out to Dorothea to fly a few weekends ago, and RJ brought his 18 pound 88” wingspan 60cc Extra 300. Add my gopro, some handy ground footage, and a dubstep remix of ‘&lt;a href=&quot;http://www.youtube.com/watch?v=KCnaF4KV0L4&quot;&gt;fly like an eagle&lt;/a&gt;’ and you get this:&lt;/p&gt;
+
+&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/0ZyVA29MReI&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>New video: slow motion quadcopter flying in EB2</title>
+   <link href="http://alafazam.com/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2"/>
+   <updated>2011-09-08T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2</id>
+   <content type="html">&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/9zeHYOXod58&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;This was taken on my friend Hardik’s Canon 60D. Music is from the band State Radio and the song: Wicker Plane.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://itunes.apple.com/us/album/year-of-the-crow/id395632644&quot; title=&quot;http://itunes.apple.com/us/album/year-of-the-crow/id395632644&quot;&gt;http://itunes.apple.com/us/album/year-of-the-crow/id395632644&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I used ffmpeg extensively to get the 60fps video to slow-mo 30fps, then ffmpeg again to extract the audio to wav, then Sound Studio (mac app) to resample the audio to the same speed as the video. Next I used Sound Studio to splice, in rythem, the intro, solo, and final few seconds of ‘Wicker Plane’ together, then mix it together with the slow-mo sound of my quad and just imovie to put together the timeline of video.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>ARM7 mini quad with xbee remote</title>
+   <link href="http://alafazam.com/2011/01/arm7-mini-quad-with-xbee-remote"/>
+   <updated>2011-01-29T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2011/01/arm7-mini-quad-with-xbee-remote</id>
+   <content type="html">&lt;p&gt;Also &lt;a href=&quot;http://diydrones.com/profiles/blogs/arm7-mini-quad-with-xbee&quot;&gt;take a look&lt;/a&gt; at the DIY-drones post I made, (it made it to the front page!).&lt;/p&gt;
+
+&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/Ng5cj4m8uaw&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;Using an Phillips NXP LPC20148 ARM7 processor, a Nintendo Wii motion+, and some xbees I’ve made a really stable platform for quads. (&lt;a href=&quot;http://t413.com/news/rtos-quadcopter-flight-computer&quot;&gt;mode details here&lt;/a&gt;) It is running FreeRTOS which makes it very expandable in the future. My &lt;a href=&quot;http://t413.com/photos_of_projects/#quad3_0-002_MG_4963_2010-12-20.jpg&quot;&gt;old&lt;/a&gt; frame flew great with it, but I wanted something smaller. Enter my new carbon fiber mini-quad:&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;div class=&quot;icontain i4x3&quot;&gt;&lt;iframe class=&quot;imgur-album&quot; src=&quot;//imgur.com/a/x7aOU/embed?background=f2f2f2&amp;amp;text=1a1a1a&amp;amp;link=4e76c9&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;props&quot;&gt;Props&lt;/h3&gt;
+
+&lt;p&gt;My &lt;a href=&quot;http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=11313&quot;&gt;props from hobbyking&lt;/a&gt; were very unbalanced, but easily fixed with some electrical tape (Last photo in album)&lt;/p&gt;
+
+&lt;h3 id=&quot;another-video&quot;&gt;Another video&lt;/h3&gt;
+
+&lt;p&gt;This one is from last week.&lt;/p&gt;
+
+&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/8gVc9dYw0vM&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Quadcopter: New photos and video</title>
+   <link href="http://alafazam.com/2010/12/quadcopter-new-photos-and-video"/>
+   <updated>2010-12-23T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2010/12/quadcopter-new-photos-and-video</id>
+   <content type="html">&lt;h3 id=&quot;video&quot;&gt;Video:&lt;/h3&gt;
+
+&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/F_cQSrAu5tw&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;photos&quot;&gt;Photos:&lt;/h3&gt;
+
+&lt;div class=&quot;icontain i4x3&quot;&gt;&lt;iframe class=&quot;imgur-album&quot; src=&quot;//imgur.com/a/NCGid/embed?background=f2f2f2&amp;amp;text=1a1a1a&amp;amp;link=4e76c9&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>RTOS quadcopter flight computer</title>
+   <link href="http://alafazam.com/2010/12/rtos-quadcopter-flight-computer"/>
+   <updated>2010-12-21T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2010/12/rtos-quadcopter-flight-computer</id>
+   <content type="html">&lt;p&gt;Update: &lt;a href=&quot;https://github.com/t413/os_copter&quot;&gt;firmware&lt;/a&gt;, &lt;a href=&quot;https://github.com/t413/remote_xbee&quot;&gt;remote&lt;/a&gt;,
+and &lt;a href=&quot;https://github.com/t413/ser_pkt&quot;&gt;packet library&lt;/a&gt; all now on github.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/gQg8QG5&quot; style=&quot;float:right;width:50%;&quot;&gt;&lt;img src=&quot;http://i.imgur.com/gQg8QG5l.jpg&quot; alt=&quot;&quot; title=&quot;Flight controller detail shot. Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The advent of the modern Chinese manufacturing empire has fueled an explosion of high performance, high quality, reliable, accessible, and low-cost hobby electronics like never before. That, coupled with technological advances, have made electric systems more than just an alternative to nitro fuel powered models. The technology improvements have also enabled, for the first time, hobby-level computer flight control systems and even autopilots. Many commercial and community projects have been developed to perform these tasks and out of them have come low-cost, electric powered, computer controlled planes, cars, conventional helicopters, and helicopters that defy convention. Copters with two, three, four, six, and even eight rotors have taken root in the community as a simple and effective way to lift large payloads, film smooth aerial video, and perform unbelievable acrobatics.&lt;/p&gt;
+
+&lt;p&gt;As part of a previous project I built a quadcopter with a laser-cut ABS plastic frame and modified version of the open source AeroQuad project. This semester I built my own open source flight software for quadcopters using the NXP LPC2148 ARM 7 processor on an FreeRTOS system. This allows the inherently unstable quadcopter to fly as a human controllable helicopter with only the addition of a wii motion plus as a gyroscope sensor for rotational acceleration.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/GOud01P&quot;&gt;&lt;img src=&quot;http://i.imgur.com/GOud01Pl.jpg&quot; alt=&quot;&quot; title=&quot;Quadcopter design wide shot. Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Technology breakdown&lt;/li&gt;
+  &lt;li&gt;CPU: Phillips NXP LPC2148 ARM7&lt;/li&gt;
+  &lt;li&gt;FreeRTOS, compiled with arm-elf-gcc&lt;/li&gt;
+  &lt;li&gt;32-bit, 40kB RAM, 60Mh, 512kB Flash&lt;/li&gt;
+  &lt;li&gt;Nintendo Wii Motion+ gyroscope, I&lt;sup&gt;2&lt;/sup&gt;C&lt;/li&gt;
+  &lt;li&gt;4xPWM PPM Brushless speed controllers&lt;/li&gt;
+  &lt;li&gt;Packetized XBee communication&lt;/li&gt;
+  &lt;li&gt;Accurate, 10bit remote with backlit LCD
+    &lt;ul&gt;
+      &lt;li&gt;Four level menu system&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/xHCccO3&quot;&gt;&lt;img src=&quot;http://i.imgur.com/xHCccO3l.jpg&quot; alt=&quot;&quot; title=&quot;Remote control. Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+
+&lt;p&gt;I like remote controlled gadgets a lot. Moving beyond the 2d world of RC cars has long been my dream, but until last year it was just that: a dream. I designed and built a simple rover, controlled by a mint tin that you could simply tilt in the direction you wanted it to drive. After mastering a simple $40 mall-bought helicopter I wanted to move bigger. Rather than shell out several hundred dollars for a regular helicopter I decided to build an AeroQuad quadcopter using parts from hobbyking.com and sparkfun.com. I built my first frame, crashed a lot, and had many issues with my 15 year old FM radio controller. I designed a basic laser-cut acrylic remote and wrote modifications to fly it over a digital XBee connection. I then designed and built a laser-cut ABS plastic frame for the copter.&lt;/p&gt;
+
+&lt;p&gt;When I dealt with speed and reliability issues when sending ascii values over serial I decided to design a data packet transfer method similar to UDP. Upon arriving to SJSU I implemented although never finished testing a method for altitude control. I started the year with no idea for how the stabilization with PID control worked, specifically how any of the data busses were implemented, or how the sensor data was processed or used. In the course of this past year of reading, taking apart, fixing, and implementing my own features I’ve learned a great deal. I decided for my open-ended project for CMPE 146 that I’d design and  implement my own flight computer program using the real-time operating system FreeRTOS.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;overarching-design&quot;&gt;Overarching Design&lt;/h3&gt;
+
+&lt;h4 id=&quot;rtos&quot;&gt;RTOS&lt;/h4&gt;
+
+&lt;p&gt;The use of a real-time operating system allows for many advantages in the future that aren’t possible with a timer/scheduling design. Independent tasks can run without inhibiting each-other and with prioritization that will allow things like stabilization and communication to run alongside data acquisition or guidance. The essential tasks for flying were stabilization and communication, and that’s where I started the design process.&lt;/p&gt;
+
+&lt;h4 id=&quot;control-theory&quot;&gt;Control Theory&lt;/h4&gt;
+
+&lt;p&gt;Quadcopter stabilization depends on quickly being able to update the motor speed to minimize or zero rotational acceleration. If we used the &lt;em&gt;rotation angle&lt;/em&gt; it would be an unstable system; by the time the helicopter has changed position enough to register a proportional response it would be thrown back, past it’s correct location, and in the negative range. The helicopter would oscillate and crash, dramatic and unsuccessful. The rotational acceleration data is acquired by taking the derivative of the absolute tilt angles. To get tilt angles one must integrate the angular acceleration data provided by MEMS gyroscopes and compensate drift using accelerometer data. To simplify this process of integrating then differentiating the same data, I elected to use the gyroscope data directly. Using a fusion of the gyro, accelerometer, and magnetometer data to get a compensated and accurate absolute angle will provide a means of auto-balancing in the future, but for now I can use just the gyroscopes to get a stable and controllable helicopter I can fly.&lt;/p&gt;
+
+&lt;h4 id=&quot;sensors&quot;&gt;Sensors&lt;/h4&gt;
+
+&lt;p&gt;For sensors I had many options. For my first quadcopter I used sparkfun’s Razor 6dof board, but it’s analog sensors were not temperature compensated and when I tested them I found they took about an hour to become just marginally consistent. They also had a small ‘full-scale range’ which severely limited their accuracy and required an external analog-to-digital converter which left room for interference and bias. All of these shortcomings made my desire to move to an integrated digital sensor, and there are such sensors, soldered and ready to use, on the market for around $30-40. Instead of buying one of those I decided to use the Nintendo Wii Motion+ which had the advantage of being less than $20, readily available to consumers worldwide, and widely supported by the home-brew community online. The Wii Nunchuck attachment would provide accelerometers in the future.&lt;/p&gt;
+
+&lt;h3 id=&quot;technology-breakdown&quot;&gt;Technology breakdown&lt;/h3&gt;
+
+&lt;h4 id=&quot;pwm&quot;&gt;PWM&lt;/h4&gt;
+
+&lt;p&gt;To utilize off-the-shelf components was a major goal of mine. This allows for modularity and low-cost/high-cost options and fast innovation. To interface with brushless motors one must use exactly timed high-current three phase control signals. Easy to use, integrated speed controllers are widely available and all use the same interface: Pulse Position Modulation or PPM. Every 20ms a new signal starts, stays on between 1 and 2ms, then goes low. That time between 1 and 2ms determines the speed controllers’ speed. PPM signals must be precise and reliable, and the best way to ensure both was to use the PWM timer functionality on the LPC board.&lt;/p&gt;
+
+&lt;p&gt;There are three steps to generating a PWM signal on the LPC. First setup the general PWM ability, then setup each port you want to use, and finally latch a new duty cycle value. I wrote a header and c library for PWM control and a functionality specifically to set it up to generate a PPM compatible signal, independent of the peripheral clock’s configuration. There are four motors on the helicopter so I needed four separate PWM channels. I used timers 2, 4, 5, and 6 so that UART0 would be still usable.&lt;/p&gt;
+
+&lt;h4 id=&quot;isup2supc&quot;&gt;I&lt;sup&gt;2&lt;/sup&gt;C&lt;/h4&gt;
+
+&lt;p&gt;The Nintendo Wii Motion+ sensor interfaces with the Wiimote over I&lt;sup&gt;2&lt;/sup&gt;C. I&lt;sup&gt;2&lt;/sup&gt;C is a useful bus for connecting many low-ish speed digital devices for simple data transfer. It uses 2 wires, SCA and SCL, data and clock respectively. This is a multi-slave bus capable of communicating with many devices without a chip select signal. The addresses are 8 bit with the least significant bit signifying whether to read or write to the device at the address of the other 7 bits. The bus’s single master device initiates commands and reads results, pulling the bus’s wires high with a pull-up resistor. I soldered in 2x4.5kΩ pull-up resistors and made a connector for the Motion+ and was able to read data.&lt;/p&gt;
+
+&lt;p&gt;To initialize the sensor I had to send the value 0x04 to register 0xFE at address 0xA6 then 0x05 to register 0xFE to finish the setup. Then the sensor would switch addresses to 0xA4 where it would let you read 6 bytes starting from register 0x00. The data was then decoded from the returned 6 bytes and used in the flight routine.&lt;/p&gt;
+
+&lt;h4 id=&quot;xbee&quot;&gt;XBee&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/s6m8AqS&quot; style=&quot;float:right;
+width:35%;&quot;&gt;&lt;img src=&quot;http://i.imgur.com/s6m8AqSl.jpg&quot; alt=&quot;&quot; title=&quot;Xbee detail shot. Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For communication I used the XBee Series 2 wireless modules. For detailed setup information and operation of the modules, see my previous report on the subject at &lt;a href=&quot;http://t413.com/news/fast-2-way-xbee-series-2-data&quot;&gt;t413.com/news/fast-2-way-xbee-series-2-data&lt;/a&gt;. I used UART0 for the XBee because UART1 shares the same pins as the timers for PWM 4 and 6. This required me to switch the UART / FTDI switch each time I want to program the µC, but there doesn’t seem to be a way around this except to design a native USB bootloader so that the FTDI chip can be left off. (future project: DUF bootloader)&lt;/p&gt;
+
+&lt;p&gt;The data sent over the XBee is a simple packetized data transfer method with a header, type, length, payload and checksum design. This allows for a means of checking command integrity, something I found to be vitally important. It also reduces the command size and expedites the data processing on both ends. See the library at &lt;a href=&quot;https://github.com/t413/ser_pkt&quot;&gt;github.com/t413/ser_pkt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;task-breakdown&quot;&gt;Task breakdown&lt;/h3&gt;
+
+&lt;h4 id=&quot;communication-task&quot;&gt;Communication Task&lt;/h4&gt;
+
+&lt;p&gt;This task simply runs getSerialPacket(), then runs a series of switch()es to decide what to do with each type of received data and do it. When, for example, it gets a kind of USER_CONTROL and type of FULL_REMOTE (#defined as macros on both the transmitter and receiver) it reads all four 16 bit integers it expects, processes it by scaling the pitch/roll/yaw values, and saving it to the flight_settings struct. This flight_settings structure is passed by reference to both the communication task and the flight task and is used directly by the flight task to fly the quadcopter.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://i.imgur.com/172YcKcl.jpg&quot; title=&quot;xbees-together&quot; style=&quot;display:block;text-align:center&quot;&gt;&lt;img src=&quot;http://i.imgur.com/172YcKcl.jpg&quot; alt=&quot;xbees-together&quot; style=&quot;width:60%;margin:auto;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;flight-task&quot;&gt;Flight Task&lt;/h4&gt;
+
+&lt;p&gt;The flight task sets up and handles the motors, sensors, and the PID control between the two. On startup it averages and zeroes the gyro sensor data, although this can be done at any time after startup with a signal from the remote. The main loop gets sensor data with update_wii_data(), which passes by reference a struct for the returning values and the calibrated zeroes. This will allow easy modification for other sensors in the future. It then calculates an offset value for the pitch, roll, and yaw based on the target value from the user’s remote and the sensor values, fused using PID control. The PID data settings are passed by reference and stored in the same flight_settings struct described before. If the quadcopter is armed then the offsets are added to the base throttle and sent to the motors using write_motors which is part of the motors.h library.&lt;/p&gt;
+
+&lt;h4 id=&quot;arming-process&quot;&gt;Arming process&lt;/h4&gt;
+
+&lt;p&gt;The The arming process is to maintain safe and predictable operation. The first requirement is for the remote to be sending data to the quadcopter. If the quadcopter doesn’t receive new data commands from the remote within 0.5 seconds of the last packet then it will disarm. This is to prevent lost communication or a pulled plug on the remote from sending the quadcopter flying out of control. When I can operate it autonomously I can specify that it not kill all motors as it does now, but rather safely land or fly home. Once data is being regularly sent the throttle must be below 10% and the yaw must be within 10% of its maximum, just as a precaution and an explicit way to say ‘start flying.’ Then the motors will spin slowly and throttle can be applied to lift off and fly.&lt;/p&gt;
+
+&lt;h3 id=&quot;downloads&quot;&gt;Downloads&lt;/h3&gt;
+
+&lt;p&gt;This is an open source project under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 license. See this page for details: &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-sa/3.0/us/&quot;&gt;http://creativecommons.org/licenses/by-nc-sa/3.0/us/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;OS-copter project, now on GitHub: &lt;a href=&quot;https://github.com/t413/os_copter&quot;&gt;github.com/t413/os_copter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Remote project on GitHub: &lt;a href=&quot;https://github.com/t413/remote_xbee&quot;&gt;github.com/t413/remote_xbee&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Packet communications project on GitHub: &lt;a href=&quot;https://github.com/t413/ser_pkt&quot;&gt;github.com/t413/ser_pkt&lt;/a&gt;&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>mp3 player design</title>
+   <link href="http://alafazam.com/2010/11/mp3-player-design"/>
+   <updated>2010-11-19T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2010/11/mp3-player-design</id>
+   <content type="html">&lt;p&gt;Recent edit: The project &lt;a href=&quot;https://github.com/t413/mp3_player_v2&quot;&gt;is now on github!&lt;/a&gt; with all the original svn commit history included.&lt;/p&gt;
+
+&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/huV73nN&quot; style=&quot;float:right;width:40%;&quot;&gt;&lt;img src=&quot;http://i.imgur.com/huV73nNl.jpg&quot; alt=&quot;&quot; title=&quot;Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m participating in a national student exchange this semester at San Jose State University in Silicon Valley California. One of my classes is CMPE 146, Embedded Microprocessor System Design. For one of our projects we were told to make an mp3 player on the &lt;a href=&quot;https://sjvalley.com/shop/index.php?page=shop.product_details&amp;amp;flypage=flypage.tpl&amp;amp;product_id=27&amp;amp;category_id=1&amp;amp;option=com_virtuemart&amp;amp;Itemid=63&amp;amp;vmcchk=1&amp;amp;Itemid=63&quot;&gt;dev board&lt;/a&gt; we had to buy for the class. Since the final goal was the same for each person the design was especially important. Here’s my design:&lt;/p&gt;
+
+&lt;p&gt;There is also a handy &lt;a href=&quot;/uploaded/mp3_player_design2.pdf&quot;&gt;PDF version&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;technology-breakdown&quot;&gt;Technology breakdown:&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CPU: &lt;a href=&quot;https://sjvalley.com/shop/index.php?page=shop.product_details&amp;amp;flypage=flypage.tpl&amp;amp;product_id=27&amp;amp;category_id=1&amp;amp;option=com_virtuemart&amp;amp;Itemid=63&amp;amp;vmcchk=1&amp;amp;Itemid=63&quot;&gt;Phillips NXP LPC2148 ARM7&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;FreeRTOS, compiled with arm-elf-gcc&lt;/li&gt;
+  &lt;li&gt;32-bit, 40kB RAM, 60Mh, 512kB Flash&lt;/li&gt;
+  &lt;li&gt;512Kbyte SPI based Flash memory&lt;/li&gt;
+  &lt;li&gt;SD Card with &lt;a href=&quot;http://elm-chan.org/fsw/ff/00index_e.html&quot;&gt;elm-chan.org FAT-FS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;TI PCM1774 DAC &amp;amp; Amplifier&lt;/li&gt;
+  &lt;li&gt;Phillips PCA9535 I2C Port expander&lt;/li&gt;
+  &lt;li&gt;ST STA013 SPI MP3 Decoder&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;downloads&quot;&gt;Downloads&lt;/h3&gt;
+
+&lt;p&gt;This project is open source. My hope is that it helps others get started on their ARM without breaking their legs. If you’re taking CMPE 146 want to bum off my code then be warned: my style is pretty distinctive and the TA knows my site.&lt;/p&gt;
+
+&lt;p&gt;The project &lt;a href=&quot;https://github.com/t413/mp3_player_v2&quot;&gt;is now on github!&lt;/a&gt; with all the original svn commit history included.&lt;/p&gt;
+
+&lt;h3 id=&quot;overarching-design-process&quot;&gt;Overarching Design Process&lt;/h3&gt;
+
+&lt;p&gt;I was adamant to have a fully functional audio player that I could use on a regular basis. The button control must be straightforward and the song selection must be dynamic. Using the serial terminal to change settings, select songs, or to do anything at all necessary for playing music was off the table. The interface must be usable by anyone who’s used an iPod despite not having an lcd.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;I decided to structure the task communication and song handling around playlists. Sending the mp3 player task a single file using xQueue to queue up songs doesn’t allow for a previous track button,  is resource heavy with many songs, and would be limited in playlist length. Therefore I devised a way (see section on mp3_task) to recursively scan the SD card and dynamically create playlists of tracks separated by artist. I dedicated two buttons, + -, to navigate through the found artists and start that artist’s playlist. The mp3 playing task now just takes a pointer to a playlist that already exists and can simply navigate forward and reverse through it. I also added the variable behavior of the previous button to jump to the beginning of the track when just a few seconds into the song (exactly as most modern players do). This also leaves room for playlists based on album, genera, or user-generated playlists (however, with only buttons and no LCD that would be far far to complex of a UI).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/6rHjSGP&quot;&gt;&lt;img src=&quot;http://i.imgur.com/6rHjSGPl.jpg&quot; alt=&quot;&quot; title=&quot;Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now playlists of songs can be selected, that playlist can be navigated, and it can be paused (see mp3_task section). This takes five buttons. I dedicated two buttons to adjust the output volume, leaving 1 button remaining. The last feature I could feasibly add would be track seek. Instead of using two more buttons for seek forward and seek back (I didn’t have the buttons anyway) I changed the behavior of the next/previous buttons to be more dynamic. If one presses the next button momentarily then it skips to the next track. If one holds it down then it seeks forward until it’s released. This is intuitive for anyone who has used an digital audio player in the past decade, adds very useful and sometimes needed functionality, uses not a button more, and only added a dozen lines of code.&lt;/p&gt;
+
+&lt;p&gt;The thoughtfulness in the design process lends to the final product an intuitive and useful interface, something unheard of for a prototype class project.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://imgur.com/W8tdXpn&quot;&gt;&lt;img src=&quot;http://i.imgur.com/W8tdXpnl.png&quot; alt=&quot;&quot; title=&quot;Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;hardware-enclosure&quot;&gt;Hardware Enclosure&lt;/h3&gt;
+
+&lt;p&gt;Most students carry their PCB around in a antistatic bag or a cardboard box. Because I enjoy actually using my project as a functional audio player and I don’t feel complete without a complete product, I decided to design an enclosure. Adobe Illustrator is my preferred vector editor (I am accustom to adobe’s products from my photography background) and I designed it entirely using that program. I used a caliper to measure dimensions, acrylic from TAP plastics, and an Epilog Helix 60 watt laser cutter for cutting. The enclosure uses no glue and is held together entirely by friction from the interlocking pieces. I chose to design it this way since we’re using a development board that can (and will) be used for other purposes. It also reduces the bill of materials and minimizes cost by forgoing screws or glues.&lt;/p&gt;
+
+&lt;h3 id=&quot;task-breakdown&quot;&gt;Task Breakdown&lt;/h3&gt;
+
+&lt;h3 id=&quot;void-portexpandertaskvoid-pvparameters&quot;&gt;void port_expander_task(void *pvParameters);&lt;/h3&gt;
+
+&lt;p&gt;￼This is the simplest of the two main tasks. It has one public function, port_expander_task(), and controls the I2C port expander which has the 8 pushbuttons and 8 blue LEDs. Before it starts an endless for loop it initializes the led port as output. During the loop, which happens every 100ms, it polls the button port on the port expander and sends queue commands to the MP3 task based on which button was pressed and the duration held. One of the unique decisions in my design was to keep a variable with the previously polled port expander’s button port result. This allows for leading edge triggered and trailing edge triggered button behaviors. For example: when pressed momentarily then released, the NEXT button advances the playlist. However, when held for longer than 500ms it sends the seek command and when it’s released it resumes normal speed playback. This advanced button behavior is just 20 lines of code and allows for much more intuitive user operation.&lt;/p&gt;
+
+&lt;p&gt;The artist +- buttons send the MP3 task a playlist of an artist. This artists are stored on a linked list, and the nth member, n being advanced by the +- buttons, has a linked list of tracks which is sent to the MP3 task. This data structure and the playlist idea is covered in the mp3_task breakdown.&lt;/p&gt;
+
+&lt;p&gt;Finally, the last function of this task is to control the LEDs. There is a global data structure which contains the mp3_task status. When it is not playing an mp3 the LEDs only turn on with a button press, but when an mp3 is playing it animates the LEDs with a left-to-right back and forth pattern. This is accomplished using the variable i which is incremented with ever iteration of the for loop.&lt;/p&gt;
+
+&lt;h3 id=&quot;void-mp3taskvoid-pvparameters&quot;&gt;void mp3_task(void *pvParameters);&lt;/h3&gt;
+
+&lt;p&gt;The mp3_task is a beast of a task, with 8k of RAM allocated to it. It has many public functions, but the main one is the mp3_task.&lt;/p&gt;
+
+&lt;p&gt;Before the infinite for loop the task starts scan_root() which starts a recursive scan for every file on the card. When it finds a file that ends with .MP3 it reads the artist ID3 tag using the read_ID3_info() function I wrote (see writeup at tinyurl.com/t4-id3). It searches the artist_list for one with that title then prepends the track structure to it’s tracks list. With hundreds of songs and dozens of artists in many subfolders this function still only takes a fraction of a second.&lt;/p&gt;
+
+&lt;p&gt;The for loop starts next and the first thing it does is wait for xQueueReceive to get a playlist. Why playlist? When one chooses an artist and chooses a track they may navigate between any track, before or after the starting track. This also allows for  album playlists, genera playlists, and random playlists in the future. The playlist is just a Track pointer that points to a linked list of tracks.&lt;/p&gt;
+
+&lt;p&gt;To play a received playlist the task then loads the first item on the playlist, checks to see if it’s an mp3, and opens the file. It starts a while loop which reads a 4KB chunk of MP3 data from the file to a buffer then sends that chunk over SPI to the decoder. If, when reading to the 4KB file buffer, it reads fewer then 4096 bytes it ends this while loop, advances the playlist position counter, and it opens the file and repeats.&lt;/p&gt;
+
+&lt;p&gt;To pause playback the data transfer while loop is simply stopped by waiting for the RESUME status to be sent. If NEXT is sent then it will break; then advance the playlist. If PREV is sent then it does the same but decrements the playlist position counter. To fast forward and rewind the mp3 the f_lseek() function is used. It skips eight 4KB data chunks then plays one, making it an 8x seek.&lt;/p&gt;
+
+&lt;h3 id=&quot;void-sdcarddetectvoid-pvparameters&quot;&gt;void sd_card_detect(void *pvParameters);&lt;/h3&gt;
+
+&lt;p&gt;To handle the plugging-in and unplugging of the SD card without the need to restart, I’ve created a task that keeps notices plugging and mounts and unmounts it accordingly. It does this every 100 ms.&lt;/p&gt;
+
+&lt;h3 id=&quot;void-uartuivoid-pvparameters&quot;&gt;void uartUI(void *pvParameters);&lt;/h3&gt;
+
+&lt;p&gt;This task is massive and has lots of functionality. However, I will be brief since this is only a means to an end. The useful interface is the button task and in the future an LCD task or something similar. Tethering a device to a computer just to change tracks etc. defeats the purpose of having a mobile device in the first place. For development however it’s very handy.&lt;/p&gt;
+
+&lt;p&gt;This task provides a bash-like interface to administer the mp3 player. I’ve coded in bash-like cd, ls, and pwd commands that let one navigate the filesystem with relative pathnames, absolute pathnames, and optional arguments. One can also test crash the system, check the memory usage, check cpu utilization, and administer the spi flash memory module. I’ve made functions to load a file to a location in this spi flash module, to erase it, to scan it, to read from it, and to play an mp3 from it.&lt;/p&gt;
+
+&lt;p&gt;Before the endless for loop this task also plays a welcome mp3 from the spi serial flash memory. I think this is silly and counter-productive, but had to incorporate it to satisfy the requirement.&lt;/p&gt;
+
+&lt;h3 id=&quot;por-fin&quot;&gt;Por Fin&lt;/h3&gt;
+
+&lt;p&gt;This player is a great success. It’s something I’m proud of and have learned quite a bit creating. I’d like to take it further, creating an LCD interface, games, and album-art support. It would be great practice to port this to an STM32 ARM board which is more mainstream and slightly more powerful. One thing I wish we did would be design a PCB and fab our own board so we could make a marketable product. That would be a real top-down process of industry creation.&lt;/p&gt;
+
+&lt;h3 id=&quot;pictures&quot;&gt;Pictures&lt;/h3&gt;
+
+&lt;div class=&quot;icontain i4x3&quot;&gt;&lt;iframe class=&quot;imgur-album&quot; src=&quot;//imgur.com/a/I3DH2/embed?background=f2f2f2&amp;amp;text=1a1a1a&amp;amp;link=4e76c9&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Lightweight C MP3 ID3v2 Reader</title>
+   <link href="http://alafazam.com/2010/10/lightweight-mp3-id3-metadata-tag-reader"/>
+   <updated>2010-10-29T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2010/10/lightweight-mp3-id3-metadata-tag-reader</id>
+   <content type="html">&lt;p&gt;Super lightweight MP3 ID3 metadata tag reader made for embedded systems.&lt;/p&gt;
+
+&lt;p&gt;Now &lt;a href=&quot;https://github.com/t413/read_ID3_info&quot;&gt;on GitHub!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;background&quot;&gt;Background&lt;/h3&gt;
+
+&lt;p&gt;I’m writing a full-featured mp3 player for the SJSU class CMPE 146, Embedded Microprocessor System Design, that runs on the &lt;a href=&quot;https://www.sjvalley.com/shop/index.php?page=shop.product_details&amp;amp;flypage=flypage.tpl&amp;amp;product_id=27&amp;amp;category_id=1&amp;amp;option=com_virtuemart&amp;amp;Itemid=63&amp;amp;vmcchk=1&amp;amp;Itemid=63&quot;&gt;LPC2148 ARM7 Board&lt;/a&gt; from sjvalley. The project is running RTOS and has reads files from a SD card streams them through an MP3 decoder to a DAC and finally your headphones.&lt;/p&gt;
+
+&lt;p&gt;The project is coming along nicely but I wanted a way to read ID3 tags so read_ID3_info() was born.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h3&gt;
+
+&lt;p&gt;The implementations for c/c++, according to &lt;a href=&quot;http://www.id3.org/&quot;&gt;http://www.id3.org/&lt;/a&gt; are thus:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.id3.org/TagLib&quot;&gt;TagLib&lt;/a&gt; Audio Meta-Data Library - modern implementation with C, C++, Perl, Python and Ruby bindings. &lt;a href=&quot;http://developer.kde.org/~wheeler/taglib.html&quot;&gt;http://developer.kde.org/~wheeler/taglib.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://id3lib.sourceforge.net/&quot;&gt;ID3Lib&lt;/a&gt; on Sourceforge. The source code is coordinated by Scott Haug and was initially written by Dirk Mahoney and Andreas Sigfridsson.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.underbit.com/products/mad/&quot;&gt;libid3tag&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each of these libraries were too large and complicated to run on an embedded system although they offered many cool features. The library I’ve written is just one function, read_ID3_info(). It works well on my desktop and on my LPC2148 ARM7 board using &lt;a href=&quot;http://elm-chan.org/fsw/ff/00index_e.html&quot;&gt;FatFs&lt;/a&gt; from &lt;a href=&quot;http://elm-chan.org/&quot;&gt;elm-chan.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
+
+&lt;p&gt;Here’s an example for running on the LPC2148 ARM7 board using FatFs functions:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;table class=&quot;highlighttable&quot;&gt;&lt;tr&gt;&lt;td class=&quot;linenos&quot;&gt;&lt;div class=&quot;linenodiv&quot;&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;td class=&quot;code&quot;&gt;&lt;span class=&quot;n&quot;&gt;FIL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f_open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FA_READ&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FA_OPEN_EXISTING&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;read_ID3_info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TITLE_ID3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Title: %s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;f_close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/td&gt;&lt;/pre&gt;
+
+
+For running on a desktop I made a demo program which is now also in the github project.
+
+You can run the test program, read_id3, with a mp3 file as an argument. You may also run it with a directory as an argument and the program will scan that directory for any .mp3 files and list the info on them.
+
+### Feedback
+
+I&#39;ve spend many a night on a [hex editor](http://ridiculousfish.com/hexfiend/) and [id3.org](http://www.id3.org/id3v2.4.0-structure) writing this and I hope it helps out at least someone. If anyone has any suggestions, finds any bugs, or comes up with an especially cool use for it I&#39;d like to hear about it (yes, even the bugs). File a bug [on GitHub](https://github.com/t413/read_ID3_info) and/or [send an email](mailto:timo@t413.com).
+
+### License / Copyright
+
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0. See source code comments for details. I&#39;m flexible if this is incompatible with your needs, just email me and ask.
+&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Fast 2-way XBEE series 2 data</title>
+   <link href="http://alafazam.com/2010/03/fast-2-way-xbee-series-2-data"/>
+   <updated>2010-03-18T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2010/03/fast-2-way-xbee-series-2-data</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://imgur.com/s6m8AqS&quot; style=&quot;float:right;
+width:40%;&quot;&gt;&lt;img src=&quot;http://i.imgur.com/s6m8AqSl.jpg&quot; alt=&quot;&quot; title=&quot;Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Say that title out loud. It’s a mouthful– any yet it’s not enough. There are so many names for these modules and a better title would be &lt;em&gt;Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT Communication.&lt;/em&gt; In my trials and tribulations building my quadcopter remote (soon I’ll post about it) I’ve run across problems getting two way, full speed, and reliable communication between &lt;a href=&quot;http://www.sparkfun.com/commerce/product_info.php?products_id=8691&quot;&gt;my modules&lt;/a&gt;. Here’s what I discovered after a lot of manual reading:&lt;/p&gt;
+
+&lt;h3 id=&quot;fast-two-way-xbee-zigbee-series-2-znet-25-serial-at&quot;&gt;Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT&lt;/h3&gt;
+
+&lt;p&gt;The heart of the issue is that Xbee 2.5 modules are not designed (spesificlly) to be point-to-point direct communicators. Whereas Series 1 modules can communicate directly with zero configuration, these series 2 ZNET modules need some work. &lt;a href=&quot;http://www.dudek.org/blog/180&quot;&gt;Here’s&lt;/a&gt; a great article on the difference. There’s a few great articles on how to setup these znet modules, however they’re really hard to find. (I can’t even find which ones I’ve already manged to run across). Here’s the basic setup:&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;basic-series-25-setup&quot;&gt;Basic Series 2.5 Setup&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First get &lt;a href=&quot;http://www.digi.com/support/kbase/kbaseresultdetl.jsp?kb=125&quot;&gt;X-CTU&lt;/a&gt;from digi. It’s windows only, however:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://www.winehq.org/&quot;&gt;Wine&lt;/a&gt; on (&lt;em&gt;apt-get install wine&lt;/em&gt; for debian) &lt;strong&gt;linux&lt;/strong&gt; will let it install and run perfectly.&lt;/li&gt;
+      &lt;li&gt;Wine also runs on &lt;strong&gt;Macs&lt;/strong&gt;, try &lt;a href=&quot;http://winebottler.kronenberg.org/&quot;&gt;this&lt;/a&gt;.&lt;/li&gt;
+      &lt;li&gt;To get it to work correctly in wine, follow &lt;a href=&quot;http://lizard43.blogspot.com/2008/10/x-ctu-with-linux.html&quot;&gt;this tutorial&lt;/a&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Open X-CTU, select your COM port, (see that tutorial if you’re running linux or os x) set the serial baud rate, and click on the &lt;em&gt;Modem Configuration&lt;/em&gt; tab.
+&lt;a href=&quot;http://i.imgur.com/cdtCwZkl.png&quot;&gt;&lt;img src=&quot;http://i.imgur.com/cdtCwZkl.png&quot; alt=&quot;selecting com port&quot; title=&quot;selecting com port&quot; /&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Read the current information from your xbee.
+    &lt;ul&gt;
+      &lt;li&gt;Note: if x-ctu complains, it’s likely missing the latest firmware. Try the _Download new version _button to automatically get them, but I’ve never had that work. Go to the digi &lt;a href=&quot;http://www.digi.com/support/productdetl.jsp?pid=3261&amp;amp;osvid=0&amp;amp;s=269&amp;amp;tp=2&quot;&gt;download page&lt;/a&gt; and download the .zip file then give that to x-ctu.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Change the _Function Set _dropdown menu to ZNET 2.5 COORDINATOR AT. One and only one coordinator xbee is required for each series 2.5 network. &lt;a href=&quot;http://i.imgur.com/MQTJVc0l.png&quot;&gt;&lt;img src=&quot;http://i.imgur.com/MQTJVc0l.png&quot; alt=&quot;selecting firmware&quot; title=&quot;selecting firmware&quot; /&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Check the &lt;em&gt;Always update firmware _box then click _write.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Optional configuration:
+    &lt;ul&gt;
+      &lt;li&gt;You can change the **PAN ID **to something unique if you’d like, but you’ll also need to change the other module to match it exactly.&lt;/li&gt;
+      &lt;li&gt;Change your **serial baud rate **if you want to communicate faster then 9600 bps. Scroll down to _serial interfacing _to find that option.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Sweet, it’s all set for automatically packetized, full-speed serial communication.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://i.imgur.com/172YcKcl.jpg&quot; title=&quot;xbees-together&quot;&gt;&lt;img src=&quot;http://i.imgur.com/172YcKcl.jpg&quot; alt=&quot;xbees-together&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;fast-reliable-two-way-data-not-what-you-get&quot;&gt;Fast, reliable two-way data: not what you get&lt;/h3&gt;
+
+&lt;p&gt;The problem you may soon discover is that the communication from the coordinator to the &lt;em&gt;ZNET 2.5 ROUTER/END DEVICE AT&lt;/em&gt; (I call this on the node) slows to a halt after a few dozen bytes and never catches up when there’s regularly sent data. Data coming from the node to the coordinator is fine.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-fix&quot;&gt;The Fix&lt;/h3&gt;
+
+&lt;p&gt;Taking with the idea from &lt;a href=&quot;http://forums.digi.com/support/forum/viewthread_thread,683_lastpage,yes#2528&quot;&gt;this forum&lt;/a&gt; posting and mixing in lots of reading of &lt;a href=&quot;http://docs.google.com/viewer?url=http://www.sparkfun.com/datasheets/Wireless/Zigbee/XBee-2.5-Manual.pdf&quot;&gt;the manual&lt;/a&gt;, I discovered that if the coordinator is told to only send to your one node it works flawlessly. I came up with this process after reading into the configuration options further.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Go back into X-CTU configuration and name &lt;em&gt;each module&lt;/em&gt; (I called mine PICARD and RIKER) using the &lt;strong&gt;NI&lt;/strong&gt;, or Node Identifier, option (+++ATNI PICARD WR if you know what you’re doing).&lt;/li&gt;
+  &lt;li&gt;Write the changes.&lt;/li&gt;
+  &lt;li&gt;Power-on both modules, with the &lt;em&gt;coordinator&lt;/em&gt; connected to the computer.&lt;/li&gt;
+  &lt;li&gt;Click on the _Terminal _tab.&lt;/li&gt;
+  &lt;li&gt;Type &lt;strong&gt;+++&lt;/strong&gt; to go into command mode, don’t hit return. Be sure it outputs &lt;em&gt;OK&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Type &lt;strong&gt;ATND&lt;/strong&gt; (and return) to show connected modules, to be sure your NODE and all it’s address information is there. All the commands start with AT, and the ND is &lt;em&gt;Node Discover&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Type &lt;strong&gt;ATDN &amp;lt;your node’s NI&amp;gt;&lt;/strong&gt; (and return). That’s the command for &lt;em&gt;Destination Node&lt;/em&gt;, space, and the &lt;em&gt;Node Identifier&lt;/em&gt; you created earlier and just confirmed in the previous step. &lt;em&gt;It should return _OK_&lt;/em&gt;.This sets the DH and DL values to the SH and SL values from the node. This means the destination address (both High and Low halves) are automatically set to the serial number from the node. All communication will now only go to the node when coming from the coordinator.
+ &lt;a href=&quot;http://i.imgur.com/A0fXHmfl.png&quot;&gt;&lt;img src=&quot;http://i.imgur.com/A0fXHmfl.png&quot; alt=&quot;writing addresses&quot; /&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Type +++ again to enter command mode then type WR (and return) to save settings. If it returns &lt;em&gt;OK&lt;/em&gt; then You’re done!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;por-fin&quot;&gt;Por fin&lt;/h3&gt;
+
+&lt;p&gt;Here’s what JordanH &lt;a href=&quot;http://forums.digi.com/support/forum/viewthread_thread,683_lastpage,yes#2528&quot;&gt;said&lt;/a&gt; on the digi discussion boards:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;[Not setting a destination address] will transmit each and every packet from the XBee module as a broadcast packet. Broadcast data is unreliable and unacknowledged so that may explain the behavior you are seeing.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now that we’ve got the address set, go send some data!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Wireless Wii Robot</title>
+   <link href="http://alafazam.com/2009/12/wireless-wii-robot"/>
+   <updated>2009-12-23T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2009/12/wireless-wii-robot</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://imgur.com/C9QO3CJ&quot;&gt;&lt;img src=&quot;http://i.imgur.com/C9QO3CJl.jpg&quot; alt=&quot;&quot; title=&quot;Hosted by imgur.com&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Physical computing -&amp;gt; wireless two-way data -&amp;gt; physical control. This is a intuitive, durable, and fun way to control almost anything. Here I’ve built a transmitter which reads data from the Wii nunchuck and sends it over xbee. The rover receives the xbee broadcast, decodes it, maps it to drive the tank-like dual motor setup, and controls the motor driver IC. To achieve my goal of a small mint-tin fitted remote I used a lithium polymer (LiPo) battery, and to make them safer I included a voltage monitoring subroutine. The result is modular, easily incorporated into future projects, or disassembled for different use. Here are more details:&lt;/p&gt;
+
+&lt;div class=&quot;icontain&quot;&gt;&lt;iframe src=&quot;//www.youtube.com/embed/b9O7bzlCbT0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;transmitter&quot;&gt;Transmitter&lt;/h3&gt;
+
+&lt;p&gt;Arduino pro mini (3.3V version), xbee series 2.5, used wii nunchuck, lipo battery, old off-brand mint tin.&lt;/p&gt;
+
+&lt;h3 id=&quot;receiver&quot;&gt;Receiver&lt;/h3&gt;
+
+&lt;p&gt;9V battery, Xbee, ATmega168, SN754410 H-Bridge motor IC, lego motors&lt;/p&gt;
+
+&lt;h2 id=&quot;pictures&quot;&gt;Pictures!&lt;/h2&gt;
+
+&lt;div class=&quot;icontain i4x3&quot;&gt;&lt;iframe class=&quot;imgur-album&quot; src=&quot;//imgur.com/a/VHjZg/embed?background=f2f2f2&amp;amp;text=1a1a1a&amp;amp;link=4e76c9&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;source-files&quot;&gt;Source Files&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/t413/36974b8490b5e53683e5&quot;&gt;View and download on GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;table class=&quot;highlighttable&quot;&gt;&lt;tr&gt;&lt;td class=&quot;linenos&quot;&gt;&lt;div class=&quot;linenodiv&quot;&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19&lt;td class=&quot;code&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledPin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;115200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;nunchuck_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;pinMode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledPin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//print inital battery charge&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;b=&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update_batt_status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;%&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;nunchuck_get_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nunchuck_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledPin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HIGH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;send_packet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;digitalWrite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledPin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/td&gt;&lt;/pre&gt;
+
+
+
+These are provided under the same licence as my photos: [Creative Commons Attribution-Noncommercial-Share Alike 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/us/). Click on either image to download the one of the sketches.
+
+## Software Requirements
+
+*   Arduino IDE 017 or later (for the new Wire library)
+*   That&#39;s it.
+
+## Helpful links/Resources
+
+*   Here&#39;s a great tutorial on how to understand/control this H-bridge motor IC: [DC Motor Control Using an H-Bridge](http://itp.nyu.edu/physcomp/Labs/DCMotorControl)
+*   [Background and Power Supply](http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=57), a SparkFun lecture on how to make a regulated power supply.
+*   [Make Blog](http://blog.makezine.com) and [Make Magizine](http://makezine.com) - Great community with unparalleled creativity and originality. Notice the make magazines my bot crawls over?
+*   Did you like my [Arduino AVR sticker label](http://todbot.com/blog/2009/05/23/arduino-chip-sticker-label/)? it&#39;s from todbot blog.
+
+## Future Directions:
+
+*   Packetized data transfer
+*   Bigger bot: (I have a wheelchair I can&#39;t wait to get running..)
+*   Put in an on/off switch and status leds.
+*   Miniaturize the receiver into it&#39;s own mint tin once I have a more permanent (not lego) rover.
+*   Force feedback by measuring of current draw on the motors, rumbling the nunchuck (or something).
+*   Generally more two-way communication.
+&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>

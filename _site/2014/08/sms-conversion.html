@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alaf Azam - Universal SMS Conversion Tool</title>
+  <meta name="author" content="Alaf Azam" />
+  <meta name="description" content="The blog of Alaf Azam" />
+	<meta name="keywords" content="design, nodejs, db, github, drones, databases, app, alaf, azam, voice, alafazam, tool, talks, project, json, server, flying">
+  <link rel="canonical" href="http://alafazam.com/2014/08/sms-conversion" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/all.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Alaf Azam" href="http://alafazam.com/atom.xml" />
+  <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="res/Icon60-2x.png">
+
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav class="pageview">
+  <h1>Hi.</h1>
+  <a href="/" id="logo">
+    <i class="fa fa-paper-plane-o fa-5x"></i>
+  </a>
+  <h2>I'm <a href="/">Alaf Azam</a>.</h2>
+  <hr/>
+
+  <div id="recent-posts">
+    <h3>Recent Articles</h3>
+    <ul>
+      
+      
+        
+        
+          <li>August 2014</li>
+        
+
+        <li><a href="/2014/08/sms-conversion">Universal SMS Conversion Tool</a></li>
+        
+      
+        
+        
+          <li>July 2014</li>
+        
+
+        <li><a href="/2014/07/talk-at-itft">Talk on Drones at the IFTF</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2014/07/web-design">Web Design</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2014/07/starting-over">Starting Over (this site)</a></li>
+        
+      
+        
+        
+          <li>March 2012</li>
+        
+
+        <li><a href="/2012/03/senior-design-arm">Senior Designing: Robot Arm Style</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2012/03/flying-at-dorathea">Flying at Dorathea</a></li>
+        
+      
+    </ul>
+    <a href="/posts.html"><i class="fa fa-angle-double-right"></i> all posts</a>
+    <span class="mdash">&mdash;</span>
+    <a href="/tags.html"><i class="fa fa-angle-double-right"></i> all tags</a>
+  </div>
+
+  <div id="stalker">
+    Follow me:
+    <ul>
+      
+      <li>
+        <a title="alafazam on Github" href="https://github.com/alafazam">
+          <i class="fa fa-github-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a class="fa-stack" title="Alaf Azam on Stack Overflow" href="http://stackoverflow.com/users/783100">
+          <i class="fa fa-square fa-stack-2x"></i>
+          <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam on Facebook" href="https://facebook.com/alafazam">
+          <i class="fa fa-facebook-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam on LinkedIn" href="https://www.linkedin.com/in/alafazam">
+          <i class="fa fa-linkedin-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam on Google Plus" href="https://plus.google.com/106594292653831578871">
+          <i class="fa fa-google-plus-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam on Spotify" href="http://open.spotify.com/user/alafazam">
+          <i class="fa fa-spotify"></i>
+        </a>
+      </li>
+      
+
+      <li>
+        <a title="RSS feed" id="rss" href="/atom.xml">
+          <i class="fa fa-rss-square"></i>
+        </a>
+      </li>
+    </ul>
+    <div style="clear:both;"></div>
+  </div>
+
+  <i id="navdivider" class="fa fa-asterisk fa-3x"></i>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  August 07, 2014
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Universal SMS Conversion Tool</h1>
+
+<div id="post">
+  <p>Edit: Now available in pip, just <code>pip install smstools</code>.</p>
+
+<p>Working on a project at INQ Mobile I started this tool to convert downloaded
+Google Voice messages to native Android smsmms.db sqlite databases. I was doing
+local analytics and wanted a big real-world dataset. I built what I called
+<em>Android-SMS-DB-importer</em> to import six years of SMS history from two iPhones,
+Google Voice, and Android into one Android smsmms.db file. Since then I’ve expanded
+the tool’s scope to be a universal SMS translator.</p>
+
+<p>There are lots of real use cases for such a tool. Migrating from/to iPhone from/to
+Android? Leaving Google Voice? Want a searchable CSV, JSON, or XML file of
+your conversations? Also making a sweet SMS processing app and you want to
+run on <em>all</em> your past texts at once? Want to move all your messages from your
+past into a new, date-sorted, database? It should be ready to roll.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2<td class="code">pip install smstools
+smstools iphone.db androids.xml android.db out.csv
+
+</td></pre>
+
+
+Imported. Normalized. Sorted. Exported. Easy.
+
+Go clone it at [github.com/t413/SMS-Tools](https://github.com/t413/SMS-Tools)
+
+Convert your message history between:
+- iOS 5, 6, and 7 databases directly (from backup or from your jailbroken phone directly)
+- Android mmssms.db database (directly from phone)
+- Android XML from the [SMS Backup &amp; Restore](http://android.riteshsahu.com/apps/sms-backup-restore) app
+- CSV files
+- JSON files
+- google voice data dump (see more details below)
+</div></td></tr></table></code></pre></figure>
+
+</div>
+
+
+  <div id="tags">
+    Posted under:
+    <i class="fa fa-tags"></i>
+    
+      <a href="/tags.html#tools">tools</a>, 
+    
+      <a href="/tags.html#github">github</a>, 
+    
+      <a href="/tags.html#python">python</a>
+    
+  </div>
+
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  <p>
+    © Alaf Azam, 2014 &mdash;
+    Made with: <a href="https://pages.github.com/">github pages</a>.
+    This site is <a href="https://github.com/t413/t413.github.io">open source</a>.
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-49607422-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+      <loc>http://alafazam.com</loc>
+      <lastmod>2014-08-07 00:00:00 +0530</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
+
+    <url><loc>http://alafazam.com/posts.html</loc></url>
+    <url><loc>http://alafazam.com/tags.html</loc></url>
+
+    
+        <url><loc>http://alafazam.com/2014/08/sms-conversion/</loc></url>
+    
+        <url><loc>http://alafazam.com/2014/07/talk-at-itft/</loc></url>
+    
+        <url><loc>http://alafazam.com/2014/07/web-design/</loc></url>
+    
+        <url><loc>http://alafazam.com/2014/07/starting-over/</loc></url>
+    
+        <url><loc>http://alafazam.com/2012/03/senior-design-arm/</loc></url>
+    
+        <url><loc>http://alafazam.com/2012/03/flying-at-dorathea/</loc></url>
+    
+        <url><loc>http://alafazam.com/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2/</loc></url>
+    
+        <url><loc>http://alafazam.com/2011/01/arm7-mini-quad-with-xbee-remote/</loc></url>
+    
+        <url><loc>http://alafazam.com/2010/12/quadcopter-new-photos-and-video/</loc></url>
+    
+        <url><loc>http://alafazam.com/2010/12/rtos-quadcopter-flight-computer/</loc></url>
+    
+        <url><loc>http://alafazam.com/2010/11/mp3-player-design/</loc></url>
+    
+        <url><loc>http://alafazam.com/2010/10/lightweight-mp3-id3-metadata-tag-reader/</loc></url>
+    
+        <url><loc>http://alafazam.com/2010/03/fast-2-way-xbee-series-2-data/</loc></url>
+    
+        <url><loc>http://alafazam.com/2009/12/wireless-wii-robot/</loc></url>
+    
+</urlset>
