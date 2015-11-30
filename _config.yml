@@ -8,6 +8,7 @@ safe: false
 ### site serving configuration ###
 exclude: [CNAME, README.md, .gitignore]
 pretty_style: html_extension
+gems: [jekyll-paginate]
 permalink: /:year/:month/:title
 lsi: false
 markdown: kramdown

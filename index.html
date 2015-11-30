@@ -25,9 +25,11 @@ title: alaf @ alafazam.com
 
   <b><a class="continue" href="{{ page.url }}">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
   {% endfor %}
+  
+  <!-- {{paginator.total_pages}} -->
 
   <!-- Pagination links -->
-  {% if paginator.total_pages > 1 %}
+  {% if paginator.total_pages > 0 %}
     <div class="pagination">
       {% if paginator.previous_page %}
         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
