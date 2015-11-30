@@ -18,23 +18,23 @@ paginate: 4
 
 
 ### content configuration ###
-url: http://t413.com
-name: Tim O'Brien # "Hi, I'm _______"
-email: timo@t413.com
+url: http://alafazam.com
+name: Alaf Azam Khan # "Hi, I'm _______"
+email: alafazam@gmail.com
 tagline: "fun stuff"
 favicon:     "res/favicon.ico"
 touch_icon:  "res/icon.png"
 touch_icon2x:  "res/Icon60-2x.png"
-keywords: "design, android, ios, db, github, drones, databases, iphone, app, tim, o'brien, voice, t413, tool, talks, project, json, server, flying"
+keywords: "design, android, ios, db, github, drones, databases, iphone, app, voice, alafazam, tool, talks, project, json, server, flying"
 google_analytics_key: UA-49607422-1
 
 highlight_color: '#188F79' #Color for top bar, links, etc
 
 social: #sidebar links, leave blank to ignore
-  github: t413
+  github: alafazam
   stackoverflow: 783100
-  facebook: etobrien
-  linkedin: etobrien
+  facebook: alafazam
+  linkedin: alafazam
   gplus: 106594292653831578871
-  spotify: t4obrien
+  spotify: alafazam
 
