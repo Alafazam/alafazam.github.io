@@ -586,7 +586,7 @@ body {
   color: #222222;
   line-height: 24px;
   margin: 0;
-  border-top: 7px solid #188F79;
+  border-top: 7px solid #110CA9;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -633,17 +633,17 @@ h3 {
 }
 
 a {
-  color: #188F79;
+  color: #110CA9;
   text-decoration: none;
 }
 
 a:hover {
-  color: #188F79;
+  color: #110CA9;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #188F79;
+  color: #110CA9;
 }
 
 table {
@@ -807,7 +807,7 @@ nav hr {
 }
 
 #posts h2 {
-  color: #188F79;
+  color: #110CA9;
 }
 
 #posts hr {
@@ -823,7 +823,7 @@ nav hr {
 }
 #posts a.continue:hover {
   text-decoration: none;
-  border-top-color: #188F79;
+  border-top-color: #110CA9;
 }
 .continue i { padding-left: 5px; }
 
@@ -860,7 +860,7 @@ nav hr {
 
 #stalker a:hover {
   text-decoration: none;
-  color: #188F79;
+  color: #110CA9;
 }
 
 i.fa-hn {
