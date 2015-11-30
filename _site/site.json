@@ -2,16 +2,10 @@
 	
 	{
 	"date":    "2015-12-01 00:00:00 +0530",
-	"tags":    [],
+	"tags":    ["meta","web"],
 	"title":   "First Post",
 	"url":     "/2015/12/first-post",
-	"excerpt": t—
-layout: post
-title: “First Post”
-tags: [meta, web]
-—
-
-Hello World this is my web site, alafazam.com .
+	"excerpt": Hello World this is my web site, alafazam.com .
 
 Who am I?
 

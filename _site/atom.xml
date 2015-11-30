@@ -4,7 +4,7 @@
  <title>The blog of </title>
  <link href="http://alafazam.com/atom.xml" rel="self"/>
  <link href="http://alafazam.com"/>
- <updated>2015-12-01T00:38:56+05:30</updated>
+ <updated>2015-12-01T00:41:57+05:30</updated>
  <id>http://alafazam.com</id>
  <author>
    <name>Alaf Azam Khan</name>
@@ -17,13 +17,7 @@
    <link href="http://alafazam.com/2015/12/first-post"/>
    <updated>2015-12-01T00:00:00+05:30</updated>
    <id>http://alafazam.com/2015/12/first-post</id>
-   <content type="html">&lt;p&gt;t—
-layout: post
-title: “First Post”
-tags: [meta, web]
-—&lt;/p&gt;
-
-&lt;p&gt;Hello World this is my web site, alafazam.com .&lt;/p&gt;
+   <content type="html">&lt;p&gt;Hello World this is my web site, alafazam.com .&lt;/p&gt;
 
 &lt;h4 id=&quot;who-am-i&quot;&gt;Who am I?&lt;/h4&gt;
 
