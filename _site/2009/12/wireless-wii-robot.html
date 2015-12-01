@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alaf Azam Khan - Wireless Wii Robot</title>
+  <meta name="author" content="Alaf Azam Khan" />
+  <meta name="description" content="The blog of Alaf Azam Khan" />
+	<meta name="keywords" content="design, android, ios, db, github, drones, databases, iphone, app, voice, alafazam, tool, talks, project, json, server, flying">
+  <link rel="canonical" href="http://alafazam.com/2009/12/wireless-wii-robot" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/all.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Alaf Azam Khan" href="http://alafazam.com/atom.xml" />
+  <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="res/Icon60-2x.png">
+
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav class="pageview">
+  <h1>Hi.</h1>
+  <a href="/" id="logo">
+    <i class="fa fa-paper-plane-o fa-5x"></i>
+  </a>
+  <h2>I'm <a href="/">Alaf Azam Khan</a>.</h2>
+  <hr/>
+
+  <div id="recent-posts">
+    <h3>Recent Articles</h3>
+    <ul>
+      
+      
+        
+        
+
+        <li><a href="/2015/12/first-post">First Post</a></li>
+        
+      
+        
+        
+          <li>September 2011</li>
+        
+
+        <li><a href="/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2">New video: slow motion quadcopter flying in EB2</a></li>
+        
+      
+        
+        
+          <li>January 2011</li>
+        
+
+        <li><a href="/2011/01/arm7-mini-quad-with-xbee-remote">ARM7 mini quad with xbee remote</a></li>
+        
+      
+        
+        
+          <li>December 2010</li>
+        
+
+        <li><a href="/2010/12/quadcopter-new-photos-and-video">Quadcopter: New photos and video</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2010/12/rtos-quadcopter-flight-computer">RTOS quadcopter flight computer</a></li>
+        
+      
+        
+        
+          <li>November 2010</li>
+        
+
+        <li><a href="/2010/11/mp3-player-design">mp3 player design</a></li>
+        
+      
+    </ul>
+    <a href="/posts.html"><i class="fa fa-angle-double-right"></i> all posts</a>
+    <span class="mdash">&mdash;</span>
+    <a href="/tags.html"><i class="fa fa-angle-double-right"></i> all tags</a>
+  </div>
+
+  <div id="stalker">
+    Follow me:
+    <ul>
+      
+      <li>
+        <a title="alafazam on Github" href="https://github.com/alafazam">
+          <i class="fa fa-github-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a class="fa-stack" title="Alaf Azam Khan on Stack Overflow" href="http://stackoverflow.com/users/3158659">
+          <i class="fa fa-square fa-stack-2x"></i>
+          <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Facebook" href="https://facebook.com/alafazam">
+          <i class="fa fa-facebook-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on LinkedIn" href="https://www.linkedin.com/in/alafazam">
+          <i class="fa fa-linkedin-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Google Plus" href="https://plus.google.com/u/0/+AlafazamKhan">
+          <i class="fa fa-google-plus-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Spotify" href="http://open.spotify.com/user/alafazam">
+          <i class="fa fa-spotify"></i>
+        </a>
+      </li>
+      
+
+      <li>
+        <a title="RSS feed" id="rss" href="/atom.xml">
+          <i class="fa fa-rss-square"></i>
+        </a>
+      </li>
+    </ul>
+    <div style="clear:both;"></div>
+  </div>
+
+  <i id="navdivider" class="fa fa-asterisk fa-3x"></i>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  December 23, 2009
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Wireless Wii Robot</h1>
+
+<div id="post">
+  <p><a href="http://imgur.com/C9QO3CJ"><img src="http://i.imgur.com/C9QO3CJl.jpg" alt="" title="Hosted by imgur.com" /></a></p>
+
+<p>Physical computing -&gt; wireless two-way data -&gt; physical control. This is a intuitive, durable, and fun way to control almost anything. Here I’ve built a transmitter which reads data from the Wii nunchuck and sends it over xbee. The rover receives the xbee broadcast, decodes it, maps it to drive the tank-like dual motor setup, and controls the motor driver IC. To achieve my goal of a small mint-tin fitted remote I used a lithium polymer (LiPo) battery, and to make them safer I included a voltage monitoring subroutine. The result is modular, easily incorporated into future projects, or disassembled for different use. Here are more details:</p>
+
+<div class="icontain"><iframe src="//www.youtube.com/embed/b9O7bzlCbT0" allowfullscreen=""></iframe></div>
+
+<h3 id="transmitter">Transmitter</h3>
+
+<p>Arduino pro mini (3.3V version), xbee series 2.5, used wii nunchuck, lipo battery, old off-brand mint tin.</p>
+
+<h3 id="receiver">Receiver</h3>
+
+<p>9V battery, Xbee, ATmega168, SN754410 H-Bridge motor IC, lego motors</p>
+
+<h2 id="pictures">Pictures!</h2>
+
+<div class="icontain i4x3"><iframe class="imgur-album" src="//imgur.com/a/VHjZg/embed?background=f2f2f2&amp;text=1a1a1a&amp;link=4e76c9"></iframe></div>
+
+<h2 id="source-files">Source Files</h2>
+
+<p><a href="https://gist.github.com/t413/36974b8490b5e53683e5">View and download on GitHub</a></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19<td class="code"><span class="kt">int</span> <span class="n">ledPin</span> <span class="o">=</span>  <span class="mi">13</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">(){</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+  <span class="n">nunchuck_init</span><span class="p">();</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">ledPin</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
+  <span class="c1">//print inital battery charge</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;b=&quot;</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">update_batt_status</span><span class="p">());</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;%&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">nunchuck_get_data</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(((</span><span class="n">nunchuck_buf</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="n">digitalWrite</span><span class="p">(</span><span class="n">ledPin</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
+    <span class="n">send_packet</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="n">digitalWrite</span><span class="p">(</span><span class="n">ledPin</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
+
+</td></pre>
+
+
+
+These are provided under the same licence as my photos: [Creative Commons Attribution-Noncommercial-Share Alike 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/us/). Click on either image to download the one of the sketches.
+
+## Software Requirements
+
+*   Arduino IDE 017 or later (for the new Wire library)
+*   That's it.
+
+## Helpful links/Resources
+
+*   Here's a great tutorial on how to understand/control this H-bridge motor IC: [DC Motor Control Using an H-Bridge](http://itp.nyu.edu/physcomp/Labs/DCMotorControl)
+*   [Background and Power Supply](http://www.sparkfun.com/commerce/tutorial_info.php?tutorials_id=57), a SparkFun lecture on how to make a regulated power supply.
+*   [Make Blog](http://blog.makezine.com) and [Make Magizine](http://makezine.com) - Great community with unparalleled creativity and originality. Notice the make magazines my bot crawls over?
+*   Did you like my [Arduino AVR sticker label](http://todbot.com/blog/2009/05/23/arduino-chip-sticker-label/)? it's from todbot blog.
+
+## Future Directions:
+
+*   Packetized data transfer
+*   Bigger bot: (I have a wheelchair I can't wait to get running..)
+*   Put in an on/off switch and status leds.
+*   Miniaturize the receiver into it's own mint tin once I have a more permanent (not lego) rover.
+*   Force feedback by measuring of current draw on the motors, rumbling the nunchuck (or something).
+*   Generally more two-way communication.
+</div></td></tr></table></code></pre></figure>
+
+</div>
+
+
+  <div id="tags">
+    Posted under:
+    <i class="fa fa-tags"></i>
+    
+      <a href="/tags.html#projects">projects</a>, 
+    
+      <a href="/tags.html#youtube">youtube</a>, 
+    
+      <a href="/tags.html#xbee">xbee</a>, 
+    
+      <a href="/tags.html#embedded">embedded</a>
+    
+  </div>
+
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  <p>
+    © Alaf Azam Khan, 2015 &mdash;
+    Made with: <a href="https://pages.github.com/">github pages</a>.
+    This site is <a href="https://github.com/alafazam/alafazam.github.io">open source</a>.
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -13,6 +13,39 @@ I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.
 
 
 	}
+	, 
+	
+	{
+	"date":    "2015-12-01 00:00:00 +0530",
+	"tags":    ["nodejs","node","readline","colors"],
+	"title":   "Console Based Quizz App in Node.js",
+	"url":     "/2015/12/Console-based-Quiz-App",
+	"excerpt": In this post I will teach you to make a console based Quiz app in Nodejs.
+
+Initial Setup
+Of course, the first thing you need to do is get NodeJS installed on your system. If you are a Windows or Mac user, you can visit nodejs.org and download the installer. If you instead prefer Linux, I’d suggest that you refer to this link.
+
+You also need to install readline-sync, chalk and string-format modules.
+Lets’s first make a package.json file. In an empty directory, create a package.json file with the following content.
+
+{
+    &amp;quot;name&amp;quot;: &amp;quot;Node Quiz&amp;quot;,
+    &amp;quot;version&amp;quot;: &amp;quot;0.0.0&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;simple console based quiz app&amp;quot;,
+    &amp;quot;dependencies&amp;quot;: {
+        &amp;quot;readline-sync&amp;quot;: &amp;quot;latest&amp;quot;,
+        &amp;quot;string-format&amp;quot;: &amp;quot;latest&amp;quot;,
+        &amp;quot;chalk&amp;quot;: &amp;quot;latest&amp;quot;
+    },
+    &amp;quot;author&amp;quot;: &amp;quot;developer&amp;quot;
+}
+
+Now install all these simply by:-
+
+npm install
+
+
+	}
 	
 	
 ]

@@ -40,6 +40,12 @@
         <li><a href="/2015/12/first-post">First Post</a></li>
         
       
+        
+        
+
+        <li><a href="/2015/12/Console-based-Quiz-App">Console Based Quizz App in Node.js</a></li>
+        
+      
     </ul>
     <a href="/posts.html"><i class="fa fa-angle-double-right"></i> all posts</a>
     <span class="mdash">&mdash;</span>
@@ -140,11 +146,58 @@
 <p>I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.</p>
 
 
-
+  
   <b><a class="continue" href="/2015/12/first-post">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
   
+  <h2><a href="/2015/12/Console-based-Quiz-App">Console Based Quizz App in Node.js</a></h2>
+  <p class="meta">
+    December 01, 2015
+
+    
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        
+          <a href="/tags.html#nodejs">nodejs</a>, 
+        
+          <a href="/tags.html#node">node</a>, 
+        
+          <a href="/tags.html#readline">readline</a>, 
+        
+          <a href="/tags.html#colors">colors</a>
+        
+      </span>
+    
+  </p>
+
+  <p>In this post I will teach you to make a console based Quiz app in Nodejs.</p>
+
+<h3 id="initial-setup">Initial Setup</h3>
+<p>Of course, the first thing you need to do is get NodeJS installed on your system. If you are a Windows or Mac user, you can visit <a href="nodejs.org">nodejs.org</a> and download the installer. If you instead prefer Linux, I’d suggest that you refer to this <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">link</a>.</p>
+
+<p>You also need to install readline-sync, chalk and string-format modules.
+Lets’s first make a package.json file. In an empty directory, create a package.json file with the following content.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Node Quiz&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;simple console based quiz app&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;readline-sync&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;string-format&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;chalk&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;developer&quot;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now install all these simply by:-</p>
+
+<figure class="highlight"><pre><code class="language-jade" data-lang="jade"><span class="nt">npm</span> install</code></pre></figure>
+
+
   
-  <!-- 1 -->
+  <b><a class="continue" href="/2015/12/Console-based-Quiz-App">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  
 
   <!-- Pagination links -->
   

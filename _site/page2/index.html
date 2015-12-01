@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alaf Azam Khan - alaf @ alafazam.com</title>
+  <meta name="author" content="Alaf Azam Khan" />
+  <meta name="description" content="The blog of Alaf Azam Khan" />
+	<meta name="keywords" content="design, android, ios, db, github, drones, databases, iphone, app, voice, alafazam, tool, talks, project, json, server, flying">
+  <link rel="canonical" href="http://alafazam.com/page2/" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/all.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Alaf Azam Khan" href="http://alafazam.com/atom.xml" />
+  <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="res/Icon60-2x.png">
+
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav >
+  <h1>Hi.</h1>
+  <a href="/" id="logo">
+    <i class="fa fa-paper-plane-o fa-5x"></i>
+  </a>
+  <h2>I'm <a href="/">Alaf Azam Khan</a>.</h2>
+  <hr/>
+
+  <div id="recent-posts">
+    <h3>Recent Articles</h3>
+    <ul>
+      
+      
+        
+        
+
+        <li><a href="/2015/12/first-post">First Post</a></li>
+        
+      
+        
+        
+          <li>September 2011</li>
+        
+
+        <li><a href="/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2">New video: slow motion quadcopter flying in EB2</a></li>
+        
+      
+        
+        
+          <li>January 2011</li>
+        
+
+        <li><a href="/2011/01/arm7-mini-quad-with-xbee-remote">ARM7 mini quad with xbee remote</a></li>
+        
+      
+        
+        
+          <li>December 2010</li>
+        
+
+        <li><a href="/2010/12/quadcopter-new-photos-and-video">Quadcopter: New photos and video</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2010/12/rtos-quadcopter-flight-computer">RTOS quadcopter flight computer</a></li>
+        
+      
+        
+        
+          <li>November 2010</li>
+        
+
+        <li><a href="/2010/11/mp3-player-design">mp3 player design</a></li>
+        
+      
+    </ul>
+    <a href="/posts.html"><i class="fa fa-angle-double-right"></i> all posts</a>
+    <span class="mdash">&mdash;</span>
+    <a href="/tags.html"><i class="fa fa-angle-double-right"></i> all tags</a>
+  </div>
+
+  <div id="stalker">
+    Follow me:
+    <ul>
+      
+      <li>
+        <a title="alafazam on Github" href="https://github.com/alafazam">
+          <i class="fa fa-github-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a class="fa-stack" title="Alaf Azam Khan on Stack Overflow" href="http://stackoverflow.com/users/3158659">
+          <i class="fa fa-square fa-stack-2x"></i>
+          <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Facebook" href="https://facebook.com/alafazam">
+          <i class="fa fa-facebook-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on LinkedIn" href="https://www.linkedin.com/in/alafazam">
+          <i class="fa fa-linkedin-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Google Plus" href="https://plus.google.com/u/0/+AlafazamKhan">
+          <i class="fa fa-google-plus-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Spotify" href="http://open.spotify.com/user/alafazam">
+          <i class="fa fa-spotify"></i>
+        </a>
+      </li>
+      
+
+      <li>
+        <a title="RSS feed" id="rss" href="/atom.xml">
+          <i class="fa fa-rss-square"></i>
+        </a>
+      </li>
+    </ul>
+    <div style="clear:both;"></div>
+  </div>
+
+  <i id="navdivider" class="fa fa-asterisk fa-3x"></i>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div id="posts">
+
+  
+  <h2><a href="/2010/12/rtos-quadcopter-flight-computer">RTOS quadcopter flight computer</a></h2>
+  <p class="meta">
+    December 21, 2010
+
+    
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        
+          <a href="/tags.html#projects">projects</a>, 
+        
+          <a href="/tags.html#flying">flying</a>, 
+        
+          <a href="/tags.html#embedded">embedded</a>
+        
+      </span>
+    
+  </p>
+
+  <p>Update: <a href="https://github.com/t413/os_copter">firmware</a>, <a href="https://github.com/t413/remote_xbee">remote</a>,
+and <a href="https://github.com/t413/ser_pkt">packet library</a> all now on github.</p>
+
+<p><a href="http://imgur.com/gQg8QG5" style="float:right;width:50%;"><img src="http://i.imgur.com/gQg8QG5l.jpg" alt="" title="Flight controller detail shot. Hosted by imgur.com" /></a></p>
+
+<p>The advent of the modern Chinese manufacturing empire has fueled an explosion of high performance, high quality, reliable, accessible, and low-cost hobby electronics like never before. That, coupled with technological advances, have made electric systems more than just an alternative to nitro fuel powered models. The technology improvements have also enabled, for the first time, hobby-level computer flight control systems and even autopilots. Many commercial and community projects have been developed to perform these tasks and out of them have come low-cost, electric powered, computer controlled planes, cars, conventional helicopters, and helicopters that defy convention. Copters with two, three, four, six, and even eight rotors have taken root in the community as a simple and effective way to lift large payloads, film smooth aerial video, and perform unbelievable acrobatics.</p>
+
+<p>As part of a previous project I built a quadcopter with a laser-cut ABS plastic frame and modified version of the open source AeroQuad project. This semester I built my own open source flight software for quadcopters using the NXP LPC2148 ARM 7 processor on an FreeRTOS system. This allows the inherently unstable quadcopter to fly as a human controllable helicopter with only the addition of a wii motion plus as a gyroscope sensor for rotational acceleration.</p>
+
+<p><a href="http://imgur.com/GOud01P"><img src="http://i.imgur.com/GOud01Pl.jpg" alt="" title="Quadcopter design wide shot. Hosted by imgur.com" /></a></p>
+
+<ul>
+  <li>Technology breakdown</li>
+  <li>CPU: Phillips NXP LPC2148 ARM7</li>
+  <li>FreeRTOS, compiled with arm-elf-gcc</li>
+  <li>32-bit, 40kB RAM, 60Mh, 512kB Flash</li>
+  <li>Nintendo Wii Motion+ gyroscope, I<sup>2</sup>C</li>
+  <li>4xPWM PPM Brushless speed controllers</li>
+  <li>Packetized XBee communication</li>
+  <li>Accurate, 10bit remote with backlit LCD
+    <ul>
+      <li>Four level menu system</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="http://imgur.com/xHCccO3"><img src="http://i.imgur.com/xHCccO3l.jpg" alt="" title="Remote control. Hosted by imgur.com" /></a></p>
+
+<h3 id="background">Background</h3>
+
+<p>I like remote controlled gadgets a lot. Moving beyond the 2d world of RC cars has long been my dream, but until last year it was just that: a dream. I designed and built a simple rover, controlled by a mint tin that you could simply tilt in the direction you wanted it to drive. After mastering a simple $40 mall-bought helicopter I wanted to move bigger. Rather than shell out several hundred dollars for a regular helicopter I decided to build an AeroQuad quadcopter using parts from hobbyking.com and sparkfun.com. I built my first frame, crashed a lot, and had many issues with my 15 year old FM radio controller. I designed a basic laser-cut acrylic remote and wrote modifications to fly it over a digital XBee connection. I then designed and built a laser-cut ABS plastic frame for the copter.</p>
+
+<p>When I dealt with speed and reliability issues when sending ascii values over serial I decided to design a data packet transfer method similar to UDP. Upon arriving to SJSU I implemented although never finished testing a method for altitude control. I started the year with no idea for how the stabilization with PID control worked, specifically how any of the data busses were implemented, or how the sensor data was processed or used. In the course of this past year of reading, taking apart, fixing, and implementing my own features I’ve learned a great deal. I decided for my open-ended project for CMPE 146 that I’d design and  implement my own flight computer program using the real-time operating system FreeRTOS.</p>
+
+
+  
+  <b><a class="continue" href="/2010/12/rtos-quadcopter-flight-computer">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  
+  <h2><a href="/2010/11/mp3-player-design">mp3 player design</a></h2>
+  <p class="meta">
+    November 19, 2010
+
+    
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        
+          <a href="/tags.html#github">github</a>, 
+        
+          <a href="/tags.html#projects">projects</a>, 
+        
+          <a href="/tags.html#embedded">embedded</a>
+        
+      </span>
+    
+  </p>
+
+  <p>Recent edit: The project <a href="https://github.com/t413/mp3_player_v2">is now on github!</a> with all the original svn commit history included.</p>
+
+<h3 id="background">Background</h3>
+<p><a href="http://imgur.com/huV73nN" style="float:right;width:40%;"><img src="http://i.imgur.com/huV73nNl.jpg" alt="" title="Hosted by imgur.com" /></a></p>
+
+<p>I’m participating in a national student exchange this semester at San Jose State University in Silicon Valley California. One of my classes is CMPE 146, Embedded Microprocessor System Design. For one of our projects we were told to make an mp3 player on the <a href="https://sjvalley.com/shop/index.php?page=shop.product_details&amp;flypage=flypage.tpl&amp;product_id=27&amp;category_id=1&amp;option=com_virtuemart&amp;Itemid=63&amp;vmcchk=1&amp;Itemid=63">dev board</a> we had to buy for the class. Since the final goal was the same for each person the design was especially important. Here’s my design:</p>
+
+<p>There is also a handy <a href="/uploaded/mp3_player_design2.pdf">PDF version</a>.</p>
+
+<h3 id="technology-breakdown">Technology breakdown:</h3>
+
+<ul>
+  <li>CPU: <a href="https://sjvalley.com/shop/index.php?page=shop.product_details&amp;flypage=flypage.tpl&amp;product_id=27&amp;category_id=1&amp;option=com_virtuemart&amp;Itemid=63&amp;vmcchk=1&amp;Itemid=63">Phillips NXP LPC2148 ARM7</a></li>
+  <li>FreeRTOS, compiled with arm-elf-gcc</li>
+  <li>32-bit, 40kB RAM, 60Mh, 512kB Flash</li>
+  <li>512Kbyte SPI based Flash memory</li>
+  <li>SD Card with <a href="http://elm-chan.org/fsw/ff/00index_e.html">elm-chan.org FAT-FS</a></li>
+  <li>TI PCM1774 DAC &amp; Amplifier</li>
+  <li>Phillips PCA9535 I2C Port expander</li>
+  <li>ST STA013 SPI MP3 Decoder</li>
+</ul>
+
+<h3 id="downloads">Downloads</h3>
+
+<p>This project is open source. My hope is that it helps others get started on their ARM without breaking their legs. If you’re taking CMPE 146 want to bum off my code then be warned: my style is pretty distinctive and the TA knows my site.</p>
+
+<p>The project <a href="https://github.com/t413/mp3_player_v2">is now on github!</a> with all the original svn commit history included.</p>
+
+<h3 id="overarching-design-process">Overarching Design Process</h3>
+
+<p>I was adamant to have a fully functional audio player that I could use on a regular basis. The button control must be straightforward and the song selection must be dynamic. Using the serial terminal to change settings, select songs, or to do anything at all necessary for playing music was off the table. The interface must be usable by anyone who’s used an iPod despite not having an lcd.</p>
+
+
+  
+  <b><a class="continue" href="/2010/11/mp3-player-design">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  
+  <h2><a href="/2010/10/lightweight-mp3-id3-metadata-tag-reader">Lightweight C MP3 ID3v2 Reader</a></h2>
+  <p class="meta">
+    October 29, 2010
+
+    
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        
+          <a href="/tags.html#github">github</a>, 
+        
+          <a href="/tags.html#projects">projects</a>, 
+        
+          <a href="/tags.html#embedded">embedded</a>
+        
+      </span>
+    
+  </p>
+
+  <p>Super lightweight MP3 ID3 metadata tag reader made for embedded systems.</p>
+
+<p>Now <a href="https://github.com/t413/read_ID3_info">on GitHub!</a></p>
+
+<h3 id="background">Background</h3>
+
+<p>I’m writing a full-featured mp3 player for the SJSU class CMPE 146, Embedded Microprocessor System Design, that runs on the <a href="https://www.sjvalley.com/shop/index.php?page=shop.product_details&amp;flypage=flypage.tpl&amp;product_id=27&amp;category_id=1&amp;option=com_virtuemart&amp;Itemid=63&amp;vmcchk=1&amp;Itemid=63">LPC2148 ARM7 Board</a> from sjvalley. The project is running RTOS and has reads files from a SD card streams them through an MP3 decoder to a DAC and finally your headphones.</p>
+
+<p>The project is coming along nicely but I wanted a way to read ID3 tags so read_ID3_info() was born.</p>
+
+
+  
+  <b><a class="continue" href="/2010/10/lightweight-mp3-id3-metadata-tag-reader">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  
+  <h2><a href="/2010/03/fast-2-way-xbee-series-2-data">Fast 2-way XBEE series 2 data</a></h2>
+  <p class="meta">
+    March 18, 2010
+
+    
+      <span class="mdash">&mdash;</span>
+      <span class="inlinetags">
+        <i class="fa fa-tags"></i>
+        
+          <a href="/tags.html#projects">projects</a>, 
+        
+          <a href="/tags.html#xbee">xbee</a>, 
+        
+          <a href="/tags.html#embedded">embedded</a>
+        
+      </span>
+    
+  </p>
+
+  <p><a href="http://imgur.com/s6m8AqS" style="float:right;
+width:40%;"><img src="http://i.imgur.com/s6m8AqSl.jpg" alt="" title="Hosted by imgur.com" /></a></p>
+
+<p>Say that title out loud. It’s a mouthful– any yet it’s not enough. There are so many names for these modules and a better title would be <em>Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT Communication.</em> In my trials and tribulations building my quadcopter remote (soon I’ll post about it) I’ve run across problems getting two way, full speed, and reliable communication between <a href="http://www.sparkfun.com/commerce/product_info.php?products_id=8691">my modules</a>. Here’s what I discovered after a lot of manual reading:</p>
+
+<h3 id="fast-two-way-xbee-zigbee-series-2-znet-25-serial-at">Fast two way Xbee ZigBee Series 2 Znet 2.5 Serial AT</h3>
+
+<p>The heart of the issue is that Xbee 2.5 modules are not designed (spesificlly) to be point-to-point direct communicators. Whereas Series 1 modules can communicate directly with zero configuration, these series 2 ZNET modules need some work. <a href="http://www.dudek.org/blog/180">Here’s</a> a great article on the difference. There’s a few great articles on how to setup these znet modules, however they’re really hard to find. (I can’t even find which ones I’ve already manged to run across). Here’s the basic setup:</p>
+
+
+  
+  <b><a class="continue" href="/2010/03/fast-2-way-xbee-series-2-data">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
+  
+
+  <!-- Pagination links -->
+  
+    <div class="pagination">
+      
+        <a href="/">&laquo; Prev</a>
+      
+
+      
+        
+          <a href="/index.html">1</a>
+        
+      
+        
+          <em>2</em>
+        
+      
+        
+          <a href="/page3">3</a>
+        
+      
+
+      
+        <a href="/page3">Next &raquo;</a>
+      
+    </div>
+  
+
+</div>
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  <p>
+    © Alaf Azam Khan, 2015 &mdash;
+    Made with: <a href="https://pages.github.com/">github pages</a>.
+    This site is <a href="https://github.com/alafazam/alafazam.github.io">open source</a>.
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

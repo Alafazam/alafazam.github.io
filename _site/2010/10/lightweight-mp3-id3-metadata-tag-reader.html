@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alaf Azam Khan - Lightweight C MP3 ID3v2 Reader</title>
+  <meta name="author" content="Alaf Azam Khan" />
+  <meta name="description" content="The blog of Alaf Azam Khan" />
+	<meta name="keywords" content="design, android, ios, db, github, drones, databases, iphone, app, voice, alafazam, tool, talks, project, json, server, flying">
+  <link rel="canonical" href="http://alafazam.com/2010/10/lightweight-mp3-id3-metadata-tag-reader" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/all.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="alternate" type="application/rss+xml" title="Alaf Azam Khan" href="http://alafazam.com/atom.xml" />
+  <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="res/Icon60-2x.png">
+
+</head>
+<body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav class="pageview">
+  <h1>Hi.</h1>
+  <a href="/" id="logo">
+    <i class="fa fa-paper-plane-o fa-5x"></i>
+  </a>
+  <h2>I'm <a href="/">Alaf Azam Khan</a>.</h2>
+  <hr/>
+
+  <div id="recent-posts">
+    <h3>Recent Articles</h3>
+    <ul>
+      
+      
+        
+        
+
+        <li><a href="/2015/12/first-post">First Post</a></li>
+        
+      
+        
+        
+          <li>September 2011</li>
+        
+
+        <li><a href="/2011/09/new-video-slow-motion-quadcopter-flying-in-eb2">New video: slow motion quadcopter flying in EB2</a></li>
+        
+      
+        
+        
+          <li>January 2011</li>
+        
+
+        <li><a href="/2011/01/arm7-mini-quad-with-xbee-remote">ARM7 mini quad with xbee remote</a></li>
+        
+      
+        
+        
+          <li>December 2010</li>
+        
+
+        <li><a href="/2010/12/quadcopter-new-photos-and-video">Quadcopter: New photos and video</a></li>
+        
+      
+        
+        
+
+        <li><a href="/2010/12/rtos-quadcopter-flight-computer">RTOS quadcopter flight computer</a></li>
+        
+      
+        
+        
+          <li>November 2010</li>
+        
+
+        <li><a href="/2010/11/mp3-player-design">mp3 player design</a></li>
+        
+      
+    </ul>
+    <a href="/posts.html"><i class="fa fa-angle-double-right"></i> all posts</a>
+    <span class="mdash">&mdash;</span>
+    <a href="/tags.html"><i class="fa fa-angle-double-right"></i> all tags</a>
+  </div>
+
+  <div id="stalker">
+    Follow me:
+    <ul>
+      
+      <li>
+        <a title="alafazam on Github" href="https://github.com/alafazam">
+          <i class="fa fa-github-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a class="fa-stack" title="Alaf Azam Khan on Stack Overflow" href="http://stackoverflow.com/users/3158659">
+          <i class="fa fa-square fa-stack-2x"></i>
+          <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Facebook" href="https://facebook.com/alafazam">
+          <i class="fa fa-facebook-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on LinkedIn" href="https://www.linkedin.com/in/alafazam">
+          <i class="fa fa-linkedin-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Google Plus" href="https://plus.google.com/u/0/+AlafazamKhan">
+          <i class="fa fa-google-plus-square"></i>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a title="Alaf Azam Khan on Spotify" href="http://open.spotify.com/user/alafazam">
+          <i class="fa fa-spotify"></i>
+        </a>
+      </li>
+      
+
+      <li>
+        <a title="RSS feed" id="rss" href="/atom.xml">
+          <i class="fa fa-rss-square"></i>
+        </a>
+      </li>
+    </ul>
+    <div style="clear:both;"></div>
+  </div>
+
+  <i id="navdivider" class="fa fa-asterisk fa-3x"></i>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  October 29, 2010
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Lightweight C MP3 ID3v2 Reader</h1>
+
+<div id="post">
+  <p>Super lightweight MP3 ID3 metadata tag reader made for embedded systems.</p>
+
+<p>Now <a href="https://github.com/t413/read_ID3_info">on GitHub!</a></p>
+
+<h3 id="background">Background</h3>
+
+<p>I’m writing a full-featured mp3 player for the SJSU class CMPE 146, Embedded Microprocessor System Design, that runs on the <a href="https://www.sjvalley.com/shop/index.php?page=shop.product_details&amp;flypage=flypage.tpl&amp;product_id=27&amp;category_id=1&amp;option=com_virtuemart&amp;Itemid=63&amp;vmcchk=1&amp;Itemid=63">LPC2148 ARM7 Board</a> from sjvalley. The project is running RTOS and has reads files from a SD card streams them through an MP3 decoder to a DAC and finally your headphones.</p>
+
+<p>The project is coming along nicely but I wanted a way to read ID3 tags so read_ID3_info() was born.
+<!--more--></p>
+
+<h3 id="alternatives">Alternatives</h3>
+
+<p>The implementations for c/c++, according to <a href="http://www.id3.org/">http://www.id3.org/</a> are thus:</p>
+
+<ul>
+  <li><a href="http://www.id3.org/TagLib">TagLib</a> Audio Meta-Data Library - modern implementation with C, C++, Perl, Python and Ruby bindings. <a href="http://developer.kde.org/~wheeler/taglib.html">http://developer.kde.org/~wheeler/taglib.html</a></li>
+  <li><a href="http://id3lib.sourceforge.net/">ID3Lib</a> on Sourceforge. The source code is coordinated by Scott Haug and was initially written by Dirk Mahoney and Andreas Sigfridsson.</li>
+  <li><a href="http://www.underbit.com/products/mad/">libid3tag</a></li>
+</ul>
+
+<p>Each of these libraries were too large and complicated to run on an embedded system although they offered many cool features. The library I’ve written is just one function, read_ID3_info(). It works well on my desktop and on my LPC2148 ARM7 board using <a href="http://elm-chan.org/fsw/ff/00index_e.html">FatFs</a> from <a href="http://elm-chan.org/">elm-chan.org</a>.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<p>Here’s an example for running on the LPC2148 ARM7 board using FatFs functions:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6<td class="code"><span class="n">FIL</span> <span class="n">file</span><span class="p">;</span>
+<span class="n">f_open</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="p">(</span><span class="n">FA_READ</span> <span class="o">|</span> <span class="n">FA_OPEN_EXISTING</span><span class="p">));</span>
+<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">40</span><span class="p">];</span>
+<span class="n">read_ID3_info</span><span class="p">(</span><span class="n">TITLE_ID3</span><span class="p">,</span><span class="n">str</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">),</span><span class="o">&amp;</span><span class="n">file</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Title: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">str</span><span class="p">);</span>
+<span class="n">f_close</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file</span><span class="p">);</span>
+
+</td></pre>
+
+
+For running on a desktop I made a demo program which is now also in the github project.
+
+You can run the test program, read_id3, with a mp3 file as an argument. You may also run it with a directory as an argument and the program will scan that directory for any .mp3 files and list the info on them.
+
+### Feedback
+
+I've spend many a night on a [hex editor](http://ridiculousfish.com/hexfiend/) and [id3.org](http://www.id3.org/id3v2.4.0-structure) writing this and I hope it helps out at least someone. If anyone has any suggestions, finds any bugs, or comes up with an especially cool use for it I'd like to hear about it (yes, even the bugs). File a bug [on GitHub](https://github.com/t413/read_ID3_info) and/or [send an email](mailto:timo@t413.com).
+
+### License / Copyright
+
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0. See source code comments for details. I'm flexible if this is incompatible with your needs, just email me and ask.
+</div></td></tr></table></code></pre></figure>
+
+</div>
+
+
+  <div id="tags">
+    Posted under:
+    <i class="fa fa-tags"></i>
+    
+      <a href="/tags.html#github">github</a>, 
+    
+      <a href="/tags.html#projects">projects</a>, 
+    
+      <a href="/tags.html#embedded">embedded</a>
+    
+  </div>
+
+
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  <p>
+    © Alaf Azam Khan, 2015 &mdash;
+    Made with: <a href="https://pages.github.com/">github pages</a>.
+    This site is <a href="https://github.com/alafazam/alafazam.github.io">open source</a>.
+  </p>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
