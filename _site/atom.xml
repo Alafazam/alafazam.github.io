@@ -4,7 +4,7 @@
  <title>The blog of </title>
  <link href="http://alafazam.com/atom.xml" rel="self"/>
  <link href="http://alafazam.com"/>
- <updated>2015-12-02T11:26:43+05:30</updated>
+ <updated>2015-12-02T13:25:49+05:30</updated>
  <id>http://alafazam.com</id>
  <author>
    <name>Alaf Azam Khan</name>
@@ -64,6 +64,8 @@ Lets’s first make a package.json file. In an empty directory, create a package
     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;quot;author&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;developer&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;!--more--&gt;
 
 &lt;p&gt;Now install all these simply by:-&lt;/p&gt;
 

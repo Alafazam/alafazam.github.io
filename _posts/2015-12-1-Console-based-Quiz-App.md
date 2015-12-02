@@ -27,6 +27,7 @@ Lets's first make a package.json file. In an empty directory, create a package.j
     "author": "developer"
 }
 {% endhighlight %}
+<!--more-->
 
 Now install all these simply by:-
 
