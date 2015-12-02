@@ -44,6 +44,104 @@ Now install all these simply by:-
 
 npm install
 
+Now to begin, you must know what readline module does.
+
+ReadLine
+
+This is the most simple example of Readline
+
+var readline = require(&amp;#39;readline&amp;#39;);
+ 
+var rl = readline.createInterface(process.stdin, 
+     				  process.stdout);
+ 
+rl.question(&amp;quot;What is your name? &amp;quot;, function(answer) {
+    console.log(&amp;quot;Hello, &amp;quot; + answer );
+    rl.close();
+});
+
+What does it do? We include the module, create the Readline interface with the standard input and output streams, then ask the user a one-off question.
+and print his answer.
+
+rl.close()
+
+This method closes the connection between readline and console. Becasue of this, it is a bit tedious to use simple async readline here.
+So we will use sync version of Readline named Readline-Sync
+
+Readline sync
+
+Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).
+
+var readlineSync = require(&amp;#39;readline-sync&amp;#39;);
+ 
+// Wait for user&amp;#39;s response. 
+var userName = readlineSync.question(&amp;#39;May I have your name? :&amp;#39;);
+console.log(&amp;#39;Hi &amp;#39; + userName + &amp;#39;!&amp;#39;);
+ 
+// Handle the secret text (e.g. password). 
+var favFood = readlineSync.question(&amp;#39;What is your favorite food? :&amp;#39;, {
+  hideEchoBack: true // The typed text on screen is hidden by `*` (default). 
+});
+console.log(&amp;#39;Oh, &amp;#39; + userName + &amp;#39; loves &amp;#39; + favFood + &amp;#39;!&amp;#39;);
+
+Output
+
+May I have your name? :CookieMonster
+Hi CookieMonster!
+What is your favorite food? :****
+Oh, CookieMonster loves tofu!
+
+you can find more about it here readline-sync
+
+Code
+Now all we need to do is have a set of questions and syncronosly ask them to user.
+Here is how we are going to do that.
+
+var readlineSync = require(&amp;#39;readline-sync&amp;#39;);
+
+
+questions = [&amp;#39;May I have your name? :&amp;#39;, &amp;#39;What is your favorite food? :&amp;#39;];
+
+
+for (var i = 0; i &amp;lt; questions.length; i++) {
+    
+    answers = readlineSync.question(questions[i]);
+    console.log(answers);
+
+};
+
+But we also do need to provide options to users, don’t we.
+May be we can limit key press input by user, gladly readline-sync can do this for us.
+Our code becomes
+
+ 
+
+var readlineSync = require(&amp;#39;readline-sync&amp;#39;),
+    util = require(&amp;#39;util&amp;#39;);
+
+question = {
+    &amp;#39;question&amp;#39;: &amp;#39;In Java, Which method must be implemented by all threads? :&amp;#39;,
+    &amp;#39;options&amp;#39;: [&amp;#39;wait()&amp;#39;, &amp;#39;start()&amp;#39;, &amp;#39;stop()&amp;#39;, &amp;#39;run()&amp;#39;],
+    &amp;#39;correctOption&amp;#39;: &amp;#39;D&amp;#39;,
+    &amp;#39;correctAnswer&amp;#39;: &amp;#39;run()&amp;#39;
+}
+
+
+answer = readlineSync.question(ask(question), {
+    limit: [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;C&amp;#39;, &amp;#39;D&amp;#39;]
+});
+
+if (answer == question.correctOption) {
+    console.log(util.format(&amp;#39;Yes, correct answer is %s method&amp;#39;, question.correctAnswer));
+} else {
+    console.log(util.format(&amp;#39;No, correct answer is %s method&amp;#39;, question.correctAnswer));
+};
+
+
+function ask(question) {
+    return util.format(&amp;#39;\n%s:\nA : %s\nB : %s\nC : %s\nD : %s\n&amp;#39;, question.question, question.options[0], question.options[1], question.options[2], question.options[3]);
+}
+
 
 	}
 	

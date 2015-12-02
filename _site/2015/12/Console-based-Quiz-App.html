@@ -153,6 +153,104 @@ Lets’s first make a package.json file. In an empty directory, create a package
 
 <figure class="highlight"><pre><code class="language-jade" data-lang="jade"><span class="nt">npm</span> install</code></pre></figure>
 
+<p>Now to begin, you must know what readline module does.</p>
+
+<h4 id="readline">ReadLine</h4>
+
+<p>This is the most simple example of Readline</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline&#39;</span><span class="p">);</span>
+ 
+<span class="kd">var</span> <span class="nx">rl</span> <span class="o">=</span> <span class="nx">readline</span><span class="p">.</span><span class="nx">createInterface</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">,</span> 
+     				  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">);</span>
+ 
+<span class="nx">rl</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">answer</span> <span class="p">);</span>
+    <span class="nx">rl</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>What does it do? We include the module, create the Readline interface with the standard input and output streams, then ask the user a one-off question.
+and print his answer.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">rl</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span></code></pre></figure>
+
+<p>This method closes the connection between readline and console. Becasue of this, it is a bit tedious to use simple async readline here.
+So we will use sync version of Readline named Readline-Sync</p>
+
+<h4 id="readline-sync">Readline sync</h4>
+
+<p>Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">);</span>
+ 
+<span class="c1">// Wait for user&#39;s response. </span>
+<span class="kd">var</span> <span class="nx">userName</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">&#39;May I have your name? :&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hi &#39;</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">);</span>
+ 
+<span class="c1">// Handle the secret text (e.g. password). </span>
+<span class="kd">var</span> <span class="nx">favFood</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">&#39;What is your favorite food? :&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">hideEchoBack</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// The typed text on screen is hidden by `*` (default). </span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Oh, &#39;</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">&#39; loves &#39;</span> <span class="o">+</span> <span class="nx">favFood</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">);</span></code></pre></figure>
+
+<p>Output</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">May I have your name? :CookieMonster
+Hi CookieMonster!
+What is your favorite food? :****
+Oh, CookieMonster loves tofu!</code></pre></figure>
+
+<p>you can find more about it here <a href="https://www.npmjs.com/package/readline-sync">readline-sync</a></p>
+
+<h5 id="code">Code</h5>
+<p>Now all we need to do is have a set of questions and syncronosly ask them to user.
+Here is how we are going to do that.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">);</span>
+
+
+<span class="nx">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;May I have your name? :&#39;</span><span class="p">,</span> <span class="s1">&#39;What is your favorite food? :&#39;</span><span class="p">];</span>
+
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">questions</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="nx">answers</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="nx">questions</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">answers</span><span class="p">);</span>
+
+<span class="p">};</span></code></pre></figure>
+
+<p>But we also do need to provide options to users, don’t we.
+May be we can limit key press input by user, gladly readline-sync can do this for us.
+Our code becomes</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
+
+<span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">),</span>
+    <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;util&#39;</span><span class="p">);</span>
+
+<span class="nx">question</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;question&#39;</span><span class="o">:</span> <span class="s1">&#39;In Java, Which method must be implemented by all threads? :&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;options&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;wait()&#39;</span><span class="p">,</span> <span class="s1">&#39;start()&#39;</span><span class="p">,</span> <span class="s1">&#39;stop()&#39;</span><span class="p">,</span> <span class="s1">&#39;run()&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;correctOption&#39;</span><span class="o">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;correctAnswer&#39;</span><span class="o">:</span> <span class="s1">&#39;run()&#39;</span>
+<span class="p">}</span>
+
+
+<span class="nx">answer</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="nx">ask</span><span class="p">(</span><span class="nx">question</span><span class="p">),</span> <span class="p">{</span>
+    <span class="nx">limit</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">answer</span> <span class="o">==</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctOption</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;Yes, correct answer is %s method&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;No, correct answer is %s method&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
+<span class="p">};</span>
+
+
+<span class="kd">function</span> <span class="nx">ask</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;\n%s:\nA : %s\nB : %s\nC : %s\nD : %s\n&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">question</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<span class="p">}</span></code></pre></figure>
+
 
 </div>
 
