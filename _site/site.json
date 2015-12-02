@@ -1,22 +1,7 @@
 [
 	
 	{
-	"date":    "2015-12-01 00:00:00 +0530",
-	"tags":    ["meta","web"],
-	"title":   "First Post",
-	"url":     "/2015/12/first-post",
-	"excerpt": Hello World this is my web site, alafazam.com .
-
-Who am I?
-
-I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.
-
-
-	}
-	, 
-	
-	{
-	"date":    "2015-12-01 00:00:00 +0530",
+	"date":    "2015-12-02 00:00:00 +0530",
 	"tags":    ["nodejs","node","readline","colors"],
 	"title":   "Console Based Quizz App in Node.js",
 	"url":     "/2015/12/Console-based-Quiz-App",
@@ -39,6 +24,21 @@ Lets’s first make a package.json file. In an empty directory, create a package
     },
     &amp;quot;author&amp;quot;: &amp;quot;developer&amp;quot;
 }
+
+
+	}
+	, 
+	
+	{
+	"date":    "2015-12-01 00:00:00 +0530",
+	"tags":    ["meta","web"],
+	"title":   "First Post",
+	"url":     "/2015/12/first-post",
+	"excerpt": Hello World this is my web site, alafazam.com .
+
+Who am I?
+
+I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.
 
 
 	}

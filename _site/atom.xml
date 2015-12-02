@@ -4,7 +4,7 @@
  <title>The blog of </title>
  <link href="http://alafazam.com/atom.xml" rel="self"/>
  <link href="http://alafazam.com"/>
- <updated>2015-12-02T13:25:49+05:30</updated>
+ <updated>2015-12-02T13:28:12+05:30</updated>
  <id>http://alafazam.com</id>
  <author>
    <name>Alaf Azam Khan</name>
@@ -13,37 +13,9 @@
 
  
  <entry>
-   <title>First Post</title>
-   <link href="http://alafazam.com/2015/12/first-post"/>
-   <updated>2015-12-01T00:00:00+05:30</updated>
-   <id>http://alafazam.com/2015/12/first-post</id>
-   <content type="html">&lt;p&gt;Hello World this is my web site, alafazam.com .&lt;/p&gt;
-
-&lt;h4 id=&quot;who-am-i&quot;&gt;Who am I?&lt;/h4&gt;
-
-&lt;p&gt;I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;why-i-am-running-this-site&quot;&gt;Why I am running this site?&lt;/h4&gt;
-
-&lt;p&gt;Not many reasons. I love trying out new things. Having a site of my own gives me a good platform to speak about them.&lt;/p&gt;
-
-&lt;p&gt;I also like to make new stuff, this is where I will try to write about it.&lt;/p&gt;
-
-&lt;h4 id=&quot;what-college-do-i-study-in&quot;&gt;What college do I study in?&lt;/h4&gt;
-
-&lt;p&gt;I am in final year of 4 year B.Tech course in Information Technology, at National Institute of Technology Srinagar.&lt;/p&gt;
-
-&lt;h4 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h4&gt;
-
-&lt;p&gt;Dunno. May be a blog or two.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
    <title>Console Based Quizz App in Node.js</title>
    <link href="http://alafazam.com/2015/12/Console-based-Quiz-App"/>
-   <updated>2015-12-01T00:00:00+05:30</updated>
+   <updated>2015-12-02T00:00:00+05:30</updated>
    <id>http://alafazam.com/2015/12/Console-based-Quiz-App</id>
    <content type="html">&lt;p&gt;In this post I will teach you to make a console based Quiz app in Nodejs.&lt;/p&gt;
 
@@ -239,6 +211,34 @@ String-format module comes in handy here.&lt;/p&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;\n{question}:\nA : {options.0}\nB : {options.2}\nC : {options.2}\nD : {options.3}\n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ques&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
+</content>
+ </entry>
+ 
+ <entry>
+   <title>First Post</title>
+   <link href="http://alafazam.com/2015/12/first-post"/>
+   <updated>2015-12-01T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2015/12/first-post</id>
+   <content type="html">&lt;p&gt;Hello World this is my web site, alafazam.com .&lt;/p&gt;
+
+&lt;h4 id=&quot;who-am-i&quot;&gt;Who am I?&lt;/h4&gt;
+
+&lt;p&gt;I am programmer, gamer, web-devloper, foodie, nature lover and a lazy 9gagger.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;why-i-am-running-this-site&quot;&gt;Why I am running this site?&lt;/h4&gt;
+
+&lt;p&gt;Not many reasons. I love trying out new things. Having a site of my own gives me a good platform to speak about them.&lt;/p&gt;
+
+&lt;p&gt;I also like to make new stuff, this is where I will try to write about it.&lt;/p&gt;
+
+&lt;h4 id=&quot;what-college-do-i-study-in&quot;&gt;What college do I study in?&lt;/h4&gt;
+
+&lt;p&gt;I am in final year of 4 year B.Tech course in Information Technology, at National Institute of Technology Srinagar.&lt;/p&gt;
+
+&lt;h4 id=&quot;whats-next&quot;&gt;What’s next?&lt;/h4&gt;
+
+&lt;p&gt;Dunno. May be a blog or two.&lt;/p&gt;
 </content>
  </entry>
  

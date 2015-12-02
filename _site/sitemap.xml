@@ -3,7 +3,7 @@
 
     <url>
       <loc>http://alafazam.com</loc>
-      <lastmod>2015-12-01 00:00:00 +0530</lastmod>
+      <lastmod>2015-12-02 00:00:00 +0530</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
     </url>
@@ -12,8 +12,8 @@
     <url><loc>http://alafazam.com/tags.html</loc></url>
 
     
-        <url><loc>http://alafazam.com/2015/12/first-post/</loc></url>
-    
         <url><loc>http://alafazam.com/2015/12/Console-based-Quiz-App/</loc></url>
+    
+        <url><loc>http://alafazam.com/2015/12/first-post/</loc></url>
     
 </urlset>
