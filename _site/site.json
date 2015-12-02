@@ -142,6 +142,76 @@ function ask(question) {
     return util.format(&amp;#39;\n%s:\nA : %s\nB : %s\nC : %s\nD : %s\n&amp;#39;, question.question, question.options[0], question.options[1], question.options[2], question.options[3]);
 }
 
+This looks very messy, we should fix it.
+String-format module comes in handy here.
+
+String-format
+
+It Adds a format method to String.prototype. Inspired by Python’s str.format(). Wow
+
+For example:
+
+ 
+&amp;#39;&amp;quot;{firstName} {lastName}&amp;quot; &amp;lt;{email}&amp;gt;&amp;#39;.format(user)
+// =&amp;gt; &amp;#39;&amp;quot;Jane Smith&amp;quot; &amp;lt;jsmith@example.com&amp;gt;&amp;#39; 
+
+The equivalent concatenation:
+
+ 
+&amp;#39;&amp;quot;&amp;#39; + user.firstName + &amp;#39; &amp;#39; + user.lastName + &amp;#39;&amp;quot; &amp;lt;&amp;#39; + user.email + &amp;#39;&amp;gt;&amp;#39;
+// =&amp;gt; &amp;#39;&amp;quot;Jane Smith&amp;quot; &amp;lt;jsmith@example.com&amp;gt;&amp;#39; 
+
+String::format can be used in two modes: function mode and method mode.
+
+Function mode
+
+ 
+format(&amp;#39;Hello, {}!&amp;#39;, &amp;#39;Alice&amp;#39;)
+// =&amp;gt; &amp;#39;Hello, Alice!&amp;#39; 
+In this mode the first argument is a template string and the remaining arguments are values to be interpolated.
+
+Method mode
+
+ 
+&amp;#39;Hello, {}!&amp;#39;.format(&amp;#39;Alice&amp;#39;)
+// =&amp;gt; &amp;#39;Hello, Alice!&amp;#39; 
+
+In this mode values to be interpolated are supplied to the format method of a template string. This mode is not enabled by default. The method must first be defined via format.extend:
+
+ 
+format.extend(String.prototype)
+
+Code
+Using this in our code
+
+ 
+var readlineSync = require(&amp;#39;readline-sync&amp;#39;),
+	format = require(&amp;#39;string-format&amp;#39;);
+format.extend(String.prototype);
+
+question = {
+    &amp;#39;question&amp;#39;: &amp;#39;In Java, Which method must be implemented by all threads? :&amp;#39;,
+    &amp;#39;options&amp;#39;: [&amp;#39;wait()&amp;#39;, &amp;#39;start()&amp;#39;, &amp;#39;stop()&amp;#39;, &amp;#39;run()&amp;#39;],
+    &amp;#39;correctOption&amp;#39;: &amp;#39;D&amp;#39;,
+    &amp;#39;correctAnswer&amp;#39;: &amp;#39;run()&amp;#39;
+}
+
+
+answer = readlineSync.question(ask(question), {
+    limit: [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;C&amp;#39;, &amp;#39;D&amp;#39;]
+});
+
+if (answer == question.correctOption) {
+    console.log(&amp;#39;Yes, correct answer is {correctAnswer} method&amp;#39;.format(question));
+} else {
+    console.log(&amp;#39;No, correct answer is {correctAnswer} method&amp;#39;.format(question));
+};
+
+
+function ask(ques) {
+    return &amp;#39;\n{question}:\nA : {options.0}\nB : {options.2}\nC : {options.2}\nD : {options.3}\n&amp;#39;.format(ques);
+}
+
 
 	}
 	

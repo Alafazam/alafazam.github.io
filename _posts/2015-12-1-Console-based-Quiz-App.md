@@ -63,7 +63,7 @@ This method closes the connection between readline and console. Becasue of this,
 So we will use sync version of Readline named Readline-Sync
 
 
-####Readline sync
+#### Readline sync
 
 Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).
 
@@ -150,6 +150,81 @@ function ask(question) {
 {% endhighlight %}
 
 
+This looks very messy, we should fix it.
+String-format module comes in handy here.
+
+#### String-format
+
+It Adds a format method to String.prototype. Inspired by Python's str.format(). Wow
+
+ For example:
+
+{% highlight javascript %} 
+'"{firstName} {lastName}" <{email}>'.format(user)
+// => '"Jane Smith" <jsmith@example.com>' 
+{% endhighlight %}
+
+The equivalent concatenation:
+
+{% highlight javascript %} 
+'"' + user.firstName + ' ' + user.lastName + '" <' + user.email + '>'
+// => '"Jane Smith" <jsmith@example.com>' 
+{% endhighlight %}
+
+
+String::format can be used in two modes: function mode and method mode.
+
+#####Function mode
+
+{% highlight javascript %} 
+format('Hello, {}!', 'Alice')
+// => 'Hello, Alice!' 
+In this mode the first argument is a template string and the remaining arguments are values to be interpolated.
+{% endhighlight %}
+
+#####Method mode
+
+{% highlight javascript %} 
+'Hello, {}!'.format('Alice')
+// => 'Hello, Alice!' 
+{% endhighlight %}
+
+In this mode values to be interpolated are supplied to the format method of a template string. This mode is not enabled by default. The method must first be defined via format.extend:
+
+{% highlight javascript %} 
+format.extend(String.prototype)
+{% endhighlight %}
+
+#### Code 
+Using this in our code
 
 
 
+{% highlight javascript %} 
+var readlineSync = require('readline-sync'),
+	format = require('string-format');
+format.extend(String.prototype);
+
+question = {
+    'question': 'In Java, Which method must be implemented by all threads? :',
+    'options': ['wait()', 'start()', 'stop()', 'run()'],
+    'correctOption': 'D',
+    'correctAnswer': 'run()'
+}
+
+
+answer = readlineSync.question(ask(question), {
+    limit: ['A', 'B', 'C', 'D']
+});
+
+if (answer == question.correctOption) {
+    console.log('Yes, correct answer is {correctAnswer} method'.format(question));
+} else {
+    console.log('No, correct answer is {correctAnswer} method'.format(question));
+};
+
+
+function ask(ques) {
+    return '\n{question}:\nA : {options.0}\nB : {options.2}\nC : {options.2}\nD : {options.3}\n'.format(ques);
+}
+{% endhighlight %}
