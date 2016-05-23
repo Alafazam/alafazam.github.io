@@ -36,10 +36,18 @@
       
         
         
+          <li>March 2016</li>
+        
+
+        <li><a href="/2016/03/Results-for-7th-sem">Result for 7th semester</a></li>
+        
+      
+        
+        
           <li>December 2015</li>
         
 
-        <li><a href="/2015/12/hosting-providers-comparisons">A Comparison between different hosting providers</a></li>
+        <li><a href="/2015/12/hosting-providers-comparisons">A Comparison between hosting providers</a></li>
         
       
         
@@ -146,21 +154,21 @@
 <p>You also need to install readline-sync, chalk and string-format modules.
 Lets’s first make a package.json file. In an empty directory, create a package.json file with the following content.</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Node Quiz&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;simple console based quiz app&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;readline-sync&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;string-format&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;chalk&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;developer&quot;</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node Quiz"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"simple console based quiz app"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"readline-sync"</span><span class="p">:</span><span class="w"> </span><span class="s2">"latest"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"string-format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"latest"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"chalk"</span><span class="p">:</span><span class="w"> </span><span class="s2">"latest"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"developer"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>Now install all these simply by:-</p>
 
-<figure class="highlight"><pre><code class="language-jade" data-lang="jade"><span class="nt">npm</span> install</code></pre></figure>
+<figure class="highlight"><pre><code class="language-jade" data-lang="jade">npm install</code></pre></figure>
 
 <p>Now to begin, you must know what readline module does.</p>
 
@@ -168,13 +176,13 @@ Lets’s first make a package.json file. In an empty directory, create a package
 
 <p>This is the most simple example of Readline</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline&#39;</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readline</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline'</span><span class="p">);</span>
  
 <span class="kd">var</span> <span class="nx">rl</span> <span class="o">=</span> <span class="nx">readline</span><span class="p">.</span><span class="nx">createInterface</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">stdin</span><span class="p">,</span> 
      				  <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">);</span>
  
-<span class="nx">rl</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s2">&quot;What is your name? &quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello, &quot;</span> <span class="o">+</span> <span class="nx">answer</span> <span class="p">);</span>
+<span class="nx">rl</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s2">"What is your name? "</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello, "</span> <span class="o">+</span> <span class="nx">answer</span> <span class="p">);</span>
     <span class="nx">rl</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 <span class="p">});</span></code></pre></figure>
 
@@ -190,23 +198,23 @@ So we will use sync version of Readline named Readline-Sync</p>
 
 <p>Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline-sync'</span><span class="p">);</span>
  
-<span class="c1">// Wait for user&#39;s response. </span>
-<span class="kd">var</span> <span class="nx">userName</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">&#39;May I have your name? :&#39;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hi &#39;</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">);</span>
+<span class="c1">// Wait for user's response. </span>
+<span class="kd">var</span> <span class="nx">userName</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">'May I have your name? :'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Hi '</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">'!'</span><span class="p">);</span>
  
 <span class="c1">// Handle the secret text (e.g. password). </span>
-<span class="kd">var</span> <span class="nx">favFood</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">&#39;What is your favorite food? :&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">hideEchoBack</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// The typed text on screen is hidden by `*` (default). </span>
+<span class="kd">var</span> <span class="nx">favFood</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">'What is your favorite food? :'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">hideEchoBack</span><span class="p">:</span> <span class="kc">true</span> <span class="c1">// The typed text on screen is hidden by `*` (default). </span>
 <span class="p">});</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Oh, &#39;</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">&#39; loves &#39;</span> <span class="o">+</span> <span class="nx">favFood</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">);</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Oh, '</span> <span class="o">+</span> <span class="nx">userName</span> <span class="o">+</span> <span class="s1">' loves '</span> <span class="o">+</span> <span class="nx">favFood</span> <span class="o">+</span> <span class="s1">'!'</span><span class="p">);</span></code></pre></figure>
 
 <p>Output</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">May I have your name? :CookieMonster
 Hi CookieMonster!
-What is your favorite food? :****
+What is your favorite food? :<span class="k">****</span>
 Oh, CookieMonster loves tofu!</code></pre></figure>
 
 <p>you can find more about it here <a href="https://www.npmjs.com/package/readline-sync">readline-sync</a></p>
@@ -215,10 +223,10 @@ Oh, CookieMonster loves tofu!</code></pre></figure>
 <p>Now all we need to do is have a set of questions and syncronosly ask them to user.
 Here is how we are going to do that.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline-sync'</span><span class="p">);</span>
 
 
-<span class="nx">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;May I have your name? :&#39;</span><span class="p">,</span> <span class="s1">&#39;What is your favorite food? :&#39;</span><span class="p">];</span>
+<span class="nx">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'May I have your name? :'</span><span class="p">,</span> <span class="s1">'What is your favorite food? :'</span><span class="p">];</span>
 
 
 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">questions</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -234,30 +242,30 @@ Our code becomes</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
 
-<span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">),</span>
-    <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;util&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline-sync'</span><span class="p">),</span>
+    <span class="nx">util</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'util'</span><span class="p">);</span>
 
 <span class="nx">question</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;question&#39;</span><span class="o">:</span> <span class="s1">&#39;In Java, Which method must be implemented by all threads? :&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;options&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;wait()&#39;</span><span class="p">,</span> <span class="s1">&#39;start()&#39;</span><span class="p">,</span> <span class="s1">&#39;stop()&#39;</span><span class="p">,</span> <span class="s1">&#39;run()&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;correctOption&#39;</span><span class="o">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;correctAnswer&#39;</span><span class="o">:</span> <span class="s1">&#39;run()&#39;</span>
+    <span class="s1">'question'</span><span class="p">:</span> <span class="s1">'In Java, Which method must be implemented by all threads? :'</span><span class="p">,</span>
+    <span class="s1">'options'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'wait()'</span><span class="p">,</span> <span class="s1">'start()'</span><span class="p">,</span> <span class="s1">'stop()'</span><span class="p">,</span> <span class="s1">'run()'</span><span class="p">],</span>
+    <span class="s1">'correctOption'</span><span class="p">:</span> <span class="s1">'D'</span><span class="p">,</span>
+    <span class="s1">'correctAnswer'</span><span class="p">:</span> <span class="s1">'run()'</span>
 <span class="p">}</span>
 
 
 <span class="nx">answer</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="nx">ask</span><span class="p">(</span><span class="nx">question</span><span class="p">),</span> <span class="p">{</span>
-    <span class="nx">limit</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="na">limit</span><span class="p">:</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">]</span>
 <span class="p">});</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span> <span class="o">==</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctOption</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;Yes, correct answer is %s method&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'Yes, correct answer is %s method'</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;No, correct answer is %s method&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'No, correct answer is %s method'</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctAnswer</span><span class="p">));</span>
 <span class="p">};</span>
 
 
 <span class="kd">function</span> <span class="nx">ask</span><span class="p">(</span><span class="nx">question</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;\n%s:\nA : %s\nB : %s\nC : %s\nD : %s\n&#39;</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">question</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+    <span class="k">return</span> <span class="nx">util</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'\n%s:\nA : %s\nB : %s\nC : %s\nD : %s\n'</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">question</span><span class="p">,</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">question</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>This looks very messy, we should fix it.
@@ -270,29 +278,29 @@ String-format module comes in handy here.</p>
 <p>For example:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
-<span class="s1">&#39;&quot;{firstName} {lastName}&quot; &lt;{email}&gt;&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
-<span class="c1">// =&gt; &#39;&quot;Jane Smith&quot; &lt;jsmith@example.com&gt;&#39; </span></code></pre></figure>
+<span class="s1">'"{firstName} {lastName}" &lt;{email}&gt;'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
+<span class="c1">// =&gt; '"Jane Smith" &lt;jsmith@example.com&gt;' </span></code></pre></figure>
 
 <p>The equivalent concatenation:</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
-<span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">+</span> <span class="s1">&#39;&quot; &lt;&#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span>
-<span class="c1">// =&gt; &#39;&quot;Jane Smith&quot; &lt;jsmith@example.com&gt;&#39; </span></code></pre></figure>
+<span class="s1">'"'</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">+</span> <span class="s1">'" &lt;'</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span> <span class="o">+</span> <span class="s1">'&gt;'</span>
+<span class="c1">// =&gt; '"Jane Smith" &lt;jsmith@example.com&gt;' </span></code></pre></figure>
 
 <p>String::format can be used in two modes: function mode and method mode.</p>
 
 <h5 id="function-mode">Function mode</h5>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
-<span class="nx">format</span><span class="p">(</span><span class="s1">&#39;Hello, {}!&#39;</span><span class="p">,</span> <span class="s1">&#39;Alice&#39;</span><span class="p">)</span>
-<span class="c1">// =&gt; &#39;Hello, Alice!&#39; </span>
+<span class="nx">format</span><span class="p">(</span><span class="s1">'Hello, {}!'</span><span class="p">,</span> <span class="s1">'Alice'</span><span class="p">)</span>
+<span class="c1">// =&gt; 'Hello, Alice!' </span>
 <span class="nx">In</span> <span class="k">this</span> <span class="nx">mode</span> <span class="nx">the</span> <span class="nx">first</span> <span class="nx">argument</span> <span class="nx">is</span> <span class="nx">a</span> <span class="nx">template</span> <span class="nx">string</span> <span class="nx">and</span> <span class="nx">the</span> <span class="nx">remaining</span> <span class="nx">arguments</span> <span class="nx">are</span> <span class="nx">values</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">interpolated</span><span class="p">.</span></code></pre></figure>
 
 <h5 id="method-mode">Method mode</h5>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
-<span class="s1">&#39;Hello, {}!&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;Alice&#39;</span><span class="p">)</span>
-<span class="c1">// =&gt; &#39;Hello, Alice!&#39; </span></code></pre></figure>
+<span class="s1">'Hello, {}!'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'Alice'</span><span class="p">)</span>
+<span class="c1">// =&gt; 'Hello, Alice!' </span></code></pre></figure>
 
 <p>In this mode values to be interpolated are supplied to the format method of a template string. This mode is not enabled by default. The method must first be defined via format.extend:</p>
 
@@ -303,51 +311,51 @@ String-format module comes in handy here.</p>
 <p>Using this in our code</p>
 
 <figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"> 
-<span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">),</span>
-	<span class="nx">format</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;string-format&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline-sync'</span><span class="p">),</span>
+	<span class="nx">format</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'string-format'</span><span class="p">);</span>
 <span class="nx">format</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
 
 <span class="nx">question</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;question&#39;</span><span class="o">:</span> <span class="s1">&#39;In Java, Which method must be implemented by all threads? :&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;options&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;wait()&#39;</span><span class="p">,</span> <span class="s1">&#39;start()&#39;</span><span class="p">,</span> <span class="s1">&#39;stop()&#39;</span><span class="p">,</span> <span class="s1">&#39;run()&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;correctOption&#39;</span><span class="o">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;correctAnswer&#39;</span><span class="o">:</span> <span class="s1">&#39;run()&#39;</span>
+    <span class="s1">'question'</span><span class="p">:</span> <span class="s1">'In Java, Which method must be implemented by all threads? :'</span><span class="p">,</span>
+    <span class="s1">'options'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'wait()'</span><span class="p">,</span> <span class="s1">'start()'</span><span class="p">,</span> <span class="s1">'stop()'</span><span class="p">,</span> <span class="s1">'run()'</span><span class="p">],</span>
+    <span class="s1">'correctOption'</span><span class="p">:</span> <span class="s1">'D'</span><span class="p">,</span>
+    <span class="s1">'correctAnswer'</span><span class="p">:</span> <span class="s1">'run()'</span>
 <span class="p">}</span>
 
 
 <span class="nx">answer</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="nx">ask</span><span class="p">(</span><span class="nx">question</span><span class="p">),</span> <span class="p">{</span>
-    <span class="nx">limit</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="na">limit</span><span class="p">:</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">]</span>
 <span class="p">});</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span> <span class="o">==</span> <span class="nx">question</span><span class="p">.</span><span class="nx">correctOption</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Yes, correct answer is {correctAnswer} method&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">question</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Yes, correct answer is {correctAnswer} method'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">question</span><span class="p">));</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;No, correct answer is {correctAnswer} method&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">question</span><span class="p">));</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'No, correct answer is {correctAnswer} method'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">question</span><span class="p">));</span>
 <span class="p">};</span>
 
 
 <span class="kd">function</span> <span class="nx">ask</span><span class="p">(</span><span class="nx">ques</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s1">&#39;\n{question}:\nA : {options.0}\nB : {options.2}\nC : {options.2}\nD : {options.3}\n&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">ques</span><span class="p">);</span>
+    <span class="k">return</span> <span class="s1">'\n{question}:\nA : {options.0}\nB : {options.2}\nC : {options.2}\nD : {options.3}\n'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">ques</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>Adding array for questions and keeping score of right answers we get:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline-sync&#39;</span><span class="p">),</span>
-    <span class="nx">format</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;string-format&#39;</span><span class="p">),</span>
-    <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">).</span><span class="nx">styles</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">readlineSync</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'readline-sync'</span><span class="p">),</span>
+    <span class="nx">format</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'string-format'</span><span class="p">),</span>
+    <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'chalk'</span><span class="p">).</span><span class="nx">styles</span><span class="p">;</span>
 
 <span class="nx">format</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
 
 <span class="nx">questions</span> <span class="o">=</span> <span class="p">[{</span>
-    <span class="s1">&#39;question&#39;</span><span class="o">:</span> <span class="s1">&#39;In Java, Which method must be implemented by all threads?&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;options&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;wait()&#39;</span><span class="p">,</span> <span class="s1">&#39;start()&#39;</span><span class="p">,</span> <span class="s1">&#39;stop()&#39;</span><span class="p">,</span> <span class="s1">&#39;run()&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;correctOption&#39;</span><span class="o">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;correctAnswer&#39;</span><span class="o">:</span> <span class="s1">&#39;run()&#39;</span>
+    <span class="s1">'question'</span><span class="p">:</span> <span class="s1">'In Java, Which method must be implemented by all threads?'</span><span class="p">,</span>
+    <span class="s1">'options'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'wait()'</span><span class="p">,</span> <span class="s1">'start()'</span><span class="p">,</span> <span class="s1">'stop()'</span><span class="p">,</span> <span class="s1">'run()'</span><span class="p">],</span>
+    <span class="s1">'correctOption'</span><span class="p">:</span> <span class="s1">'d'</span><span class="p">,</span>
+    <span class="s1">'correctAnswer'</span><span class="p">:</span> <span class="s1">'run()'</span>
 <span class="p">},</span> <span class="p">{</span>
-    <span class="s1">&#39;question&#39;</span><span class="o">:</span> <span class="s1">&#39;In Java, What is the default priority of a thread?&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;options&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;15&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;correctOption&#39;</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;correctAnswer&#39;</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span>
+    <span class="s1">'question'</span><span class="p">:</span> <span class="s1">'In Java, What is the default priority of a thread?'</span><span class="p">,</span>
+    <span class="s1">'options'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'5'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">,</span> <span class="s1">'15'</span><span class="p">],</span>
+    <span class="s1">'correctOption'</span><span class="p">:</span> <span class="s1">'a'</span><span class="p">,</span>
+    <span class="s1">'correctAnswer'</span><span class="p">:</span> <span class="s1">'5'</span>
 
 <span class="p">}]</span>
 
@@ -357,7 +365,7 @@ String-format module comes in handy here.</p>
 
 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">questions</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">answer</span> <span class="o">=</span> <span class="nx">readlineSync</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="nx">ask</span><span class="p">(</span><span class="nx">questions</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="p">{</span>
-        <span class="nx">limit</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span>
+        <span class="na">limit</span><span class="p">:</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">]</span>
     <span class="p">});</span>
     <span class="nx">answer_by_user</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">answer</span><span class="p">;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">answer</span> <span class="o">==</span> <span class="nx">questions</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">correctOption</span><span class="p">)</span> <span class="p">{</span>
@@ -368,16 +376,16 @@ String-format module comes in handy here.</p>
     <span class="p">};</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\nYou got &#39;</span> <span class="o">+</span> <span class="nx">right_answers</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="nx">questions</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s1">&#39; correct \n&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'\nYou got '</span> <span class="o">+</span> <span class="nx">right_answers</span> <span class="o">+</span> <span class="s1">' / '</span> <span class="o">+</span> <span class="nx">questions</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s1">' correct \n'</span><span class="p">);</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Right option \t\t Your answer \t\t status&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Right option \t\t Your answer \t\t status'</span><span class="p">);</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">answers_right</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">questions</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="s1">&#39;correctOption&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; \t\t\t &#39;</span> <span class="o">+</span> <span class="nx">answer_by_user</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; \t\t\t &#39;</span><span class="o">+</span> <span class="nx">answers_right</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">questions</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="s1">'correctOption'</span><span class="p">]</span> <span class="o">+</span> <span class="s1">' \t\t\t '</span> <span class="o">+</span> <span class="nx">answer_by_user</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="s1">' \t\t\t '</span><span class="o">+</span> <span class="nx">answers_right</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">);</span>
 <span class="p">};</span>
 
 <span class="kd">function</span> <span class="nx">ask</span><span class="p">(</span><span class="nx">ques</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s1">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">&#39;: {question}:\na : {options.0}\nb : {options.2}\nc : {options.2}\nd : {options.3}\n&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">ques</span><span class="p">);</span>
+    <span class="k">return</span> <span class="s1">'\n'</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="s1">': {question}:\na : {options.0}\nb : {options.2}\nc : {options.2}\nd : {options.3}\n'</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">ques</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
 <h6 id="coming-up-in-next-blog">Coming up in Next blog.</h6>

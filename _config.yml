@@ -12,10 +12,10 @@ gems: [jekyll-paginate]
 permalink: /:year/:month/:title
 lsi: false
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 
 excerpt_separator: <!--more-->
-paginate: 4
+paginate: 3
 
 
 ### content configuration ###

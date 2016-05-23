@@ -3,7 +3,7 @@
 
     <url>
       <loc>http://alafazam.com</loc>
-      <lastmod>2015-12-28 00:00:00 +0530</lastmod>
+      <lastmod>2016-03-05 00:00:00 +0530</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.8</priority>
     </url>
@@ -11,6 +11,8 @@
     <url><loc>http://alafazam.com/posts.html</loc></url>
     <url><loc>http://alafazam.com/tags.html</loc></url>
 
+    
+        <url><loc>http://alafazam.com/2016/03/Results-for-7th-sem/</loc></url>
     
         <url><loc>http://alafazam.com/2015/12/hosting-providers-comparisons/</loc></url>
     

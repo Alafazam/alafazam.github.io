@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A Comparison between different hosting providers"
+title: "A Comparison between hosting providers"
 tags: [Hosting,Hosting providers,digital ocean,Linode]
 ---
 
