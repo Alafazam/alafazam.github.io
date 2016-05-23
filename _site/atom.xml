@@ -4,13 +4,119 @@
  <title>The blog of </title>
  <link href="http://alafazam.com/atom.xml" rel="self"/>
  <link href="http://alafazam.com"/>
- <updated>2015-12-28T16:34:28+05:30</updated>
+ <updated>2016-05-23T21:01:48+05:30</updated>
  <id>http://alafazam.com</id>
  <author>
    <name>Alaf Azam Khan</name>
    <email>alafazam@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Comparison between different hosting providers</title>
+   <link href="http://alafazam.com/2015/12/hosting-providers-comparisons"/>
+   <updated>2015-12-28T00:00:00+05:30</updated>
+   <id>http://alafazam.com/2015/12/hosting-providers-comparisons</id>
+   <content type="html">&lt;h1 id=&quot;comparison-between-different-hosting-providers&quot;&gt;Comparison between different hosting providers&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Service Provider&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Plan cost&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;RAM&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;Storage&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;CPU&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.digitalocean.com/pricing/&quot;&gt;Digital Ocean&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$80 / mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;8GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;80GB  SSD&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;4 cores&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.linode.com/pricing&quot;&gt;Linode&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$80 / mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;8GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;192GB SSD&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;6 cores&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;http://www.hostgator.com/vps-hosting&quot;&gt;Hostgater&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$89.95/mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;2GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;120GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;2 cores&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://asmallorange.com/hosting/cloud/&quot;&gt;a_small_orange&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$90* /mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;6GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;150GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;6 cores&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;http://www.gicwebworld.com/low-cost-vps-hosting.html&quot;&gt;gicwebworld A&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$75 / mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;16GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;400GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;6 cores&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;http://www.gicwebworld.com/servers.html&quot;&gt;gicwebworld B&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;$70**/mo&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;32GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;2000GB&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;——-&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h6 id=&quot;month-discount-on-annual-plans&quot;&gt;*2 month discount on annual plans&lt;/h6&gt;
+&lt;p&gt;** Dedicated server (Intel Xeon E3-1220 16 GB RAM), unlimited bw@1Gbps&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Console Based Quiz App in Node.js</title>

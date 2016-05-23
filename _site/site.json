@@ -1,6 +1,113 @@
 [
 	
 	{
+	"date":    "2015-12-28 00:00:00 +0530",
+	"tags":    ["Hosting","Hosting providers","digital ocean","Linode"],
+	"title":   "Comparison between different hosting providers",
+	"url":     "/2015/12/hosting-providers-comparisons",
+	"excerpt": Comparison between different hosting providers
+
+
+  
+    
+      Service Provider
+       
+      Plan cost
+       
+      RAM
+       
+      Storage
+       
+      CPU
+       
+    
+  
+
+
+
+  
+    
+      Digital Ocean
+       
+      $80 / mo
+       
+      8GB
+       
+      80GB  SSD
+       
+      4 cores
+       
+    
+    
+      Linode
+       
+      $80 / mo
+       
+      8GB
+       
+      192GB SSD
+       
+      6 cores
+       
+    
+    
+      Hostgater
+       
+      $89.95/mo
+       
+      2GB
+       
+      120GB
+       
+      2 cores
+       
+    
+    
+      a_small_orange
+       
+      $90* /mo
+       
+      6GB
+       
+      150GB
+       
+      6 cores
+       
+    
+    
+      gicwebworld A
+       
+      $75 / mo
+       
+      16GB
+       
+      400GB
+       
+      6 cores
+       
+    
+    
+      gicwebworld B
+       
+      $70**/mo
+       
+      32GB
+       
+      2000GB
+       
+      ——-
+       
+    
+  
+
+
+*2 month discount on annual plans
+** Dedicated server (Intel Xeon E3-1220 16 GB RAM), unlimited bw@1Gbps
+
+	}
+	, 
+	
+	{
 	"date":    "2015-12-02 00:00:00 +0530",
 	"tags":    ["nodejs","node","readline","colors"],
 	"title":   "Console Based Quiz App in Node.js",
