@@ -3,106 +3,10 @@
 	{
 	"date":    "2015-12-28 00:00:00 +0530",
 	"tags":    ["Hosting","Hosting providers","digital ocean","Linode"],
-	"title":   "Comparison between different hosting providers",
+	"title":   "A Comparison between different hosting providers",
 	"url":     "/2015/12/hosting-providers-comparisons",
-	"excerpt": Comparison between different hosting providers
+	"excerpt": Comparing prices and features for major hosting providers.
 
-
-  
-    
-      Service Provider
-       
-      Plan cost
-       
-      RAM
-       
-      Storage
-       
-      CPU
-       
-    
-  
-
-
-
-  
-    
-      Digital Ocean
-       
-      $80 / mo
-       
-      8GB
-       
-      80GB  SSD
-       
-      4 cores
-       
-    
-    
-      Linode
-       
-      $80 / mo
-       
-      8GB
-       
-      192GB SSD
-       
-      6 cores
-       
-    
-    
-      Hostgater
-       
-      $89.95/mo
-       
-      2GB
-       
-      120GB
-       
-      2 cores
-       
-    
-    
-      a_small_orange
-       
-      $90* /mo
-       
-      6GB
-       
-      150GB
-       
-      6 cores
-       
-    
-    
-      gicwebworld A
-       
-      $75 / mo
-       
-      16GB
-       
-      400GB
-       
-      6 cores
-       
-    
-    
-      gicwebworld B
-       
-      $70**/mo
-       
-      32GB
-       
-      2000GB
-       
-      ——-
-       
-    
-  
-
-
-*2 month discount on annual plans
-** Dedicated server (Intel Xeon E3-1220 16 GB RAM), unlimited bw@1Gbps
 
 	}
 	, 
@@ -113,24 +17,6 @@
 	"title":   "Console Based Quiz App in Node.js",
 	"url":     "/2015/12/Console-based-Quiz-App",
 	"excerpt": In this post I will teach you to make a console based Quiz app in Nodejs.
-
-Initial Setup
-Of course, the first thing you need to do is get NodeJS installed on your system. If you are a Windows or Mac user, you can visit nodejs.org and download the installer. If you instead prefer Linux, I’d suggest that you refer to this link.
-
-You also need to install readline-sync, chalk and string-format modules.
-Lets’s first make a package.json file. In an empty directory, create a package.json file with the following content.
-
-{
-    &amp;quot;name&amp;quot;: &amp;quot;Node Quiz&amp;quot;,
-    &amp;quot;version&amp;quot;: &amp;quot;0.0.0&amp;quot;,
-    &amp;quot;description&amp;quot;: &amp;quot;simple console based quiz app&amp;quot;,
-    &amp;quot;dependencies&amp;quot;: {
-        &amp;quot;readline-sync&amp;quot;: &amp;quot;latest&amp;quot;,
-        &amp;quot;string-format&amp;quot;: &amp;quot;latest&amp;quot;,
-        &amp;quot;chalk&amp;quot;: &amp;quot;latest&amp;quot;
-    },
-    &amp;quot;author&amp;quot;: &amp;quot;developer&amp;quot;
-}
 
 
 	}

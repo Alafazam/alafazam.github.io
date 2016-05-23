@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/all.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
   <link rel="alternate" type="application/rss+xml" title="Alaf Azam Khan" href="http://alafazam.com/atom.xml" />
-  <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/res/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
 	<link rel="apple-touch-icon-precomposed" href="res/icon.png">
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="res/Icon60-2x.png">
@@ -24,7 +24,7 @@
       <nav >
   <h1>Hi.</h1>
   <a href="/" id="logo">
-    <img src="res/dp.jpg" alt="It's me" height="80" width="80">
+    <img src="/res/dp.jpg" alt="It's me" height="80" width="80">
   </a>
   <h2>I'm <a href="/">Alaf Azam Khan</a>.</h2>
   <hr/>
@@ -39,7 +39,7 @@
           <li>December 2015</li>
         
 
-        <li><a href="/2015/12/hosting-providers-comparisons">Comparison between different hosting providers</a></li>
+        <li><a href="/2015/12/hosting-providers-comparisons">A Comparison between different hosting providers</a></li>
         
       
         
@@ -130,7 +130,7 @@
       <div id="posts">
 
   
-  <h2><a href="/2015/12/hosting-providers-comparisons">Comparison between different hosting providers</a></h2>
+  <h2><a href="/2015/12/hosting-providers-comparisons">A Comparison between different hosting providers</a></h2>
   <p class="meta">
     December 28, 2015
 
@@ -151,104 +151,8 @@
     
   </p>
 
-  <h1 id="comparison-between-different-hosting-providers">Comparison between different hosting providers</h1>
+  <p>Comparing prices and features for major hosting providers.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Service Provider</td>
-      <td> </td>
-      <td>Plan cost</td>
-      <td> </td>
-      <td>RAM</td>
-      <td> </td>
-      <td>Storage</td>
-      <td> </td>
-      <td>CPU</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <tbody>
-    <tr>
-      <td><a href="https://www.digitalocean.com/pricing/">Digital Ocean</a></td>
-      <td> </td>
-      <td>$80 / mo</td>
-      <td> </td>
-      <td>8GB</td>
-      <td> </td>
-      <td>80GB  SSD</td>
-      <td> </td>
-      <td>4 cores</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td><a href="https://www.linode.com/pricing">Linode</a></td>
-      <td> </td>
-      <td>$80 / mo</td>
-      <td> </td>
-      <td>8GB</td>
-      <td> </td>
-      <td>192GB SSD</td>
-      <td> </td>
-      <td>6 cores</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td><a href="http://www.hostgator.com/vps-hosting">Hostgater</a></td>
-      <td> </td>
-      <td>$89.95/mo</td>
-      <td> </td>
-      <td>2GB</td>
-      <td> </td>
-      <td>120GB</td>
-      <td> </td>
-      <td>2 cores</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td><a href="https://asmallorange.com/hosting/cloud/">a_small_orange</a></td>
-      <td> </td>
-      <td>$90* /mo</td>
-      <td> </td>
-      <td>6GB</td>
-      <td> </td>
-      <td>150GB</td>
-      <td> </td>
-      <td>6 cores</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td><a href="http://www.gicwebworld.com/low-cost-vps-hosting.html">gicwebworld A</a></td>
-      <td> </td>
-      <td>$75 / mo</td>
-      <td> </td>
-      <td>16GB</td>
-      <td> </td>
-      <td>400GB</td>
-      <td> </td>
-      <td>6 cores</td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td><a href="http://www.gicwebworld.com/servers.html">gicwebworld B</a></td>
-      <td> </td>
-      <td>$70**/mo</td>
-      <td> </td>
-      <td>32GB</td>
-      <td> </td>
-      <td>2000GB</td>
-      <td> </td>
-      <td>——-</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h6 id="month-discount-on-annual-plans">*2 month discount on annual plans</h6>
-<p>** Dedicated server (Intel Xeon E3-1220 16 GB RAM), unlimited bw@1Gbps</p>
 
   
   <b><a class="continue" href="/2015/12/hosting-providers-comparisons">continue reading <i class="fa fa-arrow-circle-right"></i></a></b>
@@ -275,24 +179,6 @@
   </p>
 
   <p>In this post I will teach you to make a console based Quiz app in Nodejs.</p>
-
-<h3 id="initial-setup">Initial Setup</h3>
-<p>Of course, the first thing you need to do is get NodeJS installed on your system. If you are a Windows or Mac user, you can visit <a href="nodejs.org">nodejs.org</a> and download the installer. If you instead prefer Linux, I’d suggest that you refer to this <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">link</a>.</p>
-
-<p>You also need to install readline-sync, chalk and string-format modules.
-Lets’s first make a package.json file. In an empty directory, create a package.json file with the following content.</p>
-
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Node Quiz&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;simple console based quiz app&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;readline-sync&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;string-format&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;chalk&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;developer&quot;</span>
-<span class="p">}</span></code></pre></figure>
 
 
   

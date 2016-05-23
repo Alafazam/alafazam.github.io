@@ -1,16 +1,16 @@
 ---
 layout: post
-title: "Comparison between different hosting providers"
+title: "A Comparison between different hosting providers"
 tags: [Hosting,Hosting providers,digital ocean,Linode]
 ---
 
 
+Comparing prices and features for major hosting providers.
 
-Comparison between different hosting providers
-=======================================
+<!--more-->
 
 
-| Service Provider 															||	 Plan cost 	||  RAM  ||  Storage  ||   CPU   ||   
+| Service Provider 															||	 Plan cost 	||  RAM  ||  Storage  ||   CPU   ||
 
 | [Digital Ocean](https://www.digitalocean.com/pricing/)    				||    $80 / mo  || 8GB   ||  80GB  SSD|| 4 cores ||
 | [Linode](https://www.linode.com/pricing)           						||    $80 / mo  || 8GB   ||  192GB SSD|| 6 cores ||

@@ -4,7 +4,7 @@
  <title>The blog of </title>
  <link href="http://alafazam.com/atom.xml" rel="self"/>
  <link href="http://alafazam.com"/>
- <updated>2016-05-23T21:09:59+05:30</updated>
+ <updated>2016-05-23T21:16:31+05:30</updated>
  <id>http://alafazam.com</id>
  <author>
    <name>Alaf Azam Khan</name>
@@ -13,11 +13,13 @@
 
  
  <entry>
-   <title>Comparison between different hosting providers</title>
+   <title>A Comparison between different hosting providers</title>
    <link href="http://alafazam.com/2015/12/hosting-providers-comparisons"/>
    <updated>2015-12-28T00:00:00+05:30</updated>
    <id>http://alafazam.com/2015/12/hosting-providers-comparisons</id>
-   <content type="html">&lt;h1 id=&quot;comparison-between-different-hosting-providers&quot;&gt;Comparison between different hosting providers&lt;/h1&gt;
+   <content type="html">&lt;p&gt;Comparing prices and features for major hosting providers.&lt;/p&gt;
+
+&lt;!--more--&gt;
 
 &lt;table&gt;
   &lt;tbody&gt;
@@ -123,7 +125,8 @@
    <link href="http://alafazam.com/2015/12/Console-based-Quiz-App"/>
    <updated>2015-12-02T00:00:00+05:30</updated>
    <id>http://alafazam.com/2015/12/Console-based-Quiz-App</id>
-   <content type="html">&lt;p&gt;In this post I will teach you to make a console based Quiz app in Nodejs.&lt;/p&gt;
+   <content type="html">&lt;p&gt;In this post I will teach you to make a console based Quiz app in Nodejs.
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;initial-setup&quot;&gt;Initial Setup&lt;/h3&gt;
 &lt;p&gt;Of course, the first thing you need to do is get NodeJS installed on your system. If you are a Windows or Mac user, you can visit &lt;a href=&quot;nodejs.org&quot;&gt;nodejs.org&lt;/a&gt; and download the installer. If you instead prefer Linux, I’d suggest that you refer to this &lt;a href=&quot;https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
@@ -142,8 +145,6 @@ Lets’s first make a package.json file. In an empty directory, create a package
     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;quot;author&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;developer&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;!--more--&gt;
 
 &lt;p&gt;Now install all these simply by:-&lt;/p&gt;
 

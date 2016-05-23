@@ -6,6 +6,7 @@ tags: [nodejs,node,readline,colors]
 
 
 In this post I will teach you to make a console based Quiz app in Nodejs.
+<!--more-->
 
 
 ### Initial Setup
@@ -27,7 +28,6 @@ Lets's first make a package.json file. In an empty directory, create a package.j
     "author": "developer"
 }
 {% endhighlight %}
-<!--more-->
 
 Now install all these simply by:-
 
