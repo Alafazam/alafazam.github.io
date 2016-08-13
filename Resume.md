@@ -2,9 +2,7 @@
 *Software Development Engineer* 
 
 ### `alafazam(_at_)gmail.com`
-
-	21, 5 Cross, 38 Main BTM Stage 2, Bengaluru Karnataka India
-	+919968193201`
+	Bengaluru
 
 #### Education
 	2016 Passout  
@@ -33,9 +31,9 @@
 
 #### Things I have done: 
 
-500+ contributions in last one year on github.  
+500+ contributions last year on github.  
 
-Made a movie recommendation system from scratch in python as Final year project. We implemented User based CF, Item Based CF and Reverse CF. [[1]](http://www.sciencedirect.com/science/article/pii/S0957417415000068) 
+Made a movie recommendation system from scratch in python as Final year project. We implemented User based CF, Item Based CF and [Reverse CF](http://www.sciencedirect.com/science/article/pii/S0957417415000068) 
 
 Made a chatting app [ Easy Chat](http://easychat.alafazam.com/) with Autocomplete-Emoji support using Node.js(), Express, SocketIO and Materializecss.
 	
