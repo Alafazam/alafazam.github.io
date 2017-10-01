@@ -1,8 +1,10 @@
 # Jobs
+
+
 # Envestnet Yodlee
 - company:   Envestnet Yodlee
   position:  Software Development Engineer
-  duration:  July 2016  &mdash; Present
+  duration:  July 2016  &mdash; September 2017
   summary:   I am a part of sustaining engineering team in Yodlee. Here my work is to fix bugs in existing product(Personal Finance Manager). Our stack consists of many different technologies including Node.js, SQL, Express.js, Handlebar.js, backbone.js, Java, spring and hibernate. We also developed a tool for internal usage that tracks Bugzilla productivity, using Bugzilla’s XML RPC API to fetch information about team members.
 
 # HomeYantra
