@@ -8,5 +8,6 @@ export default defineConfig({
   server: {
     port: 4000,
     strictPort: true, // Throw error if port is already in use instead of incrementing
+    host: true, // Make the server accessible from other devices on your network
   },
 })

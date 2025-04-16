@@ -160,3 +160,95 @@ section {
   font-family: monospace;
   margin-bottom: 0.5rem;
 }
+
+/* Print-specific styles */
+@media print {
+  /* Set page margins and layout */
+  @page {
+    margin: 1.5cm;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  /* Hide avatar in print view */
+  .avatar-container {
+    display: none;
+  }
+  
+  /* Remove section dividers in print view */
+  .section-divider {
+    display: none;
+  }
+  
+  /* Simplify title bar */
+  .title-bar {
+    border-top: none;
+    border-bottom: none;
+    text-align: center;
+    padding: 0;
+    margin: 0.5rem 0 1rem 0;
+  }
+  
+  /* Better link handling for print */
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  /* Hide contact button */
+  .contact-btn {
+    display: none;
+  }
+  
+  /* Remove border-bottom from h2 headings */
+  h2 {
+    border-bottom: none;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    page-break-after: avoid;
+  }
+  
+  h3 {
+    page-break-after: avoid;
+  }
+  
+  /* Prevent orphaned headings */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  /* Prevent page breaks inside job descriptions */
+  ul, li, p {
+    page-break-inside: avoid;
+  }
+  
+  /* Compact job entries */
+  .mb-6 {
+    margin-bottom: 1rem;
+  }
+  
+  .mb-8 {
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Optimize spacing */
+  .py-8 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .px-4 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

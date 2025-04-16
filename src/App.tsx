@@ -1,254 +1,382 @@
+/** @jsx React.createElement */
+/** @jsxFrag React.Fragment */
+import * as React from 'react';
+import { useState, useEffect, ReactNode } from 'react';
+import { useTypewriter, Cursor } from 'react-simple-typewriter';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './index.css'; // Ensure Tailwind styles are imported
 
+// Tech Tag Component for better visual representation of skills
+const TechTag = ({ text }: { text: string }) => (
+  <span className="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 text-xs font-medium px-2 py-0.5 rounded-full mr-2 mb-1">
+    {text}
+  </span>
+);
+
+// Platform Icon component for certifications
+const PlatformIcon = ({ platform }: { platform: string }) => {
+  const edxIcon = (
+    <img src="/_assets/edx-logo-elm.svg" alt="edX" width="60" height="60" className="mr-2 inline-block align-middle" />
+  );
+
+  const mavenIcon = (
+    <img src="/_assets/maven-logo.svg" alt="Maven" width="80" height="80" className="mr-2 inline-block align-middle" />
+  );
+
+  return platform.toLowerCase().includes('edx') ? edxIcon : mavenIcon;
+};
+
 function App() {
+  // Dark mode state
+  const getInitialTheme = (): boolean => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme === 'dark' 
+        || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  };
+
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(getInitialTheme);
+
+  // Typewriter effect
+  const [typewriterText] = useTypewriter({
+    words: ['Senior Product Manager', 'Engineering Leader', 'AI + E-commerce', 'Product Leader @ Increff'],
+    loop: true,
+    delaySpeed: 2000,
+    typeSpeed: 70,
+    deleteSpeed: 50
+  });
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  useEffect(() => {
+    // Update HTML class for dark mode
+    const root = window.document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true, // Only animate once
+    });
+  }, []);
+
+  // Simple direct PDF download handler
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/_assets/Alaf Azam Khan _ Sr.PM Resume.pdf';
+    link.download = 'Alaf Azam Khan _ Sr.PM Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <div className="py-8 px-4">
-      <div className="container">
-        {/* Avatar and Profile */}
-        <div className="flex flex-col items-center mb-4">
-          <div className="avatar-container">
-            <img src="/avatar.jpg" alt="Avatar" className="avatar-image" />
+    <div className="py-8 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-200">
+      {/* Download Button - Smaller version with just icon */}
+      <button
+        onClick={handleDownload}
+        className="fixed top-4 right-4 p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors dark:bg-blue-700 dark:hover:bg-blue-800 shadow-md"
+        aria-label="Download Resume as PDF"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        </svg>
+      </button>
+
+      {/* Theme Toggle */}
+      <button
+        onClick={toggleTheme}
+        className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-lg"
+        aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {isDarkMode ? (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        )}
+      </button>
+
+      <div id="resume-content" className="container mx-auto max-w-4xl">
+        {/* Avatar and Profile with fade-up */}
+        <div className="flex flex-col items-center mb-2">
+          <div className="avatar-container" data-aos="fade-down">
+            <img src="/avatar.jpg" alt="Avatar" className="avatar-image rounded-full h-24 w-24 object-cover" />
           </div>
           
-          <h1 className="text-center mb-0">Alaf Azam Khan</h1>
+          <h1 className="text-center mb-0 text-3xl font-bold mt-3 dark:text-white" data-aos="fade-down" data-aos-delay="100">
+            Alaf Azam Khan
+          </h1>
+          {/* Typewriter effect for tagline */}
+          <div className="text-center text-gray-600 dark:text-gray-300 mt-1 h-6" data-aos="fade-down" data-aos-delay="200">
+            <span>{typewriterText}</span>
+            <Cursor cursorStyle="|" />
+          </div>
         </div>
-        
-        {/* Title bar with horizontal lines */}
-        <div className="title-bar">
-          <h2 className="text-xl m-0 border-0 p-0">Senior Technical Product Manager</h2>
+          
+        {/* Contact Information with improved LinkedIn display with fade-up */}
+        <div className="mb-4 text-center" data-aos="fade-down" data-aos-delay="300">
+          <p>
+            <a href="mailto:alafazam@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alafazam@gmail.com</a> | 
+            <a href="tel:+917987847247" className="px-1 dark:text-gray-300">+91 7987847247</a> | 
+            <a href="https://www.linkedin.com/in/alafazam/" className="text-blue-600 dark:text-blue-400 hover:underline px-1">linkedin.com/in/alafazam | Sr. PM | AI | E-commerce</a>
+          </p>
         </div>
 
-        {/* Bio Section */}
-        <div className="mb-8 text-gray-700 leading-relaxed">
+        {/* Professional Summary - Trimmed to 2-3 lines as requested with fade-up */}
+        <div className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+          <h2 className="text-xl font-bold mb-2 dark:text-white">Professional Summary</h2>
           <p className="mb-4">
-            Seasoned technology leader with 8+ years of experience spanning software engineering and product management. Currently serving as Senior Technical Product Manager at Increff, where I lead a team of product managers overseeing a diverse portfolio of six products while simultaneously providing engineering leadership and code contributions.
-          </p>
-          <p className="mb-4">
-            After transitioning from a senior engineering role (SDE3) to product management, I've cultivated expertise in bridging technical and business perspectives. I've built and mentored a high-performing product team while pioneering AI integration throughout our product development lifecycle. My hybrid approach combines traditional product management with hands-on technical leadership, particularly in implementing AI-driven solutions that break down traditional boundaries between product and engineering functions.
-          </p>
-          <p className="mb-4">
-            I specialize in developing AI-enhanced workflows that boost team productivity, creating innovative AI tools that solve real business problems, and preparing organizations for an AI-first future where technical and product disciplines increasingly converge. My unique background enables me to speak the language of both engineers and business stakeholders, translating complex AI capabilities into tangible user value.
+            Technology leader with <strong>8+ years of experience</strong> scaling software and product solutions in <strong>fast-paced e-commerce environments</strong>. Skilled at driving <strong>AI-powered innovation</strong>, leading cross-functional teams, and delivering customer-centric products that align technical capabilities with business outcomes.
           </p>
         </div>
-        
-        {/* Links */}
-        <div className="social-links">
-          Find me at : 
-          <a href="https://github.com/alafazam" className="px-1">GitHub</a> |
-          <a href="https://angel.co/alafazam" className="px-1">AngeList</a> |
-          <a href="https://www.spoj.com/users/alafazam" className="px-1">SPOJ</a> |
-          <a href="https://www.linkedin.com/in/alafazam" className="px-1">LinkedIn</a> |
-          <a href="https://stackoverflow.com/users/alafazam" className="px-1">Stack overflow</a> |
-          <a href="https://www.hackerearth.com/@alafazam" className="px-1">HackerEarth</a>
+          
+        {/* Core Achievements section added as requested - reduced margin and changed background color with fade-up */}
+        <div className="mb-6 bg-[rgb(255,250,255)] dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500" data-aos="fade-up" data-aos-delay="200">
+          <h2 className="text-xl font-bold mb-2 mt-4 dark:text-white">Core Achievements</h2>
+          <ul className="space-y-1">
+            <li className="flex items-start">
+              <span className="text-blue-500 dark:text-blue-400 mr-2">🚀</span>
+              <span><strong>Scaled fulfillment platform</strong> to handle 200M+ SKUs and process 8M+ orders monthly</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-500 dark:text-blue-400 mr-2">🤖</span>
+              <span>Integrated <strong>AI solutions</strong> that cut time-to-market by 30% and boosted developer velocity</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-blue-500 dark:text-blue-400 mr-2">💰</span>
+              <span>Led product management and engineering organization delivering <strong>$12M+ in ARR</strong></span>
+            </li>
+          </ul>
         </div>
-        
-        {/* Contact Button */}
-        <div className="text-center mb-8">
-          <a 
-            href="mailto:contact@alafazam.com" 
-            className="contact-btn"
-            tabIndex={0}
-            aria-label="Contact me via email"
-          >
-            Contact me
-          </a>
-        </div>
-        
+          
         {/* Section Divider */}
-        <div className="section-divider"></div>
-        
-        {/* Experience Section */}
-        <section>
-          <h2 className="mb-4">Experience</h2>
+        <div className="section-divider border-t border-gray-200 dark:border-gray-700 my-6"></div>
           
-          {/* Senior Technical Product Manager */}
-          <div className="mb-6">
-            <h3>Senior Technical Product Manager - Increff</h3>
-            <p className="job-period">March 2022 — Present • 3 years 2 months</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Team Size: 25-30 | Managing: 3 PMs across 5 products | Reporting to: CEO
+        {/* Experience Section with fade-up */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold mb-4 dark:text-white" data-aos="fade-up">Experience</h2>
+            
+          {/* Senior Technical Product Manager - Always expanded */}
+          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" data-aos="fade-up" data-aos-delay="100">
+            <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
+              <h3 className="font-semibold dark:text-white">Senior Technical Product Manager - Increff</h3>
+              <p className="job-period text-gray-600 dark:text-gray-400">March 2022 — Present</p>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              Team: 25–30 | PMs Managed: 3 | Products: 5+ | Reported to: CEO
             </p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: Spring, Hibernate, Python, MySQL, GCP, ELK, New Relic, RabbitMQ, Docker, Kubernetes, Angular, TypeScript
-            </p>
-            <p className="text-sm text-gray-600 mb-2">
-              Product Stack: Jira, Confluence, Notion, Figma
-            </p>
-            <p className="job-description">
-              Leading product strategy, architecture design, team processes, coding efforts of Frontend/Backend/SDET teams for the Omni Suite of products. This suite includes Warehouse Management System (WMS), Order & Inventory Management System (OMS), Channel Integration Management System (CIMS), Store Fulfilment System (SFS), and several utility micro-services.
-            </p>
-            <ul className="list-disc pl-5 mb-4">
-              <li>Spearheading the next generation of our product suite as platforms, implementing distributed systems with event-driven architecture to compete globally</li>
-              <li>Key contributor and leader for $12M+ ARR, managing 20M+ inventory items daily, serving 100+ global clients</li>
-              <li>Achieved 99.99%+ system uptime and order fulfillment rates, processing 8M+ orders monthly</li>
-              <li>Leading initiatives to develop all engineers into full-stack developers</li>
-              <li>Reduced cloud costs by 30% through various optimisations</li>
-              <li>Analyzed and revamped the hiring process, conducting over 200 interviews</li>
+              
+            {/* Tech Stack with TechTag component */}
+            <div className="mb-2 tech-tags-container">
+              <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tech:</span>
+              <TechTag text="Spring" />
+              <TechTag text="Python" />
+              <TechTag text="MySQL" />
+              <TechTag text="GCP" />
+              <TechTag text="Kubernetes" />
+              <TechTag text="Angular" />
+            </div>
+              
+            {/* Product Tools with TechTag component */}
+            <div className="mb-3 tech-tags-container">
+              <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Product Tools:</span>
+              <TechTag text="Jira" />
+              <TechTag text="Figma" />
+              <TechTag text="Notion" />
+              <TechTag text="Matomo" />
+            </div>
+              
+            <ul className="list-disc pl-5 mb-4 dark:text-gray-300">           
+              <li>Owned <strong>product vision and roadmap</strong> for all fulfillment products, powering e-commerce operations for <strong>100+ global clients</strong>.</li>
+              <li>Drove <strong>$12M+ in ARR</strong> by delivering high-availability systems that supported 200M+ SKUs and processed 8M+ orders monthly.</li>
+              <li>Launched <strong>AI-driven product initiatives</strong> that cut time-to-market by 30% and boosted dev velocity through rapid prototyping.</li>
+              <li>Modernized product suite with <strong>event-driven architecture</strong>, enhancing scalability and enabling modular growth.</li>
+              <li>Spearheaded <strong>full-stack transition</strong> across engineering and PM teams, reducing feature delivery time by 40%.</li>
+              <li>Led <strong>cost optimization strategy</strong> across infrastructure, achieving 30% reduction in cloud spend.</li>
+              <li>Built and scaled a <strong>high-performing PM team</strong>, improving onboarding efficiency by 40% through coaching and hiring standards.</li>
+              <li>Led <strong>100+ technical interviews</strong> across SDE1–SDE2 roles; standardized hiring processes for quality and speed.</li>
             </ul>
           </div>
-          
-          {/* SDE-3 */}
-          <div className="mb-6">
-            <h3>Software Development Engineer 3 / Acting Technical Product Manager - Increff</h3>
-            <p className="job-period">June 2021 — April 2022 • 11 months</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Team Size: 15-20 | Managed: 15-20 | Reported to: CTO
+            
+          {/* SDE-3 - Always expanded */}
+          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" data-aos="fade-up" data-aos-delay="200">
+            <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
+              <h3 className="font-semibold dark:text-white">Software Development Engineer 3 / Acting Technical Product Manager - Increff</h3>
+              <p className="job-period text-gray-600 dark:text-gray-400">June 2021 — March 2022</p>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              Team: 15–20 | Reported to: CTO
             </p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: Spring, Hibernate, Python, MySQL, GCP, ELK, New Relic
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              Environment: E-commerce platform scaling across OMS, WMS, and backend services
             </p>
-            <p className="job-description">
-              Led architecture design, team processes, coding efforts, and Backend/SDET teams for the Omni Suite of products.
-            </p>
-            <ul className="list-disc pl-5 mb-4">
-              <li>Designed and implemented test automation processes, automating over 10,000 test cases</li>
-              <li>Orchestrated architecture design for complex features including Order Splitting, Expiry workflows</li>
-              <li>Revamped the Software Development Life Cycle (SDLC)</li>
-              <li>Acted as Scrum Master, implementing Agile methodologies</li>
+              
+            {/* Tech Stack with TechTag component */}
+            <div className="mb-3">
+              <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tech:</span>
+              <TechTag text="Spring" />
+              <TechTag text="Python" />
+              <TechTag text="MySQL" />
+              <TechTag text="GCP" />
+              <TechTag text="ELK" />
+            </div>
+              
+            <ul className="list-disc pl-5 mb-4 dark:text-gray-300">
+              <li><strong>Transitioned</strong> from engineering to product leadership, owning backend roadmap and cross-functional execution for Omni Suite, enabling seamless multichannel operations for <strong>key enterprise clients</strong></li>
+              <li><strong>Defined</strong> and delivered complex features like Order Splitting and Expiry Workflows, increasing inventory exposure by <strong>40%</strong> and streamlining fulfillment</li>
+              <li><strong>Led</strong> solution design for all new enterprise clients, collaborating directly with customer teams to understand pain points and deliver tailored product configurations</li>
+              <li><strong>Conducted</strong> discovery interviews and worked closely with key accounts to define product gaps, influencing roadmap prioritization and reducing onboarding friction by <strong>30%</strong></li>
+              <li><strong>Revamped</strong> SDLC and introduced Agile ceremonies, increasing sprint predictability and reducing feature cycle time by <strong>~25%</strong></li>
+              <li><strong>Facilitated</strong> team alignment as Scrum Master, ensuring timely releases and improved collaboration across engineering, QA, and product stakeholders</li>
             </ul>
           </div>
+            
+          {/* SDE-2 - Collapsible */}
+          <details open className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 group" data-aos="fade-up" data-aos-delay="300">
+            <summary className="cursor-pointer flex flex-col sm:flex-row sm:justify-between mb-1">
+              <h3 className="font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Software Development Engineer 2 - Increff</h3>
+              <p className="job-period text-gray-600 dark:text-gray-400">July 2019 — June 2021 • 2 years</p>
+            </summary>
+            <div className="mt-2 dark:text-gray-300">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                Team Size: 5-10 | Managed: 3-5 | Reported to: CTO
+              </p>
+              <p className="text-sm mb-2 dark:text-gray-300">
+                Led architecture design, coding efforts, and Backend team for the Warehouse Management System (WMS) Product.
+              </p>
+              <ul className="list-disc pl-5 mb-4 dark:text-gray-300">
+                <li><strong>Spearheaded</strong> design and implementation of all WMS features</li>
+                <li><strong>Guided</strong> 5-10 key clients from pre-sales to production launch</li>
+                <li><strong>Established</strong> documentation and coding standards</li>
+                <li><strong>Led</strong> campus recruitment at approximately 10 universities</li>
+              </ul>
+            </div>
+          </details>
+            
+          {/* SDE-1 - Collapsible */}
+          <details open className="mb-6 group" data-aos="fade-up" data-aos-delay="400">
+            <summary className="cursor-pointer flex flex-col sm:flex-row sm:justify-between mb-1">
+              <h3 className="font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Software Development Engineer - Envestnet Yodlee</h3>
+              <p className="job-period text-gray-600 dark:text-gray-400">July 2016 — September 2017</p>
+            </summary>
+            <div className="mt-2 dark:text-gray-300">
+              <div className="mb-3">
+                <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tech Stack:</span>
+                <TechTag text="Node.js" />
+                <TechTag text="SQL" />
+                <TechTag text="Express.js" />
+                <TechTag text="Handlebar.js" />
+                <TechTag text="Backbone.js" />
+                <TechTag text="Java" />
+                <TechTag text="Spring" />
+                <TechTag text="Hibernate" />
+              </div>
+              <p className="text-sm mb-2 dark:text-gray-300">
+                Part of sustaining engineering team in Yodlee. Fixed bugs in existing product (Personal Finance Manager) and developed an internal tool that tracks Bugzilla productivity using XML RPC API.
+              </p>
+            </div>
+          </details>
+        </section>
           
-          {/* SDE-2 */}
+        {/* Education Section with GPA with fade-up */}
+        <section className="mb-8" data-aos="fade-up" data-aos-delay="100">
+          <h2 className="text-xl font-bold mb-4 dark:text-white">Education</h2>
+            
           <div className="mb-6">
-            <h3>Software Development Engineer 2 - Increff</h3>
-            <p className="job-period">July 2019 — June 2021 • 2 years</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Team Size: 5-10 | Managed: 3-5 | Reported to: CTO
-            </p>
-            <p className="job-description">
-              Led architecture design, coding efforts, and Backend team for the Warehouse Management System (WMS) Product.
-            </p>
-            <ul className="list-disc pl-5 mb-4">
-              <li>Spearheaded design and implementation of all WMS features</li>
-              <li>Guided 5-10 key clients from pre-sales to production launch</li>
-              <li>Established documentation and coding standards</li>
-              <li>Led campus recruitment at approximately 10 universities</li>
-            </ul>
-          </div>
-          
-          {/* SDE-1 */}
-          <div className="mb-6">
-            <h3>Software Development Engineer - Increff</h3>
-            <p className="job-period">September 2017 — June 2019 • 1 year 10 months</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Team Size: 3-5 | Reported to: CTO
-            </p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: AngularJS, Angular, Material Design, Bootstrap CSS, TypeScript, Spring, Hibernate, MySQL, GCP
-            </p>
-            <p className="job-description">
-              Started as a Front-end Engineer and transitioned to Full Stack Engineer within 6 months.
-            </p>
-            <ul className="list-disc pl-5 mb-4">
-              <li>Single-handedly designed and launched the Algorithm Execution Platform for Merchandising Software</li>
-              <li>Built and deployed the Performance and Appraisal Review System (Increff Achieve)</li>
-              <li>Developed core features for WMS MVP and successfully launched with major clients</li>
-            </ul>
-          </div>
-
-          {/* Envestnet Yodlee */}
-          <div className="mb-6">
-            <h3>Software Development Engineer - Envestnet Yodlee</h3>
-            <p className="job-period">July 2016 — September 2017</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: Node.js, SQL, Express.js, Handlebar.js, Backbone.js, Java, Spring, Hibernate
-            </p>
-            <p className="job-description">
-              Part of sustaining engineering team in Yodlee. Here my work is to fix bugs in existing product (Personal Finance Manager). We also developed a tool for internal usage that tracks Bugzilla productivity, using Bugzilla's XML RPC API to fetch information about team members.
-            </p>
-          </div>
-          
-          {/* HomeYantra */}
-          <div className="mb-6">
-            <h3>Full Stack Developer - HomeYantra</h3>
-            <p className="job-period">September 2016 — March 2017 (Part time)</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: Node.js, MySQL, Angular, Express.js
-            </p>
-            <p className="job-description">
-              HomeYantra is E-commerce for Large Appliances built in node-MySQL-angular-express stack. Initially we were a team of three developers who built the whole platform from scratch. I was the only full stack developer, responsible for all frontend work and integrations of components such as Cart, Ordering system and user profiles.
-            </p>
-          </div>
-          
-          {/* VisoCon GmbH Austria */}
-          <div className="mb-6">
-            <h3>Intern - VisoCon GmbH Austria</h3>
-            <p className="job-period">July 2015 — August 2015</p>
-            <p className="text-sm text-gray-600 mb-2">
-              Tech Stack: Python, Docker, RESTful APIs
-            </p>
-            <p className="job-description">
-              Made a RESTful API for Active system components version storage in Python, used Docker containers to deploy it. Made a Code Chef profile Analysis Tool.
-            </p>
+            <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
+              <h3 className="font-semibold dark:text-white">National Institute of Technology Srinagar</h3>
+              <p className="text-gray-600 dark:text-gray-400">Bachelors in Information Technology • 2012 — 2016</p>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">GPA: 8.0/10</p>
           </div>
         </section>
-        
-        {/* Education Section */}
+
+        {/* Certifications Section with improved spacing with fade-up */}
         <section>
-          <h2>Education</h2>
-          
-          <div className="mb-6">
-            <h3>National Institute of Technology Srinagar</h3>
-            <p className="job-period">Bachelors in Information Technology • 2012 — 2016</p>
-          </div>
-        </section>
+          <h2 className="text-xl font-bold mb-4 dark:text-white" data-aos="fade-up">Licenses & Certifications</h2>
 
-        {/* Certifications Section */}
-        <section>
-          <h2>Licenses & Certifications</h2>
+          {/* Maven Certificates */}
+          <div className="mb-8" data-aos="fade-up" data-aos-delay="100">
+            <div className="ml-0 mb-4">
+              <h3 className="font-semibold mb-1">
+                <a href="https://maven.com/certificate/XqbJfSva" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  <PlatformIcon platform="maven" />
+                  Improving Your Product Sense
+                </a>
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Sep 2024 • Credential ID: XqbJfSva</p>
+            </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://maven.com/certificate/XqbJfSva" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                Improving Your Product Sense
-              </a>
-            </h3>
-            <p className="text-sm text-gray-600">Maven • Issued Sep 2024 • Credential ID: XqbJfSva</p>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://maven.com/certificate/VbVjjhlx" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                Managing your PM Career in 2025 and beyond
-              </a>
-            </h3>
-            <p className="text-sm text-gray-600">Maven • Issued Jul 2024 • Credential ID: VbVjjhlx</p>
+            <div className="ml-0 mb-4">
+              <h3 className="font-semibold mb-1">
+                <a href="https://maven.com/certificate/VbVjjhlx" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  <PlatformIcon platform="maven" />
+                  Managing your PM Career in 2025 and beyond
+                </a>
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Jul 2024 • Credential ID: VbVjjhlx</p>
+            </div>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://courses.edx.org/certificates/2e1a26ab7c9c461db153d48acf5bc6db" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                edX Verified Certificate for Supply Chain Dynamics
-              </a>
+          {/* edX Supply Chain Specialization */}
+          <div className="mb-6" data-aos="fade-up" data-aos-delay="200">
+            <h3 className="font-semibold mb-3 flex items-center dark:text-white">
+              <PlatformIcon platform="edx" />
+              edX Supply Chain Specialization
             </h3>
-            <p className="text-sm text-gray-600">edX • Issued Dec 2021 • Credential ID: 2e1a26ab7c9c461db153d48acf5bc6db</p>
-          </div>
+              
+            <div className="ml-6 mb-4">
+              <h4 className="font-semibold mb-1">
+                <a href="https://courses.edx.org/certificates/2e1a26ab7c9c461db153d48acf5bc6db" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  Supply Chain Dynamics
+                </a>
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Dec 2021 • Credential ID: 2e1a26ab7c9c461db153d48acf5bc6db</p>
+            </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://courses.edx.org/certificates/ea7763df63b748769dd3f306f29eb4b0" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                edX Verified Certificate for Supply Chain Design
-              </a>
-            </h3>
-            <p className="text-sm text-gray-600">edX • Issued Apr 2021 • Credential ID: ea7763df63b748769dd3f306f29eb4b0</p>
-          </div>
+            <div className="ml-6 mb-4 mt-2">
+              <h4 className="font-semibold mb-1">
+                <a href="https://courses.edx.org/certificates/ea7763df63b748769dd3f306f29eb4b0" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  Supply Chain Design
+                </a>
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Apr 2021 • Credential ID: ea7763df63b748769dd3f306f29eb4b0</p>
+            </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://courses.edx.org/certificates/0914c7fd78254817a8021a06c42790f2" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                edX Verified Certificate for Supply Chain Fundamentals
-              </a>
-            </h3>
-            <p className="text-sm text-gray-600">edX • Issued Dec 2020 • Credential ID: 0914c7fd78254817a8021a06c42790f2</p>
-          </div>
+            <div className="ml-6 mb-4 mt-2">
+              <h4 className="font-semibold mb-1">
+                <a href="https://courses.edx.org/certificates/0914c7fd78254817a8021a06c42790f2" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  Supply Chain Fundamentals
+                </a>
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Dec 2020 • Credential ID: 0914c7fd78254817a8021a06c42790f2</p>
+            </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">
-              <a href="https://courses.edx.org/certificates/6d9c3e4cb61c41f380946ab383c9c416" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-blue-600">
-                edX Verified Certificate for Supply Chain Technology and Systems
-              </a>
-            </h3>
-            <p className="text-sm text-gray-600">edX • Issued Sep 2020 • Credential ID: 6d9c3e4cb61c41f380946ab383c9c416</p>
+            <div className="ml-6 mt-2">
+              <h4 className="font-semibold mb-1">
+                <a href="https://courses.edx.org/certificates/6d9c3e4cb61c41f380946ab383c9c416" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                  Supply Chain Technology and Systems
+                </a>
+              </h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Issued Mar 2021 • Credential ID: 6d9c3e4cb61c41f380946ab383c9c416</p>
+            </div>
           </div>
         </section>
       </div>
