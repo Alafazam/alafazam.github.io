@@ -4,7 +4,7 @@
 ### `alafazam(_at_)gmail.com`
 	Bengaluru
 
-#### Professional Bio
+#### My Professional Bio
 
 Seasoned technology leader with 8+ years of experience spanning software engineering and product management. Currently serving as Senior Technical Product Manager at Increff, where I lead a team of product managers overseeing a diverse portfolio of six products while simultaneously providing engineering leadership and code contributions.
 
