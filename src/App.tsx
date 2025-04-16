@@ -99,7 +99,7 @@ function App() {
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
-        className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-lg"
+        className="fixed bottom-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 shadow-lg z-50"
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         {isDarkMode ? (
@@ -148,7 +148,7 @@ function App() {
         </div>
           
         {/* Core Achievements section added as requested - reduced margin and changed background color with fade-up */}
-        <div className="mb-6 bg-[rgb(255,250,255)] dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500" data-aos="fade-up" data-aos-delay="200">
+        <div className="mb-6 bg-[rgb(255,250,255)] dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500 relative z-0" data-aos="fade-up" data-aos-delay="200">
           <h2 className="text-xl font-bold mb-2 mt-4 dark:text-white">Core Achievements</h2>
           <ul className="space-y-1">
             <li className="flex items-start">

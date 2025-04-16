@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://alafazam.github.io",
+  "homepage": "https://alafazam.com",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
@@ -35,5 +35,18 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vite": "^6.3.0"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "destination": "dist",
+    "include": [
+      "/",
+      "/404"
+    ],
+    "removeBlobs": true,
+    "minifyHtml": {
+      "collapseWhitespace": false,
+      "removeComments": false
+    }
   }
 }
