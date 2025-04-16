@@ -11,12 +11,12 @@ sass:
 # Resume settings
 resume_avatar:                  "true"
 resume_name:                    "Alaf Azam Khan"
-resume_title:                   "Software Development Engineer"
+resume_title:                   "Senior Technical Product Manager"
 resume_contact_email:           "alafazam_at_gmail.com"
 resume_contact_telephone:       "+91 9968193201"
 resume_contact_address:         "Bangalore"
 resume_header_contact_info:     "Alaf Azam Khan"
-# resume_header_intro:            "<p>This is the executive summary. You should write a few brief, concise, and meaningful sentences about yourself from a professional context, and your immediate career goals. Make the length appropriate for your needs, but K.I.S.S.</p>"
+resume_header_intro:            "<p>Seasoned technology leader with 8+ years of experience spanning software engineering and product management. Expertise in bridging technical and business perspectives while pioneering AI integration in product development.</p>"
 
 # use "yes" to display the email contact button,
 # "no" to display an "I'm not looking for work" message,
@@ -29,26 +29,26 @@ resume_looking_for_work:        "yes"
 resume_section_experience:      true
 resume_section_education:       true
 resume_section_projects:        true
+resume_section_skills:          true
 resume_section_recognition:     false
 resume_section_interests:       true
 resume_section_associations:    false
-resume_section_links:           false
-# resume_section_skills:          true
+resume_section_links:           true
 
 # Resume social links
 # uncomment the options you wish to display, and add your own URL
-# resume_social_links:
-  # resume_github_url:            "https://github.com/alafazam"
+resume_social_links:
+  resume_github_url:            "https://github.com/alafazam"
   # resume_twitter_url:           "http://twitter.com/alafazam"
   # resume_dribbble_url:          "https://dribbble.com/jag"
   # resume_facebook_url:          "insert Facebook URL here"
-  # resume_linkedin_url:          "https://www.linkedin.com/in/alafazam"
+  resume_linkedin_url:          "https://www.linkedin.com/in/alafazam"
   # resume_instagram_url:         "insert your Instagram URL here"
-  # resume_website_url:           "http://alafazam.com"
-  # resume_angel_url:             "https://angel.co/alafazam"
-  # resume_spoj_url:              "http://www.spoj.com/users/alafazam/"
-  # resume_stack_overflow_url:    "https://stackoverflow.com/users/3158659/alaf-azam"
-  # resume_hackerearth_url:       "https://www.hackerearth.com/@alafazam"
+  resume_website_url:           "http://alafazam.com"
+  resume_angel_url:             "https://angel.co/alafazam"
+  resume_spoj_url:              "http://www.spoj.com/users/alafazam"
+  resume_stack_overflow_url:    "https://stackoverflow.com/users/3158659/alaf-azam"
+  resume_hackerearth_url:       "https://www.hackerearth.com/@alafazam"
 
 resume_print_social_links:      true
 

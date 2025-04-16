@@ -108,10 +108,8 @@
       <!-- end Projects -->
       {% endif %}
 
-      {% if site.resume_section_skills %}
       <!-- begin Skills -->
       <section class="content-section">
-
         <header class="section-header">
           <h2>Skills</h2>
         </header>
@@ -121,9 +119,24 @@
           <p class="resume-item-copy">{{ skill.description }}</p>
         </div>
         {% endfor %}
-
       </section>
       <!-- end Skills -->
+
+      {% if site.resume_section_interests %}
+      <!-- begin Interests -->
+      <section class="content-section">
+        <header class="section-header">
+          <h2>Things that Interest me</h2>
+        </header>
+        <div class="resume-item">
+          <ul class="resume-item-list">
+            {% for interest in site.data.interests %}
+            <li>{{ interest.description }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+      <!-- end Interests -->
       {% endif %}
 
       {% if site.resume_section_recognition %}
@@ -171,11 +184,11 @@
       <section class="content-section">
 
         <header class="section-header">
-          <h2>Areas of Interest</h2>
+          <h2>Links & Resources</h2>
         </header>
 
         <div class="resume-item">
-          <p>Artificial Intelligence, Machine Leaning, Web technologies, Big Data, Data Structures, Algorithms, Programming and Puzzles.</p>
+          <p>Artificial Intelligence, Machine Learning, Web technologies, Big Data, Data Structures, Algorithms, Programming and Puzzles.</p>
 <!--           <ul class="resume-item-list">
             {% for link in site.data.links %}
             <li><a href={{ link.url }} itemprop="url">{{ link.description }}</a></li>

@@ -1,0 +1,19 @@
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/eventmachine-1.2.7/ext/fastfilereader
+/Users/alafazam/.rbenv/versions/3.3.8/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mkw4i4 sitelibdir\=./.gem.20250415-2417-mkw4i4 clean
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mkw4i4 sitelibdir\=./.gem.20250415-2417-mkw4i4
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.bundle
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mkw4i4 sitelibdir\=./.gem.20250415-2417-mkw4i4 install
+/usr/bin/install -c -m 0755 fastfilereaderext.bundle ./.gem.20250415-2417-mkw4i4
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mkw4i4 sitelibdir\=./.gem.20250415-2417-mkw4i4 clean

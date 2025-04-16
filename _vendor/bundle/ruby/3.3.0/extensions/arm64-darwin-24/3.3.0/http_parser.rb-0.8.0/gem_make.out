@@ -1,0 +1,23 @@
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+/Users/alafazam/.rbenv/versions/3.3.8/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mofl6f sitelibdir\=./.gem.20250415-2417-mofl6f clean
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mofl6f sitelibdir\=./.gem.20250415-2417-mofl6f
+compiling ruby_http_parser.c
+ruby_http_parser.c:365:17: warning: comparison of integers of different signs: 'size_t' (aka 'unsigned long') and 'long' [-Wsign-compare]
+    if (nparsed < len)
+        ~~~~~~~ ^ ~~~
+1 warning generated.
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.bundle
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mofl6f sitelibdir\=./.gem.20250415-2417-mofl6f install
+/usr/bin/install -c -m 0755 ruby_http_parser.bundle ./.gem.20250415-2417-mofl6f
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/http_parser.rb-0.8.0/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-mofl6f sitelibdir\=./.gem.20250415-2417-mofl6f clean

@@ -1,0 +1,86 @@
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/commonmarker-0.23.11/ext/commonmarker
+/Users/alafazam/.rbenv/versions/3.3.8/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/commonmarker-0.23.11/ext/commonmarker
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-xszdj5 sitelibdir\=./.gem.20250415-2417-xszdj5 clean
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/commonmarker-0.23.11/ext/commonmarker
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-xszdj5 sitelibdir\=./.gem.20250415-2417-xszdj5
+compiling arena.c
+compiling autolink.c
+compiling blocks.c
+blocks.c:1540:5: warning: 'CMARK_DEBUG_NODES' is not defined, evaluates to 0 [-Wundef]
+#if CMARK_DEBUG_NODES
+    ^
+1 warning generated.
+compiling buffer.c
+compiling cmark.c
+compiling cmark_ctype.c
+compiling commonmark.c
+compiling commonmarker.c
+In file included from commonmarker.c:3:
+In file included from ./houdini.h:9:
+./config.h:8:9: warning: 'HAVE_STDBOOL_H' macro redefined [-Wmacro-redefined]
+#define HAVE_STDBOOL_H
+        ^
+/Users/alafazam/.rbenv/versions/3.3.8/include/ruby-3.3.0/arm64-darwin24/ruby/config.h:45:9: note: previous definition is here
+#define HAVE_STDBOOL_H 1
+        ^
+commonmarker.c:50:43: warning: passing 'const char *' to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+  cmark_get_default_mem_allocator()->free(str);
+                                          ^~~
+commonmarker.c:564:20: warning: implicit conversion loses integer precision: 'long' to 'int' [-Wshorten-64-to-32]
+  extensions_len = RARRAY_LEN(rb_extensions);
+                 ~ ^~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/alafazam/.rbenv/versions/3.3.8/include/ruby-3.3.0/ruby/internal/core/rarray.h:51:36: note: expanded from macro 'RARRAY_LEN'
+#define RARRAY_LEN                 rb_array_len                 /**< @alias{rb_array_len} */
+                                   ^
+commonmarker.c:1178:27: warning: implicit conversion loses integer precision: 'long' to 'bufsize_t' (aka 'int') [-Wshorten-64-to-32]
+                          RSTRING_LEN(rb_text))) {
+                          ^~~~~~~~~~~~~~~~~~~~
+/Users/alafazam/.rbenv/versions/3.3.8/include/ruby-3.3.0/ruby/internal/core/rstring.h:46:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+commonmarker.c:1199:28: warning: implicit conversion loses integer precision: 'long' to 'bufsize_t' (aka 'int') [-Wshorten-64-to-32]
+                           RSTRING_LEN(rb_text), 0)) {
+                           ^~~~~~~~~~~~~~~~~~~~
+/Users/alafazam/.rbenv/versions/3.3.8/include/ruby-3.3.0/ruby/internal/core/rstring.h:46:27: note: expanded from macro 'RSTRING_LEN'
+#define RSTRING_LEN       RSTRING_LEN
+                          ^
+5 warnings generated.
+compiling core-extensions.c
+compiling ext_scanners.c
+compiling footnotes.c
+compiling houdini_href_e.c
+compiling houdini_html_e.c
+compiling houdini_html_u.c
+compiling html.c
+compiling inlines.c
+compiling iterator.c
+compiling latex.c
+compiling linked_list.c
+compiling man.c
+compiling map.c
+compiling node.c
+compiling plaintext.c
+compiling plugin.c
+compiling references.c
+compiling registry.c
+compiling render.c
+compiling scanners.c
+compiling strikethrough.c
+compiling syntax_extension.c
+compiling table.c
+compiling tagfilter.c
+compiling tasklist.c
+compiling utf8.c
+compiling xml.c
+linking shared-object commonmarker/commonmarker.bundle
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/commonmarker-0.23.11/ext/commonmarker
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-xszdj5 sitelibdir\=./.gem.20250415-2417-xszdj5 install
+/usr/bin/install -c -m 0755 commonmarker.bundle ./.gem.20250415-2417-xszdj5/commonmarker
+
+current directory: /Users/alafazam/repos/alafazam.github.io/_vendor/bundle/ruby/3.3.0/gems/commonmarker-0.23.11/ext/commonmarker
+make DESTDIR\= sitearchdir\=./.gem.20250415-2417-xszdj5 sitelibdir\=./.gem.20250415-2417-xszdj5 clean
