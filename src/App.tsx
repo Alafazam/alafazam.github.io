@@ -7,6 +7,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './index.css'; // Ensure Tailwind styles are imported
 
+// Helper function to check if device is mobile
+const isMobile = () => window.innerWidth <= 768;
+
 // Tech Tag Component for better visual representation of skills
 const TechTag = ({ text }: { text: string }) => (
   <span className="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 text-xs font-medium px-2 py-0.5 rounded-full mr-2 mb-1">
@@ -17,17 +20,19 @@ const TechTag = ({ text }: { text: string }) => (
 // Platform Icon component for certifications
 const PlatformIcon = ({ platform }: { platform: string }) => {
   const edxIcon = (
-    <img src="/_assets/edx-logo-elm.svg" alt="edX" width="60" height="60" className="mr-2 inline-block align-middle" />
+    <img src="/assets/edx-logo-elm.svg" alt="edX" width="60" height="60" className="mr-2 inline-block align-middle" />
   );
 
   const mavenIcon = (
-    <img src="/_assets/maven-logo.svg" alt="Maven" width="80" height="80" className="mr-2 inline-block align-middle" />
+    <img src="/assets/maven-logo.svg" alt="Maven" width="80" height="80" className="mr-2 inline-block align-middle" />
   );
 
   return platform.toLowerCase().includes('edx') ? edxIcon : mavenIcon;
 };
 
 function App() {
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
   // Dark mode state
   const getInitialTheme = (): boolean => {
     if (typeof window !== 'undefined') {
@@ -54,29 +59,44 @@ function App() {
   };
 
   useEffect(() => {
-    // Update HTML class for dark mode
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
+    // Initialize mobile check
+    setIsMobileDevice(isMobile());
 
-  useEffect(() => {
-    AOS.init({
-      duration: 600,
-      easing: 'ease-in-out',
-      once: true, // Only animate once
-    });
+    // Update on resize
+    const handleResize = () => {
+      setIsMobileDevice(isMobile());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Only initialize AOS on mobile
+    if (isMobile()) {
+      AOS.init({
+        duration: 600,
+        easing: 'ease-in-out',
+        once: true,
+        disable: window.innerWidth > 768 // Disable on desktop
+      });
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  // Helper function for conditional AOS attributes
+  const getAosProps = (effect: string, delay: number = 0) => {
+    if (!isMobileDevice) return {};
+    return {
+      'data-aos': effect,
+      'data-aos-delay': delay
+    };
+  };
 
   // Simple direct PDF download handler
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/_assets/Alaf Azam Khan _ Sr.PM Resume.pdf';
+    link.href = '/assets/Alaf Azam Khan _ Sr.PM Resume.pdf';
     link.download = 'Alaf Azam Khan _ Sr.PM Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -114,24 +134,24 @@ function App() {
       </button>
 
       <div id="resume-content" className="container mx-auto max-w-4xl">
-        {/* Avatar and Profile with fade-up */}
+        {/* Avatar and Profile with conditional fade-up */}
         <div className="flex flex-col items-center mb-2">
-          <div className="avatar-container" data-aos="fade-down">
+          <div className="avatar-container" {...getAosProps('fade-down')}>
             <img src="/avatar.jpg" alt="Avatar" className="avatar-image rounded-full h-24 w-24 object-cover" />
           </div>
           
-          <h1 className="text-center mb-0 text-3xl font-bold mt-3 dark:text-white" data-aos="fade-down" data-aos-delay="100">
+          <h1 className="text-center mb-0 text-3xl font-bold mt-3 dark:text-white" {...getAosProps('fade-down', 100)}>
             Alaf Azam Khan
           </h1>
           {/* Typewriter effect for tagline */}
-          <div className="text-center text-gray-600 dark:text-gray-300 mt-1 h-6" data-aos="fade-down" data-aos-delay="200">
+          <div className="text-center text-gray-600 dark:text-gray-300 mt-1 h-6" {...getAosProps('fade-down', 200)}>
             <span>{typewriterText}</span>
-            <Cursor cursorStyle="|" />
+            <Cursor />
           </div>
         </div>
           
-        {/* Contact Information with improved LinkedIn display with fade-up */}
-        <div className="mb-4 text-center" data-aos="fade-down" data-aos-delay="300">
+        {/* Contact Information with improved LinkedIn display */}
+        <div className="mb-4 text-center" {...getAosProps('fade-down', 300)}>
           <p>
             <a href="mailto:alafazam@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">alafazam@gmail.com</a> | 
             <a href="tel:+917987847247" className="px-1 dark:text-gray-300">+91 7987847247</a> | 
@@ -139,16 +159,16 @@ function App() {
           </p>
         </div>
 
-        {/* Professional Summary - Trimmed to 2-3 lines as requested with fade-up */}
-        <div className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+        {/* Professional Summary */}
+        <div className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed" {...getAosProps('fade-up', 400)}>
           <h2 className="text-xl font-bold mb-2 dark:text-white">Professional Summary</h2>
           <p className="mb-4">
             Technology leader with <strong>8+ years of experience</strong> scaling software and product solutions in <strong>fast-paced e-commerce environments</strong>. Skilled at driving <strong>AI-powered innovation</strong>, leading cross-functional teams, and delivering customer-centric products that align technical capabilities with business outcomes.
           </p>
         </div>
           
-        {/* Core Achievements section added as requested - reduced margin and changed background color with fade-up */}
-        <div className="mb-6 bg-[rgb(255,250,255)] dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500 relative z-0" data-aos="fade-up" data-aos-delay="200">
+        {/* Core Achievements section */}
+        <div className="mb-6 bg-[rgb(255,250,255)] dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500 relative z-0" {...getAosProps('fade-up', 200)}>
           <h2 className="text-xl font-bold mb-2 mt-4 dark:text-white">Core Achievements</h2>
           <ul className="space-y-1">
             <li className="flex items-start">
@@ -169,12 +189,12 @@ function App() {
         {/* Section Divider */}
         <div className="section-divider border-t border-gray-200 dark:border-gray-700 my-6"></div>
           
-        {/* Experience Section with fade-up */}
+        {/* Experience Section */}
         <section className="mb-8">
-          <h2 className="text-xl font-bold mb-4 dark:text-white" data-aos="fade-up">Experience</h2>
+          <h2 className="text-xl font-bold mb-4 dark:text-white" {...getAosProps('fade-up')}>Experience</h2>
             
-          {/* Senior Technical Product Manager - Always expanded */}
-          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" data-aos="fade-up" data-aos-delay="100">
+          {/* Senior Technical Product Manager */}
+          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" {...getAosProps('fade-up', 100)}>
             <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
               <h3 className="font-semibold dark:text-white">Senior Technical Product Manager - Increff</h3>
               <p className="job-period text-gray-600 dark:text-gray-400">March 2022 — Present</p>
@@ -215,8 +235,8 @@ function App() {
             </ul>
           </div>
             
-          {/* SDE-3 - Always expanded */}
-          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" data-aos="fade-up" data-aos-delay="200">
+          {/* SDE-3 */}
+          <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700" {...getAosProps('fade-up', 200)}>
             <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
               <h3 className="font-semibold dark:text-white">Software Development Engineer 3 / Acting Technical Product Manager - Increff</h3>
               <p className="job-period text-gray-600 dark:text-gray-400">June 2021 — March 2022</p>
@@ -248,8 +268,8 @@ function App() {
             </ul>
           </div>
             
-          {/* SDE-2 - Collapsible */}
-          <details open className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 group" data-aos="fade-up" data-aos-delay="300">
+          {/* SDE-2 */}
+          <details open className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 group" {...getAosProps('fade-up', 300)}>
             <summary className="cursor-pointer flex flex-col sm:flex-row sm:justify-between mb-1">
               <h3 className="font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Software Development Engineer 2 - Increff</h3>
               <p className="job-period text-gray-600 dark:text-gray-400">July 2019 — June 2021 • 2 years</p>
@@ -270,8 +290,8 @@ function App() {
             </div>
           </details>
             
-          {/* SDE-1 - Collapsible */}
-          <details open className="mb-6 group" data-aos="fade-up" data-aos-delay="400">
+          {/* SDE-1 */}
+          <details open className="mb-6 group" {...getAosProps('fade-up', 400)}>
             <summary className="cursor-pointer flex flex-col sm:flex-row sm:justify-between mb-1">
               <h3 className="font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Software Development Engineer - Envestnet Yodlee</h3>
               <p className="job-period text-gray-600 dark:text-gray-400">July 2016 — September 2017</p>
@@ -295,8 +315,8 @@ function App() {
           </details>
         </section>
           
-        {/* Education Section with GPA with fade-up */}
-        <section className="mb-8" data-aos="fade-up" data-aos-delay="100">
+        {/* Education Section */}
+        <section className="mb-8" {...getAosProps('fade-up', 100)}>
           <h2 className="text-xl font-bold mb-4 dark:text-white">Education</h2>
             
           <div className="mb-6">
@@ -308,12 +328,12 @@ function App() {
           </div>
         </section>
 
-        {/* Certifications Section with improved spacing with fade-up */}
+        {/* Certifications Section */}
         <section>
-          <h2 className="text-xl font-bold mb-4 dark:text-white" data-aos="fade-up">Licenses & Certifications</h2>
+          <h2 className="text-xl font-bold mb-4 dark:text-white" {...getAosProps('fade-up')}>Licenses & Certifications</h2>
 
           {/* Maven Certificates */}
-          <div className="mb-8" data-aos="fade-up" data-aos-delay="100">
+          <div className="mb-8" {...getAosProps('fade-up', 100)}>
             <div className="ml-0 mb-4">
               <h3 className="font-semibold mb-1">
                 <a href="https://maven.com/certificate/XqbJfSva" target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
@@ -336,7 +356,7 @@ function App() {
           </div>
 
           {/* edX Supply Chain Specialization */}
-          <div className="mb-6" data-aos="fade-up" data-aos-delay="200">
+          <div className="mb-6" {...getAosProps('fade-up', 200)}>
             <h3 className="font-semibold mb-3 flex items-center dark:text-white">
               <PlatformIcon platform="edx" />
               edX Supply Chain Specialization
