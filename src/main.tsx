@@ -4,14 +4,17 @@ import App from './App'
 import './index.css'
 
 const rootElement = document.getElementById('root')!
-const root = rootElement.hasChildNodes()
-  ? hydrateRoot(rootElement, 
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    )
-  : createRoot(rootElement).render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    ) 
+if (rootElement.hasChildNodes()) {
+  hydrateRoot(
+    rootElement, 
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  )
+} else {
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  ) 
+} 
