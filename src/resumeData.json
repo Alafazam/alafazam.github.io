@@ -1,0 +1,181 @@
+{
+  "basics": {
+    "name": "Alaf Azam Khan",
+    "titles": ["Senior Product Manager", "Engineering Leader", "AI + E-commerce", "Product Leader @ Increff"],
+    "email": "alafazam@gmail.com",
+    "phone": "+917987847247",
+    "linkedin": "https://www.linkedin.com/in/alafazam/",
+    "linkedinDescription": "linkedin.com/in/alafazam | Sr. PM | AI | E-commerce",
+    "avatarUrl": "/avatar.jpg",
+    "resumePdfUrl": "/assets/Alaf Azam Khan _ Sr.PM Resume (8).pdf"
+  },
+  "summary": "Tech-forward Product Leader with dual expertise as a former SDE3 engineer and <strong>8+ years</strong> specializing in retail tech and supply chain systems. Proven track record in scaling warehouse management, omnichannel fulfillment, and order management solutions handling <strong>200M+ SKUs</strong>. Experienced in both early-stage product discovery (0-1) and growth optimization (1-10), with a particular strength in building and scaling PM teams in fast-growing environments.",
+  "coreAchievements": [
+    {
+      "icon": "🚀",
+      "title": "Platform Architecture",
+      "description": "Designed database structures with optimized indexing and continuous performance monitoring for OMS/WMS solutions, enabling the platform to efficiently manage 200M+ SKUs and process 8M+ orders monthly while maintaining sub-second API response times."
+    },
+    {
+      "icon": "🤖",
+      "title": "AI Implementation",
+      "description": "Accelerated product delivery by implementing AI-powered prototyping, replacing Figma with code-based prototypes using Cursor. This provided developers with ready-to-implement UI code for 30-40 screens, reducing feature delivery time from quarterly to monthly cycles."
+    },
+    {
+      "icon": "💰",
+      "title": "Revenue Growth",
+      "description": "Grew company from pre-revenue to $12M+ ARR by developing flexible retail tech solutions addressing critical supply chain pain points, while collaborating with sales on pricing models and GTM strategies."
+    }
+  ],
+  "experience": [
+    {
+      "title": "Senior Technical Product Manager",
+      "company": "Increff",
+      "period": "March 2022 — Present",
+      "teamInfo": "Team: 25–30 | PMs Managed: 3 | Products: 6+ | Reported to: CEO",
+      "scope": "Led product vision and roadmap for suite of 6+ retail tech products including WMS, OMS, omnichannel fulfillment, and BI systems serving 100+ retail clients (~$10M ARR). Established and scaled the PM function.",
+      "techStack": ["Spring", "Python", "MySQL", "GCP", "Kubernetes", "Angular"],
+      "productTools": ["Jira", "Figma", "Notion", "Matomo"],
+      "achievements": [
+        "Established the <strong>product management function</strong> at Increff, creating processes, hiring standards, and mentoring frameworks that improved onboarding efficiency by 40%, while reducing PM-to-developer handoff friction",
+        "Implemented <strong>voice-based support chatbot</strong> for warehouse SOP questions, reducing training time for new warehouse staff by 25% and decreasing operational errors by 15% across client implementations",
+        "Modernized product suite with <strong>event-driven architecture</strong>, enabling independent scaling of microservices that supported a 3x increase in order volume without performance degradation",
+        "Spearheaded transition from siloed development to <strong>full-stack engineering</strong> teams, reducing cross-team dependencies and cutting feature delivery time by ~10%",
+        "Led <strong>cost optimization initiatives</strong> across cloud infrastructure, identifying and eliminating redundant services that reduced cloud spend by ~15% ($100K+ annual savings)",
+        "Standardized <strong>technical interview process</strong> across SDE1–SDE2 roles, personally conducting 100+ interviews that improved hiring quality while reducing time-to-offer by 25%"
+      ],
+      "modalDetails": {
+        "roleOverview": "Led product strategy and development for Increff's fulfillment platform, serving 100+ global clients with WMS, OMS, omnichannel fulfillment, and BI systems. Established and scaled the PM function while driving AI-powered innovation and technical architecture modernization.",
+        "keyAchievements": [
+          "Designed database structures with optimized indexing, enabling the platform to handle 200M+ SKUs and 8M+ monthly orders",
+          "Implemented AI-powered prototyping using Cursor, reducing feature delivery time from quarterly to monthly cycles",
+          "Grew company from pre-revenue to $12M+ ARR through flexible retail tech solutions",
+          "Reduced cloud infrastructure costs by 15% ($100K+ annual savings)",
+          "Improved PM team onboarding efficiency by 40%"
+        ],
+        "technicalLeadership": [
+          "Modernized architecture to event-driven system supporting 3x increase in volume",
+          "Led full-stack transition reducing delivery time by ~10%",
+          "Standardized hiring process across engineering roles",
+          "Conducted 100+ technical interviews improving hiring quality while reducing time-to-offer by 25%"
+        ],
+        "teamScope": [
+          "Team Size: 25-30 engineers",
+          "Product Managers Managed: 3",
+          "Products: 6+",
+          "Reporting: Direct to CEO"
+        ]
+      }
+    },
+    {
+      "title": "Software Development Engineer 3 / Acting Technical Product Manager",
+      "company": "Increff",
+      "period": "June 2021 — March 2022",
+      "teamInfo": "Team: 15–20 | Reported to: CTO",
+      "environment": "E-commerce platform scaling across OMS, WMS, and backend services",
+      "techStack": ["Spring", "Python", "MySQL", "GCP", "ELK"],
+      "achievements": [
+        "<strong>Transitioned</strong> from engineering to product leadership, establishing requirements, prioritization, and roadmap processes that improved sprint predictability by 25%",
+        "<strong>Defined</strong> and delivered complex features like Order Splitting and Expiry Workflows that enabled about 30% of clients to fulfill orders using their own inventory across multiple locations",
+        "<strong>Conducted</strong> 30+ discovery interviews with enterprise clients to identify pain points, resulting in a prioritized roadmap that reduced client onboarding time from 45 to 30 days",
+        "<strong>Revamped</strong> SDLC processes and introduced Agile ceremonies, increasing sprint velocity by 10% through improved planning and estimation",
+        "<strong>Facilitated</strong> team alignment as Scrum Master, ensuring timely releases and improved collaboration across engineering, QA, and product stakeholders"
+      ]
+    },
+    {
+      "title": "Software Development Engineer 2",
+      "company": "Increff",
+      "period": "July 2019 — June 2021 • 2 years",
+      "teamInfo": "Team Size: 5-10 | Managed: 3-5 | Reported to: CTO",
+      "description": "Led architecture design, coding efforts, and Backend team for the Warehouse Management System (WMS) Product.",
+      "achievements": [
+        "<strong>Architected</strong> and implemented inventory tracking system that maintained 99.9% accuracy across millions of SKUs, becoming a key selling point for enterprise clients",
+        "<strong>Designed</strong> database schema and API endpoints for WMS core modules (receiving, putaway, picking, and shipping), ensuring scalability from thousands to millions of daily transactions",
+        "<strong>Created</strong> comprehensive technical documentation and coding standards that reduced onboarding time for new developers from 4 weeks to 2 weeks",
+        "<strong>Led</strong> technical implementations for 10 key clients from pre-sales through production launch, customizing solutions for specific warehouse configurations"
+      ],
+      "isCollapsible": true
+    },
+    {
+      "title": "Software Development Engineer 1 (Full-stack)",
+      "company": "Increff",
+      "period": "June 2017 — February 2019 • 1 year 9 months",
+      "teamInfo": "Team Size: 3-5 | Reported to: CTO",
+      "techStack": ["AngularJS", "Angular", "Material Design", "Bootstrap CSS", "TypeScript", "Spring", "Hibernate", "MySQL", "GCP"],
+      "description": "Started as a Front-end Engineer and transitioned to Full Stack Engineer within 6 months.",
+      "achievements": [
+        "<strong>Single-handedly</strong> designed, developed, and launched the Algorithm Execution Platform for the Merchandising Software, creating an end-to-end solution that automated inventory optimization calculations",
+        "<strong>Solely conceptualized</strong>, built, and deployed the Performance and Appraisal Review System (Increff Achieve), delivering an internal tool that streamlined employee evaluations",
+        "<strong>Served</strong> as a backend engineer for the Warehouse Management System (WMS) for 9 months, developing core features and successfully launching the MVP with major clients",
+        "<strong>Demonstrated</strong> strong problem-solving abilities by independently identifying and resolving all production issues for assigned modules"
+      ],
+      "isCollapsible": true
+    },
+    {
+      "title": "Software Development Engineer",
+      "company": "Envestnet Yodlee",
+      "period": "July 2016 — September 2017",
+      "techStack": ["Node.js", "SQL", "Express.js", "Handlebar.js", "Backbone.js", "Java", "Spring", "Hibernate"],
+      "description": "Part of sustaining engineering team in Yodlee. Fixed bugs in existing product (Personal Finance Manager) and developed an internal tool that tracks Bugzilla productivity using XML RPC API.",
+      "achievements": [
+        "Developed internal productivity tracking tool using XML RPC API that improved team metrics visibility and increased bug resolution rate by 15%",
+        "Fixed critical bugs in the Personal Finance Manager product, improving customer satisfaction scores by 12%"
+      ],
+      "isCollapsible": true
+    }
+  ],
+  "education": [
+    {
+      "institution": "National Institute of Technology Srinagar",
+      "degree": "Bachelors in Information Technology",
+      "period": "2012 — 2016",
+      "gpa": "8.0/10"
+    }
+  ],
+  "certifications": [
+    {
+      "platform": "maven",
+      "title": "Improving Your Product Sense",
+      "issueDate": "Sep 2024",
+      "credentialId": "XqbJfSva",
+      "url": "https://maven.com/certificate/XqbJfSva"
+    },
+    {
+      "platform": "maven",
+      "title": "Managing your PM Career in 2025 and beyond",
+      "issueDate": "Jul 2024",
+      "credentialId": "VbVjjhlx",
+      "url": "https://maven.com/certificate/VbVjjhlx"
+    },
+    {
+      "platform": "edx",
+      "group": "Supply Chain Specialization",
+      "items": [
+        {
+          "title": "Supply Chain Dynamics",
+          "issueDate": "Dec 2021",
+          "credentialId": "2e1a26ab7c9c461db153d48acf5bc6db",
+          "url": "https://courses.edx.org/certificates/2e1a26ab7c9c461db153d48acf5bc6db"
+        },
+        {
+          "title": "Supply Chain Design",
+          "issueDate": "Apr 2021",
+          "credentialId": "ea7763df63b748769dd3f306f29eb4b0",
+          "url": "https://courses.edx.org/certificates/ea7763df63b748769dd3f306f29eb4b0"
+        },
+        {
+          "title": "Supply Chain Fundamentals",
+          "issueDate": "Dec 2020",
+          "credentialId": "0914c7fd78254817a8021a06c42790f2",
+          "url": "https://courses.edx.org/certificates/0914c7fd78254817a8021a06c42790f2"
+        },
+        {
+          "title": "Supply Chain Technology and Systems",
+          "issueDate": "Mar 2021",
+          "credentialId": "6d9c3e4cb61c41f380946ab383c9c416",
+          "url": "https://courses.edx.org/certificates/6d9c3e4cb61c41f380946ab383c9c416"
+        }
+      ]
+    }
+  ]
+} 
