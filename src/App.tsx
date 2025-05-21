@@ -1,5 +1,3 @@
-/** @jsx React.createElement */
-/** @jsxFrag React.Fragment */
 import { useState, useEffect } from 'react';
 import './index.css'; // Ensure Tailwind styles are imported
 
