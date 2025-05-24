@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ basics }) => {
         </div>
       </div>
       
-      <div className="mb-4 text-center">
+      <div className="text-center">
         <p>
           <a href={`mailto:${basics.email}`} className="text-blue-600 dark:text-blue-400 hover:underline">{basics.email}</a> | 
           <a href={`tel:${basics.phone}`} className="px-1 dark:text-gray-300">{basics.phone}</a> | 

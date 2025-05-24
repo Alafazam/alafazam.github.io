@@ -17,9 +17,11 @@ export interface CoreAchievement {
 
 export interface ModalDetails {
   roleOverview: string;
-  keyAchievements: string[];
-  technicalLeadership: string[];
-  teamScope: string[];
+  revenueAndGrowth: string[];
+  productInnovation: string[];
+  teamLeadership: string[];
+  processOptimization: string[];
+  technicalExecution: string[];
 }
 
 export interface Experience {
@@ -33,6 +35,7 @@ export interface Experience {
   techStack?: string[];
   productTools?: string[];
   achievements: string[];
+  achievementCategories?: string[];
   isCollapsible?: boolean;
   modalDetails?: ModalDetails;
 }

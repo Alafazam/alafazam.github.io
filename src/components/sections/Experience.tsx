@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Experience as ExperienceType } from '../../types/resume';
 import Modal from '../Modal';
-import TechTag from '../TechTag';
 
 interface ExperienceProps {
   experiences: ExperienceType[];
@@ -9,92 +8,163 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
-  const [selectedExperience, setSelectedExperience] = useState<ExperienceType | null>(null);
 
   return (
-    <section className="mb-8">
-      <h2 className="text-xl font-bold mb-4 dark:text-white">Experience</h2>
+    <section className="mb-6">
+      <h2 className="text-xl text-gray-700 dark:text-gray-300 mb-3">Experience</h2>
       
       {experiences.map((experience, index) => (
-        <div key={index} className={`${index < experiences.length - 1 ? 'mb-6 pb-6 border-b border-gray-200 dark:border-gray-700' : 'mb-6'}`}>
-          {experience.isCollapsible ? (
-            <details open className="group">
-              <summary className="cursor-pointer flex flex-col sm:flex-row sm:justify-between mb-1">
-                <h3 className="font-semibold dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <div 
+          key={index} 
+          className={`${index < experiences.length - 1 ? 'mb-4 pb-4 border-b border-gray-200 dark:border-gray-700' : 'mb-4'}`}
+        >
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
+            <div className="flex items-center gap-2">
+              {index === 0 ? (
+                <h3 
+                  onClick={() => setIsModalOpen(true)}
+                  className="font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+                >
                   {experience.title} - {experience.company}
                 </h3>
-                <p className="job-period text-gray-600 dark:text-gray-400">{experience.period}</p>
-              </summary>
-              <ExperienceContent experience={experience} />
-            </details>
-          ) : (
-            <>
-              <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold dark:text-white">
-                    {experience.title} - {experience.company}
-                  </h3>
-                  {experience.modalDetails && (
-                    <button
-                      onClick={() => {
-                        setSelectedRole(experience.title);
-                        setSelectedExperience(experience);
-                        setIsModalOpen(true);
-                      }}
-                      className="inline-flex items-center justify-center p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 transition-colors"
-                      aria-label="View more details"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-                <p className="job-period text-gray-600 dark:text-gray-400">{experience.period}</p>
+              ) : (
+                <h3 className="font-semibold dark:text-white">
+                  {experience.title} - {experience.company}
+                </h3>
+              )}
+              {index === 0 && (
+                <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              )}
+            </div>
+            <p className="text-gray-600 dark:text-gray-400">{experience.period}</p>
+          </div>
+
+          {/* Content */}
+          <div className="dark:text-gray-300">
+            {experience.teamInfo && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                {experience.teamInfo}
+              </p>
+            )}
+            
+            {experience.scope && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                <strong>Scope:</strong> {experience.scope}
+              </p>
+            )}
+            
+            {experience.description && (
+              <p className="text-sm mb-1">{experience.description}</p>
+            )}
+            
+            {/* Tech Stack & Product Tools Combined */}
+            {((experience.techStack && experience.techStack.length > 0) || 
+              (experience.productTools && experience.productTools.length > 0)) && (
+              <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+                {experience.techStack && experience.techStack.length > 0 && (
+                  <div className="flex flex-wrap items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tech:</span>
+                    {experience.techStack.map((tech, techIndex) => (
+                      <span 
+                        key={techIndex} 
+                        className="inline-block bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 text-xs font-medium px-2 py-0.5 rounded mr-2 mb-1"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                {experience.productTools && experience.productTools.length > 0 && (
+                  <div className="flex flex-wrap items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tools:</span>
+                    {experience.productTools.map((tool, toolIndex) => (
+                      <span 
+                        key={toolIndex} 
+                        className="inline-block bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 text-xs font-medium px-2 py-0.5 rounded mr-2 mb-1"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              <ExperienceContent experience={experience} />
-            </>
-          )}
+            )}
+            
+            {/* Achievements */}
+            <ul className="list-none pl-0 space-y-2 mb-4 dark:text-gray-300">
+              {experience.achievements.map((achievement, achievementIndex) => (
+                <li key={achievementIndex} className="mb-2">
+                  {experience.achievementCategories && experience.achievementCategories[achievementIndex] && (
+                    <span className="inline-block bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-xs font-medium px-2 py-1 rounded mr-2 mb-1 border border-gray-200 dark:border-gray-700">
+                      {experience.achievementCategories[achievementIndex]}
+                    </span>
+                  )}
+                  <span dangerouslySetInnerHTML={{ __html: achievement }}></span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       ))}
 
-      {/* Modal */}
+      {/* Modal - Only for first experience */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={selectedRole || ''}
+        title={`${experiences[0]?.title} - Detailed Achievements`}
       >
-        {selectedExperience?.modalDetails && (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+        {experiences[0]?.modalDetails && (
+          <div className="space-y-6 text-gray-700 dark:text-gray-300">
             <div className="mb-4">
               <h3 className="text-lg font-semibold mb-2 dark:text-white">Role Overview</h3>
-              <p>{selectedExperience.modalDetails.roleOverview}</p>
+              <p dangerouslySetInnerHTML={{ __html: experiences[0].modalDetails.roleOverview }}></p>
             </div>
             
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">Key Achievements</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">💰 Revenue & Growth Impact</h3>
               <ul className="list-disc pl-5 space-y-2">
-                {selectedExperience.modalDetails.keyAchievements.map((achievement, index) => (
-                  <li key={index}>{achievement}</li>
+                {experiences[0].modalDetails.revenueAndGrowth.map((achievement, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
                 ))}
               </ul>
             </div>
             
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">Technical Leadership</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">💡 Product Innovation</h3>
               <ul className="list-disc pl-5 space-y-2">
-                {selectedExperience.modalDetails.technicalLeadership.map((item, index) => (
-                  <li key={index}>{item}</li>
+                {experiences[0].modalDetails.productInnovation.map((achievement, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">👥 Team Leadership</h3>
+              <ul className="list-disc pl-5 space-y-2">
+                {experiences[0].modalDetails.teamLeadership.map((achievement, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">⚡ Process Optimization</h3>
+              <ul className="list-disc pl-5 space-y-2">
+                {experiences[0].modalDetails.processOptimization.map((achievement, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
                 ))}
               </ul>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">Team & Scope</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white">🔧 Technical Execution</h3>
               <ul className="list-disc pl-5 space-y-2">
-                {selectedExperience.modalDetails.teamScope.map((item, index) => (
-                  <li key={index}>{item}</li>
+                {experiences[0].modalDetails.technicalExecution.map((achievement, index) => (
+                  <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
                 ))}
               </ul>
             </div>
@@ -102,59 +172,6 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
         )}
       </Modal>
     </section>
-  );
-};
-
-// Sub-component for rendering experience content
-const ExperienceContent: React.FC<{ experience: ExperienceType }> = ({ experience }) => {
-  return (
-    <div className="mt-2 dark:text-gray-300">
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-        {experience.teamInfo}
-      </p>
-      
-      {experience.scope && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-          <strong>Scope:</strong> {experience.scope}
-        </p>
-      )}
-      
-      {experience.environment && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-          {experience.environment}
-        </p>
-      )}
-      
-      {experience.description && (
-        <p className="text-sm mb-2 dark:text-gray-300">
-          {experience.description}
-        </p>
-      )}
-      
-      {experience.techStack && (
-        <div className="mb-2 tech-tags-container">
-          <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Tech:</span>
-          {experience.techStack.map((tech, index) => (
-            <TechTag key={index} text={tech} />
-          ))}
-        </div>
-      )}
-      
-      {experience.productTools && (
-        <div className="mb-3 tech-tags-container">
-          <span className="text-sm text-gray-600 dark:text-gray-400 mr-2">Product Tools:</span>
-          {experience.productTools.map((tool, index) => (
-            <TechTag key={index} text={tool} />
-          ))}
-        </div>
-      )}
-      
-      <ul className="list-disc pl-5 mb-4 dark:text-gray-300">
-        {experience.achievements.map((achievement, index) => (
-          <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
-        ))}
-      </ul>
-    </div>
   );
 };
 

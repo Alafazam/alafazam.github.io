@@ -66,9 +66,11 @@ Leading product strategy and tech teams at Increff that deliver:
 
 #### Previous Projects 
 
-500+ contributions last year on github.  
+500+ contributions last year of collage. 
 
-Made a movie recommendation system from scratch in python as Final year project. We implemented User based CF, Item Based CF and [Reverse CF](http://www.sciencedirect.com/science/article/pii/S0957417415000068) 
+Designed Back-end for College's Techfest's website, using Flask-python. Techvaganza15 and Techvaganza14
+
+Made a movie recommendation system from scratch in python as Final year project. Got 10/10. We implemented User based Colaborative Filtering, Item Based Collaborative Filtering and [Reverse CF](http://www.sciencedirect.com/science/article/pii/S0957417415000068) 
 
 Made a chatting app [ Easy Chat](http://easychat.alafazam.com/) with Autocomplete-Emoji support using Node.js(), Express, SocketIO and Materializecss.
 	
@@ -80,7 +82,7 @@ Made a RESTful API for Active system components version storage and visualizatio
 
 Crawled Semester results and made a website to display it. [Results](http://7thresults.alafazam.com/)
 
-Designed Back-end for College's Techfest's website, using Flask-python. Techvaganza15 and Techvaganza14
+
 
 Made a random [name generator](https://github.com/Alafazam/name_generator), published on NPM.
 
