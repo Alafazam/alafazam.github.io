@@ -21,7 +21,7 @@ const ResumePage = ({ isDarkMode, toggleTheme }: ResumePageProps) => {
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = resumeData.basics.resumePdfUrl;
-    link.download = 'Alaf Azam Khan _ Sr.PM Resume.pdf';
+    link.download = 'Alaf SPM Resume October 2025.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
