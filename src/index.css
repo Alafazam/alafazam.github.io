@@ -18,26 +18,17 @@ body {
 }
 
 h1 {
-  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #333;
 }
 
 h2 {
-  font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
-  padding-bottom: 0.5rem;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #a0aec0;
-  text-transform: none;
 }
 
 h3 {
-  color: #333;
-  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
@@ -152,42 +143,7 @@ section {
   margin-bottom: 2.5rem;
 }
 
-/* Avatar styles */
-.avatar-container {
-  width: 90px;
-  height: 90px;
-  margin-bottom: 16px;
-  overflow: hidden;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.avatar-image {
-  width: 90px;
-  height: auto;
-}
-
-/* Certification styles */
-.certification-issuer {
-  color: #4a5568;
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
-}
-
-.certification-date {
-  color: #718096;
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
-}
-
-.certification-id {
-  color: #718096;
-  font-size: 0.75rem;
-  font-family: monospace;
-  margin-bottom: 0.5rem;
-}
 
 /* Print-specific styles */
 @media print {
@@ -209,10 +165,10 @@ section {
   }
   
   /* Hide avatar in print view */
-  .avatar-container {
+  img.rounded-full {
     display: none;
   }
-  
+
   /* Remove section dividers in print view */
   .section-divider {
     display: none;

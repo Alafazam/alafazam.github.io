@@ -1,7 +1,7 @@
 const HiringManagerPerspective = () => {
   return (
     <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">👨‍💼 Hiring Manager's Perspective</h1>

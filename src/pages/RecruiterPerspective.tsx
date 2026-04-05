@@ -1,7 +1,7 @@
 const RecruiterPerspective = () => {
   return (
     <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">🎯 Recruiter Notes: Alaf Azam Khan</h1>
@@ -16,7 +16,7 @@ const RecruiterPerspective = () => {
             <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4 uppercase tracking-wide">
               5-Second Snapshot
             </h3>
-            <div className="grid grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
               <div className="text-center">
                 <div className="text-2xl mb-2">🚀</div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Role</div>
