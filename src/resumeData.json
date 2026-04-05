@@ -1,25 +1,25 @@
 {
   "basics": {
     "name": "Alaf Azam Khan",
-    "titles": ["Senior Product Manager", "Engineering Leader", "AI + E-commerce", "Product Leader @ Increff"],
+    "titles": ["Head of Product & Engineering", "AI & ML Product Leader", "Building Merchandising Intelligence @ Increff", "ex-SDE3 → PM → Engineering Head"],
     "email": "alafazam@gmail.com",
     "phone": "+917987847247",
     "linkedin": "https://www.linkedin.com/in/alafazam/",
-    "linkedinDescription": "linkedin.com/in/alafazam | Sr. PM | AI | E-commerce",
+    "linkedinDescription": "linkedin.com/in/alafazam | Product & Engineering Head | AI | ML",
     "avatarUrl": "/avatar.jpg",
     "resumePdfUrl": "/assets/Alaf SPM Resume October 2025.pdf"
   },
-  "summary": "AI-driven Product Leader with a strong technical foundation (ex-SDE3) and 8+ years building and scaling SaaS platforms across complex domains like Warehouse Management, Order Management, and Supply Chain. Experienced in driving 0→1 innovation and 1→10 growth, leading cross-functional teams to ship high-impact, data-informed products. Passionate about leveraging AI and automation to accelerate product development, enhance decision-making, and unlock scalable business outcomes.",
+  "summary": "AI-driven Product & Engineering Leader with 8+ years at Increff, progressing from SDE1 → SDE3 → PM → Head of Product & Engineering. Currently leading a 35+ member cross-functional team (4 tech leads) building ML-powered merchandising intelligence — including demand forecasting, AI widget platforms, and self-serve analytics. Proven track record of 0→1 product creation, $12M+ ARR growth, and embedding AI-first culture across product and engineering orgs.",
   "coreAchievements": [
     {
-      "icon": "🚀",
-      "title": "Platform Architecture",
-      "description": "Designed database structures with optimized indexing and continuous performance monitoring for OMS/WMS solutions, enabling the platform to efficiently manage 200M+ SKUs and process 8M+ orders monthly while maintaining sub-second API response times."
+      "icon": "🤖",
+      "title": "ML Demand Forecasting",
+      "description": "Built end-to-end ML demand forecasting platform: automated data ingestion, multi-model training pipeline, accuracy/AUC-based model evaluation, user-driven model selection, and downstream merchandising financial planning."
     },
     {
-      "icon": "🤖",
-      "title": "AI Implementation",
-      "description": "Accelerated product delivery by implementing AI-powered prototyping, replacing Figma with code-based prototypes using Cursor. This provided developers with ready-to-implement UI code for 30-40 screens, reducing feature delivery time from quarterly to monthly cycles."
+      "icon": "🚀",
+      "title": "AI Widget Platform",
+      "description": "Driving AI widget platform strategy inside Increff's merchandising product — composable, in-product widgets that guide merchandisers and planners through complex workflows, decoupling AI feature development from core product release cycles."
     },
     {
       "icon": "💰",
@@ -29,23 +29,76 @@
   ],
   "experience": [
     {
-      "title": "Senior Technical Product Manager | Prodcut Head",
+      "title": "Head of Product & Engineering — Merchandising Suite",
       "company": "Increff",
-      "period": "March 2022 — Present",
+      "period": "November 2025 — Present",
+      "teamInfo": "Team: 35+ | Tech Leads: 4 | Reported to: CEO",
+      "scope": "Hybrid Product & Engineering leadership role for Increff's Merchandising Suite — encompassing Demand Forecasting, Merchandising Financial Planning, Analytics (Superset), and AI-powered planning tools. Leading a 35+ member cross-functional team including 4 tech leads, driving both product strategy and engineering execution. Platformizing the merchandising product for new verticals while embedding ML and AI deeply into the core product experience.",
+      "techStack": ["Python", "ML/Scikit-learn", "Apache Superset", "React", "GCP", "MySQL", "Kubernetes"],
+      "productTools": ["Cursor", "Claude", "Jira", "Notion"],
+      "achievements": [
+        "Took on a first-of-kind hybrid Product & Engineering leadership role at Increff, unifying a 35+ member team (4 tech leads) under a single strategic vision — owning product roadmap, engineering architecture, and delivery simultaneously.",
+        "Built end-to-end ML demand forecasting platform: automated data ingestion, multi-model training pipeline, AUC/accuracy-based model evaluation, user-driven model selection, and downstream integration with merchandising financial planning workflows.",
+        "Architected and shipped AI chatbot integration with 10+ action intents — enabling planners to trigger algorithms, modify outputs, and get parameter explanations conversationally, reducing UI navigation dependency for core workflows.",
+        "Initiated AI widget platform strategy — a composable, in-product widget layer enabling rapid development of AI-guided experiences for merchandisers and planners, decoupling AI feature velocity from core product release cycles.",
+        "Delivered self-serve analytics via Apache Superset integration: 100+ retail clients can now design custom reports and embed live Superset dashboards as widgets directly within the product UI, eliminating analytics dependency on engineering.",
+        "Driving platform strategy to expand the merchandising suite into new verticals and domains, repositioning the product from fixed-scope to a configurable, multi-tenant platform."
+      ],
+      "achievementCategories": [
+        "🧠 Engineering Leadership",
+        "🤖 ML Platform",
+        "🤖 AI Product",
+        "🚀 AI Widget Platform",
+        "📊 Analytics Platform",
+        "🌐 Platform Strategy"
+      ],
+      "modalDetails": {
+        "roleOverview": "First hybrid Product & Engineering leadership role at Increff. Alaf owns both the product roadmap and the engineering org for the Merchandising Suite — a 35+ member team with 4 tech leads. This role emerged from Alaf's proven track record on the Fulfillment side (WMS, OMS) and the company's need for unified leadership on the merchandising pivot.",
+        "revenueAndGrowth": [
+          "Platformizing the merchandising suite to expand into new verticals — repositioning from fixed-scope to a configurable multi-tenant platform, expanding TAM",
+          "ML demand forecasting directly enables merchandising financial planning, a high-value workflow that reduces overstock and stockout costs for enterprise retail clients",
+          "Self-serve Superset analytics eliminates a recurring cost centre — previously required engineering time for every custom report request"
+        ],
+        "productInnovation": [
+          "Built end-to-end <strong>ML demand forecasting</strong>: data ingestion → multi-model training → AUC/accuracy evaluation → user-driven model selection → forecasting → financial planning",
+          "<strong>AI chatbot</strong> with 10+ action intents: trigger algorithms, modify outputs, explain parameters — planners execute core workflows conversationally",
+          "<strong>AI widget platform</strong>: composable in-product widget layer for AI-guided merchandiser experiences, decoupled from core release cycles",
+          "<strong>Superset self-serve analytics</strong>: clients design and embed their own dashboards as widgets in the product UI"
+        ],
+        "teamLeadership": [
+          "Unified <strong>35+ member cross-functional team</strong> (engineers + PMs) with 4 tech leads under a single product & engineering vision",
+          "Managing both product strategy and engineering delivery simultaneously — a hybrid model new to Increff",
+          "Driving rigorous top-down planning and brainstorming using Claude and AI tools to maintain velocity across a large, distributed team"
+        ],
+        "processOptimization": [
+          "Introduced AI-assisted planning cycles using Claude for architecture brainstorming, PRD creation, and sprint planning",
+          "Decoupled AI widget development from core product release cycles, enabling independent feature velocity for AI capabilities"
+        ],
+        "technicalExecution": [
+          "Architected ML pipeline: automated data ingestion, multi-model training, AUC-based evaluation, model persistence, and forecasting API",
+          "Designed widget layer architecture: Superset dashboards embedded as live widgets in product UI, with AI widget platform as next evolution",
+          "Leading Kubernetes-based microservices architecture for the merchandising suite, ensuring scalability across new verticals"
+        ]
+      }
+    },
+    {
+      "title": "Senior Technical Product Manager | Product Head — Fulfillment Suite",
+      "company": "Increff",
+      "period": "March 2022 — October 2025",
       "teamInfo": "Team: 25 | PMs Managed: 3 | Products: 6+ | Reported to: CEO",
-      "scope": "AI-driven Product Leader who established and scaled the Product Management function at Increff. Defined the product vision and roadmap for a suite of 6+ SaaS products — including WMS, OMS, SFS, Omnichannel Fulfillment, LMS, and BI systems — serving 100+ retail clients (~$10M ARR). Championed the integration of AI and data intelligence across product lines to drive automation, predictive insights, and operational scalability.",
+      "scope": "Established and scaled the Product Management function at Increff. Defined the product vision and roadmap for a suite of 6+ SaaS products — including WMS, OMS, SFS, Omnichannel Fulfillment, LMS, and BI systems — serving 100+ retail clients (~$12M ARR). Championed the integration of AI and data intelligence across product lines to drive automation, predictive insights, and operational scalability.",
       "techStack": ["Spring", "Python", "MySQL", "GCP", "Kubernetes", "Angular"],
       "productTools": ["Jira", "Figma", "Notion", "Matomo"],
       "achievements": [
         "Established and scaled the Product Management function at Increff, driving product vision, roadmap alignment, and cross-functional delivery across a $12M ARR SaaS suite spanning WMS, OMS, SFS, and analytics products.",
-        "Spearheaded the end-to-end vision and execution of WMS2, Increff's next-generation warehouse management platform—leading a strategic architectural shift from serialized to non-serialized workflows, unlocking new regional GTMs and expanding addressable market.",
+        "Spearheaded the end-to-end vision and execution of WMS2, Increff's next-generation warehouse management platform — leading a strategic architectural shift from serialized to non-serialized workflows, unlocking new regional GTMs and expanding addressable market.",
         "Implemented an AI-first culture across product workflows, deploying custom AI copilots for PRD creation and UI prototyping (via Cursor), cutting prototyping time by 50% and accelerating design-to-code delivery by ~70–80%.",
-        "Led strategic client implementations for enterprise retailers (Meesho, Al-Abdul Karim, ModeInk), driving ₹3M+ MRR through end-to-end solutioning, implementation planning, and C-level negotiation support.",
+        "Led strategic client implementations for enterprise retailers (Meesho, Al-Abdul Karim, ModeInk), driving ₹30L+ MRR through end-to-end solutioning, implementation planning, and C-level negotiation support.",
         "Redesigned sprint planning using data-driven bandwidth allocation (e.g., 41% onboarding, 39% bugs, 12% architecture), improving on-time delivery from 60% → 85% and cutting critical unplanned requests by 80%.",
-        "Introduced a ROA-driven (Return on Attention) prioritization framework, aligning Sales, Success, and Engineering on unified focus areas—eliminating urgent-critical feature asks and improving roadmap predictability.",
+        "Introduced a ROA-driven (Return on Attention) prioritization framework, aligning Sales, Success, and Engineering on unified focus areas — eliminating urgent-critical feature asks and improving roadmap predictability.",
         "Championed AI-powered PM and engineering efficiency, integrating prompt libraries, prototyping assistants, and automated documentation into core workflows to institutionalize AI use in product operations.",
         "Hired and mentored 3 APMs into independent PMs, scaling the product organization to manage 6+ products autonomously and improving PM-to-engineering throughput across teams.",
-        "Led cost optimization initiatives, streamlining cloud infrastructure and eliminating redundant services worth ₹1M annually, maintaining 99.9% uptime while supporting 8M+ monthly orders.",
+        "Led cloud infrastructure optimization, eliminating redundant services worth $500K+ annually and maintaining 99.9% uptime while supporting 8M+ monthly orders.",
         "Established pre-sales and onboarding teams from scratch, defining processes and success metrics to ensure predictable, scalable enterprise client go-lives.",
         "Modernized product delivery and process governance, implementing data-backed decision frameworks and sprint hygiene practices that improved team velocity, transparency, and leadership visibility.",
         "Standardized product hiring and evaluation frameworks, conducting 60+ PM and technical interviews and improving hiring velocity by 25%."
@@ -67,8 +120,8 @@
       "modalDetails": {
         "roleOverview": "",
         "revenueAndGrowth": [
-          "Led strategic client implementations generating <strong>₹30+ lakh monthly recurring revenue</strong> (Meesho: ₹10L/month, Al-Abdul Karim: ₹10L/month, ModeInk: ₹10L/month), including complex 4-5x enterprise retail onboarding processes",
-          "Spearheaded <strong>cost optimization initiatives</strong> across cloud infrastructure, identifying and eliminating redundant services worth $500K+ annually, achieving 15% reduction in cloud spend",
+          "Led strategic client implementations generating <strong>₹30L+ monthly recurring revenue</strong> (Meesho: ₹10L/month, Al-Abdul Karim: ₹10L/month, ModeInk: ₹10L/month), including complex enterprise retail onboarding processes",
+          "Spearheaded <strong>cloud infrastructure optimization</strong>, eliminating redundant services worth <strong>$500K+ annually</strong>, achieving 15% reduction in cloud spend",
           "Grew company from pre-revenue to <strong>$12M+ ARR</strong> through flexible retail tech solutions addressing critical supply chain pain points"
         ],
         "productInnovation": [
@@ -82,7 +135,7 @@
           "Established <strong>pre-sales and customer onboarding teams</strong> from scratch, including hiring, defining responsibilities, SOPs and performance expectations"
         ],
         "processOptimization": [
-          "Implemented a <strong>structured, ROA-driven prioritization (Return on Attention) framework</strong>—merging, deferring, and ranking cross-functional feature asks via a unified master sheet—reducing urgent-critical requests from 3–4 per sprint to zero and aligning all teams on shared strategic focus",
+          "Implemented a <strong>structured, ROA-driven prioritization (Return on Attention) framework</strong> — merging, deferring, and ranking cross-functional feature asks via a unified master sheet — reducing urgent-critical requests from 3–4 per sprint to zero and aligning all teams on shared strategic focus",
           "Redesigned sprint planning with <strong>structured bandwidth allocation</strong> (41% onboarding, 39% bugs, 12% architecture), improving on-time delivery from 60% to 85% and reducing urgent requests by 80%",
           "Standardized <strong>technical interview process</strong> across APM, PM, PM2, SDE1-3 roles, conducting 50+ tech interviews and 15+ PM interviews, improving hiring quality while reducing time-to-offer by 25%"
         ],
@@ -98,10 +151,10 @@
       "company": "Increff",
       "period": "June 2021 — March 2022",
       "teamInfo": "Team: 15–20 | Reported to: CTO",
-      "description": "Engineering Leader for entire fulfillment suite of products that has Warehouse, Order and Store management systems. Responseble for ideations, prioritization, roadmap, and delivery of the products. Later established the product management function at Increff.",
-      "techStack": ["Spring", "Hibernate", "MySQL", "GCP", "ELK", "Technical Recruiting", "Analytical Skills", "Architecture Design", "Code Refactoring", "E-Commerce", "Problem Solving", "Code Review", "College Recruiting", "Java", "Solution Architecture", "System Architecture", "Hiring", "Coaching & Mentoring"],
+      "description": "Engineering Leader for the entire fulfillment suite — WMS, OMS, and SFS. Responsible for ideation, prioritization, roadmap, and delivery. Later established the product management function at Increff.",
+      "techStack": ["Spring", "Hibernate", "MySQL", "GCP", "ELK", "Java", "Solution Architecture", "System Architecture"],
       "achievements": [
-        "<strong>Architected complex feature suite</strong> including Order Splitting, Async Inventory allocation, Virtual Combos, and Expiry Workflows that increased inventory utilization and <strong>unlocked significant TAM expansion</strong> for Increff, resulting in new clients and increased order volumes.",
+        "<strong>Architected complex feature suite</strong> including Order Splitting, Async Inventory Allocation, Virtual Combos, and Expiry Workflows that increased inventory utilization and <strong>unlocked significant TAM expansion</strong> for Increff, resulting in new clients and increased order volumes.",
         "Built the <strong>foundational versions</strong> of Increff's Order Management System (OMS) and Store Fulfillment System (SFS) as independently sellable products, now used by <strong>50+ and 10+ clients</strong> respectively.",
         "During covid crisis, <strong>joined sales efforts</strong> to help demonstrate product capabilities and support closing critical deals during challenging market conditions.",
         "Developed <strong>specialized demo tool</strong> for sales team that eliminated scanning data management issues, reducing demo errors by 50% and accelerating conversion rates.",
@@ -116,12 +169,12 @@
       "company": "Increff",
       "period": "July 2019 — June 2021 • 2 years",
       "teamInfo": "Team Size: 5-10 | Managed: 3-5 | Reported to: CTO",
-      "techStack": ["Spring", "Hibernate", "MySQL", "GCP", "ELK", "Technical Recruiting", "Analytical Skills", "Architecture Design", "Code Refactoring", "E-Commerce", "Problem Solving", "Code Review", "College Recruiting", "Java", "Solution Architecture", "System Architecture", "Hiring", "Coaching & Mentoring"],
-      "description": "Team Lead for Warehouse and Order Management System (WMS & OMS) Product. Led architecture design, system design, coding standards, product delivery, and technical documentation.",
+      "techStack": ["Spring", "Hibernate", "MySQL", "GCP", "ELK", "Java", "Solution Architecture", "System Architecture"],
+      "description": "Team Lead for Warehouse and Order Management System (WMS & OMS). Led architecture design, system design, coding standards, product delivery, and technical documentation.",
       "achievements": [
         "<strong>Architected</strong> and implemented inventory tracking system that maintained <strong>99.9% accuracy</strong> across <strong>millions of SKUs</strong>, becoming a <strong>key selling point</strong> for enterprise clients.",
-        "<strong>Owned the design and implementation</strong> of complex Order Management System (OMS) features, including multi channel inventory updates, buffer inventory, <strong>ERP integration framework</strong>, <strong>Logistics Integration framework</strong>.",
-        "Ensured <strong>Test Driven Development (TDD)</strong> and <strong>Code Coverage (90%)</strong> with over <strong>1000+ unit tests</strong> for all the code written in my modules.",
+        "<strong>Owned the design and implementation</strong> of complex Order Management System (OMS) features, including multi-channel inventory updates, buffer inventory, <strong>ERP integration framework</strong>, and <strong>Logistics Integration framework</strong>.",
+        "Ensured <strong>Test Driven Development (TDD)</strong> and <strong>Code Coverage (90%)</strong> with over <strong>1000+ unit tests</strong> for all code written in my modules.",
         "<strong>Designed database schema and API endpoints</strong> for WMS core modules (gate entry, receiving, cycle counting, audit, b2b packing), ensuring <strong>scalability from thousands to millions</strong> of daily transactions.",
         "Created <strong>comprehensive technical documentation</strong> and coding standards that <strong>reduced onboarding time</strong> for new developers from <strong>4 weeks to 2 weeks</strong>.",
         "<strong>Led technical implementations for 10+ key clients</strong> from pre-sales through production launch, customizing solutions for specific warehouse configurations while <strong>maintaining core codebase integrity</strong>.",
@@ -135,14 +188,14 @@
       "period": "June 2017 — February 2019 • 1 year 9 months",
       "teamInfo": "Team Size: 3-5 | Reported to: CTO",
       "techStack": ["Java", "Spring", "Hibernate", "MySQL", "GCP", "E-Commerce", "Problem Solving"],
-      "description": "Part of the Warehouse and Order Management System (WMS & OMS) product team, actively involved in the full software development lifecycle from design to development to deployment and to onboarding new clients.",
+      "description": "Part of the Warehouse and Order Management System (WMS & OMS) product team, actively involved in the full software development lifecycle from design to development to deployment and client onboarding.",
       "achievements": [
         "As an <strong>Engineer</strong>, contributed to the <strong>development of the core Order Management System (OMS)</strong> solution, gaining hands-on experience with <strong>Java</strong> and <strong>scalable system design</strong>.",
-        "<strong>Owned the implementation</strong> of multiple Increff services like <strong>MDM</strong> / <strong>Inventory Management</strong>, <strong>OMS</strong>, <strong>Channel Integration Management</strong>, etc.",
+        "<strong>Owned the implementation</strong> of multiple Increff services like <strong>MDM</strong>, <strong>Inventory Management</strong>, <strong>OMS</strong>, and <strong>Channel Integration Management</strong>.",
         "Actively participated in the full <strong>SDLC</strong>, learning through <strong>practical application</strong> and <strong>iterative development</strong>.",
-        "<strong>Contributed to team efforts</strong> in setting up the <strong>testing framework</strong> and rallying team for taking <strong>code coverage to 90%</strong>, gaining exposure to collaborative development workflows.",
-        "Gained initial experience in writing <strong>microservices</strong>, <strong>deployments</strong>, <strong>optimising DB queries</strong>, <strong>debugging</strong> with a focus on continuous learning and improvement.",
-        "<strong>Independently identified and resolved all production issues</strong> for my assigned modules, demonstrating strong <strong>problem-solving</strong> abilities."
+        "<strong>Contributed to team efforts</strong> in setting up the <strong>testing framework</strong> and rallying team to take <strong>code coverage to 90%</strong>.",
+        "Gained initial experience in writing <strong>microservices</strong>, <strong>deployments</strong>, <strong>optimising DB queries</strong>, and <strong>debugging</strong>.",
+        "<strong>Independently identified and resolved all production issues</strong> for assigned modules, demonstrating strong <strong>problem-solving</strong> abilities."
       ],
       "isCollapsible": true
     },
@@ -213,4 +266,4 @@
       ]
     }
   ]
-} 
+}
