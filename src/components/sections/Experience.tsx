@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Experience as ExperienceType } from '../../types/resume';
 import Modal from '../Modal';
 
+// Strip emojis/symbols and convert to kebab-case id
+const toCategorySlug = (cat: string) =>
+  cat.replace(/[^a-zA-Z0-9 ]/g, '').trim().toLowerCase().replace(/\s+/g, '-');
+
 interface ExperienceProps {
   experiences: ExperienceType[];
 }
@@ -22,8 +26,11 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
           <div className="flex flex-col sm:flex-row sm:justify-between mb-1">
             <div className="flex items-center gap-2">
               {index === 0 ? (
-                <h3 
+                <h3
+                  role="button"
+                  tabIndex={0}
                   onClick={() => setIsModalOpen(true)}
+                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsModalOpen(true)}
                   className="font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
                 >
                   {experience.title} - {experience.company}
@@ -95,18 +102,29 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             )}
             
             {/* Achievements */}
-            <ul className="list-none pl-0 space-y-2 mb-4 dark:text-gray-300">
-              {experience.achievements.map((achievement, achievementIndex) => (
-                <li key={achievementIndex} className="mb-2">
-                  {experience.achievementCategories && experience.achievementCategories[achievementIndex] && (
-                    <span className="inline-block bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-xs font-medium px-2 py-1 rounded mr-2 mb-1 border border-gray-200 dark:border-gray-700">
-                      {experience.achievementCategories[achievementIndex]}
-                    </span>
-                  )}
-                  <span dangerouslySetInnerHTML={{ __html: achievement }}></span>
-                </li>
-              ))}
-            </ul>
+            {(() => {
+              const seenSlugs = new Set<string>();
+              return (
+                <ul className="list-none pl-0 space-y-2 mb-4 dark:text-gray-300">
+                  {experience.achievements.map((achievement, achievementIndex) => {
+                    const cat = experience.achievementCategories?.[achievementIndex];
+                    const slug = cat ? toCategorySlug(cat) : undefined;
+                    const isFirst = slug ? !seenSlugs.has(slug) : false;
+                    if (slug && isFirst) seenSlugs.add(slug);
+                    return (
+                      <li key={achievementIndex} id={isFirst ? slug : undefined} className="mb-2">
+                        {cat && (
+                          <span className="inline-block bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-medium px-2 py-1 rounded mr-2 mb-1 border border-blue-200 dark:border-blue-700">
+                            {cat}
+                          </span>
+                        )}
+                        <span dangerouslySetInnerHTML={{ __html: achievement }}></span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              );
+            })()}
           </div>
         </div>
       ))}
