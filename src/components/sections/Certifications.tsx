@@ -36,12 +36,24 @@ const Certifications: React.FC<CertificationsProps> = ({ certifications }) => {
             // Single certification
             <div className="ml-0 mb-4">
               <h3 className="font-semibold mb-1">
-                <a href={certification.url} target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                  <PlatformIcon platform={certification.platform} />
-                  {certification.title}
-                </a>
+                {certification.url ? (
+                  <a href={certification.url} target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    <PlatformIcon platform={certification.platform} />
+                    {certification.title}
+                  </a>
+                ) : (
+                  <span className="text-gray-800 dark:text-gray-300 inline-flex items-center">
+                    <PlatformIcon platform={certification.platform} />
+                    {certification.title}
+                  </span>
+                )}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Issued {certification.issueDate} • Credential ID: {certification.credentialId}</p>
+              {(certification.issueDate || certification.credentialId) && (
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {certification.issueDate && <>Issued {certification.issueDate}</>}
+                  {certification.credentialId && <> • Credential ID: {certification.credentialId}</>}
+                </p>
+              )}
             </div>
           )}
         </div>

@@ -1,15 +1,38 @@
 {
   "basics": {
     "name": "Alaf Azam Khan",
-    "titles": ["Senior Product Manager", "Engineering Leader", "AI + E-commerce", "Product Leader @ Increff"],
+    "titles": ["Director of Engineering & Product @ Increff", "AI-Native Eng + Product Leader", "Building Merchandising Analytics", "ex-SDE3 → Director"],
     "email": "alafazam@gmail.com",
     "phone": "+917987847247",
     "linkedin": "https://www.linkedin.com/in/alafazam/",
-    "linkedinDescription": "linkedin.com/in/alafazam | Sr. PM | AI | E-commerce",
+    "linkedinDescription": "linkedin.com/in/alafazam | Director Eng & Product | AI | Retail",
     "avatarUrl": "/avatar.jpg",
-    "resumePdfUrl": "/assets/Alaf SPM Resume October 2025.pdf"
+    "resumePdfUrl": "/assets/Alaf Director Resume 2026 - Plain.pdf"
   },
-  "summary": "AI-driven Product Leader with a strong technical foundation (ex-SDE3) and 8+ years building and scaling SaaS platforms across complex domains like Warehouse Management, Order Management, and Supply Chain. Experienced in driving 0→1 innovation and 1→10 growth, leading cross-functional teams to ship high-impact, data-informed products. Passionate about leveraging AI and automation to accelerate product development, enhance decision-making, and unlock scalable business outcomes.",
+  "summary": "AI-native engineering and product leader who bridges deep technical depth (ex-SDE3) with product strategy — now Director of Engineering & Product at Increff, leading both functions for a next-generation merchandising analytics platform. 9+ years building and scaling SaaS across Warehouse Management, Order Management, and Supply Chain, with a clear progression from SDE → SDE3 → Senior Technical PM / Product Head → Director. Proven at driving 0→1 innovation and 1→10 growth — having grown a product suite to $12M+ ARR — while institutionalizing AI across product and engineering workflows to compress delivery cycles and sharpen data-informed decisions.",
+  "coreExpertise": [
+    "Hybrid Product + Engineering Leadership",
+    "Platform-over-Throughput Thinking",
+    "AI-Native Product Operations",
+    "Retail Merchandising Domain (assortment, OTB, markdown, replenishment)"
+  ],
+  "frameworks": [
+    {
+      "icon": "clock",
+      "title": "Two-Clock Release & Delivery",
+      "description": "Feature-flag-gated continuous merge paired with controlled monthly client releases — eliminating pod blocking and unsafe rollbacks."
+    },
+    {
+      "icon": "target",
+      "title": "Return-on-Attention (ROA) Prioritization",
+      "description": "A prioritization framework I created to align focus across all 6 products and remove urgent-critical churn."
+    },
+    {
+      "icon": "bot",
+      "title": "AI-First Interface Strategy",
+      "description": "Exposing the platform as an intelligent backend (MCP + skills layer) so enterprise AI assistants drive merchandising decisions in natural language."
+    }
+  ],
   "coreAchievements": [
     {
       "icon": "🚀",
@@ -29,40 +52,84 @@
   ],
   "experience": [
     {
-      "title": "Senior Technical Product Manager | Prodcut Head",
+      "title": "Director of Engineering & Product",
       "company": "Increff",
-      "period": "March 2022 — Present",
+      "period": "January 2026 — Present",
+      "teamInfo": "Scope: Engineering + Product (Merchandising) | Team: ~40 | Reported to: CTO & CEO",
+      "scope": "Leads both Engineering and Product for Increff's Merchandising platform — a new product line owned end-to-end. Building a next-generation retail merchandising analytics platform: a one-stop, highly customizable, high-performance solution for configuring any retail workflow, powered by Increff's algorithms and AI agents. Driving the evolution of the Increff Merchandising System from 10→100 customers, and architecting the next platform to scale toward 10,000.",
+      "techStack": ["Python", "Spring", "MySQL", "GCP", "Kubernetes", "Superset", "LLM / AI Agents"],
+      "productTools": ["Jira", "Figma", "Notion", "Cursor"],
+      "achievements": [
+        "Promoted to <strong>Director of Engineering & Product (Jan 2026)</strong>, leading a combined engineering and product organization of <strong>~40</strong> for Increff's Merchandising platform and reporting to the CTO and CEO.",
+        "Owns a <strong>new product line end-to-end</strong>: a next-generation retail merchandising analytics platform — a one-stop, highly customizable, high-performance solution for configuring any retail workflow, powered by Increff algorithms and Increff AI agents.",
+        "Driving the evolution of the <strong>Increff Merchandising System from 10→100 customers</strong>, while architecting the next-generation platform to scale toward <strong>10,000 customers</strong>.",
+        "Embedding <strong>AI agents and Increff's algorithms</strong> natively across merchandising workflows to make configuration self-serve, faster, and more predictive for retail clients.",
+        "Unified <strong>engineering and product under a single mandate</strong>, setting end-to-end technical architecture and product strategy to reduce hand-off friction and accelerate delivery."
+      ],
+      "achievementCategories": [
+        "Promotion & Mandate",
+        "0→1 Product Line",
+        "Scale Journey",
+        "AI Leadership",
+        "Org Building"
+      ],
+      "modalDetails": {
+        "roleOverview": "Director of Engineering & Product for Increff's Merchandising platform — leading both disciplines for a new next-generation retail merchandising analytics product line, from architecture through go-to-market.",
+        "revenueAndGrowth": [
+          "Leading the scale journey of Increff's Merchandising business from <strong>10→100 customers</strong>, with the next-generation platform architected to take it toward <strong>10,000</strong>.",
+          "Owns the product and commercial direction of a new merchandising analytics product line as an independently positioned platform."
+        ],
+        "productInnovation": [
+          "Building a <strong>next-generation retail merchandising analytics platform</strong> — a one-stop solution to configure any retail workflow, powered by Increff algorithms and AI agents.",
+          "Designing the platform to be <strong>highly customizable and extremely fast</strong>, so clients can self-configure workflows without bespoke engineering."
+        ],
+        "teamLeadership": [
+          "Leads a unified <strong>engineering + product organization of ~40</strong>, reporting to the CTO and CEO.",
+          "Stepped up from Senior Technical PM / Product Head to <strong>Director of Engineering & Product</strong>, taking accountability for both functions."
+        ],
+        "processOptimization": [
+          "Unified engineering and product under a <strong>single roadmap and mandate</strong> to cut cross-function hand-off friction and speed up delivery."
+        ],
+        "technicalExecution": [
+          "Sets the <strong>technical architecture</strong> for the merchandising analytics platform, embedding Increff's algorithms and AI agents as first-class, high-performance building blocks."
+        ]
+      }
+    },
+    {
+      "title": "Senior Technical Product Manager | Product Head",
+      "company": "Increff",
+      "period": "March 2022 — January 2026",
       "teamInfo": "Team: 25 | PMs Managed: 3 | Products: 6+ | Reported to: CEO",
       "scope": "AI-driven Product Leader who established and scaled the Product Management function at Increff. Defined the product vision and roadmap for a suite of 6+ SaaS products — including WMS, OMS, SFS, Omnichannel Fulfillment, LMS, and BI systems — serving 100+ retail clients (~$10M ARR). Championed the integration of AI and data intelligence across product lines to drive automation, predictive insights, and operational scalability.",
       "techStack": ["Spring", "Python", "MySQL", "GCP", "Kubernetes", "Angular"],
       "productTools": ["Jira", "Figma", "Notion", "Matomo"],
       "achievements": [
-        "Established and scaled the Product Management function at Increff, driving product vision, roadmap alignment, and cross-functional delivery across a $12M ARR SaaS suite spanning WMS, OMS, SFS, and analytics products.",
-        "Spearheaded the end-to-end vision and execution of WMS2, Increff's next-generation warehouse management platform—leading a strategic architectural shift from serialized to non-serialized workflows, unlocking new regional GTMs and expanding addressable market.",
-        "Implemented an AI-first culture across product workflows, deploying custom AI copilots for PRD creation and UI prototyping (via Cursor), cutting prototyping time by 50% and accelerating design-to-code delivery by ~70–80%.",
-        "Led strategic client implementations for enterprise retailers (Meesho, Al-Abdul Karim, ModeInk), driving ₹3M+ MRR through end-to-end solutioning, implementation planning, and C-level negotiation support.",
-        "Redesigned sprint planning using data-driven bandwidth allocation (e.g., 41% onboarding, 39% bugs, 12% architecture), improving on-time delivery from 60% → 85% and cutting critical unplanned requests by 80%.",
-        "Introduced a ROA-driven (Return on Attention) prioritization framework, aligning Sales, Success, and Engineering on unified focus areas—eliminating urgent-critical feature asks and improving roadmap predictability.",
-        "Championed AI-powered PM and engineering efficiency, integrating prompt libraries, prototyping assistants, and automated documentation into core workflows to institutionalize AI use in product operations.",
-        "Hired and mentored 3 APMs into independent PMs, scaling the product organization to manage 6+ products autonomously and improving PM-to-engineering throughput across teams.",
-        "Led cost optimization initiatives, streamlining cloud infrastructure and eliminating redundant services worth ₹1M annually, maintaining 99.9% uptime while supporting 8M+ monthly orders.",
-        "Established pre-sales and onboarding teams from scratch, defining processes and success metrics to ensure predictable, scalable enterprise client go-lives.",
-        "Modernized product delivery and process governance, implementing data-backed decision frameworks and sprint hygiene practices that improved team velocity, transparency, and leadership visibility.",
-        "Standardized product hiring and evaluation frameworks, conducting 60+ PM and technical interviews and improving hiring velocity by 25%."
+        "<strong>Established and scaled the Product Management function</strong> at Increff, driving product vision, roadmap alignment, and cross-functional delivery across a <strong>$12M ARR SaaS suite</strong> spanning WMS, OMS, SFS, and analytics products.",
+        "Spearheaded the end-to-end vision and execution of <strong>WMS2</strong>, Increff's next-generation warehouse management platform—leading a <strong>strategic architectural shift from serialized to non-serialized</strong> workflows, unlocking new regional GTMs and <strong>expanding addressable market</strong>.",
+        "Implemented an <strong>AI-first culture</strong> across product workflows, deploying custom AI copilots for PRD creation and UI prototyping (via Cursor), <strong>cutting prototyping time by 50%</strong> and accelerating design-to-code delivery by <strong>~70–80%</strong>.",
+        "Led strategic client implementations for enterprise retailers (<strong>Meesho, Al-Abdul Karim, ModeInk</strong>), driving <strong>₹3M+ MRR</strong> through end-to-end solutioning, implementation planning, and C-level negotiation support.",
+        "Redesigned sprint planning using data-driven bandwidth allocation (e.g., 41% onboarding, 39% bugs, 12% architecture), <strong>improving on-time delivery from 60% → 85%</strong> and cutting critical unplanned requests by <strong>80%</strong>.",
+        "Introduced a <strong>ROA-driven (Return on Attention) prioritization framework</strong>, aligning Sales, Success, and Engineering on unified focus areas—eliminating urgent-critical feature asks and improving roadmap predictability.",
+        "Championed <strong>AI-powered PM and engineering efficiency</strong>, integrating prompt libraries, prototyping assistants, and automated documentation into core workflows to institutionalize AI use in product operations.",
+        "<strong>Hired and mentored 3 APMs</strong> into independent PMs, scaling the product organization to manage <strong>6+ products</strong> autonomously and improving PM-to-engineering throughput across teams.",
+        "Led <strong>cost optimization</strong> initiatives, streamlining cloud infrastructure and eliminating redundant services worth <strong>₹1M annually</strong>, maintaining <strong>99.9% uptime</strong> while supporting <strong>8M+ monthly orders</strong>.",
+        "<strong>Established pre-sales and onboarding teams from scratch</strong>, defining processes and success metrics to ensure predictable, scalable enterprise client go-lives.",
+        "Modernized product delivery and <strong>process governance</strong>, implementing data-backed decision frameworks and sprint hygiene practices that improved team velocity, transparency, and leadership visibility.",
+        "Standardized product hiring and evaluation frameworks, <strong>conducting 60+ PM and technical interviews</strong> and improving hiring velocity by <strong>25%</strong>."
       ],
       "achievementCategories": [
-        "🏗️ Organization Building",
-        "🚀 Strategic Innovation",
-        "🤖 AI Leadership",
-        "💰 Revenue Generation",
-        "📊 Process Optimization",
-        "🎯 Strategic Framework",
-        "⚡ AI Efficiency",
-        "👥 Team Development",
-        "💵 Cost Optimization",
-        "🎯 Organization Building",
-        "📈 Process Governance",
-        "🎤 Hiring Excellence"
+        "Organization Building",
+        "Strategic Innovation",
+        "AI Leadership",
+        "Revenue Generation",
+        "Process Optimization",
+        "Strategic Framework",
+        "AI Efficiency",
+        "Team Development",
+        "Cost Optimization",
+        "Organization Building",
+        "Process Governance",
+        "Hiring Excellence"
       ],
       "modalDetails": {
         "roleOverview": "",
@@ -98,7 +165,7 @@
       "company": "Increff",
       "period": "June 2021 — March 2022",
       "teamInfo": "Team: 15–20 | Reported to: CTO",
-      "description": "Engineering Leader for entire fulfillment suite of products that has Warehouse, Order and Store management systems. Responseble for ideations, prioritization, roadmap, and delivery of the products. Later established the product management function at Increff.",
+      "description": "Engineering Leader for entire fulfillment suite of products that has Warehouse, Order and Store management systems. Responsible for ideations, prioritization, roadmap, and delivery of the products. Later established the product management function at Increff.",
       "techStack": ["Spring", "Hibernate", "MySQL", "GCP", "ELK", "Technical Recruiting", "Analytical Skills", "Architecture Design", "Code Refactoring", "E-Commerce", "Problem Solving", "Code Review", "College Recruiting", "Java", "Solution Architecture", "System Architecture", "Hiring", "Coaching & Mentoring"],
       "achievements": [
         "<strong>Architected complex feature suite</strong> including Order Splitting, Async Inventory allocation, Virtual Combos, and Expiry Workflows that increased inventory utilization and <strong>unlocked significant TAM expansion</strong> for Increff, resulting in new clients and increased order volumes.",
@@ -168,6 +235,16 @@
     }
   ],
   "certifications": [
+    {
+      "platform": "reforge",
+      "title": "Product Leadership — Reforge",
+      "issueDate": "2023"
+    },
+    {
+      "platform": "discovery",
+      "title": "Continuous Product Discovery",
+      "issueDate": "2023"
+    },
     {
       "platform": "maven",
       "title": "Improving Your Product Sense",

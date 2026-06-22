@@ -64,9 +64,17 @@ export interface Certification {
   items?: CertificationItem[];
 }
 
+export interface Framework {
+  title: string;
+  description: string;
+  icon?: string;
+}
+
 export interface ResumeData {
   basics: Basics;
   summary: string;
+  coreExpertise?: string[];
+  frameworks?: Framework[];
   coreAchievements: CoreAchievement[];
   experience: Experience[];
   education: Education[];

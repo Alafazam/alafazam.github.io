@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TrendingUp, Lightbulb, Users, Gauge, Wrench } from 'lucide-react';
 import { Experience as ExperienceType } from '../../types/resume';
 import Modal from '../Modal';
 
@@ -112,12 +113,8 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
                     const isFirst = slug ? !seenSlugs.has(slug) : false;
                     if (slug && isFirst) seenSlugs.add(slug);
                     return (
-                      <li key={achievementIndex} id={isFirst ? slug : undefined} className="mb-2">
-                        {cat && (
-                          <span className="inline-block bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-medium px-2 py-1 rounded mr-2 mb-1 border border-blue-200 dark:border-blue-700">
-                            {cat}
-                          </span>
-                        )}
+                      <li key={achievementIndex} id={isFirst ? slug : undefined} className="mb-2 flex">
+                        <span className="mr-2 text-gray-400 dark:text-gray-500">•</span>
                         <span dangerouslySetInnerHTML={{ __html: achievement }}></span>
                       </li>
                     );
@@ -143,7 +140,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             </div>
             
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">💰 Revenue & Growth Impact</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2"><TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />Revenue &amp; Growth Impact</h3>
               <ul className="list-disc pl-5 space-y-2">
                 {experiences[0].modalDetails.revenueAndGrowth.map((achievement, index) => (
                   <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
@@ -152,7 +149,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             </div>
             
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">💡 Product Innovation</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2"><Lightbulb className="w-5 h-5 text-blue-600 dark:text-blue-400" />Product Innovation</h3>
               <ul className="list-disc pl-5 space-y-2">
                 {experiences[0].modalDetails.productInnovation.map((achievement, index) => (
                   <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
@@ -161,7 +158,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             </div>
 
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">👥 Team Leadership</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2"><Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />Team Leadership</h3>
               <ul className="list-disc pl-5 space-y-2">
                 {experiences[0].modalDetails.teamLeadership.map((achievement, index) => (
                   <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
@@ -170,7 +167,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             </div>
 
             <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">⚡ Process Optimization</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2"><Gauge className="w-5 h-5 text-blue-600 dark:text-blue-400" />Process Optimization</h3>
               <ul className="list-disc pl-5 space-y-2">
                 {experiences[0].modalDetails.processOptimization.map((achievement, index) => (
                   <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
@@ -179,7 +176,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-2 dark:text-white">🔧 Technical Execution</h3>
+              <h3 className="text-lg font-semibold mb-2 dark:text-white flex items-center gap-2"><Wrench className="w-5 h-5 text-blue-600 dark:text-blue-400" />Technical Execution</h3>
               <ul className="list-disc pl-5 space-y-2">
                 {experiences[0].modalDetails.technicalExecution.map((achievement, index) => (
                   <li key={index} dangerouslySetInnerHTML={{ __html: achievement }}></li>
