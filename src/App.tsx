@@ -11,11 +11,13 @@ import AchievementNavigation from './components/sections/CoreAchievements';
 import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
 import Certifications from './components/sections/Certifications';
+import Faq from './components/sections/Faq';
 
 // Import perspective pages
 import RecruiterPerspective from './pages/RecruiterPerspective';
 import HiringManagerPerspective from './pages/HiringManagerPerspective';
 import InterviewerPerspective from './pages/InterviewerPerspective';
+import NotFound from './components/NotFound';
 
 // Import data utilities
 import getResumeData from './utils/resumeData';
@@ -35,6 +37,7 @@ const ResumePage = () => {
         <Frameworks frameworks={resumeData.frameworks} />
         <Education educations={resumeData.education} />
         <Certifications certifications={resumeData.certifications} />
+        <Faq />
       </div>
     </div>
   );
@@ -111,6 +114,7 @@ function App() {
           <Route path="/recruiter" element={<RecruiterPerspective />} />
           <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
           <Route path="/interviewer" element={<InterviewerPerspective />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
