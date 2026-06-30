@@ -18,11 +18,20 @@ const Header: React.FC<HeaderProps> = ({ basics }) => {
   return (
     <>
       <div className="flex flex-col items-center mb-6">
-        <img
-          src={basics.avatarUrl}
-          alt="Avatar"
-          className="rounded-full h-24 w-24 object-cover ring-2 ring-gray-200 dark:ring-gray-700"
-        />
+        <a
+          href={basics.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${basics.name}'s LinkedIn profile`}
+          title="View LinkedIn profile"
+          className="rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        >
+          <img
+            src={basics.avatarUrl}
+            alt={basics.name}
+            className="rounded-full h-24 w-24 object-cover ring-2 ring-gray-200 dark:ring-gray-700 cursor-pointer transition-transform duration-200 hover:scale-105 hover:ring-blue-500"
+          />
+        </a>
 
         <h1 className="text-center mb-0 text-4xl font-bold mt-3 dark:text-white">
           {basics.name}
