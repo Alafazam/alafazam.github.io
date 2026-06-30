@@ -73,6 +73,8 @@ export interface Framework {
 export interface ResumeData {
   basics: Basics;
   summary: string;
+  about: string[];
+  aboutStats: string;
   coreExpertise?: string[];
   frameworks?: Framework[];
   coreAchievements: CoreAchievement[];

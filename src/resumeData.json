@@ -10,6 +10,12 @@
     "resumePdfUrl": "/assets/Alaf Director Resume 2026 - Plain.pdf"
   },
   "summary": "AI-native engineering and product leader who bridges deep technical depth (ex-SDE3) with product strategy — now Director of Engineering & Product at Increff, leading both functions for a next-generation merchandising analytics platform. 9+ years building and scaling SaaS across Warehouse Management, Order Management, and Supply Chain, with a clear progression from SDE → SDE3 → Senior Technical PM / Product Head → Director. Proven at driving 0→1 innovation and 1→10 growth — having grown a product suite to $12M+ ARR — while institutionalizing AI across product and engineering workflows to compress delivery cycles and sharpen data-informed decisions.",
+  "about": [
+    "I'm a builder — at Increff, that's meant being an IC and a manager, sometimes in the same week. I write code, I architect platforms, and I lead a 40-person cross-functional org. I understand business and metrics as fluently as I understand systems design.",
+    "The hardest part of my job isn't the tech — it's the range. I design for warehouse staff who've never used a SaaS tool in their life, and for CXOs who've seen every dashboard there is and are hard to impress. Building something simple enough for one and sharp enough for the other, in the same platform, is the actual problem I solve every day.",
+    "The other half is people. Leading 40+ engineers and PMs means mentoring, setting direction, and building a culture of excellence without losing the human side of the team. That balance — rigor and harmony — is as much my craft as the architecture is."
+  ],
+  "aboutStats": "9 years · SDE → Director · 40-person org · 6 products · $12M+ ARR",
   "coreExpertise": [
     "Hybrid Product + Engineering Leadership",
     "Platform-over-Throughput Thinking",
