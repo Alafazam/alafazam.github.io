@@ -46,6 +46,8 @@
     "destination": "dist",
     "include": [
       "/",
+      "/projects",
+      "/blog",
       "/recruiter",
       "/hiring-manager",
       "/interviewer",

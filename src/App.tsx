@@ -13,7 +13,10 @@ import Education from './components/sections/Education';
 import Certifications from './components/sections/Certifications';
 import Faq from './components/sections/Faq';
 
-// Import perspective pages
+// Import site chrome + pages
+import SiteNav from './components/SiteNav';
+import SideProjects from './pages/SideProjects';
+import Blog from './pages/Blog';
 import RecruiterPerspective from './pages/RecruiterPerspective';
 import HiringManagerPerspective from './pages/HiringManagerPerspective';
 import InterviewerPerspective from './pages/InterviewerPerspective';
@@ -85,16 +88,8 @@ function App() {
   return (
     <Router basename={routerBasename}>
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-        {/* Download button — visible on all pages */}
-        <button
-          onClick={handleDownload}
-          className="fixed top-4 right-4 p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors dark:bg-blue-700 dark:hover:bg-blue-800 shadow-md z-50"
-          aria-label="Download Resume as PDF"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2-2H5a2 2 0 01-2-2z" />
-          </svg>
-        </button>
+        {/* Primary navigation — visible on all pages */}
+        <SiteNav onDownload={handleDownload} />
 
         {/* Theme toggle — visible on all pages */}
         <button
@@ -115,6 +110,8 @@ function App() {
 
         <Routes>
           <Route path="/" element={<ResumePage />} />
+          <Route path="/projects" element={<SideProjects />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/recruiter" element={<RecruiterPerspective />} />
           <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
           <Route path="/interviewer" element={<InterviewerPerspective />} />
