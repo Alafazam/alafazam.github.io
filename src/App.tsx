@@ -22,6 +22,10 @@ import NotFound from './components/NotFound';
 // Import data utilities
 import getResumeData from './utils/resumeData';
 
+// Router base so the app works whether served from the production root ("/")
+// or a staging subfolder ("/preview/"). Vite injects BASE_URL from `base`.
+const routerBasename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
+
 // Resume Page Component — getResumeData() is synchronous (imports JSON directly)
 const ResumePage = () => {
   const resumeData = getResumeData();
@@ -79,7 +83,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename={routerBasename}>
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
         {/* Download button — visible on all pages */}
         <button

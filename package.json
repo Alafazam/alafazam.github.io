@@ -8,10 +8,12 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "postbuild": "react-snap",
+    "build:preview": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "deploy:preview": "DEPLOY_BASE=/preview/ npm run build:preview && gh-pages -d dist --dest preview --add -m \"Deploy preview\""
   },
   "dependencies": {
     "@types/react-helmet": "^6.1.11",
