@@ -1,13 +1,5 @@
-// Stub blog index. The full blog engine (post rendering, RSS, Article schema)
-// arrives in Phase 3; for now this is a navigable "coming soon" with the
-// planned inaugural topics.
-const upcoming = [
-  'Adversarial Product Thinking: how I stress-test every idea before building it',
-  'Why I manage engineers AND write product specs: the case for the dual-track director',
-  '9 years inside a startup: what growing from 20 to 250 people actually teaches you',
-  "What 'AI-native product development' actually means in practice (not a buzzword)",
-  "The merchandising intelligence gap: why retail tech's planning stack is still broken",
-];
+import { Link } from 'react-router-dom';
+import { blogPosts, formatDate } from '../utils/content';
 
 const Blog = () => {
   return (
@@ -20,19 +12,34 @@ const Blog = () => {
           </p>
         </header>
 
-        <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-6">
-          <p className="text-sm font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-4">
-            Coming soon
-          </p>
-          <ul className="space-y-3">
-            {upcoming.map((title) => (
-              <li key={title} className="flex gap-3 text-gray-700 dark:text-gray-300">
-                <span aria-hidden="true" className="text-blue-500">•</span>
-                <span>{title}</span>
+        {blogPosts.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-6 text-gray-600 dark:text-gray-300">
+            Posts are on the way.
+          </div>
+        ) : (
+          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+            {blogPosts.map((post) => (
+              <li key={post.slug} className="py-6 first:pt-0">
+                <Link to={`/blog/${post.slug}`} className="group block">
+                  <h2 className="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {post.frontmatter.title}
+                  </h2>
+                  {post.frontmatter.date && (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      {formatDate(post.frontmatter.date)}
+                    </p>
+                  )}
+                  <p className="text-gray-600 dark:text-gray-300 mt-2">
+                    {post.frontmatter.description || post.excerpt}
+                  </p>
+                  <span className="inline-block mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+                    Read →
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
+        )}
       </div>
     </div>
   );

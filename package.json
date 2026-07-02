@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "@types/react-helmet": "^6.1.11",
+    "highlight.js": "^11.11.1",
     "lucide-react": "^1.21.0",
+    "markdown-it": "^14.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -25,6 +27,8 @@
     "react-simple-typewriter": "^5.0.1"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/markdown-it": "^14.1.2",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
     "@typescript-eslint/eslint-plugin": "^7.0.1",

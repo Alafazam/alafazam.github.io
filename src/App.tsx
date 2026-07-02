@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css'; // Ensure Tailwind styles are imported
 
@@ -15,12 +15,17 @@ import Faq from './components/sections/Faq';
 
 // Import site chrome + pages
 import SiteNav from './components/SiteNav';
-import SideProjects from './pages/SideProjects';
-import Blog from './pages/Blog';
 import RecruiterPerspective from './pages/RecruiterPerspective';
 import HiringManagerPerspective from './pages/HiringManagerPerspective';
 import InterviewerPerspective from './pages/InterviewerPerspective';
 import NotFound from './components/NotFound';
+
+// Content pages are code-split so the Markdown renderer + syntax highlighter
+// only load when visiting Blog/Projects — keeping the homepage bundle light.
+const SideProjects = lazy(() => import('./pages/SideProjects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 // Import data utilities
 import getResumeData from './utils/resumeData';
@@ -108,15 +113,19 @@ function App() {
           )}
         </button>
 
-        <Routes>
-          <Route path="/" element={<ResumePage />} />
-          <Route path="/projects" element={<SideProjects />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/recruiter" element={<RecruiterPerspective />} />
-          <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
-          <Route path="/interviewer" element={<InterviewerPerspective />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="py-20 text-center text-gray-500 dark:text-gray-400">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<ResumePage />} />
+            <Route path="/projects" element={<SideProjects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/recruiter" element={<RecruiterPerspective />} />
+            <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
+            <Route path="/interviewer" element={<InterviewerPerspective />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   );
