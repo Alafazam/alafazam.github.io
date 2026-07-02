@@ -36,7 +36,7 @@ const ResumePage = () => {
   return (
     <div className="py-8 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div id="resume-content" className="mx-auto max-w-4xl">
-        <Header basics={resumeData.basics} />
+        <Header basics={resumeData.basics} hero={resumeData.hero} />
         <AchievementNavigation />
         <About paragraphs={resumeData.about} stats={resumeData.aboutStats} />
         <Expertise items={resumeData.coreExpertise} />

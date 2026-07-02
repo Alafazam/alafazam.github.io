@@ -70,8 +70,15 @@ export interface Framework {
   icon?: string;
 }
 
+export interface Hero {
+  eyebrow: string;
+  headline: string;
+  subhead: string;
+}
+
 export interface ResumeData {
   basics: Basics;
+  hero: Hero;
   summary: string;
   about: string[];
   aboutStats: string;
