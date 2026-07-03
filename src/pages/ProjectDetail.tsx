@@ -15,7 +15,7 @@ const ProjectDetail = () => {
   if (!project) return <Navigate to="/projects" replace />;
 
   const { frontmatter, html } = project;
-  const { name, tagline, status, tags, link } = frontmatter;
+  const { name, tagline, status, tags, link, category, impact } = frontmatter;
   const title = name || frontmatter.title || project.slug;
 
   return (
@@ -28,10 +28,15 @@ const ProjectDetail = () => {
         </Helmet>
 
         <Link to="/projects" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-          ← All projects
+          ← All work
         </Link>
 
-        <div className="flex items-start justify-between gap-3 mt-4">
+        {category && (
+          <p className="mt-4 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            {category}
+          </p>
+        )}
+        <div className="flex items-start justify-between gap-3 mt-1">
           <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
           {status && (
             <span className={`shrink-0 mt-2 text-xs font-medium px-2 py-1 rounded-full ${statusStyles[status] || 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'}`}>
@@ -40,6 +45,12 @@ const ProjectDetail = () => {
           )}
         </div>
         {tagline && <p className="text-lg text-blue-600 dark:text-blue-400 mt-1">{tagline}</p>}
+        {impact && (
+          <p className="mt-3 inline-flex items-center gap-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 text-sm font-medium text-blue-700 dark:text-blue-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" aria-hidden="true" />
+            {impact}
+          </p>
+        )}
 
         {(tags && tags.length > 0) && (
           <div className="flex flex-wrap gap-2 mt-4 mb-8">

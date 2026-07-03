@@ -8,12 +8,15 @@ export interface Frontmatter {
   tags?: string[];
   // blog
   date?: string;
-  // projects
+  // projects / work
   name?: string;
   tagline?: string;
   status?: string;
   order?: number;
   link?: string;
+  category?: string;
+  impact?: string;
+  icon?: string;
 }
 
 export interface ContentItem {
@@ -101,6 +104,29 @@ export const projects: ContentItem[] = load(projectGlob).sort(
 
 export const getBlogPost = (slug: string) => blogPosts.find((p) => p.slug === slug);
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+
+// Order the "See My Work" categories deliberately (Builds first).
+export const PROJECT_CATEGORIES = ['Builds', 'Frameworks & Processes'] as const;
+
+export interface ProjectGroup {
+  category: string;
+  description: string;
+  items: ContentItem[];
+}
+
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  Builds: "Products and systems I've designed and shipped.",
+  'Frameworks & Processes': "Operating frameworks and processes I've designed and run at scale.",
+};
+
+export const projectsByCategory = (): ProjectGroup[] => {
+  const known = PROJECT_CATEGORIES.map((category) => ({
+    category,
+    description: CATEGORY_DESCRIPTIONS[category] || '',
+    items: projects.filter((p) => (p.frontmatter.category || 'Builds') === category),
+  }));
+  return known.filter((group) => group.items.length > 0);
+};
 
 export const formatDate = (d?: string): string =>
   d ? new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';

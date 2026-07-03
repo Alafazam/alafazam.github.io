@@ -27,23 +27,6 @@
     "AI-Native Product Operations",
     "Retail Merchandising Domain (assortment, OTB, markdown, replenishment)"
   ],
-  "frameworks": [
-    {
-      "icon": "clock",
-      "title": "Two-Clock Release & Delivery",
-      "description": "Feature-flag-gated continuous merge paired with controlled monthly client releases — eliminating pod blocking and unsafe rollbacks."
-    },
-    {
-      "icon": "target",
-      "title": "Return-on-Attention (ROA) Prioritization",
-      "description": "A prioritization framework I created to align focus across all 6 products and remove urgent-critical churn."
-    },
-    {
-      "icon": "bot",
-      "title": "AI-First Interface Strategy",
-      "description": "Exposing the platform as an intelligent backend (MCP + skills layer) so enterprise AI assistants drive merchandising decisions in natural language."
-    }
-  ],
   "coreAchievements": [
     {
       "icon": "🚀",

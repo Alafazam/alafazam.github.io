@@ -6,7 +6,7 @@ interface SiteNavProps {
 
 const links = [
   { path: '/', label: 'Home' },
-  { path: '/projects', label: 'Side Projects' },
+  { path: '/projects', label: 'Work' },
   { path: '/blog', label: 'Blog' },
 ];
 

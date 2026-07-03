@@ -6,7 +6,6 @@ import './index.css'; // Ensure Tailwind styles are imported
 import Header from './components/sections/Header';
 import About from './components/sections/About';
 import Expertise from './components/sections/Expertise';
-import Frameworks from './components/sections/Frameworks';
 import AchievementNavigation from './components/sections/CoreAchievements';
 import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
@@ -46,7 +45,6 @@ const ResumePage = () => {
         <About paragraphs={resumeData.about} stats={resumeData.aboutStats} />
         <Expertise items={resumeData.coreExpertise} />
         <Experience experiences={resumeData.experience} />
-        <Frameworks frameworks={resumeData.frameworks} />
         <Education educations={resumeData.education} />
         <Certifications certifications={resumeData.certifications} />
         <Faq />

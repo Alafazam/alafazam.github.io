@@ -1,7 +1,10 @@
 ---
 name: KidQueue
 tagline: Parent-controlled video curation
+category: Builds
 status: In progress
+impact: Safety by curation, not moderation
+icon: play
 order: 1
 tags: [Consumer, Product design, Safety-first]
 ---

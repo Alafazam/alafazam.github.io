@@ -3,10 +3,10 @@ import { blogPosts, formatDate } from '../utils/content';
 
 const Blog = () => {
   return (
-    <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-12 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-4xl">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Writing</h1>
+        <header className="mb-10">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Writing</h1>
           <p className="text-gray-600 dark:text-gray-300">
             Notes on product, engineering leadership, and building AI-native software in retail.
           </p>
@@ -17,28 +17,30 @@ const Blog = () => {
             Posts are on the way.
           </div>
         ) : (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="space-y-4">
             {blogPosts.map((post) => (
-              <li key={post.slug} className="py-6 first:pt-0">
-                <Link to={`/blog/${post.slug}`} className="group block">
-                  <h2 className="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {post.frontmatter.title}
-                  </h2>
-                  {post.frontmatter.date && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {formatDate(post.frontmatter.date)}
-                    </p>
-                  )}
-                  <p className="text-gray-600 dark:text-gray-300 mt-2">
-                    {post.frontmatter.description || post.excerpt}
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="group block rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md"
+              >
+                {post.frontmatter.date && (
+                  <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                    {formatDate(post.frontmatter.date)}
                   </p>
-                  <span className="inline-block mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">
-                    Read →
-                  </span>
-                </Link>
-              </li>
+                )}
+                <h2 className="text-xl font-semibold mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {post.frontmatter.title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 mt-2">
+                  {post.frontmatter.description || post.excerpt}
+                </p>
+                <span className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-blue-600 dark:text-blue-400">
+                  Read →
+                </span>
+              </Link>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

@@ -64,12 +64,6 @@ export interface Certification {
   items?: CertificationItem[];
 }
 
-export interface Framework {
-  title: string;
-  description: string;
-  icon?: string;
-}
-
 export interface Hero {
   eyebrow: string;
   headline: string;
@@ -83,7 +77,6 @@ export interface ResumeData {
   about: string[];
   aboutStats: string;
   coreExpertise?: string[];
-  frameworks?: Framework[];
   coreAchievements: CoreAchievement[];
   experience: Experience[];
   education: Education[];

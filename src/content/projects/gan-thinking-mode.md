@@ -1,8 +1,11 @@
 ---
 name: GAN Thinking Mode
 tagline: Adversarial reasoning framework
+category: Frameworks & Processes
 status: Active
-order: 2
+impact: Kills weak ideas before they ship
+icon: brain
+order: 5
 tags: [Methodology, Product thinking, Notion]
 ---
 
