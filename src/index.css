@@ -60,6 +60,28 @@
   }
 }
 
+/* Shared shadcn-style primitives */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-5
+      transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+      focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground shadow-sm hover:bg-primary/90;
+  }
+  .btn-outline {
+    @apply btn border border-border bg-background shadow-sm hover:bg-accent hover:text-accent-foreground;
+  }
+  .btn-ghost {
+    @apply btn h-9 px-3 hover:bg-accent hover:text-accent-foreground;
+  }
+  .card-interactive {
+    @apply block rounded-xl border border-border bg-card text-card-foreground shadow-sm
+      transition-all duration-200 hover:shadow-md hover:border-foreground/20;
+  }
+}
+
 /* Achievement highlight effect (scroll-to flash from CoreAchievements nav) */
 .highlight-achievement {
   background-color: hsl(var(--primary) / 0.12);

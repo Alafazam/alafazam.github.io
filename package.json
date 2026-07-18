@@ -16,6 +16,7 @@
     "deploy:preview": "DEPLOY_BASE=/preview/ npm run build:preview && gh-pages -d dist --dest preview --add -m \"Deploy preview\""
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
     "@types/react-helmet": "^6.1.11",
     "highlight.js": "^11.11.1",
     "lucide-react": "^1.21.0",
