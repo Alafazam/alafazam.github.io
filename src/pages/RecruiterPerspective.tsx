@@ -1,45 +1,45 @@
 const RecruiterPerspective = () => {
   return (
-    <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-4 px-4">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">🎯 Recruiter Notes: Alaf Azam Khan</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-muted-foreground">
             Internal assessment - why this profile caught my attention
           </p>
         </div>
 
         {/* Visual Summary Card */}
         <div className="mb-8">
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4 uppercase tracking-wide">
+          <div className="rounded-xl border border-border bg-card shadow-sm p-6">
+            <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">
               5-Second Snapshot
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
               <div className="text-center">
                 <div className="text-2xl mb-2">🚀</div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Role</div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Role</div>
                 <div className="font-semibold">Senior PM, Engineering leader, CTO track</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">🧠</div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Scope</div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Scope</div>
                 <div className="font-semibold">6+ products, 25+ engineers</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">💰</div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Revenue</div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Revenue</div>
                 <div className="font-semibold">Helps in closing large deals</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">🚀</div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">ARR</div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">ARR</div>
                 <div className="font-semibold">Driving products with $12M ARR</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">🤖</div>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">AI Impact</div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">AI Impact</div>
                 <div className="font-semibold">Uses Cursor and AI copilots for prototyping</div>
               </div>
             </div>
@@ -52,12 +52,12 @@ const RecruiterPerspective = () => {
           <p className="text-lg font-semibold mb-4 text-green-600 dark:text-green-400">
             "Wait, this actually looks really good. Let me dig deeper..."
           </p>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+          <p className="text-base text-muted-foreground">
             Honestly? This isn't your typical PM resume. Most candidates either have the business side OR the technical chops. Alaf has both, plus he's actually built stuff and can point to real revenue numbers. That's rare.
           </p>
         </div>
 
-        <div className="border-t border-gray-300 dark:border-gray-600 my-8"></div>
+        <div className="border-t border-border my-8"></div>
 
         {/* Main Content - 2 Column Layout */}
         <div className="mb-8">
@@ -68,7 +68,7 @@ const RecruiterPerspective = () => {
             <div className="col-span-3 space-y-6">
               <div>
                 <h3 className="text-lg font-semibold mb-3">The revenue stuff is legit 💰</h3>
-                <p className="mb-2 text-gray-600 dark:text-gray-300">Look, most PMs talk about "impact" but can't quantify it. This guy has:</p>
+                <p className="mb-2 text-muted-foreground">Look, most PMs talk about "impact" but can't quantify it. This guy has:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ ₹30L+ monthly recurring revenue (that's actual money coming in)</li>
                   <li>→ Saved $500K+ annually (CFOs love this)</li>
@@ -79,7 +79,7 @@ const RecruiterPerspective = () => {
 
               <div>
                 <h3 className="text-lg font-semibold mb-3">He can actually talk to engineers 🧠</h3>
-                <p className="mb-2 text-gray-600 dark:text-gray-300">This is huge. Most PMs are either business-only or tech-only. He grew up as an engineer:</p>
+                <p className="mb-2 text-muted-foreground">This is huge. Most PMs are either business-only or tech-only. He grew up as an engineer:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ Started as SDE1, worked his way up to SDE3, then moved to PM</li>
                   <li>→ Still codes when needed (delivered 45+ story points during crunch time)</li>
@@ -90,7 +90,7 @@ const RecruiterPerspective = () => {
 
               <div>
                 <h3 className="text-lg font-semibold mb-3">The scale is impressive 📊</h3>
-                <p className="mb-2 text-gray-600 dark:text-gray-300">These aren't startup numbers, this is enterprise-level stuff:</p>
+                <p className="mb-2 text-muted-foreground">These aren't startup numbers, this is enterprise-level stuff:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ 200M+ SKUs (that's a lot of data to manage)</li>
                   <li>→ 8M+ orders monthly (high-volume systems)</li>
@@ -145,16 +145,16 @@ const RecruiterPerspective = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-300 dark:border-gray-600 my-8"></div>
+        <div className="border-t border-border my-8"></div>
 
         {/* Decision Summary Panel */}
         <div>
           <h2 className="text-xl font-bold mb-6">Decision Summary</h2>
           
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+          <div className="rounded-xl border border-border bg-card shadow-sm p-6">
             <div className="space-y-6">
               {/* Decision */}
-              <div className="flex items-start gap-4 pb-4 border-b border-gray-200 dark:border-gray-600">
+              <div className="flex items-start gap-4 pb-4 border-b border-border">
                 <div className="text-2xl">✅</div>
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Decision</div>
@@ -165,22 +165,22 @@ const RecruiterPerspective = () => {
               </div>
 
               {/* Target Role */}
-              <div className="flex items-start gap-4 pb-4 border-b border-gray-200 dark:border-gray-600">
+              <div className="flex items-start gap-4 pb-4 border-b border-border">
                 <div className="text-2xl">🎯</div>
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Target Role</div>
-                  <div className="text-gray-700 dark:text-gray-300">
+                  <div className="text-muted-foreground">
                     Senior PM with Director trajectory (12-18 months)
                   </div>
                 </div>
               </div>
 
               {/* Unique Strength */}
-              <div className="flex items-start gap-4 pb-4 border-b border-gray-200 dark:border-gray-600">
+              <div className="flex items-start gap-4 pb-4 border-b border-border">
                 <div className="text-2xl">💡</div>
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Unique Strength</div>
-                  <div className="text-gray-700 dark:text-gray-300">
+                  <div className="text-muted-foreground">
                     Combines technical depth, business ownership & team scaling
                   </div>
                 </div>
@@ -191,7 +191,7 @@ const RecruiterPerspective = () => {
                 <div className="text-2xl">💥</div>
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Impact</div>
-                  <div className="text-gray-700 dark:text-gray-300">
+                  <div className="text-muted-foreground">
                     ₹30L MRR, $500K savings, 6+ product lines, 45+ SP personally delivered
                   </div>
                 </div>
@@ -199,8 +199,8 @@ const RecruiterPerspective = () => {
             </div>
           </div>
           
-          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <p className="text-sm text-blue-800 dark:text-blue-300">
+          <div className="mt-6 p-4 rounded-lg border border-border bg-primary/5">
+            <p className="text-sm text-primary">
               <strong>Bottom line:</strong> This is the kind of PM who can own a product line, talk to customers, 
               work with engineering, and actually ship stuff that makes money. Don't overthink it.
             </p>

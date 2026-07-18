@@ -1,11 +1,11 @@
 const HiringManagerPerspective = () => {
   return (
-    <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-4 px-4">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">👨‍💼 Hiring Manager's Perspective</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-muted-foreground">
             Why Alaf thinks he is a good fit for the role
           </p>
         </div>
@@ -16,7 +16,7 @@ const HiringManagerPerspective = () => {
           <p className="text-lg font-semibold mb-4">
             "We should hire Alaf immediately - he is senior level ready"
           </p>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+          <p className="text-base text-muted-foreground">
             Alaf represents the ideal blend of technical depth, business acumen, and leadership capability 
             that we need for our Senior PM role with clear Director trajectory.
           </p>
@@ -178,7 +178,7 @@ const HiringManagerPerspective = () => {
             </ul>
           </div>
           
-          <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div className="mt-6 p-4 bg-card border border-border rounded-lg">
             <p className="text-lg font-semibold">
               "This is the type of hire that transforms a product organization. 
               The combination of technical depth, business impact, and team building makes this a must-have candidate."
