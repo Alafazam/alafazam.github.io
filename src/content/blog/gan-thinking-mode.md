@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "GAN thinking: an adversarial loop for product decisions"
 date: 2026-03-29
 description: "Borrowing the generator–discriminator loop from GANs to stress-test product ideas before they ship — and kill the weak ones early."

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Building KidQueue: safety by curation, not moderation"
 date: 2026-05-17
 description: "Why I'm building a parent-first video app that replaces the recommendation algorithm with a hand-picked queue."

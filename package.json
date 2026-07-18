@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "deploy:preview": "DEPLOY_BASE=/preview/ npm run build:preview && gh-pages -d dist --dest preview --add -m \"Deploy preview\""
+    "deploy:preview": "DEPLOY_BASE=/preview/ VITE_SHOW_DRAFTS=1 npm run build:preview && gh-pages -d dist --dest preview --add -m \"Deploy preview\""
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -54,10 +54,6 @@
       "/projects",
       "/blog",
       "/blog/return-on-attention",
-      "/blog/two-clock-delivery",
-      "/blog/gan-thinking-mode",
-      "/blog/building-kidqueue",
-      "/blog/platform-as-intelligent-backend",
       "/recruiter",
       "/hiring-manager",
       "/interviewer",

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Two clocks: continuous merge, monthly releases"
 date: 2026-02-08
 description: "Decoupling how fast engineers merge from how often clients see change — feature flags as a release-management tool, not an engineering toy."

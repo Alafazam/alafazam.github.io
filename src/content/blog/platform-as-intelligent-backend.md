@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "The platform as an intelligent backend"
 date: 2026-07-05
 description: "Exposing a merchandising platform as MCP tools plus a skills layer, so enterprise AI assistants drive it in natural language instead of clicks."
