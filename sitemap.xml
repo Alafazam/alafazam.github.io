@@ -6,6 +6,16 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://alafazam.com/projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://alafazam.com/recruiter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -20,5 +30,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Append /blog and individual /blog/<slug> URLs here when the blog ships (PR 3). -->
+  <url>
+    <loc>https://alafazam.com/blog/return-on-attention</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- Draft posts/projects are excluded until promoted to production. -->
 </urlset>
