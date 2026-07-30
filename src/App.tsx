@@ -1,26 +1,37 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css'; // Ensure Tailwind styles are imported
 
 // Import components
 import Header from './components/sections/Header';
-import Summary from './components/sections/Summary';
+import About from './components/sections/About';
 import Expertise from './components/sections/Expertise';
-import Frameworks from './components/sections/Frameworks';
 import AchievementNavigation from './components/sections/CoreAchievements';
 import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
 import Certifications from './components/sections/Certifications';
 import Faq from './components/sections/Faq';
 
-// Import perspective pages
+// Import site chrome + pages
+import SiteNav from './components/SiteNav';
 import RecruiterPerspective from './pages/RecruiterPerspective';
 import HiringManagerPerspective from './pages/HiringManagerPerspective';
 import InterviewerPerspective from './pages/InterviewerPerspective';
 import NotFound from './components/NotFound';
 
+// Content pages are code-split so the Markdown renderer + syntax highlighter
+// only load when visiting Blog/Projects — keeping the homepage bundle light.
+const SideProjects = lazy(() => import('./pages/SideProjects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+
 // Import data utilities
 import getResumeData from './utils/resumeData';
+
+// Router base so the app works whether served from the production root ("/")
+// or a staging subfolder ("/preview/"). Vite injects BASE_URL from `base`.
+const routerBasename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
 
 // Resume Page Component — getResumeData() is synchronous (imports JSON directly)
 const ResumePage = () => {
@@ -29,12 +40,11 @@ const ResumePage = () => {
   return (
     <div className="py-8 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div id="resume-content" className="mx-auto max-w-4xl">
-        <Header basics={resumeData.basics} />
+        <Header basics={resumeData.basics} hero={resumeData.hero} />
         <AchievementNavigation />
-        <Summary summary={resumeData.summary} />
+        <About paragraphs={resumeData.about} stats={resumeData.aboutStats} />
         <Expertise items={resumeData.coreExpertise} />
         <Experience experiences={resumeData.experience} />
-        <Frameworks frameworks={resumeData.frameworks} />
         <Education educations={resumeData.education} />
         <Certifications certifications={resumeData.certifications} />
         <Faq />
@@ -79,18 +89,10 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename={routerBasename}>
       <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-        {/* Download button — visible on all pages */}
-        <button
-          onClick={handleDownload}
-          className="fixed top-4 right-4 p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors dark:bg-blue-700 dark:hover:bg-blue-800 shadow-md z-50"
-          aria-label="Download Resume as PDF"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2-2H5a2 2 0 01-2-2z" />
-          </svg>
-        </button>
+        {/* Primary navigation — visible on all pages */}
+        <SiteNav onDownload={handleDownload} />
 
         {/* Theme toggle — visible on all pages */}
         <button
@@ -109,13 +111,19 @@ function App() {
           )}
         </button>
 
-        <Routes>
-          <Route path="/" element={<ResumePage />} />
-          <Route path="/recruiter" element={<RecruiterPerspective />} />
-          <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
-          <Route path="/interviewer" element={<InterviewerPerspective />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="py-20 text-center text-gray-500 dark:text-gray-400">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<ResumePage />} />
+            <Route path="/projects" element={<SideProjects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/recruiter" element={<RecruiterPerspective />} />
+            <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
+            <Route path="/interviewer" element={<InterviewerPerspective />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   );

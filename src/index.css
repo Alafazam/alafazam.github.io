@@ -143,6 +143,19 @@ section {
   margin-bottom: 2.5rem;
 }
 
+/* Markdown code blocks — highlight.js (atom-one-dark) supplies token colors */
+.prose pre.hljs {
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+/* Drop the backtick quotes Tailwind Typography adds around inline code */
+.prose :where(code)::before,
+.prose :where(code)::after {
+  content: none;
+}
+
 
 
 /* Print-specific styles */

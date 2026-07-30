@@ -64,17 +64,19 @@ export interface Certification {
   items?: CertificationItem[];
 }
 
-export interface Framework {
-  title: string;
-  description: string;
-  icon?: string;
+export interface Hero {
+  eyebrow: string;
+  headline: string;
+  subhead: string;
 }
 
 export interface ResumeData {
   basics: Basics;
+  hero: Hero;
   summary: string;
+  about: string[];
+  aboutStats: string;
   coreExpertise?: string[];
-  frameworks?: Framework[];
   coreAchievements: CoreAchievement[];
   experience: Experience[];
   education: Education[];
