@@ -73,7 +73,7 @@ const OS_GUIDES: OsGuide[] = [
         command: `.\\windows-network-audit.ps1 -HoursBack ${DEFAULT_LOOKBACK_HOURS}`,
       },
     ],
-    oneLiner: `powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm ${SITE_ORIGIN}/audit/windows-network-audit.ps1))) -HoursBack ${DEFAULT_LOOKBACK_HOURS}"`,
+    oneLiner: `powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm ${SITE_ORIGIN}/audit/windows-network-audit.ps1))) -HoursBack ${DEFAULT_LOOKBACK_HOURS} -NoReportFile"`,
     reportLocation: 'Desktop \\ NetworkAudit-<COMPUTERNAME>-<timestamp>.txt',
   },
   {
@@ -99,7 +99,7 @@ const OS_GUIDES: OsGuide[] = [
         command: `sudo ./mac-network-audit.sh --hours ${DEFAULT_LOOKBACK_HOURS}`,
       },
     ],
-    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/mac-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS}`,
+    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/mac-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS} --no-report-file`,
     reportLocation: '~/Desktop/NetworkAudit-<hostname>-<timestamp>.txt',
   },
   {
@@ -126,7 +126,7 @@ const OS_GUIDES: OsGuide[] = [
         command: `sudo ./linux-network-audit.sh --hours ${DEFAULT_LOOKBACK_HOURS}`,
       },
     ],
-    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/linux-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS}`,
+    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/linux-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS} --no-report-file`,
     reportLocation: '~/Desktop/NetworkAudit-<hostname>-<timestamp>.txt',
   },
 ];
@@ -313,11 +313,12 @@ const OsCard = ({ guide, isDetected, onAnnounce }: OsCardProps) => {
       <div className="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
         <h3 className="flex items-center gap-2 text-sm font-semibold mb-1">
           <Terminal className="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-          Fastest path — one command, no download
+          Fastest path — one command, results on screen
         </h3>
         <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-          This fetches and executes a remote script, which is only acceptable here because the
-          domain is mine and the source is the file linked above.
+          Nothing to download and no file written — the full report prints straight to the
+          terminal. This fetches and executes a remote script, which is only acceptable here
+          because the domain is mine and the source is the file linked above.
         </p>
         <CommandBlock
           command={guide.oneLiner}
@@ -329,10 +330,11 @@ const OsCard = ({ guide, isDetected, onAnnounce }: OsCardProps) => {
       <p className="mt-4 flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
         <FileText className="h-4 w-4 mt-0.5 shrink-0 text-gray-500 dark:text-gray-400" aria-hidden="true" />
         <span>
-          Report is written to{' '}
+          The numbered steps above write the report to{' '}
           <code className="text-xs bg-gray-100 dark:bg-gray-900 rounded px-1.5 py-0.5 break-all">
             {guide.reportLocation}
           </code>
+          . The one-line command writes nothing.
         </span>
       </p>
     </section>
@@ -496,8 +498,10 @@ const CampusHiring = () => {
             ))}
           </ul>
           <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-            One file per run, timestamped, so each candidate leaves exactly one artifact. The
-            scripts also print the same report to the console.
+            That applies to the numbered download-and-run steps: one file per run, timestamped, so
+            each candidate leaves exactly one artifact. The report is printed to the console either
+            way. The one-line &ldquo;fastest path&rdquo; command prints only — it writes no file
+            anywhere.
           </p>
         </section>
       </div>

@@ -12,6 +12,8 @@
 
     Output  : Prints to console AND writes one plain-text artifact to the
               Desktop, plus triggers the native Windows wireless report.
+              Pass -NoReportFile to print to the console only and write
+              nothing to disk.
 
     Notes   : Read-only. Nothing on the machine is modified except the two
               report files it writes.
@@ -22,7 +24,11 @@ param(
     [ValidateRange(1, 72)]
     [int] $HoursBack = 5,
 
-    [string] $OutputDirectory = (Join-Path $env:USERPROFILE 'Desktop')
+    [string] $OutputDirectory = (Join-Path $env:USERPROFILE 'Desktop'),
+
+    # Console-only mode. Used by the copy-paste one-liner, where the point is
+    # to read the result on screen and leave nothing behind on the machine.
+    [switch] $NoReportFile
 )
 
 # ---------------------------------------------------------------------------
@@ -269,16 +275,24 @@ $transcript = & {
 # Emit
 # ---------------------------------------------------------------------------
 Write-Host $transcript
-Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8
 
-Write-Host "`nText report written to: $reportTxt" -ForegroundColor Green
+if ($NoReportFile) {
+    # Console-only: no artifact, and the native wireless report is skipped
+    # because it would drop an HTML file under C:\ProgramData.
+    Write-Host "`nConsole-only run: no report file was written." -ForegroundColor Green
+}
+else {
+    Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8
 
-# Native Windows wireless report: last 3 days of sessions as HTML.
-try {
-    $null = netsh wlan show wlanreport 2>&1
-    Write-Host 'Wireless HTML report: C:\ProgramData\Microsoft\Windows\WlanReport\wlan-report-latest.html' -ForegroundColor Green
-} catch {
-    Write-Host "Could not generate wlanreport -> $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "`nText report written to: $reportTxt" -ForegroundColor Green
+
+    # Native Windows wireless report: last 3 days of sessions as HTML.
+    try {
+        $null = netsh wlan show wlanreport 2>&1
+        Write-Host 'Wireless HTML report: C:\ProgramData\Microsoft\Windows\WlanReport\wlan-report-latest.html' -ForegroundColor Green
+    } catch {
+        Write-Host "Could not generate wlanreport -> $($_.Exception.Message)" -ForegroundColor Yellow
+    }
 }
 
 if ($failures.Count -gt 0) { exit 1 } else { exit 0 }
