@@ -1,0 +1,8 @@
+# Audit scripts are downloaded straight from the site and executed. Line-ending
+# normalisation breaks them, so pin the endings each interpreter requires.
+#
+#   PowerShell tolerates LF, but a CRLF file opened in Notepad on the candidate's
+#   machine must not collapse into one line.
+#   bash/zsh refuse a script whose shebang line ends in CR ("bad interpreter: ^M").
+*.ps1 text eol=crlf
+*.sh  text eol=lf
