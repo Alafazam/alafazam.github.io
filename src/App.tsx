@@ -26,6 +26,10 @@ const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
+// Internal proctoring utility, reachable only by direct URL. Code-split so it
+// costs the public pages nothing.
+const CampusHiring = lazy(() => import('./pages/CampusHiring'));
+
 // Import data utilities
 import getResumeData from './utils/resumeData';
 
@@ -121,6 +125,14 @@ function App() {
             <Route path="/recruiter" element={<RecruiterPerspective />} />
             <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
             <Route path="/interviewer" element={<InterviewerPerspective />} />
+
+            {/* Internal utility. Not linked from SiteNav and not in the sitemap.
+                React Router compiles path patterns with the `i` flag unless a
+                route opts into `caseSensitive`, so /campushiring, /CampusHiring
+                and any other casing already resolve here. A separate lowercase
+                redirect route would rank identically and never be reached. */}
+            <Route path="/campusHiring" element={<CampusHiring />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

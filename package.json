@@ -55,6 +55,7 @@
       "/recruiter",
       "/hiring-manager",
       "/interviewer",
+      "/campusHiring",
       "/404"
     ],
     "puppeteerArgs": [
