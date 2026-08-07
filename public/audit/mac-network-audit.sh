@@ -64,13 +64,17 @@ readonly LOG_GAP_TOLERANCE_MINUTES=10
 # ---------------------------------------------------------------------------
 HOURS_BACK=$DEFAULT_HOURS_BACK
 OUTPUT_DIRECTORY=""
+# Console-only mode. Used by the copy-paste one-liner, where the point is to
+# read the result on screen and leave nothing behind on the machine.
+NO_REPORT_FILE=0
 
 print_usage() {
   cat <<USAGE
-Usage: $(basename "$0") [--hours N] [--output-directory DIR]
+Usage: $(basename "$0") [--hours N] [--output-directory DIR] [--no-report-file]
 
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
   --output-directory DIR Where to write the report (default: ~/Desktop).
+  --no-report-file       Print to the console only; write no report file at all.
   --help                 Show this message.
 USAGE
 }
@@ -84,6 +88,10 @@ while [ $# -gt 0 ]; do
     --output-directory|-o)
       OUTPUT_DIRECTORY="${2:-}"
       shift 2 || { echo "ERROR: --output-directory needs a value." >&2; exit 2; }
+      ;;
+    --no-report-file)
+      NO_REPORT_FILE=1
+      shift
       ;;
     --help)
       print_usage; exit 0
@@ -107,25 +115,31 @@ if [ "$HOURS_BACK" -lt "$MIN_HOURS_BACK" ] || [ "$HOURS_BACK" -gt "$MAX_HOURS_BA
   exit 2
 fi
 
-# The Desktop is the default drop point so there is one artifact per candidate
-# in an obvious place. Fall back to the home directory if it does not exist.
-if [ -z "$OUTPUT_DIRECTORY" ]; then
-  if [ -d "$HOME/Desktop" ]; then
-    OUTPUT_DIRECTORY="$HOME/Desktop"
-  else
-    OUTPUT_DIRECTORY="$HOME"
+HOSTNAME_SHORT="$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo 'unknown-host')"
+
+REPORT_FILE=""
+if [ "$NO_REPORT_FILE" -eq 0 ]; then
+  # The Desktop is the default drop point so there is one artifact per candidate
+  # in an obvious place. Fall back to the home directory if it does not exist.
+  if [ -z "$OUTPUT_DIRECTORY" ]; then
+    if [ -d "$HOME/Desktop" ]; then
+      OUTPUT_DIRECTORY="$HOME/Desktop"
+    else
+      OUTPUT_DIRECTORY="$HOME"
+    fi
   fi
-fi
-if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
-  echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+  if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
+    echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+    exit 2
+  fi
+  STAMP="$(date '+%Y%m%d-%H%M%S')"
+  # Spaces in a Mac's computer name are routine and make the filename awkward.
+  HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
+  REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
+elif [ -n "$OUTPUT_DIRECTORY" ]; then
+  echo "ERROR: --no-report-file and --output-directory contradict each other." >&2
   exit 2
 fi
-
-STAMP="$(date '+%Y%m%d-%H%M%S')"
-HOSTNAME_SHORT="$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo 'unknown-host')"
-# Spaces in a Mac's computer name are routine and make the filename awkward.
-HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
-REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
 
 WINDOW_START="$(date -v-"${HOURS_BACK}"H '+%Y-%m-%d %H:%M:%S' 2>/dev/null)"
 if [ -z "$WINDOW_START" ]; then
@@ -258,7 +272,11 @@ run_audit() {
   printf '  ElevatedShell  : %s\n' "$is_root"
   printf '  OSVersion      : %s\n' "$(sw_vers -productVersion 2>/dev/null || echo 'unknown')"
   printf '  LastBootTime   : %s\n' "$(sysctl -n kern.boottime 2>/dev/null || echo 'unknown')"
-  printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  if [ "$NO_REPORT_FILE" -eq 1 ]; then
+    printf '  ReportFile     : none (console-only run, nothing written to disk)\n'
+  else
+    printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  fi
 
   if [ "$is_root" != yes ]; then
     printf '\n  !! WARNING: not running as root. `log show` will redact private data and\n'
@@ -405,6 +423,15 @@ run_audit() {
     printf '\n  An unreadable section is NOT a clean section.\n'
   fi
 }
+
+if [ "$NO_REPORT_FILE" -eq 1 ]; then
+  # No pipeline here, so run_audit executes in this shell and FAILURE_COUNT
+  # survives to be read directly.
+  run_audit 2>&1
+  printf '\nConsole-only run: no report file was written.\n'
+  [ "$FAILURE_COUNT" -eq 0 ] && exit 0
+  exit 1
+fi
 
 # Everything is produced once and written to both destinations.
 run_audit 2>&1 | tee "$REPORT_FILE"
