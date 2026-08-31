@@ -26,6 +26,10 @@ const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
+// Standalone browser tool. Code-split so the amortisation engine and charts load
+// only for visitors who actually open it.
+const EmiCalculator = lazy(() => import('./pages/EmiCalculator'));
+
 // Internal proctoring utility, reachable only by direct URL. Code-split so it
 // costs the public pages nothing.
 const CampusHiring = lazy(() => import('./pages/CampusHiring'));
@@ -119,6 +123,10 @@ function App() {
           <Routes>
             <Route path="/" element={<ResumePage />} />
             <Route path="/projects" element={<SideProjects />} />
+            {/* Static segments outrank dynamic ones in React Router, so this
+                wins over /projects/:slug regardless of order — which matters,
+                since ProjectDetail redirects unknown slugs back to /projects. */}
+            <Route path="/projects/emi-calculator" element={<EmiCalculator />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
