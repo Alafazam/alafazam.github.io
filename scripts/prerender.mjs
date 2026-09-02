@@ -17,6 +17,9 @@ const serverEntry = join(root, 'dist-ssr', 'entry-server.js');
 const STATIC_ROUTES = [
   '/',
   '/projects',
+  // A code route, not a markdown file, so it is listed here rather than picked
+  // up by the content glob below.
+  '/projects/emi-calculator',
   '/blog',
   '/recruiter',
   '/hiring-manager',
