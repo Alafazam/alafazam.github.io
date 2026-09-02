@@ -182,3 +182,33 @@
     padding-right: 0;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Chart series colours (EMI scenario planner).
+
+   Two selected sets, not one set auto-flipped: the same eight hues, stepped for
+   each surface. Validated as a categorical palette against #ffffff and #111827 —
+   both clear the lightness band, chroma floor, CVD separation (worst adjacent
+   ΔE 9.1 light / 8.4 dark) and the normal-vision floor (19.6 / 19.3). Three of
+   the light steps sit under 3:1 on white, so charts using them must carry
+   visible labels and a table equivalent — the comparison table and legend do.
+
+   Kept as custom properties rather than Tailwind classes so an SVG `stroke` can
+   reference them directly and the theme toggle needs no redraw. Slot order is
+   the colourblind-safety mechanism: assign in order, never cycle.
+   --------------------------------------------------------------------------- */
+:root {
+  --viz-1: #2a78d6; /* blue */
+  --viz-2: #eb6834; /* orange */
+  --viz-3: #1baf7a; /* aqua */
+  --viz-4: #eda100; /* yellow */
+  --viz-5: #e87ba4; /* magenta */
+}
+
+:root.dark {
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+}

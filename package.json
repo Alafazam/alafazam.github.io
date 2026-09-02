@@ -6,8 +6,7 @@
   "homepage": "https://alafazam.com",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b && vite build",
-    "postbuild": "react-snap",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "build:preview": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -41,32 +40,8 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "gh-pages": "^6.1.1",
     "postcss": "^8.4.35",
-    "react-snap": "^1.23.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vite": "^6.4.2"
-  },
-  "reactSnap": {
-    "source": "dist",
-    "destination": "dist",
-    "include": [
-      "/",
-      "/projects",
-      "/blog",
-      "/blog/return-on-attention",
-      "/recruiter",
-      "/hiring-manager",
-      "/interviewer",
-      "/404"
-    ],
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ],
-    "removeBlobs": true,
-    "minifyHtml": {
-      "collapseWhitespace": false,
-      "removeComments": false
-    }
   }
 }

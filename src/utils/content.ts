@@ -136,5 +136,32 @@ export const projectsByCategory = (): ProjectGroup[] => {
   return known.filter((group) => group.items.length > 0);
 };
 
+/**
+ * Interactive tools that live on the site. These are code, not markdown, so they
+ * are listed explicitly rather than through a `.md` file whose body would never
+ * be rendered — the route serves the app itself, not a write-up.
+ */
+export interface ToolEntry {
+  href: string;
+  name: string;
+  tagline: string;
+  description: string;
+  tags: string[];
+  /** Key into the icon map in SideProjects. */
+  icon: string;
+}
+
+export const TOOLS: ToolEntry[] = [
+  {
+    href: '/projects/emi-calculator',
+    name: 'EMI Scenario Planner',
+    tagline: 'Loan what-ifs, side by side',
+    description:
+      'Build home-loan repayment scenarios and compare them: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI, a one-off prepayment — and what each one saves in interest and years.',
+    tags: ['Personal finance', 'Home loan', 'India'],
+    icon: 'calculator',
+  },
+];
+
 export const formatDate = (d?: string): string =>
   d ? new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
