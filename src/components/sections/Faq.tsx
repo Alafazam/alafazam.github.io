@@ -40,23 +40,23 @@ const Faq: React.FC = () => {
     <section className="mb-8 mt-4" aria-labelledby="faq-heading">
       <h2
         id="faq-heading"
-        className="text-xl text-gray-700 dark:text-gray-300 mb-3 mt-2"
+        className="text-lg font-semibold tracking-tight text-foreground mb-3"
       >
         Frequently Asked Questions
       </h2>
-      <div className="space-y-2">
+      <div>
         {faqItems.map((item) => (
           <details
             key={item.question}
-            className="group border-b border-gray-200 dark:border-gray-700 pb-2"
+            className="group border-b border-border py-3"
           >
-            <summary className="cursor-pointer font-medium text-gray-800 dark:text-gray-200 py-1 list-none flex items-center justify-between">
+            <summary className="cursor-pointer text-sm font-medium list-none flex items-center justify-between hover:underline">
               <span>{item.question}</span>
-              <span className="ml-2 text-gray-400 transition-transform group-open:rotate-45">
+              <span className="ml-2 text-muted-foreground transition-transform group-open:rotate-45">
                 +
               </span>
             </summary>
-            <p className="mt-2 text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
               {item.answer}
             </p>
           </details>

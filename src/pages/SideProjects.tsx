@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { TOOLS, projectsByCategory } from '../utils/content';
+import Badge from '../components/ui/Badge';
 
 const iconMap: Record<string, LucideIcon> = {
   boxes: Boxes,
@@ -22,9 +23,9 @@ const iconMap: Record<string, LucideIcon> = {
   target: Target,
 };
 
-const statusStyles: Record<string, string> = {
-  Active: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300',
-  'In progress': 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300',
+const statusVariants: Record<string, 'success' | 'warning'> = {
+  Active: 'success',
+  'In progress': 'warning',
 };
 
 interface CardProps {
@@ -43,52 +44,42 @@ interface CardProps {
 const Card = ({ to, icon, name, tagline, status, body, impact, tags, cta }: CardProps) => {
   const Icon = iconMap[icon] || Boxes;
   return (
-    <Link
-      to={to}
-      className="group relative flex flex-col rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md"
-    >
+    <Link to={to} className="card-interactive group relative flex flex-col p-5">
       <div className="flex items-start gap-3">
-        <span className="shrink-0 grid place-items-center h-10 w-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+        <span className="shrink-0 grid place-items-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
           <Icon className="h-5 w-5" />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-semibold leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <h3 className="font-semibold leading-tight group-hover:text-primary transition-colors">
               {name}
             </h3>
             {status && (
-              <span className={`shrink-0 text-xs font-medium px-2 py-0.5 rounded-full ${statusStyles[status] || 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'}`}>
+              <Badge variant={statusVariants[status] || 'secondary'} className="shrink-0">
                 {status}
-              </span>
+              </Badge>
             )}
           </div>
-          {tagline && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{tagline}</p>
-          )}
+          {tagline && <p className="text-sm text-muted-foreground mt-0.5">{tagline}</p>}
         </div>
       </div>
 
-      <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">
-        {body}
-      </p>
+      <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3">{body}</p>
 
       {impact && (
-        <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-blue-700 dark:text-blue-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-500" aria-hidden="true" />
+        <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-primary">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
           {impact}
         </p>
       )}
 
-      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 flex flex-wrap items-center gap-2">
+      <div className="mt-4 pt-3 border-t border-border flex flex-wrap items-center gap-2">
         {tags.slice(0, 3).map((tag) => (
-          <span
-            key={tag}
-            className="text-xs px-2 py-0.5 rounded-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300"
-          >
+          <Badge key={tag} variant="outline">
             {tag}
-          </span>
+          </Badge>
         ))}
-        <span className="ml-auto inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400">
+        <span className="ml-auto inline-flex items-center gap-1 text-sm font-medium text-primary">
           {cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </span>
@@ -101,11 +92,11 @@ const SideProjects = () => {
   const groups = projectsByCategory();
 
   return (
-    <div className="py-12 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-12 px-4">
       <div className="mx-auto max-w-4xl">
         <header className="mb-10">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Selected Work</h1>
-          <p className="text-gray-600 dark:text-gray-300">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Selected Work</h1>
+          <p className="text-muted-foreground">
             Products and systems I've built, and the frameworks I've designed to build them well.
           </p>
         </header>
@@ -115,7 +106,7 @@ const SideProjects = () => {
             <section key={group.category}>
               <div className="mb-5">
                 <h2 className="text-lg font-semibold tracking-tight">{group.category}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{group.description}</p>
+                <p className="text-sm text-muted-foreground">{group.description}</p>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
@@ -144,7 +135,7 @@ const SideProjects = () => {
             <section>
               <div className="mb-5">
                 <h2 className="text-lg font-semibold tracking-tight">Tools</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   Small things I built because I wanted to use them. They run entirely in your browser.
                 </p>
               </div>

@@ -28,11 +28,20 @@ const STATIC_ROUTES = [
   '/404',
 ];
 
+// Drafts are hidden from production builds by src/utils/content.ts. The route
+// list has to apply the same rule, or a draft gets a prerendered URL whose page
+// renders nothing — src/utils/content.ts filters it out, ProjectDetail/BlogPost
+// fall through to <Navigate>, and that is a no-op under a StaticRouter.
+const showDrafts = process.env.VITE_SHOW_DRAFTS === '1';
+const isDraft = (file) => /^draft:\s*true\s*$/m.test(readFileSync(file, 'utf8').split(/^---$/m)[1] || '');
+
 /** Markdown-backed routes, read off disk so a new post needs no edit here. */
 const contentRoutes = (dir, prefix) => {
   try {
-    return readdirSync(join(root, 'src/content', dir))
+    const base = join(root, 'src/content', dir);
+    return readdirSync(base)
       .filter((f) => f.endsWith('.md'))
+      .filter((f) => showDrafts || !isDraft(join(base, f)))
       .map((f) => `${prefix}/${f.replace(/\.md$/, '')}`);
   } catch {
     return [];
@@ -99,6 +108,13 @@ for (const route of ROUTES) {
   // 404 to a URL that is in the sitemap.
   if (route !== '/404' && /<h1[^>]*>404<\/h1>/.test(html)) {
     throw new Error(`Route ${route} prerendered as the 404 page — is it declared in src/App.tsx?`);
+  }
+
+  // A page whose body has no heading rendered nothing useful — usually a route
+  // whose content was filtered out, leaving a <Navigate> that a StaticRouter
+  // cannot act on. Catch it rather than publish an empty URL.
+  if (!/<h[12][^>]*>/.test(html)) {
+    throw new Error(`Prerendered ${route} has no heading — did its content get filtered out?`);
   }
 
   // A page with no title is always a bug — usually a head-merge that stripped

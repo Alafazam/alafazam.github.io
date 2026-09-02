@@ -117,12 +117,12 @@ const InterviewerPerspective = () => {
   const categories = [...new Set(questions.map(q => q.category))];
 
   return (
-    <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-4 px-4">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">🎤 Interviewer's Perspective</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-muted-foreground">
             Key questions I'd ask and what Alaf has to say about them
           </p>
         </div>
@@ -162,10 +162,10 @@ const InterviewerPerspective = () => {
             
             <div className="space-y-4">
               {questions.filter(q => q.category === category).map(question => (
-                <div key={question.id} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div key={question.id} className="border border-border rounded-lg">
                   <button
                     onClick={() => toggleQuestion(question.id)}
-                    className="w-full text-left p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-lg"
+                    className="w-full text-left p-4 hover:bg-accent transition-colors rounded-lg"
                   >
                     <div className="flex items-center justify-between">
                       <h3 className="text-base font-semibold">{question.question}</h3>
@@ -184,15 +184,15 @@ const InterviewerPerspective = () => {
                   
                   {expandedQuestion === question.id && (
                     <div className="px-4 pb-4">
-                      <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
-                        <div className="whitespace-pre-line text-sm text-gray-700 dark:text-gray-300 mb-4">
+                      <div className="border-t border-border pt-4">
+                        <div className="whitespace-pre-line text-sm text-muted-foreground mb-4">
                           {question.answer}
                         </div>
                         <div>
                           <h4 className="font-semibold text-sm mb-2">Key Points:</h4>
                           <ul className="space-y-1">
                             {question.keyPoints.map((point, index) => (
-                              <li key={index} className="text-sm text-gray-600 dark:text-gray-400">
+                              <li key={index} className="text-sm text-muted-foreground">
                                 • {point}
                               </li>
                             ))}

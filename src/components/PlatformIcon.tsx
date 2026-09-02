@@ -17,7 +17,7 @@ const PlatformIcon: React.FC<PlatformIconProps> = ({ platform }) => {
   }
 
   // Fallback for other learning platforms (Reforge, discovery courses, etc.)
-  return <GraduationCap className="w-5 h-5 mr-2 inline-block align-middle text-blue-600 dark:text-blue-400" />;
+  return <GraduationCap className="w-5 h-5 mr-2 inline-block align-middle text-muted-foreground" />;
 };
 
 export default PlatformIcon;

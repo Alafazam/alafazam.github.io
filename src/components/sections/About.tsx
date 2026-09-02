@@ -8,12 +8,12 @@ interface AboutProps {
 const About: React.FC<AboutProps> = ({ paragraphs, stats }) => {
   return (
     <section
-      className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed"
+      className="mb-6 text-muted-foreground leading-relaxed"
       aria-labelledby="about-heading"
     >
       <h2
         id="about-heading"
-        className="text-xl text-gray-700 dark:text-gray-300 mb-2 mt-2"
+        className="text-lg font-semibold tracking-tight text-foreground mb-3"
       >
         About
       </h2>
@@ -24,7 +24,7 @@ const About: React.FC<AboutProps> = ({ paragraphs, stats }) => {
         </p>
       ))}
 
-      <p className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-500 dark:text-gray-400">
+      <p className="mt-4 pt-3 border-t border-border text-sm font-medium text-muted-foreground">
         {stats}
       </p>
     </section>

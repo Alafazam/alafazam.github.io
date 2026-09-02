@@ -1,4 +1,5 @@
 ---
+draft: true
 name: GAN Thinking Mode
 tagline: Adversarial reasoning framework
 category: Frameworks & Processes

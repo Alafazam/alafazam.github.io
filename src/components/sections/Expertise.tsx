@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from '../ui/Badge';
 
 interface ExpertiseProps {
   items?: string[];
@@ -9,15 +10,12 @@ const Expertise: React.FC<ExpertiseProps> = ({ items }) => {
 
   return (
     <div className="mb-5">
-      <h2 className="text-xl text-gray-700 dark:text-gray-300 mb-2">Core Expertise</h2>
+      <h2 className="text-lg font-semibold tracking-tight text-foreground mb-3">Core Expertise</h2>
       <div className="flex flex-wrap gap-2">
         {items.map((item, index) => (
-          <span
-            key={index}
-            className="inline-block bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-100 dark:border-blue-800 text-sm font-medium px-3 py-1 rounded-full"
-          >
+          <Badge key={index} variant="secondary" className="px-2.5 py-1 text-sm font-normal">
             {item}
-          </span>
+          </Badge>
         ))}
       </div>
     </div>
