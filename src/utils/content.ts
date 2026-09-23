@@ -8,6 +8,7 @@ export interface Frontmatter {
   tags?: string[];
   // blog
   date?: string;
+  draft?: string;
   // projects / work
   name?: string;
   tagline?: string;
@@ -70,7 +71,7 @@ function parseFrontmatter(raw: string): { data: Frontmatter; body: string } {
   return { data: data as Frontmatter, body: match[2] };
 }
 
-function load(glob: Record<string, string>): ContentItem[] {
+export function loadContent(glob: Record<string, string>): ContentItem[] {
   return Object.entries(glob).map(([path, raw]) => {
     const slug = path.split('/').pop()!.replace(/\.md$/, '');
     const { data, body } = parseFrontmatter(raw);
@@ -94,11 +95,11 @@ const projectGlob = import.meta.glob('../content/projects/*.md', {
   eager: true,
 }) as Record<string, string>;
 
-export const blogPosts: ContentItem[] = load(blogGlob).sort((a, b) =>
+export const blogPosts: ContentItem[] = loadContent(blogGlob).sort((a, b) =>
   (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
 );
 
-export const projects: ContentItem[] = load(projectGlob).sort(
+export const projects: ContentItem[] = loadContent(projectGlob).sort(
   (a, b) => Number(a.frontmatter.order || 0) - Number(b.frontmatter.order || 0)
 );
 

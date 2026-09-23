@@ -25,6 +25,7 @@ const SideProjects = lazy(() => import('./pages/SideProjects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const DraftPost = lazy(() => import('./pages/DraftPost'));
 
 // Import data utilities
 import getResumeData from './utils/resumeData';
@@ -117,6 +118,7 @@ function App() {
             <Route path="/projects" element={<SideProjects />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/drafts/:slug" element={<DraftPost />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/recruiter" element={<RecruiterPerspective />} />
             <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
