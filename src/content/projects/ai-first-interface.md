@@ -5,7 +5,7 @@ category: Builds
 status: Active
 impact: Merchandising decisions in natural language
 icon: bot
-order: 2
+order: 3
 tags: [AI, Platform, MCP]
 ---
 

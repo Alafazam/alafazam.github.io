@@ -5,7 +5,7 @@ category: Builds
 status: In progress
 impact: Safety by curation, not moderation
 icon: play
-order: 1
+order: 2
 tags: [Consumer, Product design, Safety-first]
 ---
 

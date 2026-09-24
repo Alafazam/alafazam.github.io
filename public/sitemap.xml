@@ -16,6 +16,51 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://alafazam.com/blog/the-demo-is-the-spec</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/merchandising-planning-platform</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/screenreel</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/kidqueue</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/ai-first-interface</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/two-clock-delivery</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/roa-prioritization</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/gan-thinking-mode</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/planning-brain-os</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://alafazam.com/recruiter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -30,5 +75,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Append /blog and individual /blog/<slug> URLs here when the blog ships (PR 3). -->
 </urlset>

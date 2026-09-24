@@ -56,15 +56,23 @@
       "achievements": [
         "Promoted to <strong>Director of Engineering & Product (Jan 2026)</strong>, leading a combined engineering and product organization of <strong>~40</strong> for Increff's Merchandising platform and reporting to the CTO and CEO.",
         "Owns a <strong>new product line end-to-end</strong>: a next-generation retail merchandising analytics platform — a one-stop, highly customizable, high-performance solution for configuring any retail workflow, powered by Increff algorithms and Increff AI agents.",
+        "Architected the next-generation planning platform as a <strong>4-layer architecture</strong> (Infra → Data → Engines → Business Solutions) — <strong>18 reusable engines, 22 business modules, 17 closed architecture decision records</strong> covering database, messaging, dimension model, versioning, and AI boundaries — designed in ~10 weeks using an AI-first practice.",
+        "Made the platform's defining architecture call: a <strong>deterministic, event-sourced workflow spine with AI confined to bounded nodes</strong> — justified in audit, procurement, and unit-economics terms, so agentic capability can grow release-over-release without a rewrite. Enterprise AI governance reduced to an <strong>auditable tool registry</strong> where agents propose diffs but never write plan data directly.",
+        "Designed the <strong>strangler-fig migration</strong> of the live multi-client merchandising monolith onto the new engine architecture: seams carved before extraction, <strong>shadow-run parity checks before every cutover</strong>, riskiest decomposition deliberately sequenced last — with a separate leadership edition of the same plan for CTO/CEO audiences.",
+        "Repositioned the product strategy around a platform moat — validated against <strong>Gartner SCP Magic Quadrant</strong> research, with competitor battle-cards (o9, Blue Yonder, RELEX, Kinaxis, Anaplan) that define where to compete and, deliberately, <strong>where not to</strong>.",
+        "Runs an AI-first design practice where <strong>the clickable prototype is the spec</strong>: a 40+ page multi-persona working prototype with a live simulation engine, built alongside the architecture — with decision capture, documentation coherence, and logging discipline enforced by hooks and self-auditing tooling rather than willpower.",
         "Driving the evolution of the <strong>Increff Merchandising System from 10→100 customers</strong>, while architecting the next-generation platform to scale toward <strong>10,000 customers</strong>.",
-        "Embedding <strong>AI agents and Increff's algorithms</strong> natively across merchandising workflows to make configuration self-serve, faster, and more predictive for retail clients.",
         "Unified <strong>engineering and product under a single mandate</strong>, setting end-to-end technical architecture and product strategy to reduce hand-off friction and accelerate delivery."
       ],
       "achievementCategories": [
         "Promotion & Mandate",
         "0→1 Product Line",
+        "Platform Architecture",
+        "AI Architecture",
+        "Migration Strategy",
+        "Market Positioning",
+        "AI-First Practice",
         "Scale Journey",
-        "AI Leadership",
         "Org Building"
       ],
       "modalDetails": {
@@ -75,7 +83,9 @@
         ],
         "productInnovation": [
           "Building a <strong>next-generation retail merchandising analytics platform</strong> — a one-stop solution to configure any retail workflow, powered by Increff algorithms and AI agents.",
-          "Designing the platform to be <strong>highly customizable and extremely fast</strong>, so clients can self-configure workflows without bespoke engineering."
+          "Designing the platform to be <strong>highly customizable and extremely fast</strong>, so clients can self-configure workflows without bespoke engineering.",
+          "Repositioned strategy on the insight that <strong>AI commoditizes features and therefore raises the platform bar</strong> — validated against Gartner SCP Magic Quadrant research, with battle-cards defining where to compete against o9, Blue Yonder, RELEX, Kinaxis, and Anaplan, and where not to.",
+          "Elevated <strong>demand forecasting to a standalone, independently-scored platform capability</strong> (not an MFP sub-feature) — aligning the architecture to the metric buyers actually compare planning vendors on."
         ],
         "teamLeadership": [
           "Leads a unified <strong>engineering + product organization of ~40</strong>, reporting to the CTO and CEO.",
@@ -85,7 +95,10 @@
           "Unified engineering and product under a <strong>single roadmap and mandate</strong> to cut cross-function hand-off friction and speed up delivery."
         ],
         "technicalExecution": [
-          "Sets the <strong>technical architecture</strong> for the merchandising analytics platform, embedding Increff's algorithms and AI agents as first-class, high-performance building blocks."
+          "Sets the <strong>technical architecture</strong> for the merchandising analytics platform, embedding Increff's algorithms and AI agents as first-class, high-performance building blocks.",
+          "Closed <strong>17 architecture decision records</strong> — single columnar store (ClickHouse) with write-time denormalization, RabbitMQ over Kafka for task-queue workloads, core-4 dimension model with metadata extension slots, sparse anchors + named fan-out bases instead of materializing the planning cube — each with named rejected options and explicit revisit conditions.",
+          "Chose a <strong>deterministic workflow spine with AI inside bounded nodes</strong> over an agent-orchestrated backbone — preserving auditability ('run #12847 published after VP approved' vs 'the agent decided'), demo predictability, and 10–100x better token unit economics at scale.",
+          "Designed the <strong>strangler-fig migration</strong> of the production monolith: seam-carving before extraction, shadow-run numeric-parity comparison before every cutover, expand-contract for every data change."
         ]
       }
     },
