@@ -14,9 +14,6 @@ import Faq from './components/sections/Faq';
 
 // Import site chrome + pages
 import SiteNav from './components/SiteNav';
-import RecruiterPerspective from './pages/RecruiterPerspective';
-import HiringManagerPerspective from './pages/HiringManagerPerspective';
-import InterviewerPerspective from './pages/InterviewerPerspective';
 import NotFound from './components/NotFound';
 import Seo from './components/Seo';
 import { staticRoute } from './seo/routes';
@@ -27,6 +24,12 @@ const SideProjects = lazy(() => import('./pages/SideProjects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+
+// Job-search perspective pages: noindexed and reached only by direct link, so
+// the homepage bundle shouldn't carry them.
+const RecruiterPerspective = lazy(() => import('./pages/RecruiterPerspective'));
+const HiringManagerPerspective = lazy(() => import('./pages/HiringManagerPerspective'));
+const InterviewerPerspective = lazy(() => import('./pages/InterviewerPerspective'));
 
 // Standalone browser tool. Code-split so the amortisation engine and charts load
 // only for visitors who actually open it.
