@@ -24,18 +24,18 @@ const Breadcrumbs = ({ items }: { items: Crumb[] }) => {
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
-      <ol className="flex flex-wrap items-center gap-1.5 text-gray-500 dark:text-gray-400">
+      <ol className="flex flex-wrap items-center gap-1.5 text-muted-foreground">
         {items.map((crumb, i) => {
           const isCurrent = i === items.length - 1;
           return (
             <li key={crumb.path} className="flex items-center gap-1.5">
               {i > 0 && <span aria-hidden="true">›</span>}
               {isCurrent ? (
-                <span aria-current="page" className="text-gray-700 dark:text-gray-300">
+                <span aria-current="page" className="text-foreground">
                   {crumb.label}
                 </span>
               ) : (
-                <Link to={crumb.path} className="text-blue-600 dark:text-blue-400 hover:underline">
+                <Link to={crumb.path} className="text-primary hover:underline">
                   {crumb.label}
                 </Link>
               )}

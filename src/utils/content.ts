@@ -6,6 +6,9 @@ export interface Frontmatter {
   title?: string;
   description?: string;
   tags?: string[];
+  // 'true' hides the item from production builds; preview builds
+  // (VITE_SHOW_DRAFTS=1) still render it for review.
+  draft?: string;
   // blog
   date?: string;
   // projects / work
@@ -94,11 +97,16 @@ const projectGlob = import.meta.glob('../content/projects/*.md', {
   eager: true,
 }) as Record<string, string>;
 
-export const blogPosts: ContentItem[] = load(blogGlob).sort((a, b) =>
+// Drafts are visible on preview builds only (deploy:preview sets VITE_SHOW_DRAFTS=1).
+const showDrafts = import.meta.env.VITE_SHOW_DRAFTS === '1';
+const published = (items: ContentItem[]): ContentItem[] =>
+  items.filter((item) => showDrafts || item.frontmatter.draft !== 'true');
+
+export const blogPosts: ContentItem[] = published(load(blogGlob)).sort((a, b) =>
   (b.frontmatter.date || '').localeCompare(a.frontmatter.date || '')
 );
 
-export const projects: ContentItem[] = load(projectGlob).sort(
+export const projects: ContentItem[] = published(load(projectGlob)).sort(
   (a, b) => Number(a.frontmatter.order || 0) - Number(b.frontmatter.order || 0)
 );
 

@@ -21,13 +21,13 @@ const AchievementNavigation: React.FC = () => {
   };
 
   return (
-    <div className="rounded-lg">
+    <div className="no-print rounded-lg">
       <div className="flex flex-wrap gap-2 justify-center">
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => scrollToCategory(category.id)}
-            className="px-3 py-1.5 text-sm font-medium rounded-full border border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 transform hover:scale-105 inline-flex items-center gap-1.5"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <category.Icon className="w-4 h-4" />
             {category.label}

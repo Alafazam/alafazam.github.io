@@ -29,7 +29,7 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-10 px-4">
       <div className="mx-auto max-w-3xl">
         <Seo
           path={blogPath(post.slug)}
@@ -43,9 +43,9 @@ const BlogPost = () => {
 
         <Breadcrumbs items={blogTrail(frontmatter.title || post.slug, post.slug)} />
 
-        <h1 className="text-3xl sm:text-4xl font-bold mt-4">{frontmatter.title}</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-4">{frontmatter.title}</h1>
         {frontmatter.date && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 mb-8">
+          <p className="text-sm text-muted-foreground mt-2 mb-8">
             {formatDate(frontmatter.date)}
           </p>
         )}
