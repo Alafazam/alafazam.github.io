@@ -30,11 +30,36 @@ function markdownContent(): Plugin {
   }
 }
 
+// Preloads Inter's Latin face so it is usually ready before first paint,
+// instead of being discovered only after the CSS is parsed (a late swap shifts
+// the layout). The file name is content-hashed, so it is read from the bundle.
+const INTER_LATIN_FONT = /^assets\/inter-latin-wght-normal-[\w-]+\.woff2$/
+
+function preloadInterFont(): Plugin {
+  return {
+    name: 'preload-inter-font',
+    apply: 'build',
+    transformIndexHtml(html, ctx) {
+      if (!ctx.bundle) return html
+      const font = Object.keys(ctx.bundle).find((name) => INTER_LATIN_FONT.test(name))
+      if (!font) throw new Error('preload-inter-font: Inter Latin woff2 not found in the bundle')
+      return [
+        {
+          tag: 'link',
+          attrs: { rel: 'preload', href: `${base}${font}`, as: 'font', type: 'font/woff2', crossorigin: '' },
+          injectTo: 'head',
+        },
+      ]
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     markdownContent(),
+    preloadInterFont(),
     {
       // Staging builds must never be indexed — they would compete with the
       // production site in search/answer engines.

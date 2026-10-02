@@ -1,3 +1,17 @@
+/* Inter loads with font-display: swap. Text laid out in a plain system font
+   first wraps differently (the homepage pill row gains or loses a line), so the
+   swap shifts the page (CLS 0.11). This face is Arial, or its metric twin
+   Liberation Sans, scaled to Inter's metrics: the standard Inter overrides
+   used by Next.js and fontaine. With it, the swap keeps every line break. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
