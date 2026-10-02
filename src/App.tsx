@@ -18,6 +18,8 @@ import RecruiterPerspective from './pages/RecruiterPerspective';
 import HiringManagerPerspective from './pages/HiringManagerPerspective';
 import InterviewerPerspective from './pages/InterviewerPerspective';
 import NotFound from './components/NotFound';
+import Seo from './components/Seo';
+import { staticRoute } from './seo/routes';
 
 // Content pages are code-split so the Markdown renderer + syntax highlighter
 // only load when visiting Blog/Projects — keeping the homepage bundle light.
@@ -47,6 +49,7 @@ const ResumePage = () => {
 
   return (
     <div className="py-8 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+      <Seo {...staticRoute('/')} />
       <div id="resume-content" className="mx-auto max-w-4xl">
         <Header basics={resumeData.basics} hero={resumeData.hero} />
         <AchievementNavigation />

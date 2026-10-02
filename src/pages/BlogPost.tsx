@@ -1,5 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Seo from '../components/Seo';
+import { absoluteUrl, blogPath, SITE_URL, TITLE_SUFFIX } from '../seo/site';
 import { getBlogPost, formatDate } from '../utils/content';
 import MarkdownContent from '../components/MarkdownContent';
 
@@ -10,7 +12,7 @@ const BlogPost = () => {
   if (!post) return <Navigate to="/blog" replace />;
 
   const { frontmatter, html } = post;
-  const url = `https://alafazam.com/blog/${post.slug}`;
+  const url = absoluteUrl(blogPath(post.slug));
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -18,7 +20,7 @@ const BlogPost = () => {
     description: frontmatter.description,
     datePublished: frontmatter.date,
     dateModified: frontmatter.date,
-    author: { '@type': 'Person', name: 'Alaf Azam Khan', url: 'https://alafazam.com/' },
+    author: { '@type': 'Person', name: 'Alaf Azam Khan', url: `${SITE_URL}/` },
     publisher: { '@type': 'Person', name: 'Alaf Azam Khan' },
     mainEntityOfPage: url,
     url,
@@ -27,10 +29,13 @@ const BlogPost = () => {
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-3xl">
+        <Seo
+          path={blogPath(post.slug)}
+          title={`${frontmatter.title}${TITLE_SUFFIX}`}
+          description={frontmatter.description || post.excerpt}
+          indexable
+        />
         <Helmet>
-          <title>{frontmatter.title} — Alaf Azam Khan</title>
-          {frontmatter.description && <meta name="description" content={frontmatter.description} />}
-          <link rel="canonical" href={url} />
           <script type="application/ld+json">{JSON.stringify(schema)}</script>
         </Helmet>
 

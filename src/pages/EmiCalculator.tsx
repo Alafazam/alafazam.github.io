@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -321,14 +322,7 @@ const EmiCalculator = () => {
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-5xl">
-        <Helmet>
-          <title>EMI Scenario Planner — Alaf Azam Khan</title>
-          <meta
-            name="description"
-            content="Build and compare home-loan repayment scenarios side by side: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI or a one-off prepayment — and see the interest and years each one saves."
-          />
-          <link rel="canonical" href="https://alafazam.com/projects/emi-calculator" />
-        </Helmet>
+        <Seo {...staticRoute('/projects/emi-calculator')} />
 
         <header className="mb-8">
           <Link

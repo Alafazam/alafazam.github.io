@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Helmet } from 'react-helmet';
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
 import {
   Download,
   Copy,
@@ -402,10 +403,7 @@ const CampusHiring = () => {
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-4xl">
-        <Helmet>
-          <title>Campus Hiring — Proctoring Network Audit</title>
-          <meta name="robots" content="noindex, nofollow" />
-        </Helmet>
+        <Seo {...staticRoute('/campusHiring')} />
 
         {/* Copy confirmations are announced here for screen reader users. */}
         <div aria-live="polite" role="status" className="sr-only">

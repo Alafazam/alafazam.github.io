@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import Seo from '../components/Seo';
+import { projectPath, TITLE_SUFFIX } from '../seo/site';
 import { getProject } from '../utils/content';
 import MarkdownContent from '../components/MarkdownContent';
 
@@ -21,11 +22,12 @@ const ProjectDetail = () => {
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-3xl">
-        <Helmet>
-          <title>{title} — Alaf Azam Khan</title>
-          {project.excerpt && <meta name="description" content={project.excerpt} />}
-          <link rel="canonical" href={`https://alafazam.com/projects/${project.slug}`} />
-        </Helmet>
+        <Seo
+          path={projectPath(project.slug)}
+          title={`${title}${TITLE_SUFFIX}`}
+          description={project.excerpt}
+          indexable
+        />
 
         <Link to="/projects" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
           ← All work
