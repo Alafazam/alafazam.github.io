@@ -115,7 +115,11 @@ for (const entry of manifest) {
 
   const page = template
     .replace(headMatch[1], mergeHead(headMatch[1], head))
-    .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+    .replace(
+      '<div id="root"></div>',
+      // src/main.tsx hydrates only when this matches the URL being viewed.
+      `<div id="root" data-prerendered-path="${route}">${html}</div>`
+    );
 
   // A route that renders the NotFound page has no matching <Route>: the list
   // above and src/App.tsx have drifted apart. Catch it here rather than ship a
