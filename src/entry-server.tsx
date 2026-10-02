@@ -3,7 +3,8 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { Writable } from 'node:stream';
 import { StaticRouter } from 'react-router';
 import { Helmet } from 'react-helmet';
-import { AppShell, routerBasename } from './App';
+import { AppShell } from './App';
+import { routerBasename } from './routerBasename';
 
 // Re-exported so scripts/prerender.mjs reads the route list from the same
 // source the pages read their head tags from.

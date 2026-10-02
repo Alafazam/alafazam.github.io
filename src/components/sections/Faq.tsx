@@ -9,7 +9,7 @@ export interface FaqItem {
 // The FAQPage JSON-LD below is built from this same list, so the structured
 // data crawlers read always matches the visible answers — and only ships on
 // the page that shows them.
-export const faqItems: FaqItem[] = [
+const faqItems: FaqItem[] = [
   {
     question: 'What does Alaf Azam Khan do?',
     answer:

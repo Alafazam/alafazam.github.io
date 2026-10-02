@@ -38,10 +38,8 @@ const CampusHiring = lazy(() => import('./pages/CampusHiring'));
 
 // Import data utilities
 import getResumeData from './utils/resumeData';
+import { routerBasename } from './routerBasename';
 
-// Router base so the app works whether served from the production root ("/")
-// or a staging subfolder ("/preview/"). Vite injects BASE_URL from `base`.
-export const routerBasename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
 
 // Resume Page Component — getResumeData() is synchronous (imports JSON directly)
 const ResumePage = () => {

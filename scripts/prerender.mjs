@@ -27,7 +27,7 @@ function mergeHead(head, helmet) {
   // react-helmet emits `<title data-react-helmet="true"></title>` even when a
   // route sets no title, so test the text rather than the tag — otherwise every
   // page that relies on the site-wide default would ship with an empty title.
-  const title = (helmet.title.match(/<title[^>]*>([\s\S]*?)<\/title>/) || [, ''])[1].trim();
+  const title = (helmet.title.match(/<title[^>]*>([\s\S]*?)<\/title>/) || ['', ''])[1].trim();
   if (title) {
     merged = merged.replace(/<title[^>]*>[\s\S]*?<\/title>/, '') + helmet.title;
   }

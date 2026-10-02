@@ -39,6 +39,10 @@ Set `indexable: false` to keep a page live but out of search: it gets `noindex, 
 
 It then writes `dist/sitemap.xml` from the indexable manifest entries. There is no hand-maintained sitemap.
 
+## Lint
+
+`pnpm lint` uses `.eslintrc.cjs` (ESLint 8, Vite's React + TypeScript rules). Generated files (`dist*`, `vite.config.js`, `vite.config.d.ts`) are ignored.
+
 ## Deploying
 
 The repo uses pnpm only (`packageManager` in `package.json`). Deploy with `pnpm run deploy`, not `pnpm deploy`, which is a built-in pnpm command. It builds and publishes `dist/` to the `gh-pages` branch.
