@@ -13,7 +13,8 @@ const variants: Record<BadgeVariant, string> = {
   secondary: 'border-transparent bg-secondary text-secondary-foreground',
   outline: 'border-border text-muted-foreground',
   success: 'border-transparent bg-emerald-500/15 text-emerald-700 dark:text-emerald-400',
-  warning: 'border-transparent bg-amber-500/15 text-amber-700 dark:text-amber-400',
+  // amber-800: amber-700 on this tint is 4.46:1, just under WCAG AA's 4.5:1.
+  warning: 'border-transparent bg-amber-500/15 text-amber-800 dark:text-amber-400',
 };
 
 const Badge = ({ variant = 'secondary', className = '', children }: BadgeProps) => (

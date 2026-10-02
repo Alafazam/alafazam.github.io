@@ -44,6 +44,8 @@ export default {
         sans: [
           'Inter Variable',
           'Inter',
+          // Metric-matched stand-in while Inter loads; see src/index.css.
+          'Inter Fallback',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',
