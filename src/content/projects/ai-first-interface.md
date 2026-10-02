@@ -1,5 +1,4 @@
 ---
-draft: true
 name: AI-First Interface Strategy
 tagline: The platform as an intelligent backend
 category: Builds
@@ -9,8 +8,6 @@ icon: bot
 order: 2
 tags: [AI, Platform, MCP]
 ---
-
-<!-- Draft copy — replace with your own words. -->
 
 Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural language instead of clicking through screens.
 
@@ -25,3 +22,15 @@ Treat the platform as a set of well-described tools (MCP servers + a skills laye
 ## Outcome
 
 Clients can ask for merchandising decisions in plain language, and the AI orchestrates the underlying platform — turning a deep feature set into something you can just talk to.
+
+## Design principles
+
+- **The tools carry the semantics.** An MCP tool description is now product surface. Writing what a tool is for, when to use it and what it returns is the new UX design.
+- **Skills encode the workflows.** Tools are verbs; skills are the sentences: the encoded judgment of how an experienced merchandiser sequences a decision.
+- **The platform stays authoritative.** The assistant never invents a number. It routes intent to algorithms that were trusted before AI arrived.
+
+A merchandiser can ask, "rebalance next month's OTB for the stores that under-sold this range", and the assistant calls the right tools in the right order, with the platform's own optimization doing the heavy lifting.
+
+## Why it matters
+
+It decouples the platform's value from its screens. Clients can bring their own assistant, and years of merchandising algorithms become something you can just talk to.
