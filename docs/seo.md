@@ -42,6 +42,12 @@ It then writes `dist/sitemap.xml` from the indexable manifest entries. There is 
 
 Finally, `scripts/check-links.mjs` scans every `dist/**/*.html` for internal `href`, `src` and `content` URLs (including `https://alafazam.com/...` in og tags), plus every sitemap `<loc>`. It resolves each one the way GitHub Pages would. The build fails on any URL that would 404, or that would only work through a trailing-slash redirect.
 
+## Markdown content
+
+Posts and projects are rendered **at build time**. The `markdown-content` plugin in `vite.config.ts` turns each `*.md?content` import (the globs in `src/utils/content.ts`) into `{ frontmatter, html, excerpt }` using `src/content/render.ts`. So markdown-it and highlight.js never ship to the browser; highlight.js is only a runtime dependency for its stylesheet.
+
+`draft: true` content becomes `null` at build time unless `VITE_SHOW_DRAFTS=1` (set by `deploy:preview`). Drafts therefore never reach production pages, the sitemap, or the JavaScript bundle.
+
 ## Lint
 
 `pnpm lint` uses `.eslintrc.cjs` (ESLint 8, Vite's React + TypeScript rules). Build output (`dist*`) is ignored.
