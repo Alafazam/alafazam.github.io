@@ -44,7 +44,7 @@ Finally, `scripts/check-links.mjs` scans every `dist/**/*.html` for internal `hr
 
 ## Lint
 
-`pnpm lint` uses `.eslintrc.cjs` (ESLint 8, Vite's React + TypeScript rules). Generated files (`dist*`, `vite.config.js`, `vite.config.d.ts`) are ignored.
+`pnpm lint` uses `.eslintrc.cjs` (ESLint 8, Vite's React + TypeScript rules). Build output (`dist*`) is ignored.
 
 ## Deploying
 
