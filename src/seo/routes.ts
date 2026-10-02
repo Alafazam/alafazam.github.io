@@ -48,7 +48,7 @@ export const STATIC_ROUTES: StaticRoute[] = [
   {
     path: '/recruiter',
     title: `Recruiter Notes${TITLE_SUFFIX}`,
-    description: "A recruiter's-eye summary of Alaf Azam Khan's profile.",
+    description: "A recruiter's-eye summary of Alaf Azam Khan, Director of Engineering & Product at Increff.",
     indexable: false,
   },
   {

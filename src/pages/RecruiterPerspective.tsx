@@ -24,12 +24,12 @@ const RecruiterPerspective = () => {
               <div className="text-center">
                 <div className="text-2xl mb-2">🚀</div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Role</div>
-                <div className="font-semibold">Senior PM, Engineering leader, CTO track</div>
+                <div className="font-semibold">Director of Engineering & Product</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">🧠</div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Scope</div>
-                <div className="font-semibold">6+ products, 25+ engineers</div>
+                <div className="font-semibold">6 products, 40-person org</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">💰</div>
@@ -39,12 +39,12 @@ const RecruiterPerspective = () => {
               <div className="text-center">
                 <div className="text-2xl mb-2">🚀</div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">ARR</div>
-                <div className="font-semibold">Driving products with $12M ARR</div>
+                <div className="font-semibold">Driving products with $12M+ ARR</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl mb-2">🤖</div>
                 <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">AI Impact</div>
-                <div className="font-semibold">Uses Cursor and AI copilots for prototyping</div>
+                <div className="font-semibold">Building AI-native merchandising intelligence</div>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@ const RecruiterPerspective = () => {
             "Wait, this actually looks really good. Let me dig deeper..."
           </p>
           <p className="text-base text-gray-600 dark:text-gray-300">
-            Honestly? This isn't your typical PM resume. Most candidates either have the business side OR the technical chops. Alaf has both, plus he's actually built stuff and can point to real revenue numbers. That's rare.
+            Honestly? This isn't your typical leadership profile. Most candidates either have the business side OR the technical chops. Alaf has both, plus he's actually built stuff and can point to real revenue numbers. That's rare.
           </p>
         </div>
 
@@ -85,7 +85,7 @@ const RecruiterPerspective = () => {
                 <h3 className="text-lg font-semibold mb-3">He can actually talk to engineers 🧠</h3>
                 <p className="mb-2 text-gray-600 dark:text-gray-300">This is huge. Most PMs are either business-only or tech-only. He grew up as an engineer:</p>
                 <ul className="space-y-1 ml-4">
-                  <li>→ Started as SDE1, worked his way up to SDE3, then moved to PM</li>
+                  <li>→ Started as SDE1, worked up to SDE3, moved into product, and now leads both as Director</li>
                   <li>→ Still codes when needed (delivered 45+ story points during crunch time)</li>
                   <li>→ Knows database design, CI/CD, the real technical stuff</li>
                   <li>→ Engineers will actually respect him (this matters more than people think)</li>
@@ -99,7 +99,7 @@ const RecruiterPerspective = () => {
                   <li>→ 200M+ SKUs (that's a lot of data to manage)</li>
                   <li>→ 8M+ orders monthly (high-volume systems)</li>
                   <li>→ 100+ enterprise clients globally</li>
-                  <li>→ Led teams of 25+ engineers (that's proper leadership)</li>
+                  <li>→ Built and leads a 40-person engineering and product org (that's proper leadership)</li>
                 </ul>
               </div>
             </div>
@@ -124,8 +124,8 @@ const RecruiterPerspective = () => {
                 
                 <div className="space-y-3 text-sm">
                   <div>
-                    <p className="font-semibold text-orange-700 dark:text-orange-300">"8+ years at one company?"</p>
-                    <p className="text-orange-600 dark:text-orange-400">Actually no - he grew WITH the company from startup to $12M ARR. That's scaling, not staying put.</p>
+                    <p className="font-semibold text-orange-700 dark:text-orange-300">"9 years at one company?"</p>
+                    <p className="text-orange-600 dark:text-orange-400">Actually no - he grew WITH the company from SDE to Director and a $12M+ ARR product suite. That's scaling, not staying put.</p>
                   </div>
                   
                   <div>
@@ -141,7 +141,7 @@ const RecruiterPerspective = () => {
                 <div className="space-y-2 text-sm text-green-700 dark:text-green-300">
                   <p>→ <strong>Priority:</strong> Top 5% this quarter</p>
                   <p>→ <strong>Timeline:</strong> Interview this week</p>
-                  <p>→ <strong>Level:</strong> Senior PM → Director track</p>
+                  <p>→ <strong>Level:</strong> Director of Engineering & Product</p>
                   <p>→ <strong>Comp:</strong> Top of band justified</p>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const RecruiterPerspective = () => {
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Target Role</div>
                   <div className="text-gray-700 dark:text-gray-300">
-                    Senior PM with Director trajectory (12-18 months)
+                    Director-level engineering and product leadership
                   </div>
                 </div>
               </div>
@@ -205,7 +205,7 @@ const RecruiterPerspective = () => {
           
           <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <p className="text-sm text-blue-800 dark:text-blue-300">
-              <strong>Bottom line:</strong> This is the kind of PM who can own a product line, talk to customers, 
+              <strong>Bottom line:</strong> This is the kind of leader who can own a product line, talk to customers, 
               work with engineering, and actually ship stuff that makes money. Don't overthink it.
             </p>
           </div>
