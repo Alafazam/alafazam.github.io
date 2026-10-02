@@ -40,6 +40,8 @@ Set `indexable: false` to keep a page live but out of search: it gets `noindex, 
 
 It then writes `dist/sitemap.xml` from the indexable manifest entries. There is no hand-maintained sitemap.
 
+Finally, `scripts/check-links.mjs` scans every `dist/**/*.html` for internal `href`, `src` and `content` URLs (including `https://alafazam.com/...` in og tags), plus every sitemap `<loc>`. It resolves each one the way GitHub Pages would. The build fails on any URL that would 404, or that would only work through a trailing-slash redirect.
+
 ## Lint
 
 `pnpm lint` uses `.eslintrc.cjs` (ESLint 8, Vite's React + TypeScript rules). Generated files (`dist*`, `vite.config.js`, `vite.config.d.ts`) are ignored.
