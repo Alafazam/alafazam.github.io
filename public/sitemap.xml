@@ -35,5 +35,60 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Append /blog and individual /blog/<slug> URLs here when the blog ships (PR 3). -->
+  <!-- Blog posts. Add a <url> here for each new /blog/<slug>. -->
+  <url>
+    <loc>https://alafazam.com/blog/planning-platform-age-of-agents</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/store-only-what-humans-typed</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/agents-inside-the-nodes</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/graft-dont-pick</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/dont-lead-with-ai</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/killing-the-god-object</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/stop-drawing-pipelines</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/when-i-overruled-the-ai</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/second-brain-product-org</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/every-ai-widget-costs-rows</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/progress-isnt-sufficiency</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

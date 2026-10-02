@@ -8,6 +8,10 @@ export interface Frontmatter {
   tags?: string[];
   // blog
   date?: string;
+  /** Posts sharing a `series` name are linked as a numbered run. */
+  series?: string;
+  /** Position within the series; 0 is the series intro and is not counted as a part. */
+  seriesOrder?: number;
   // projects / work
   name?: string;
   tagline?: string;
@@ -103,6 +107,19 @@ export const projects: ContentItem[] = load(projectGlob).sort(
 );
 
 export const getBlogPost = (slug: string) => blogPosts.find((p) => p.slug === slug);
+
+/**
+ * A post's position in its series. The frontmatter parser leaves every value as a
+ * string, so `seriesOrder` is coerced here, the same way `order` is above.
+ */
+export const seriesOrderOf = (post: ContentItem): number => Number(post.frontmatter.seriesOrder || 0);
+
+/** Posts in a series, in reading order. */
+export const getSeries = (name: string, posts: ContentItem[] = blogPosts): ContentItem[] =>
+  posts
+    .filter((p) => p.frontmatter.series === name)
+    .sort((a, b) => seriesOrderOf(a) - seriesOrderOf(b));
+
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 
 // Order the "See My Work" categories deliberately (Builds first).

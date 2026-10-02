@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { blogPosts, formatDate } from '../utils/content';
+import { blogPosts, formatDate, seriesOrderOf } from '../utils/content';
 
 const Blog = () => {
   return (
@@ -24,11 +24,20 @@ const Blog = () => {
                 to={`/blog/${post.slug}`}
                 className="group block rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md"
               >
-                {post.frontmatter.date && (
-                  <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                    {formatDate(post.frontmatter.date)}
-                  </p>
-                )}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  {post.frontmatter.date && (
+                    <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                      {formatDate(post.frontmatter.date)}
+                    </p>
+                  )}
+                  {post.frontmatter.series && (
+                    <span title={post.frontmatter.series} className="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/50 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:text-blue-200">
+                      {seriesOrderOf(post) === 0
+                        ? 'Series intro'
+                        : `Series · Part ${post.frontmatter.seriesOrder}`}
+                    </span>
+                  )}
+                </div>
                 <h2 className="text-xl font-semibold mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {post.frontmatter.title}
                 </h2>

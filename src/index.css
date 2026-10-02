@@ -279,3 +279,101 @@ section {
   --viz-4: #c98500;
   --viz-5: #d55181;
 }
+
+/* ---------------------------------------------------------------------------
+   Blog diagrams: hand-authored inline SVG inside <figure class="diagram">.
+
+   Posts colour shapes only through the dg-* classes below, never hex, so one
+   set of tokens drives both themes and the dark toggle needs no redraw. The
+   status pair is blue (ok) and amber (warn): the hue pair that stays distinct
+   under the common colour-vision deficiencies. Filled shapes carry white
+   labels (dg-on-accent), so each fill is stepped dark enough to clear 4.5:1
+   against white in both themes.
+   --------------------------------------------------------------------------- */
+:root {
+  --dg-text: #111827;
+  --dg-muted: #4b5563;
+  --dg-line: #374151;
+  --dg-box-fill: #f1f5f9;
+  --dg-box-stroke: #94a3b8;
+  --dg-accent: #4338ca; /* indigo 700 */
+  --dg-accent-line: #4338ca;
+  --dg-ok: #0369a1; /* sky 700 */
+  --dg-warn: #b45309; /* amber 700 */
+  --dg-on-accent: #ffffff;
+  --dg-frame: #e5e7eb;
+  --dg-frame-bg: #ffffff;
+}
+
+:root.dark {
+  --dg-text: #f3f4f6;
+  --dg-muted: #9ca3af;
+  --dg-line: #d1d5db;
+  --dg-box-fill: #1f2937;
+  --dg-box-stroke: #6b7280;
+  --dg-accent: #4f46e5; /* indigo 600 */
+  --dg-accent-line: #a5b4fc;
+  --dg-ok: #0369a1;
+  --dg-warn: #b45309;
+  --dg-on-accent: #ffffff;
+  --dg-frame: #374151;
+  --dg-frame-bg: #111827;
+}
+
+.prose figure.diagram,
+figure.diagram {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid var(--dg-frame);
+  border-radius: 0.75rem;
+  background: var(--dg-frame-bg);
+}
+
+figure.diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 680px; /* narrow phone-first viewBoxes would otherwise balloon on desktop */
+  height: auto;
+  margin: 0 auto;
+  color: var(--dg-line); /* arrowhead markers use currentColor */
+  overflow: visible;
+}
+
+/* Typography sets font metrics on descendants; keep SVG labels on the
+   attribute sizes the author chose and on the body font. */
+figure.diagram svg text {
+  font-family: inherit;
+  line-height: normal;
+}
+
+.prose figure.diagram figcaption,
+figure.diagram figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--dg-muted);
+}
+
+@media (max-width: 640px) {
+  .prose figure.diagram,
+  figure.diagram {
+    padding: 0.5rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.dg-line { fill: none; stroke: var(--dg-line); stroke-width: 1.5; }
+.dg-box { fill: var(--dg-box-fill); stroke: var(--dg-box-stroke); stroke-width: 1.25; }
+.dg-accent { fill: var(--dg-accent); stroke: none; }
+.dg-accent-line { fill: none; stroke: var(--dg-accent-line); stroke-width: 2; }
+.dg-warn { fill: var(--dg-warn); stroke: none; }
+.dg-ok { fill: var(--dg-ok); stroke: none; }
+.dg-text { fill: var(--dg-text); }
+.dg-muted { fill: var(--dg-muted); }
+.dg-on-accent { fill: var(--dg-on-accent); font-weight: 600; }
+/* Small sub-labels on fills read better at normal weight (CSS beats the SVG
+   font-weight attribute, so the size attribute is the hook). */
+.dg-on-accent[font-size="11"],
+.dg-on-accent[font-size="12"],
+.dg-on-accent[font-size="13"] { font-weight: 400; }
