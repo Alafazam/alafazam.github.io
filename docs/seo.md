@@ -12,6 +12,7 @@ How the site's head tags, sitemap and prerendered HTML fit together.
 | Full list of prerendered routes (static + Markdown) | `src/seo/manifest.ts` |
 | FAQPage JSON-LD | `src/components/sections/Faq.tsx`, built from the same `faqItems` it renders |
 | BlogPosting JSON-LD | `src/pages/BlogPost.tsx` |
+| Breadcrumb trails + BreadcrumbList JSON-LD | `src/seo/breadcrumbs.ts` (trails), `src/components/Breadcrumbs.tsx` (render + schema) |
 | Site-wide defaults (Person JSON-LD, og:image, theme) | `index.html` |
 
 `index.html` is the template for every prerendered page, so it must hold nothing that is specific to one route. Its title and description are fallbacks only. The prerender replaces them on every page.

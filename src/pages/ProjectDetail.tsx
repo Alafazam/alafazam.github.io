@@ -1,5 +1,7 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { workTrail } from '../seo/breadcrumbs';
 import { projectPath, TITLE_SUFFIX } from '../seo/site';
 import { getProject } from '../utils/content';
 import MarkdownContent from '../components/MarkdownContent';
@@ -29,9 +31,7 @@ const ProjectDetail = () => {
           indexable
         />
 
-        <Link to="/projects" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-          ← All work
-        </Link>
+        <Breadcrumbs items={workTrail(title, project.slug)} />
 
         {category && (
           <p className="mt-4 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">

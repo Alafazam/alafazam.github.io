@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { workTrail } from '../seo/breadcrumbs';
 import { staticRoute } from '../seo/routes';
-import { Link } from 'react-router-dom';
 import {
-  ArrowLeft,
   CalendarDays,
   Check,
   Copy,
@@ -325,13 +325,9 @@ const EmiCalculator = () => {
         <Seo {...staticRoute('/projects/emi-calculator')} />
 
         <header className="mb-8">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-4"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            All work
-          </Link>
+          <div className="mb-4">
+            <Breadcrumbs items={workTrail('EMI Scenario Planner', 'emi-calculator')} />
+          </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">EMI Scenario Planner</h1>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
             The EMI is the easy half. The useful half is the what-ifs — pay ₹5k more a month,

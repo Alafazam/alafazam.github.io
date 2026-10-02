@@ -1,6 +1,8 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { blogTrail } from '../seo/breadcrumbs';
 import { absoluteUrl, blogPath, SITE_URL, TITLE_SUFFIX } from '../seo/site';
 import { getBlogPost, formatDate } from '../utils/content';
 import MarkdownContent from '../components/MarkdownContent';
@@ -39,9 +41,7 @@ const BlogPost = () => {
           <script type="application/ld+json">{JSON.stringify(schema)}</script>
         </Helmet>
 
-        <Link to="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-          ← All writing
-        </Link>
+        <Breadcrumbs items={blogTrail(frontmatter.title || post.slug, post.slug)} />
 
         <h1 className="text-3xl sm:text-4xl font-bold mt-4">{frontmatter.title}</h1>
         {frontmatter.date && (
