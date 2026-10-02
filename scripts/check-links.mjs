@@ -67,6 +67,10 @@ for (const file of htmlFiles(distDir)) {
   for (const [, value] of html.matchAll(/\s(?:href|src|content)="([^"]+)"/g)) {
     check(value.replace(/&amp;/g, '&'), source);
   }
+  // srcset is a comma-separated list of "url [descriptor]" candidates.
+  for (const [, value] of html.matchAll(/\ssrcset="([^"]+)"/gi)) {
+    for (const candidate of value.split(',')) check(candidate.trim().split(/\s+/)[0], source);
+  }
 }
 
 const sitemap = readFileSync(join(distDir, 'sitemap.xml'), 'utf8');
