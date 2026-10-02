@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Basics, Hero } from '../../types/resume';
 
+// Rendered size of the avatar (h-24 w-24). The image files are 2x this for
+// high-DPI screens; the attributes reserve the box before the image loads.
+const AVATAR_SIZE_PX = 96;
+
 interface HeaderProps {
   basics: Basics;
   hero: Hero;
@@ -18,11 +22,16 @@ const Header: React.FC<HeaderProps> = ({ basics, hero }) => {
         title="View LinkedIn profile"
         className="rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
       >
-        <img
-          src={basics.avatarUrl}
-          alt={basics.name}
-          className="rounded-full h-24 w-24 object-cover ring-2 ring-border cursor-pointer transition-transform duration-200 hover:scale-105 hover:ring-primary"
-        />
+        <picture>
+          <source srcSet={basics.avatarWebpUrl} type="image/webp" />
+          <img
+            src={basics.avatarUrl}
+            alt={basics.name}
+            width={AVATAR_SIZE_PX}
+            height={AVATAR_SIZE_PX}
+            className="rounded-full h-24 w-24 object-cover ring-2 ring-border cursor-pointer transition-transform duration-200 hover:scale-105 hover:ring-primary"
+          />
+        </picture>
       </a>
 
       <h1 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight">{basics.name}</h1>

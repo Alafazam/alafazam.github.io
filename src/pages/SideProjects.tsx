@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { TOOLS, projectsByCategory } from '../utils/content';
 import Badge from '../components/ui/Badge';
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
 
 const iconMap: Record<string, LucideIcon> = {
   boxes: Boxes,
@@ -93,6 +95,7 @@ const SideProjects = () => {
 
   return (
     <div className="py-12 px-4">
+      <Seo {...staticRoute('/projects')} />
       <div className="mx-auto max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Selected Work</h1>

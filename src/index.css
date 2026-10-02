@@ -120,6 +120,27 @@
   content: none;
 }
 
+/* Distinguish a first-hand scene from the argument that follows it. */
+.prose .story-lede {
+  @apply my-8 border-l-2 border-primary pl-4 text-foreground sm:pl-6;
+}
+
+.prose .story-lede p {
+  @apply my-0 font-serif text-base leading-relaxed;
+}
+
+.prose .story-lede p + p {
+  @apply mt-4;
+}
+
+.prose .story-lede .story-lede-label {
+  @apply mb-4 font-sans text-xs font-bold uppercase tracking-widest text-primary;
+}
+
+.prose .story-lede .story-lede-turn {
+  @apply font-semibold;
+}
+
 /* Print-specific styles */
 @media print {
   @page {

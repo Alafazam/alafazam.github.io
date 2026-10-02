@@ -1,5 +1,9 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { blogTrail } from '../seo/breadcrumbs';
+import { absoluteUrl, blogPath, SITE_URL, TITLE_SUFFIX } from '../seo/site';
 import { getBlogPost, formatDate } from '../utils/content';
 import MarkdownContent from '../components/MarkdownContent';
 
@@ -10,7 +14,7 @@ const BlogPost = () => {
   if (!post) return <Navigate to="/blog" replace />;
 
   const { frontmatter, html } = post;
-  const url = `https://alafazam.com/blog/${post.slug}`;
+  const url = absoluteUrl(blogPath(post.slug));
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -18,7 +22,7 @@ const BlogPost = () => {
     description: frontmatter.description,
     datePublished: frontmatter.date,
     dateModified: frontmatter.date,
-    author: { '@type': 'Person', name: 'Alaf Azam Khan', url: 'https://alafazam.com/' },
+    author: { '@type': 'Person', name: 'Alaf Azam Khan', url: `${SITE_URL}/` },
     publisher: { '@type': 'Person', name: 'Alaf Azam Khan' },
     mainEntityOfPage: url,
     url,
@@ -27,16 +31,17 @@ const BlogPost = () => {
   return (
     <div className="py-10 px-4">
       <div className="mx-auto max-w-3xl">
+        <Seo
+          path={blogPath(post.slug)}
+          title={`${frontmatter.title}${TITLE_SUFFIX}`}
+          description={frontmatter.description || post.excerpt}
+          indexable
+        />
         <Helmet>
-          <title>{frontmatter.title} — Alaf Azam Khan</title>
-          {frontmatter.description && <meta name="description" content={frontmatter.description} />}
-          <link rel="canonical" href={url} />
           <script type="application/ld+json">{JSON.stringify(schema)}</script>
         </Helmet>
 
-        <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          ← All writing
-        </Link>
+        <Breadcrumbs items={blogTrail(frontmatter.title || post.slug, post.slug)} />
 
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-4">{frontmatter.title}</h1>
         {frontmatter.date && (

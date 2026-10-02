@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
 
 interface Question {
   id: string;
@@ -118,6 +120,7 @@ const InterviewerPerspective = () => {
 
   return (
     <div className="py-4 px-4">
+      <Seo {...staticRoute('/interviewer')} />
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
