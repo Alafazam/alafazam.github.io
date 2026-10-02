@@ -39,6 +39,17 @@ Set `indexable: false` to keep a page live but out of search: it gets `noindex, 
 
 It then writes `dist/sitemap.xml` from the indexable manifest entries. There is no hand-maintained sitemap.
 
+## Deploying
+
+The repo uses pnpm only (`packageManager` in `package.json`). Deploy with `pnpm run deploy`, not `pnpm deploy`, which is a built-in pnpm command. It builds and publishes `dist/` to the `gh-pages` branch.
+
 ## One-time setup outside the repo
 
-Google Search Console: add a **Domain** property for `alafazam.com` (verified with a DNS TXT record, which covers http/https and www/apex). Then submit `https://alafazam.com/sitemap.xml`.
+Google Search Console, Domain property (covers http/https and www/apex):
+
+1. Go to https://search.google.com/search-console, choose **Add property**, then **Domain**, and enter `alafazam.com`.
+2. Copy the `google-site-verification=…` TXT value Google shows you.
+3. At your DNS provider, add a TXT record on the root host (`@`) with that value.
+4. Back in Search Console, click **Verify**. DNS can take a few minutes to an hour to propagate.
+5. Under **Sitemaps**, submit `https://alafazam.com/sitemap.xml`.
+6. Use **URL Inspection** on `/` and `/projects` and request indexing.
