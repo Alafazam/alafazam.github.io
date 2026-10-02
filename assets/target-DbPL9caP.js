@@ -1,5 +1,5 @@
-import{c}from"./index-O82pqKiA.js";/**
- * @license lucide-react v1.22.0 - ISC
+import{c}from"./index-DC8MSdDj.js";/**
+ * @license lucide-react v1.21.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.

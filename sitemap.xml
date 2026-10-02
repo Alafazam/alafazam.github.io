@@ -2,38 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://alafazam.com/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://alafazam.com/projects</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://alafazam.com/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alafazam.com/projects/emi-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://alafazam.com/recruiter</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://alafazam.com/blog</loc>
   </url>
   <url>
-    <loc>https://alafazam.com/hiring-manager</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://alafazam.com/projects/kidqueue</loc>
   </url>
   <url>
-    <loc>https://alafazam.com/interviewer</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://alafazam.com/projects/ai-first-interface</loc>
   </url>
-  <!-- Append /blog and individual /blog/<slug> URLs here when the blog ships (PR 3). -->
+  <url>
+    <loc>https://alafazam.com/projects/two-clock-delivery</loc>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/roa-prioritization</loc>
+  </url>
+  <url>
+    <loc>https://alafazam.com/projects/gan-thinking-mode</loc>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/the-demo-is-the-spec</loc>
+    <lastmod>2026-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/return-on-attention</loc>
+    <lastmod>2025-12-14</lastmod>
+  </url>
 </urlset>
