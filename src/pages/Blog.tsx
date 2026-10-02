@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { blogPosts, formatDate } from '../utils/content';
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
 
 const Blog = () => {
   return (
     <div className="py-12 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+      <Seo {...staticRoute('/blog')} />
       <div className="mx-auto max-w-4xl">
         <header className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">Writing</h1>

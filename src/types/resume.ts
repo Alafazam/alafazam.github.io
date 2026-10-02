@@ -6,6 +6,8 @@ export interface Basics {
   linkedin: string;
   linkedinDescription: string;
   avatarUrl: string;
+  /** WebP version of avatarUrl, preferred by browsers that support it. */
+  avatarWebpUrl: string;
   resumePdfUrl: string;
 }
 

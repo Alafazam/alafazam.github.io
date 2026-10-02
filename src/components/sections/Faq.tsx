@@ -1,13 +1,15 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 export interface FaqItem {
   question: string;
   answer: string;
 }
 
-// Keep these in sync with the FAQPage JSON-LD in index.html so the visible
-// DOM matches the structured data crawlers read.
-export const faqItems: FaqItem[] = [
+// The FAQPage JSON-LD below is built from this same list, so the structured
+// data crawlers read always matches the visible answers — and only ships on
+// the page that shows them.
+const faqItems: FaqItem[] = [
   {
     question: 'What does Alaf Azam Khan do?',
     answer:
@@ -35,9 +37,22 @@ export const faqItems: FaqItem[] = [
   },
 ];
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
 const Faq: React.FC = () => {
   return (
     <section className="mb-8 mt-4" aria-labelledby="faq-heading">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
       <h2
         id="faq-heading"
         className="text-xl text-gray-700 dark:text-gray-300 mb-3 mt-2"
