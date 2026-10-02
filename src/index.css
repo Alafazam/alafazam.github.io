@@ -156,6 +156,27 @@ section {
   content: none;
 }
 
+/* Distinguish a first-hand scene from the argument that follows it. */
+.prose .story-lede {
+  @apply my-8 border-l-2 border-blue-600 pl-4 text-gray-900 dark:border-blue-400 dark:text-gray-100 sm:pl-6;
+}
+
+.prose .story-lede p {
+  @apply my-0 font-serif text-base leading-relaxed;
+}
+
+.prose .story-lede p + p {
+  @apply mt-4;
+}
+
+.prose .story-lede .story-lede-label {
+  @apply mb-4 font-sans text-xs font-bold uppercase tracking-widest text-blue-700 dark:text-blue-300;
+}
+
+.prose .story-lede .story-lede-turn {
+  @apply font-semibold;
+}
+
 
 
 /* Print-specific styles */
