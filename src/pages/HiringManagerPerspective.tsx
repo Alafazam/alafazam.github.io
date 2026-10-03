@@ -1,11 +1,15 @@
+import Seo from '../components/Seo';
+import { staticRoute } from '../seo/routes';
+
 const HiringManagerPerspective = () => {
   return (
-    <div className="py-4 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
+    <div className="py-4 px-4">
+      <Seo {...staticRoute('/hiring-manager')} />
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold mb-4">👨‍💼 Hiring Manager's Perspective</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-lg text-muted-foreground">
             Why Alaf thinks he is a good fit for the role
           </p>
         </div>
@@ -16,9 +20,9 @@ const HiringManagerPerspective = () => {
           <p className="text-lg font-semibold mb-4">
             "We should hire Alaf immediately - he is senior level ready"
           </p>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+          <p className="text-base text-muted-foreground">
             Alaf represents the ideal blend of technical depth, business acumen, and leadership capability 
-            that we need for our Senior PM role with clear Director trajectory.
+            that we need to lead engineering and product together at Director level.
           </p>
         </div>
 
@@ -53,7 +57,7 @@ const HiringManagerPerspective = () => {
                 <li>Developed 3 APMs (Associate Product Managers) into independent Product Managers - team scaling</li>
                 <li>Cross-functional team building (pre-sales, onboarding)</li>
                 <li>Interview standardization, Team SOP, assigning responsibilities shows process thinking</li>
-                <li>Proven track record managing 25+ people and multiple stakeholders</li>
+                <li>Built and leads a 40-person engineering and product org across multiple stakeholders</li>
               </ul>
             </div>
 
@@ -75,11 +79,11 @@ const HiringManagerPerspective = () => {
           
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-3">🎯 Senior PM Role with Director Path</h3>
+              <h3 className="text-lg font-semibold mb-3">🎯 Director-Level Engineering & Product Role</h3>
               <div>
-                <p className="mb-3"><strong>Immediate Role:</strong> Senior Product Manager</p>
-                <p className="mb-3"><strong>Timeline to Director:</strong> 12-18 months (based on performance)</p>
-                <p><strong>Rationale:</strong> Alaf has already done Director-level work at Increff. This gives him time to learn our domain while demonstrating leadership.</p>
+                <p className="mb-3"><strong>Immediate Role:</strong> Director of Engineering & Product</p>
+                <p className="mb-3"><strong>Mandate:</strong> Engineering and product for a product line under one leader</p>
+                <p><strong>Rationale:</strong> Alaf already runs both functions at Increff — a 40-person org across 6 products and $12M+ ARR — so he can step into the same dual mandate here.</p>
               </div>
             </div>
 
@@ -87,17 +91,17 @@ const HiringManagerPerspective = () => {
               <h3 className="text-lg font-semibold mb-3">📦 Multi-Product Ownership</h3>
               <div>
                 <p className="mb-3"><strong>Scope:</strong> 2-3 product lines initially, scaling to full portfolio</p>
-                <p className="mb-3"><strong>Team Size:</strong> 15-20 engineers initially</p>
-                <p><strong>Why:</strong> Alaf is ready for complex multi-product management based on his 6+ product experience at Increff.</p>
+                <p className="mb-3"><strong>Team Size:</strong> An engineering and product org at the 40-person scale he runs today</p>
+                <p><strong>Why:</strong> Alaf is ready for complex multi-product management based on the 6 products he leads at Increff.</p>
               </div>
             </div>
 
             <div>
               <h3 className="text-lg font-semibold mb-3">👥 Team Lead Responsibilities</h3>
               <div>
-                <p className="mb-3"><strong>Direct Reports:</strong> 2-3 PM2/PM1 level PMs</p>
-                <p className="mb-3"><strong>Mentorship Role:</strong> Develop junior PMs like Alaf did at Increff</p>
-                <p><strong>Process Ownership:</strong> Help standardize our PM practices based on Alaf's experience building PM function</p>
+                <p className="mb-3"><strong>Direct Reports:</strong> Engineering managers and product managers</p>
+                <p className="mb-3"><strong>Mentorship Role:</strong> Develop managers and PMs like Alaf did at Increff</p>
+                <p><strong>Process Ownership:</strong> Help standardize our engineering and product practices based on Alaf's experience building both functions</p>
               </div>
             </div>
           </div>
@@ -114,7 +118,7 @@ const HiringManagerPerspective = () => {
                 <li><strong>Band:</strong> Top 10% for market</li>
                 <li><strong>Rationale:</strong> Proven revenue generation track record</li>
                 <li><strong>Equity:</strong> Senior level allocation with upside</li>
-                <li><strong>Review:</strong> Fast-track to Director evaluation</li>
+                <li><strong>Review:</strong> Leadership-track review</li>
               </ul>
             </div>
 
@@ -171,14 +175,14 @@ const HiringManagerPerspective = () => {
             <p className="text-lg font-semibold">Overall Grade: A+ (Exceptional Hire)</p>
             <ul className="space-y-2">
               <li>• <strong>Immediate Impact Potential:</strong> High - can contribute from day 1</li>
-              <li>• <strong>Long-term Growth:</strong> Director/VP trajectory within 2-3 years</li>
+              <li>• <strong>Long-term Growth:</strong> VP / CPO-CTO trajectory</li>
               <li>• <strong>Cultural Fit:</strong> Innovation mindset aligns with company vision</li>
               <li>• <strong>Risk Level:</strong> Low - proven track record at scale</li>
-              <li>• <strong>Team Impact:</strong> Will elevate overall PM competency</li>
+              <li>• <strong>Team Impact:</strong> Will elevate engineering and product practice together</li>
             </ul>
           </div>
           
-          <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <div className="mt-6 p-4 bg-card border border-border rounded-lg">
             <p className="text-lg font-semibold">
               "This is the type of hire that transforms a product organization. 
               The combination of technical depth, business impact, and team building makes this a must-have candidate."

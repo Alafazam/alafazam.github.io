@@ -3,13 +3,18 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { Writable } from 'node:stream';
 import { StaticRouter } from 'react-router';
 import { Helmet } from 'react-helmet';
-import { AppShell, routerBasename } from './App';
+import { AppShell } from './App';
+import { routerBasename } from './routerBasename';
+
+// Re-exported so scripts/prerender.mjs reads the route list from the same
+// source the pages read their head tags from.
+export { routeManifest } from './seo/manifest';
 
 export interface RenderResult {
   /** Markup for <div id="root">, complete with React's hydration markers. */
   html: string;
   /** Head tags this route set through react-helmet, already stringified. */
-  head: { title: string; meta: string; link: string };
+  head: { title: string; meta: string; link: string; script: string };
 }
 
 /**
@@ -55,6 +60,7 @@ export function render(url: string): Promise<RenderResult> {
                 title: helmet.title.toString(),
                 meta: helmet.meta.toString(),
                 link: helmet.link.toString(),
+                script: helmet.script.toString(),
               },
             });
           });

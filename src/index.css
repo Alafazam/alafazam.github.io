@@ -1,136 +1,131 @@
+/* Inter, Latin subset only. @fontsource-variable/inter's index.css declares all
+   seven subsets; the site's text is Latin, and the one outlier (₹, U+20B9) was
+   pulling the 83 KB latin-ext file onto every page. It now renders from the
+   fallback font. The rule mirrors the package's own latin rule. */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Inter loads with font-display: swap. Text laid out in a plain system font
+   first wraps differently (the homepage pill row gains or loses a line), so the
+   swap shifts the page (CLS 0.11). This face is Arial, or its metric twin
+   Liberation Sans, scaled to Inter's metrics: the standard Inter overrides
+   used by Next.js and fontaine. With it, the swap keeps every line break. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles */
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
-  line-height: 1.6;
+/* shadcn-style design tokens — HSL channels consumed via tailwind.config.js */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border: 240 5.9% 90%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --ring: 221 83% 53%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 5.9%;
+    --card-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --border: 240 3.7% 15.9%;
+    --primary: 217 91% 65%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --ring: 217 91% 65%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Un-classed links inside dangerouslySetInnerHTML content (resume achievements) */
+  #resume-content a:not([class]) {
+    @apply text-primary hover:underline;
+  }
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
+/* Shared shadcn-style primitives */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-5
+      transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+      focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground shadow-sm hover:bg-primary/90;
+  }
+  .btn-outline {
+    @apply btn border border-border bg-background shadow-sm hover:bg-accent hover:text-accent-foreground;
+  }
+  .btn-ghost {
+    @apply btn h-9 px-3 hover:bg-accent hover:text-accent-foreground;
+  }
+  .card-interactive {
+    @apply block rounded-xl border border-border bg-card text-card-foreground shadow-sm
+      transition-all duration-200 hover:shadow-md hover:border-foreground/20;
+  }
 }
 
-h1 {
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-h2 {
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-h3 {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
-a {
-  color: #1166d6;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Section dividers */
-.section-divider {
-  border-top: 1px solid #a0aec0;
-  margin: 2rem 0;
-  width: 100%;
-}
-
-/* Title bar with horizontal lines */
-.title-bar {
-  text-align: center;
-  border-top: 1px solid #a0aec0;
-  border-bottom: 1px solid #a0aec0;
-  padding: 0.5rem 0;
-  margin: 1rem 0 1.5rem 0;
-}
-
-.title-bar h2 {
-  margin: 0;
-  padding: 0;
-  border: none;
-  font-weight: normal;
-  color: #4a5568;
-}
-
-/* Contact button */
-.contact-btn {
-  background-color: #4db6ac;
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  font-weight: 600;
-  display: inline-block;
-  text-align: center;
-}
-
-.contact-btn:hover {
-  background-color: #3a9b92;
-  text-decoration: none;
-}
-
-/* Experience and project sections */
-.job-title, .project-title {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
-
-.job-period, .project-period {
-  font-weight: 500;
-  color: #4a5568;
-  margin-bottom: 0.5rem;
-}
-
-.job-description, .project-description {
-  color: #4a5568;
-  margin-bottom: 1.5rem;
-}
-
-/* Social links section */
-.social-links {
-  font-size: 0.875rem;
-  color: #4a5568;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-/* Achievement highlight effect */
+/* Achievement highlight effect (scroll-to flash from CoreAchievements nav) */
 .highlight-achievement {
-  background-color: #dbeafe;
+  background-color: hsl(var(--primary) / 0.12);
   border-radius: 0.375rem;
   padding: 0.5rem;
   margin: -0.5rem;
   animation: highlightPulse 2s ease-in-out;
 }
 
-:root.dark .highlight-achievement {
-  background-color: #1e3a8a;
-}
-
 @keyframes highlightPulse {
   0% {
-    background-color: #3b82f6;
+    background-color: hsl(var(--primary) / 0.35);
     transform: scale(1.02);
   }
   50% {
-    background-color: #dbeafe;
+    background-color: hsl(var(--primary) / 0.12);
     transform: scale(1);
   }
   100% {
@@ -139,13 +134,10 @@ a:hover {
   }
 }
 
-section {
-  margin-bottom: 2.5rem;
-}
-
 /* Markdown code blocks — highlight.js (atom-one-dark) supplies token colors */
 .prose pre.hljs {
   border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
   padding: 1rem 1.25rem;
   overflow-x: auto;
 }
@@ -156,94 +148,84 @@ section {
   content: none;
 }
 
+/* Distinguish a first-hand scene from the argument that follows it. */
+.prose .story-lede {
+  @apply my-8 border-l-2 border-primary pl-4 text-foreground sm:pl-6;
+}
 
+.prose .story-lede p {
+  @apply my-0 font-serif text-base leading-relaxed;
+}
+
+.prose .story-lede p + p {
+  @apply mt-4;
+}
+
+.prose .story-lede .story-lede-label {
+  @apply mb-4 font-sans text-xs font-bold uppercase tracking-widest text-primary;
+}
+
+.prose .story-lede .story-lede-turn {
+  @apply font-semibold;
+}
 
 /* Print-specific styles */
 @media print {
-  /* Set page margins and layout */
   @page {
     margin: 1.5cm;
   }
-  
+
   body {
     margin: 0;
     padding: 0;
     font-size: 12pt;
     line-height: 1.4;
+    background: #fff !important;
+    color: #000 !important;
   }
-  
-  .container {
-    max-width: 100%;
-    padding: 0;
+
+  /* Hide interactive chrome in print view */
+  nav,
+  .no-print {
+    display: none !important;
   }
-  
+
   /* Hide avatar in print view */
   img.rounded-full {
     display: none;
   }
 
-  /* Remove section dividers in print view */
-  .section-divider {
-    display: none;
-  }
-  
-  /* Simplify title bar */
-  .title-bar {
-    border-top: none;
-    border-bottom: none;
-    text-align: center;
-    padding: 0;
-    margin: 0.5rem 0 1rem 0;
-  }
-  
   /* Better link handling for print */
   a {
     color: #000;
     text-decoration: none;
   }
-  
-  /* Hide contact button */
-  .contact-btn {
-    display: none;
-  }
-  
-  /* Remove border-bottom from h2 headings */
-  h2 {
-    border-bottom: none;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    page-break-after: avoid;
-  }
-  
-  h3 {
-    page-break-after: avoid;
-  }
-  
+
   /* Prevent orphaned headings */
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  
+
   /* Prevent page breaks inside job descriptions */
   ul, li, p {
     page-break-inside: avoid;
   }
-  
+
   /* Compact job entries */
   .mb-6 {
     margin-bottom: 1rem;
   }
-  
+
   .mb-8 {
     margin-bottom: 1.25rem;
   }
-  
+
   /* Optimize spacing */
   .py-8 {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
-  
+
   .px-4 {
     padding-left: 0;
     padding-right: 0;

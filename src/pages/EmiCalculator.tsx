@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
+import Breadcrumbs from '../components/Breadcrumbs';
+import { workTrail } from '../seo/breadcrumbs';
+import { staticRoute } from '../seo/routes';
 import {
-  ArrowLeft,
   CalendarDays,
   Check,
   Copy,
@@ -321,23 +322,12 @@ const EmiCalculator = () => {
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-5xl">
-        <Helmet>
-          <title>EMI Scenario Planner — Alaf Azam Khan</title>
-          <meta
-            name="description"
-            content="Build and compare home-loan repayment scenarios side by side: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI or a one-off prepayment — and see the interest and years each one saves."
-          />
-          <link rel="canonical" href="https://alafazam.com/projects/emi-calculator" />
-        </Helmet>
+        <Seo {...staticRoute('/projects/emi-calculator')} />
 
         <header className="mb-8">
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-4"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            All work
-          </Link>
+          <div className="mb-4">
+            <Breadcrumbs items={workTrail('EMI Scenario Planner', 'emi-calculator')} />
+          </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">EMI Scenario Planner</h1>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
             The EMI is the easy half. The useful half is the what-ifs — pay ₹5k more a month,
