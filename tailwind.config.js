@@ -5,6 +5,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/content/**/*.md",
   ],
   darkMode: 'class',
   theme: {
