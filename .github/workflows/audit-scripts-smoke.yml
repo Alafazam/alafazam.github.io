@@ -1,0 +1,84 @@
+# Smoke-tests the campus-hiring audit scripts on real Windows, macOS and Linux
+# runners, using the exact one-liner form shown on /campusHiring.
+#
+# Two runs per OS:
+#   1. "this commit"  -- the one-liner fetching this commit's script from
+#      raw.githubusercontent.com. Must pass.
+#   2. "live site"    -- the same one-liner against LIVE_BASE. Informational
+#      only (continue-on-error), because the live site may not be deployed yet.
+#
+# Scripts exit 1 when a section is unreadable (e.g. a runner without nmcli),
+# which is expected on CI. Only other exit codes (usage error 2, a crash) fail.
+
+name: Audit scripts smoke test
+
+on:
+  push:
+    paths:
+      - "public/audit/**"
+      - ".github/workflows/audit-scripts-smoke.yml"
+  workflow_dispatch:
+    inputs:
+      live_base:
+        description: "Base URL the live one-liners fetch from"
+        required: false
+        default: "https://increff.github.io/ms-planning-brain/mockups/campus-hiring/audit"
+
+permissions:
+  contents: read
+
+env:
+  COMMIT_BASE: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/public/audit
+  LIVE_BASE: ${{ inputs.live_base || 'https://increff.github.io/ms-planning-brain/mockups/campus-hiring/audit' }}
+
+jobs:
+  unix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            script: linux-network-audit.sh
+          - os: macos-latest
+            script: mac-network-audit.sh
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: One-liner, this commit
+        run: |
+          set +e
+          curl -fsSL "$COMMIT_BASE/${{ matrix.script }}" | sudo bash
+          status=${PIPESTATUS[1]}
+          echo "::notice::${{ matrix.script }} (this commit) exited ${status}"
+          [ "$status" -eq 0 ] || [ "$status" -eq 1 ]
+      - name: One-liner, live site
+        continue-on-error: true
+        run: |
+          set +e
+          curl -fsSL "$LIVE_BASE/${{ matrix.script }}" | sudo bash
+          status=${PIPESTATUS[1]}
+          curl_status=${PIPESTATUS[0]}
+          echo "::notice::${{ matrix.script }} (live) curl exited ${curl_status}, script exited ${status}"
+          [ "$curl_status" -eq 0 ] && { [ "$status" -eq 0 ] || [ "$status" -eq 1 ]; }
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      # cmd, not pwsh: the one-liner is what a candidate pastes, and it starts
+      # Windows PowerShell 5.1 itself.
+      - name: One-liner, this commit
+        shell: cmd
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm %COMMIT_BASE%/windows-network-audit.ps1)))"
+          echo ::notice::windows-network-audit.ps1 (this commit) exited %ERRORLEVEL%
+          if %ERRORLEVEL% GTR 1 exit /b %ERRORLEVEL%
+          exit /b 0
+      - name: One-liner, live site
+        continue-on-error: true
+        shell: cmd
+        run: |
+          rem irm failing on a 404 would also exit 1, so prove the file is served first.
+          curl -fsS -o NUL %LIVE_BASE%/windows-network-audit.ps1 || exit /b 22
+          powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm %LIVE_BASE%/windows-network-audit.ps1)))"
+          echo ::notice::windows-network-audit.ps1 (live) exited %ERRORLEVEL%
+          if %ERRORLEVEL% GTR 1 exit /b %ERRORLEVEL%
+          exit /b 0
