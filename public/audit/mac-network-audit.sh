@@ -36,11 +36,11 @@ readonly MIN_HOURS_BACK=1
 readonly MAX_HOURS_BACK=72
 
 readonly MESSAGE_TRIM_LENGTH=200
-# A busy laptop logs thousands of matching lines in a few hours. Without a cap
-# the raw slices bury the quick answer, so each section shows only its most
-# recent lines plus a count. --full lifts the cap.
+# A busy laptop logs thousands of matching lines in a few hours, so each
+# section of the detailed (--full) audit shows only its most recent lines.
 readonly MAX_LINES_PER_SECTION=15
-readonly MAX_TIMELINE_LINES=40
+# How session times are printed in the usage answer, e.g. "05 Oct 10:15".
+readonly SESSION_TIME_FORMAT='%d %b %H:%M'
 readonly RULE_WIDTH=100
 
 # Bytes per mebibyte, used for every traffic figure in the report.
@@ -64,6 +64,11 @@ readonly RE_TETHER='RNDIS|Remote NDIS|Bluetooth PAN|BluetoothPAN|USB Ethernet|Ap
 readonly RE_WIFI_JOINED='Successfully associated'
 readonly RE_WIFI_LEFT='DISASSOCIATE SUCCEEDED'
 readonly RE_NETWORK_CHANGED='network changed:'
+# configd marks an interface's IPv4 address as added (+) or removed (-), e.g.
+# "network changed: v4(en0+:192.168.1.5) DNS+ Proxy+". Together with the Wi-Fi
+# join / leave lines these are the start and end of an online session.
+readonly RE_SESSION_ON="${RE_WIFI_JOINED}|network changed: .*v4\\([a-z0-9]+\\+:"
+readonly RE_SESSION_OFF="${RE_WIFI_LEFT}|network changed: .*v4\\([a-z0-9]+-:"
 # Hardware ports whose presence means a non-Wi-Fi path exists on the machine.
 readonly RE_TETHER_PORT='iPhone|iPad|Bluetooth PAN|USB.*LAN|USB.*Ethernet|Thunderbolt Ethernet|Android'
 
@@ -93,7 +98,7 @@ Usage: $(basename "$0") [--hours N] [--full] [--save-report] [--output-directory
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
   --save-report          Also write the report to a file (default: console only).
   --output-directory DIR Where to write the report (default: ~/Desktop). Implies --save-report.
-  --full                 Print every matching log line (default: the most recent per section).
+  --full                 Also print the detailed audit (network state, traffic, DHCP, tethering, tamper check).
   --no-report-file       Console only. Already the default; kept for older commands.
   --help                 Show this message.
 USAGE
@@ -174,6 +179,8 @@ if [ "$NO_REPORT_FILE" -eq 0 ]; then
 fi
 
 WINDOW_START="$(date -v-"${HOURS_BACK}"H '+%Y-%m-%d %H:%M:%S' 2>/dev/null)"
+WINDOW_START_EPOCH="$(date -v-"${HOURS_BACK}"H '+%s' 2>/dev/null)"
+WINDOW_START_LABEL="$(date -v-"${HOURS_BACK}"H "+${SESSION_TIME_FORMAT}" 2>/dev/null)"
 if [ -z "$WINDOW_START" ]; then
   # date -v is BSD-only; this script is macOS-only, so this is a real failure.
   echo "ERROR: could not compute the window start time. Is this macOS?" >&2
@@ -259,17 +266,17 @@ try_command() {
   return 0
 }
 
-# Prints indented lines, keeping only the most recent $2 unless --full.
+# Prints indented lines, keeping only the most recent $2.
 #   $1 = newline-separated text (oldest first), $2 = line cap
 print_capped() {
   capped_text="$1"
   cap="$2"
   total_lines="$(printf '%s\n' "$capped_text" | wc -l | tr -d ' ')"
-  if [ "$FULL_OUTPUT" -eq 1 ] || [ "$total_lines" -le "$cap" ]; then
+  if [ "$total_lines" -le "$cap" ]; then
     printf '%s\n' "$capped_text" | indent
     return 0
   fi
-  printf '  (showing the last %s of %s entries; add --full to see all)\n' "$cap" "$total_lines"
+  printf '  (showing the last %s of %s entries)\n' "$cap" "$total_lines"
   printf '%s\n' "$capped_text" | tail -n "$cap" | indent
 }
 
@@ -294,30 +301,78 @@ show_log_slice() {
   return 0
 }
 
-# One line per event, oldest first, so the answer is readable at a glance.
-# Compact-style rows start "YYYY-MM-DD HH:MM:SS.mmm", trimmed here to seconds.
-show_online_timeline() {
+# Pairs "EPOCH|ON|label" / "EPOCH|OFF|label" events (oldest first) into online
+# sessions and prints the answer: used or not, how many times, from when to when.
+#   $1 = 1 if the machine is online right now, else 0
+summarise_sessions() {
+  awk -F'|' -v online_now="$1" -v now="$(date '+%s')" -v window_start="$WINDOW_START_EPOCH" \
+            -v window_label="$WINDOW_START_LABEL" -v hours="$HOURS_BACK" '
+    function span(seconds,    minutes) {
+      minutes = int(seconds / 60)
+      if (minutes < 60) return minutes " min"
+      return int(minutes / 60) " h " (minutes % 60) " min"
+    }
+    $1 < window_start { next }
+    !seen && $2 == "OFF" {
+      seen = 1
+      lines[++n] = "before " window_label "  ->  " $3 "   (already online when the window started)"
+      next
+    }
+    { seen = 1 }
+    $2 == "ON"  { if (!open) { open = 1; start = $1; start_label = $3 }; next }
+    $2 == "OFF" { if (open) { lines[++n] = start_label "  ->  " $3 "   (" span($1 - start) ")"; open = 0 }; next }
+    END {
+      if (open && online_now)  lines[++n] = start_label "  ->  still online   (" span(now - start) " so far)"
+      if (open && !online_now) lines[++n] = start_label "  ->  end not logged"
+      if (n == 0 && online_now) lines[++n] = "before " window_label "  ->  still online   (online for the whole window)"
+      if (n == 0) { printf "  Internet used : NO   (no connection in the last %s h)\n", hours; exit }
+      printf "  Internet used : YES  (%d time%s)\n", n, (n > 1 ? "s" : "")
+      for (i = 1; i <= n; i++) printf "    %d. %s\n", i, lines[i]
+    }'
+}
+
+# The whole default output: was the machine online in the window, how many
+# times, and from when to when. Unreadable logs are reported, never read as NO.
+show_usage_summary() {
   if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then
-    printf '  !! UNREADABLE: the unified log could not be captured, so the timeline cannot be assessed.\n'
-    printf '  !! This is NOT the same as "nothing happened". Re-run with sudo and Full Disk Access.\n'
+    printf '  Internet used : UNKNOWN (the system log could not be read)\n'
+    printf '  !! Re-run with sudo, from a Terminal that has Full Disk Access.\n'
     return 1
   fi
-  timeline="$(grep -E "${RE_WIFI_JOINED}|${RE_WIFI_LEFT}|${RE_NETWORK_CHANGED}" "$LOG_DUMP" 2>/dev/null \
-    | awk -v joined="$RE_WIFI_JOINED" -v left="$RE_WIFI_LEFT" -v changed="$RE_NETWORK_CHANGED" \
-          -v maxlen="$MESSAGE_TRIM_LENGTH" '
-        { stamp = $1 " " substr($2, 1, 8) }
-        $0 ~ joined  { printf "Wi-Fi ON        : %s\n", stamp; next }
-        $0 ~ left    { printf "Wi-Fi OFF       : %s\n", stamp; next }
-        $0 ~ changed { detail = $0; sub(/.*network changed: */, "", detail)
-                       printf "Network changed : %s   %s\n", stamp, substr(detail, 1, maxlen) }')"
-  if [ -z "$timeline" ]; then
-    printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
-    return 0
+  online_now=0
+  route -n get default >/dev/null 2>&1 && online_now=1
+  grep -E "${RE_SESSION_ON}|${RE_SESSION_OFF}" "$LOG_DUMP" 2>/dev/null \
+    | while IFS= read -r line; do
+        # Compact-style rows start "YYYY-MM-DD HH:MM:SS.mmm".
+        stamp="$(printf '%s' "$line" | cut -c1-19)"
+        epoch="$(date -j -f '%Y-%m-%d %H:%M:%S' "$stamp" '+%s' 2>/dev/null)" || continue
+        kind=OFF
+        printf '%s' "$line" | grep -Eq "$RE_SESSION_ON" && kind=ON
+        printf '%s|%s|%s\n' "$epoch" "$kind" "$(date -j -r "$epoch" "+${SESSION_TIME_FORMAT}")"
+      done \
+    | sort -t'|' -k1,1n \
+    | summarise_sessions "$online_now"
+  compute_log_gap
+  if [ -z "$LOG_OLDEST_ENTRY" ]; then
+    printf '  !! The log has no network entries at all for this window. On a laptop that\n'
+    printf '  !! has been running, that usually means it was wiped, so NO cannot be trusted.\n'
+  elif [ -n "$LOG_GAP_MINUTES" ] && [ "$LOG_GAP_MINUTES" -gt "$LOG_GAP_TOLERANCE_MINUTES" ]; then
+    printf '  !! The log only goes back to %s, so anything earlier cannot be seen\n' "$LOG_OLDEST_ENTRY"
+    printf '  !! (the laptop was restarted, or the log was erased).\n'
   fi
-  print_capped "$timeline" "$MAX_TIMELINE_LINES"
-  printf '\n  Wi-Fi ON: %s   Wi-Fi OFF: %s   Network changes: %s\n' \
-    "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")" \
-    "$(count_log_slice "$RE_NETWORK_CHANGED")"
+  return 0
+}
+
+# Sets LOG_OLDEST_ENTRY and LOG_GAP_MINUTES (minutes between the window start
+# and the oldest surviving entry; empty when it cannot be computed).
+compute_log_gap() {
+  LOG_GAP_MINUTES=""
+  # Skip the `log show` column header and take the first real timestamped row.
+  LOG_OLDEST_ENTRY="$(grep -m1 -E '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}' \
+                      "$LOG_DUMP" 2>/dev/null | cut -c1-19)"
+  [ -z "$LOG_OLDEST_ENTRY" ] && return 0
+  oldest_epoch="$(date -j -f '%Y-%m-%d %H:%M:%S' "$LOG_OLDEST_ENTRY" '+%s' 2>/dev/null)" || return 0
+  LOG_GAP_MINUTES=$(( (oldest_epoch - WINDOW_START_EPOCH) / 60 ))
 }
 
 count_log_slice() {
@@ -335,6 +390,11 @@ run_audit() {
   is_root=no
   [ "$(id -u)" -eq 0 ] && is_root=yes
 
+  # The header and capture notes belong to the detailed audit only. fd 3 is
+  # where they go: the console with --full, nowhere otherwise.
+  if [ "$FULL_OUTPUT" -eq 1 ]; then exec 3>&1; else exec 3>/dev/null; fi
+
+  {
   section 'AUDIT HEADER'
   printf '  Machine        : %s\n' "$HOSTNAME_SHORT"
   printf '  LoggedOnUser   : %s\n' "$(id -un)"
@@ -350,11 +410,14 @@ run_audit() {
     printf '  ReportFile     : %s\n' "$REPORT_FILE"
   fi
 
+  } >&3
+
   if [ "$is_root" != yes ]; then
     printf '\n  !! WARNING: not running as root. `log show` will redact private data and\n'
     printf '  !! may be refused outright. Re-run with sudo for a complete audit.\n'
   fi
 
+  {
   # -- Capture the log window once, then slice it repeatedly ----------------
   section "CAPTURING UNIFIED LOG WINDOW (last ${HOURS_BACK} h)"
   # `2>&1 >file` order matters: stderr is bound to the capture pipe first, then
@@ -379,9 +442,15 @@ run_audit() {
     fi
   fi
 
-  # -- 0. Quick answer -----------------------------------------------------
-  section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last ${HOURS_BACK} h)"
-  show_online_timeline
+  } >&3
+
+  # -- Usage answer: the whole default output ------------------------------
+  section "INTERNET USAGE: ${HOSTNAME_SHORT}, last ${HOURS_BACK} h (since ${WINDOW_START_LABEL})"
+  show_usage_summary
+  if [ "$FULL_OUTPUT" -ne 1 ]; then
+    printf '\n  For the detailed audit, re-run with --full.\n'
+    return 0
+  fi
 
   # -- 1. Live state --------------------------------------------------------
   section '1. CURRENT NETWORK STATE (what it is connected to right now)'
@@ -449,24 +518,19 @@ run_audit() {
   if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then
     printf '  !! UNREADABLE: cannot assess tampering because the log could not be captured.\n'
   else
-    # Skip the `log show` column header and take the first real timestamped row.
-    oldest_entry="$(grep -m1 -E '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}' \
-                    "$LOG_DUMP" 2>/dev/null | awk '{ print $1, $2 }')"
-    if [ -z "$oldest_entry" ]; then
+    compute_log_gap
+    if [ -z "$LOG_OLDEST_ENTRY" ]; then
       printf '  !! The captured window contains ZERO entries across every network subsystem.\n'
       printf '  !! On a machine that has been running for hours this is itself suspicious:\n'
       printf '  !! it is the signature of `log erase`, not of a quiet machine.\n'
       record_failure 'unified log window was completely empty (possible log erase)'
     else
-      window_epoch="$(date -j -f '%Y-%m-%d %H:%M:%S' "$WINDOW_START" '+%s' 2>/dev/null || echo '')"
-      oldest_epoch="$(date -j -f '%Y-%m-%d %H:%M:%S' "$(printf '%s' "$oldest_entry" | cut -c1-19)" '+%s' 2>/dev/null || echo '')"
       printf '  Window starts at        : %s\n' "$WINDOW_START"
-      printf '  Oldest surviving entry  : %s\n' "$oldest_entry"
-      if [ -n "$window_epoch" ] && [ -n "$oldest_epoch" ]; then
-        gap_minutes=$(( (oldest_epoch - window_epoch) / 60 ))
-        printf '  Gap                     : %s minute(s)\n' "$gap_minutes"
-        if [ "$gap_minutes" -gt "$LOG_GAP_TOLERANCE_MINUTES" ]; then
-          printf '  !! The log begins %s minutes after the window did. History is missing.\n' "$gap_minutes"
+      printf '  Oldest surviving entry  : %s\n' "$LOG_OLDEST_ENTRY"
+      if [ -n "$LOG_GAP_MINUTES" ]; then
+        printf '  Gap                     : %s minute(s)\n' "$LOG_GAP_MINUTES"
+        if [ "$LOG_GAP_MINUTES" -gt "$LOG_GAP_TOLERANCE_MINUTES" ]; then
+          printf '  !! The log begins %s minutes after the window did. History is missing.\n' "$LOG_GAP_MINUTES"
           printf '  !! Treat every section above as incomplete.\n'
         else
           printf '  Log history covers the whole window. No truncation detected.\n'
@@ -507,7 +571,7 @@ if [ "$NO_REPORT_FILE" -eq 1 ]; then
   # No pipeline here, so run_audit executes in this shell and FAILURE_COUNT
   # survives to be read directly.
   run_audit 2>&1
-  printf '\nConsole-only run: no report file was written. Add --save-report to save one.\n'
+  [ "$FULL_OUTPUT" -eq 1 ] && printf '\nConsole-only run: no report file was written. Add --save-report to save one.\n'
   [ "$FAILURE_COUNT" -eq 0 ] && exit 0
   exit 1
 fi

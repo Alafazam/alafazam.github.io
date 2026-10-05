@@ -8,10 +8,13 @@
 
     Usage   : Right-click PowerShell -> Run as Administrator, then:
                   Set-ExecutionPolicy -Scope Process Bypass -Force
-                  .\Audit-ExamLaptopNetwork.ps1                # last 5 h, console only
+                  .\Audit-ExamLaptopNetwork.ps1                # last 5 h: was the internet used?
+                  .\Audit-ExamLaptopNetwork.ps1 -Full          # plus the detailed audit
                   .\Audit-ExamLaptopNetwork.ps1 -SaveReport    # also save to the Desktop
 
-    Output  : Prints to the console. With -SaveReport (or -OutputDirectory)
+    Output  : By default, only whether the internet was used in the window,
+              how many times, and from when to when. -Full adds the detailed
+              audit. Prints to the console. With -SaveReport (or -OutputDirectory)
               it also writes one plain-text artifact, to the Desktop by
               default, and triggers the native Windows wireless report.
 
@@ -31,7 +34,8 @@ param(
     # arguments and leaves nothing behind on the machine. A file is opt-in.
     [switch] $SaveReport,
 
-    # Print every event (default: the most recent per section).
+    # Also print the detailed audit (network state, traffic, DHCP, tethering,
+    # tamper check). Without it, only the internet-usage answer is printed.
     [switch] $Full,
 
     # Predates console-only being the default. Still accepted so existing
@@ -74,11 +78,13 @@ $WLAN_EVENT_MEANING  = @{
 }
 
 $MESSAGE_TRIM_LENGTH = 160
-# A busy laptop logs hundreds of events in a few hours. Without a cap the
-# tables bury the quick answer, so each section shows only its most recent
-# events plus a count. -Full lifts the cap.
+# A busy laptop logs hundreds of events in a few hours, so each section of
+# the detailed (-Full) audit shows only its most recent events.
 $MAX_EVENTS_PER_SECTION = 15
-$MAX_TIMELINE_EVENTS    = 40
+# How session times are printed in the usage answer, e.g. "05 Oct 10:15".
+$SESSION_TIME_FORMAT    = 'dd MMM HH:mm'
+# Names Windows shows while it is still identifying a network.
+$PLACEHOLDER_NETWORK_NAMES = @('Identifying...', 'Unidentified network')
 $TABLE_WIDTH         = 220
 $TETHER_KEYWORDS     = 'RNDIS|Remote NDIS|Bluetooth PAN|USB Ethernet|Mobile Broadband|iPhone|Android|tether'
 
@@ -105,11 +111,11 @@ function Trim-Message {
     return $flat.Substring(0, $MESSAGE_TRIM_LENGTH) + '...'
 }
 
-# Oldest-first events, keeping only the most recent $Max unless -Full.
+# Oldest-first events, keeping only the most recent $Max.
 function Select-RecentEvents {
     param([object[]] $Events, [int] $Max)
     $sorted = @($Events | Sort-Object TimeCreated)
-    if ($Full -or $sorted.Count -le $Max) { return $sorted }
+    if ($sorted.Count -le $Max) { return $sorted }
     return @($sorted | Select-Object -Last $Max)
 }
 
@@ -117,8 +123,84 @@ function Select-RecentEvents {
 # instead would render the string as a one-column "Length" table.
 function Get-TruncationNote {
     param([int] $Total, [int] $Max)
-    if (-not $Full -and $Total -gt $Max) {
-        "  (showing the last $Max of $Total events; add -Full to see all)"
+    if ($Total -gt $Max) {
+        "  (showing the last $Max of $Total events)"
+    }
+}
+
+function Format-Span {
+    param([TimeSpan] $Span)
+    $minutes = [int][math]::Floor($Span.TotalMinutes)
+    if ($minutes -lt 60) { return "$minutes min" }
+    return '{0} h {1} min' -f [math]::Floor($minutes / 60), ($minutes % 60)
+}
+
+function Get-NetworkName {
+    param($NetworkEvent)
+    if ($NetworkEvent.Message -match 'Name:\s*(.+?)(\r|\n|$)') {
+        $name = $matches[1].Trim()
+        if ($PLACEHOLDER_NETWORK_NAMES -notcontains $name) { return $name }
+    }
+    return ''
+}
+
+# The whole default output: was the machine online in the window, how many
+# times, and from when to when. NetworkProfile 10000 / 10001 events are paired
+# into sessions. An unreadable log is reported, never read as NO.
+function Write-UsageSummary {
+    param([object[]] $Events, [bool] $Readable, [bool] $OnlineNow, [int] $ClearedCount)
+
+    if (-not $Readable) {
+        '  Internet used : UNKNOWN (the network event log could not be read)'
+        '  !! Re-run PowerShell as Administrator.'
+        return
+    }
+
+    $sinceLabel = $since.ToString($SESSION_TIME_FORMAT)
+    $sessions   = New-Object System.Collections.Generic.List[string]
+    $openStart  = $null
+    $openName   = ''
+    $isFirst    = $true
+    foreach ($networkEvent in @($Events | Sort-Object TimeCreated)) {
+        $at   = $networkEvent.TimeCreated
+        $name = Get-NetworkName $networkEvent
+        if ($networkEvent.Id -eq $ID_NETPROFILE_UP) {
+            if (-not $openStart) { $openStart = $at; $openName = '' }
+            # One connect logs several events while Windows identifies the network.
+            if ($name) { $openName = $name }
+        }
+        elseif ($openStart) {
+            $sessions.Add(('{0}  ->  {1}   ({2})   {3}' -f $openStart.ToString($SESSION_TIME_FORMAT),
+                $at.ToString($SESSION_TIME_FORMAT), (Format-Span ($at - $openStart)), $openName).TrimEnd())
+            $openStart = $null
+        }
+        elseif ($isFirst) {
+            $sessions.Add(('before {0}  ->  {1}   (already online when the window started)   {2}' -f $sinceLabel,
+                $at.ToString($SESSION_TIME_FORMAT), $name).TrimEnd())
+        }
+        $isFirst = $false
+    }
+    if ($openStart -and $OnlineNow) {
+        $sessions.Add(('{0}  ->  still online   ({1} so far)   {2}' -f $openStart.ToString($SESSION_TIME_FORMAT),
+            (Format-Span ((Get-Date) - $openStart)), $openName).TrimEnd())
+    }
+    elseif ($openStart) {
+        $sessions.Add(('{0}  ->  end not logged   {1}' -f $openStart.ToString($SESSION_TIME_FORMAT), $openName).TrimEnd())
+    }
+    if ($sessions.Count -eq 0 -and $OnlineNow) {
+        $sessions.Add("before $sinceLabel  ->  still online   (online for the whole window)")
+    }
+
+    if ($sessions.Count -eq 0) {
+        "  Internet used : NO   (no connection in the last $HoursBack h)"
+    }
+    else {
+        $plural = if ($sessions.Count -gt 1) { 's' } else { '' }
+        "  Internet used : YES  ($($sessions.Count) time$plural)"
+        for ($i = 0; $i -lt $sessions.Count; $i++) { '    {0}. {1}' -f ($i + 1), $sessions[$i] }
+    }
+    if ($ClearedCount -gt 0) {
+        "  !! An event log was cleared $ClearedCount time(s) in this window, so NO cannot be trusted."
     }
 }
 
@@ -151,6 +233,16 @@ $transcript = & {
                 [Security.Principal.WindowsIdentity]::GetCurrent()`
                ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
+    # Read once, used by the usage answer and the detailed audit alike.
+    $failuresBefore = $failures.Count
+    $prof           = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
+    $profReadable   = $failures.Count -eq $failuresBefore
+    $cleared        = Get-AuditEvents -LogName $LOG_SYSTEM -EventIds @($ID_LOG_CLEARED)
+    $onlineNow      = @(Get-NetConnectionProfile -ErrorAction SilentlyContinue | Where-Object {
+                          $_.IPv4Connectivity -eq 'Internet' -or $_.IPv6Connectivity -eq 'Internet'
+                      }).Count -gt 0
+
+    if ($Full) {
     Write-Section 'AUDIT HEADER'
     [pscustomobject]@{
         Machine       = $env:COMPUTERNAME
@@ -161,29 +253,20 @@ $transcript = & {
         ElevatedShell = $isAdmin
         LastBootTime  = (Get-CimInstance Win32_OperatingSystem).LastBootUpTime.ToString('u')
     } | Format-List | Out-String -Width $TABLE_WIDTH
+    }
 
     if (-not $isAdmin) {
         "!! WARNING: not running elevated. Some logs will be unreadable and"
         "!! the audit below may be incomplete. Re-run as Administrator."
     }
 
-    # -- 0. Quick answer: internet on / off --------------------------------
-    # Same source as a plain `Get-WinEvent ... 10000/10001` one-liner, but
-    # filtered server-side and with the network name pulled out of each event.
-    Write-Section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last $HoursBack h)"
-    $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
-    if ($prof.Count -eq 0) { 'No internet on / off events in window.' }
-    else {
-        Get-TruncationNote $prof.Count $MAX_TIMELINE_EVENTS
-        Select-RecentEvents $prof $MAX_TIMELINE_EVENTS | ForEach-Object {
-            $state   = if ($_.Id -eq $ID_NETPROFILE_UP) { 'Internet ON ' } else { 'Internet OFF' }
-            $network = if ($_.Message -match 'Name:\s*(.+?)(\r|\n|$)') { $matches[1].Trim() } else { 'unknown network' }
-            '  {0} : {1}   ({2})' -f $state, $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss'), $network
-        }
+    # -- Usage answer: the whole default output ---------------------------
+    Write-Section "INTERNET USAGE: $env:COMPUTERNAME, last $HoursBack h (since $($since.ToString($SESSION_TIME_FORMAT)))"
+    Write-UsageSummary -Events $prof -Readable $profReadable -OnlineNow $onlineNow -ClearedCount $cleared.Count
+    if (-not $Full) {
         ''
-        '  ON events: {0}   OFF events: {1}   (full detail in section 4)' -f `
-            @($prof | Where-Object Id -eq $ID_NETPROFILE_UP).Count,
-            @($prof | Where-Object Id -eq $ID_NETPROFILE_DOWN).Count
+        '  For the detailed audit, re-run with -Full.'
+        return
     }
 
     # -- 1. Live state ------------------------------------------------------
@@ -294,7 +377,6 @@ $transcript = & {
 
     # -- 9. Tamper check ----------------------------------------------------
     Write-Section '9. TAMPER CHECK (event logs cleared?)'
-    $cleared = Get-AuditEvents -LogName $LOG_SYSTEM -EventIds @($ID_LOG_CLEARED)
     if ($cleared.Count -eq 0) { 'No log-clear events in window.' }
     else {
         '!! Event log clearing detected. Treat the sections above as unreliable.'
@@ -339,7 +421,9 @@ Write-Host $transcript
 if (-not $writeReport) {
     # Console-only: no artifact, and the native wireless report is skipped
     # because it would drop an HTML file under C:\ProgramData.
-    Write-Host "`nConsole-only run: no report file was written. Add -SaveReport to save one." -ForegroundColor Green
+    if ($Full) {
+        Write-Host "`nConsole-only run: no report file was written. Add -SaveReport to save one." -ForegroundColor Green
+    }
 }
 else {
     Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8

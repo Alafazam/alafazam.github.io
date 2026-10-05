@@ -68,14 +68,10 @@ const OS_GUIDES: OsGuide[] = [
 ];
 
 const WHAT_IS_COLLECTED = [
-  'A quick answer at the top: one line per internet ON / OFF event, with its time, so you can read the result at a glance.',
-  'Every network connect and disconnect in the window, wired, wireless or tethered.',
-  'DHCP and lease activity, which is hard evidence that a network was actually joined.',
-  'Wi-Fi association timeline and the names (SSIDs) of networks connected to.',
-  'Total bytes sent and received per network interface, counted since the machine booted.',
-  'Tethering or dongle hardware attached during the window — phone USB, Bluetooth PAN, RNDIS adapters.',
-  'Whether the system logs were cleared or truncated, which would make the rest unreliable.',
-  'Saved Wi-Fi network names already stored on the machine.',
+  'Whether this laptop was online in the last 5 hours: YES or NO.',
+  'How many times it went online, and from what time to what time each time.',
+  'The network name for each session (Windows only).',
+  'A warning if the logs are unreadable, were cleared, or don’t cover the whole window, so a NO can be trusted.',
 ];
 
 const WHAT_IS_NOT_COLLECTED = [

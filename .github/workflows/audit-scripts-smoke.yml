@@ -1,9 +1,10 @@
 # Smoke-tests the campus-hiring audit scripts on real Windows, macOS and Linux
 # runners, using the exact one-liner form shown on /campusHiring.
 #
-# Two runs per OS:
+# Three runs per OS:
 #   1. "this commit"  -- the one-liner fetching this commit's script from
 #      raw.githubusercontent.com. Must pass.
+#   1b. the same with --full / -Full (the detailed audit). Must pass.
 #   2. "live site"    -- the same one-liner against LIVE_BASE. Informational
 #      only (continue-on-error), because the live site may not be deployed yet.
 #
@@ -51,6 +52,13 @@ jobs:
           pipe=("${PIPESTATUS[@]}"); status=${pipe[1]}
           echo "::notice::${{ matrix.script }} (this commit) exited ${status}"
           [ "$status" -eq 0 ] || [ "$status" -eq 1 ]
+      - name: One-liner, this commit, detailed audit
+        run: |
+          set +e
+          curl -fsSL "$COMMIT_BASE/${{ matrix.script }}" | sudo bash -s -- --full
+          pipe=("${PIPESTATUS[@]}"); status=${pipe[1]}
+          echo "::notice::${{ matrix.script }} --full (this commit) exited ${status}"
+          [ "$status" -eq 0 ] || [ "$status" -eq 1 ]
       - name: One-liner, live site
         continue-on-error: true
         run: |
@@ -70,6 +78,13 @@ jobs:
         run: |
           powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm %COMMIT_BASE%/windows-network-audit.ps1)))"
           echo ::notice::windows-network-audit.ps1 (this commit) exited %ERRORLEVEL%
+          if %ERRORLEVEL% GTR 1 exit /b %ERRORLEVEL%
+          exit /b 0
+      - name: One-liner, this commit, detailed audit
+        shell: cmd
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm %COMMIT_BASE%/windows-network-audit.ps1))) -Full"
+          echo ::notice::windows-network-audit.ps1 -Full (this commit) exited %ERRORLEVEL%
           if %ERRORLEVEL% GTR 1 exit /b %ERRORLEVEL%
           exit /b 0
       - name: One-liner, live site
