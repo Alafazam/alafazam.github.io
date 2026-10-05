@@ -7,9 +7,11 @@
 #             during a proctored test.
 #
 #   Usage   : chmod +x linux-network-audit.sh
-#             sudo ./linux-network-audit.sh --hours 5
+#             sudo ./linux-network-audit.sh                 # last 5 h, console only
+#             sudo ./linux-network-audit.sh --save-report   # also save to the Desktop
 #
-#   Output  : Prints to console AND writes one plain-text artifact to the Desktop.
+#   Output  : Prints to the console. With --save-report (or --output-directory)
+#             it also writes one plain-text artifact, to the Desktop by default.
 #
 #   Notes   : Read-only. Nothing on the machine is modified except the report
 #             file it writes.
@@ -56,6 +58,17 @@ readonly RE_DHCP='DHCP|dhcp|dhclient|dhcpcd|DHCPACK|DHCPREQUEST|DHCPOFFER|DHCPDI
 readonly RE_REACHABILITY='connectivity|Connectivity|NetworkManager.*state.*(GLOBAL|SITE|PORTAL)|captive|Captive|nm-connectivity'
 readonly RE_TETHER='rndis|RNDIS|cdc_ether|cdc_ncm|cdc_mbim|usbnet|ipheth|Bluetooth.*PAN|bnep|android|Android|iPhone|iPad|tether|Tether|usb0|enx[0-9a-f]{12}'
 
+# Quick-answer timeline. NetworkManager logs its global state on every change
+# ("NetworkManager state is now CONNECTED_GLOBAL"); wpa_supplicant and
+# systemd-networkd cover hosts that do not run NetworkManager.
+readonly RE_INTERNET_ON='state is now CONNECTED_GLOBAL'
+readonly RE_INTERNET_LIMITED='state is now CONNECTED_(SITE|LOCAL)'
+readonly RE_INTERNET_OFF='state is now (DISCONNECTED|ASLEEP)'
+readonly RE_WIFI_JOINED='CTRL-EVENT-CONNECTED'
+readonly RE_WIFI_LEFT='CTRL-EVENT-DISCONNECTED'
+readonly RE_LINK_GAINED='Gained carrier'
+readonly RE_LINK_LOST='Lost carrier'
+
 # Traces left behind when the journal is deliberately wiped.
 readonly RE_LOG_CLEARED='vacuum|Vacuuming|journal.*(rotated|cleared|truncated)|systemd-journald.*(Permanent|Runtime) journal.*(deleted|removed)'
 # If the surviving log starts this many minutes after the window did, history
@@ -67,13 +80,22 @@ readonly LOG_GAP_TOLERANCE_MINUTES=10
 # ---------------------------------------------------------------------------
 HOURS_BACK=$DEFAULT_HOURS_BACK
 OUTPUT_DIRECTORY=""
+# Console-only is the default, so the copy-paste one-liner needs no flags and
+# leaves nothing behind on the machine. A report file is opt-in.
+SAVE_REPORT=0
+# --no-report-file predates console-only being the default. It is still
+# accepted so existing commands keep working, and it is checked against an
+# explicit request to save.
+NO_REPORT_FILE_REQUESTED=0
 
 print_usage() {
   cat <<USAGE
-Usage: $(basename "$0") [--hours N] [--output-directory DIR]
+Usage: $(basename "$0") [--hours N] [--save-report] [--output-directory DIR]
 
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
-  --output-directory DIR Where to write the report (default: ~/Desktop).
+  --save-report          Also write the report to a file (default: console only).
+  --output-directory DIR Where to write the report (default: ~/Desktop). Implies --save-report.
+  --no-report-file       Console only. Already the default; kept for older commands.
   --help                 Show this message.
 USAGE
 }
@@ -87,6 +109,15 @@ while [ $# -gt 0 ]; do
     --output-directory|-o)
       OUTPUT_DIRECTORY="${2:-}"
       shift 2 || { echo "ERROR: --output-directory needs a value." >&2; exit 2; }
+      SAVE_REPORT=1
+      ;;
+    --save-report)
+      SAVE_REPORT=1
+      shift
+      ;;
+    --no-report-file)
+      NO_REPORT_FILE_REQUESTED=1
+      shift
       ;;
     --help)
       print_usage; exit 0
@@ -116,22 +147,31 @@ TARGET_USER="${SUDO_USER:-$(id -un)}"
 TARGET_HOME="$(getent passwd "$TARGET_USER" 2>/dev/null | cut -d: -f6)"
 [ -z "$TARGET_HOME" ] && TARGET_HOME="$HOME"
 
-if [ -z "$OUTPUT_DIRECTORY" ]; then
-  if [ -d "$TARGET_HOME/Desktop" ]; then
-    OUTPUT_DIRECTORY="$TARGET_HOME/Desktop"
-  else
-    OUTPUT_DIRECTORY="$TARGET_HOME"
-  fi
-fi
-if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
-  echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+HOSTNAME_SHORT="$(hostname -s 2>/dev/null || hostname 2>/dev/null || echo 'unknown-host')"
+
+if [ "$NO_REPORT_FILE_REQUESTED" -eq 1 ] && [ "$SAVE_REPORT" -eq 1 ]; then
+  echo "ERROR: --no-report-file contradicts --save-report / --output-directory." >&2
   exit 2
 fi
+NO_REPORT_FILE=$((1 - SAVE_REPORT))
 
-STAMP="$(date '+%Y%m%d-%H%M%S')"
-HOSTNAME_SHORT="$(hostname -s 2>/dev/null || hostname 2>/dev/null || echo 'unknown-host')"
-HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
-REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
+REPORT_FILE=""
+if [ "$NO_REPORT_FILE" -eq 0 ]; then
+  if [ -z "$OUTPUT_DIRECTORY" ]; then
+    if [ -d "$TARGET_HOME/Desktop" ]; then
+      OUTPUT_DIRECTORY="$TARGET_HOME/Desktop"
+    else
+      OUTPUT_DIRECTORY="$TARGET_HOME"
+    fi
+  fi
+  if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
+    echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+    exit 2
+  fi
+  STAMP="$(date '+%Y%m%d-%H%M%S')"
+  HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
+  REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
+fi
 
 WINDOW_START="$(date -d "-${HOURS_BACK} hours" '+%Y-%m-%d %H:%M:%S' 2>/dev/null)"
 if [ -z "$WINDOW_START" ]; then
@@ -235,6 +275,39 @@ show_log_slice() {
   return 0
 }
 
+# One line per event, oldest first, so the answer is readable at a glance.
+# journalctl and classic syslog rows start "Mon DD HH:MM:SS"; rsyslog's
+# high-precision format starts with a single ISO-8601 field instead.
+show_online_timeline() {
+  if [ "$LOG_READABLE" -ne 1 ]; then
+    printf '  !! UNREADABLE: no system log could be captured, so the timeline cannot be assessed.\n'
+    printf '  !! This is NOT the same as "nothing happened". Re-run with sudo.\n'
+    return 1
+  fi
+  timeline="$(grep -E "${RE_INTERNET_ON}|${RE_INTERNET_LIMITED}|${RE_INTERNET_OFF}|${RE_WIFI_JOINED}|${RE_WIFI_LEFT}|${RE_LINK_GAINED}|${RE_LINK_LOST}" \
+                "$LOG_DUMP" 2>/dev/null \
+    | awk -v on="$RE_INTERNET_ON" -v limited="$RE_INTERNET_LIMITED" -v off="$RE_INTERNET_OFF" \
+          -v joined="$RE_WIFI_JOINED" -v left="$RE_WIFI_LEFT" \
+          -v gained="$RE_LINK_GAINED" -v lost="$RE_LINK_LOST" '
+        { stamp = ($1 ~ /^[0-9][0-9][0-9][0-9]-/) ? substr($1, 1, 19) : $1 " " $2 " " $3 }
+        $0 ~ on      { printf "Internet ON         : %s\n", stamp; next }
+        $0 ~ limited { printf "Network, no internet: %s\n", stamp; next }
+        $0 ~ off     { printf "Internet OFF        : %s\n", stamp; next }
+        $0 ~ joined  { printf "Wi-Fi ON            : %s\n", stamp; next }
+        $0 ~ left    { printf "Wi-Fi OFF           : %s\n", stamp; next }
+        # systemd-networkd writes "<interface>: Gained carrier".
+        $0 ~ gained  { iface = $(NF-2); sub(/:$/, "", iface); printf "Link up             : %s   %s\n", stamp, iface; next }
+        $0 ~ lost    { iface = $(NF-2); sub(/:$/, "", iface); printf "Link down           : %s   %s\n", stamp, iface }')"
+  if [ -z "$timeline" ]; then
+    printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
+    return 0
+  fi
+  printf '%s\n' "$timeline" | indent
+  printf '\n  Internet ON: %s   Internet OFF: %s   Wi-Fi ON: %s   Wi-Fi OFF: %s\n' \
+    "$(count_log_slice "$RE_INTERNET_ON")" "$(count_log_slice "$RE_INTERNET_OFF")" \
+    "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")"
+}
+
 count_log_slice() {
   if [ "$LOG_READABLE" -ne 1 ]; then printf 'unknown (log unreadable)'; return; fi
   # grep -c exits 1 on a zero count, so the count is read from stdout, not $?.
@@ -261,7 +334,11 @@ run_audit() {
     "$(. /etc/os-release 2>/dev/null && printf '%s' "${PRETTY_NAME:-unknown}" || printf 'unknown')"
   printf '  Kernel         : %s\n' "$(uname -sr 2>/dev/null || echo 'unknown')"
   printf '  LastBootTime   : %s\n' "$(uptime -s 2>/dev/null || who -b 2>/dev/null || echo 'unknown')"
-  printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  if [ "$NO_REPORT_FILE" -eq 1 ]; then
+    printf '  ReportFile     : none (console-only run, nothing written to disk)\n'
+  else
+    printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  fi
 
   if [ "$is_root" != yes ]; then
     printf '\n  !! WARNING: not running as root. journalctl will hide kernel and other\n'
@@ -321,6 +398,10 @@ run_audit() {
     printf '  !! Every log-derived section below is INCONCLUSIVE, not clean.\n'
     record_failure 'no readable system log source on this host'
   fi
+
+  # -- 0. Quick answer -----------------------------------------------------
+  section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last ${HOURS_BACK} h)"
+  show_online_timeline
 
   # -- 1. Live state --------------------------------------------------------
   section '1. CURRENT NETWORK STATE (what it is connected to right now)'
@@ -456,6 +537,8 @@ run_audit() {
   # -- Verdict --------------------------------------------------------------
   section 'VERDICT'
   printf '  LogSource             : %s\n' "$LOG_SOURCE"
+  printf '  InternetOnEvents      : %s\n' "$(count_log_slice "$RE_INTERNET_ON")"
+  printf '  InternetOffEvents     : %s\n' "$(count_log_slice "$RE_INTERNET_OFF")"
   printf '  WifiEvents            : %s\n' "$(count_log_slice "$RE_WIFI")"
   printf '  LinkStateEvents       : %s\n' "$(count_log_slice "$RE_LINKSTATE")"
   printf '  DhcpEvents            : %s\n' "$(count_log_slice "$RE_DHCP")"
@@ -477,6 +560,15 @@ run_audit() {
     printf '\n  An unreadable section is NOT a clean section.\n'
   fi
 }
+
+if [ "$NO_REPORT_FILE" -eq 1 ]; then
+  # No pipeline here, so run_audit executes in this shell and FAILURE_COUNT
+  # survives to be read directly.
+  run_audit 2>&1
+  printf '\nConsole-only run: no report file was written. Add --save-report to save one.\n'
+  [ "$FAILURE_COUNT" -eq 0 ] && exit 0
+  exit 1
+fi
 
 # Everything is produced once and written to both destinations.
 run_audit 2>&1 | tee "$REPORT_FILE"
