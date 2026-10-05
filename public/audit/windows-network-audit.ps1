@@ -83,6 +83,9 @@ $MESSAGE_TRIM_LENGTH = 160
 $MAX_EVENTS_PER_SECTION = 15
 # How session times are printed in the usage answer, e.g. "05 Oct 10:15".
 $SESSION_TIME_FORMAT    = 'dd MMM HH:mm'
+# A drop that comes back within this many seconds (a Wi-Fi roam, a DHCP
+# renew) is the same session, not a new one.
+$SESSION_FLAP_SECONDS   = 60
 # Names Windows shows while it is still identifying a network.
 $PLACEHOLDER_NETWORK_NAMES = @('Identifying...', 'Unidentified network')
 $TABLE_WIDTH         = 220
@@ -160,19 +163,29 @@ function Write-UsageSummary {
     $sessions   = New-Object System.Collections.Generic.List[string]
     $openStart  = $null
     $openName   = ''
+    $pendingOff = $null
     $isFirst    = $true
-    foreach ($networkEvent in @($Events | Sort-Object TimeCreated)) {
+    # RecordId breaks time ties in the log's own order. (Sort-Object -Stable
+    # would too, but it does not exist in Windows PowerShell 5.1.)
+    foreach ($networkEvent in @($Events | Sort-Object TimeCreated, RecordId)) {
         $at   = $networkEvent.TimeCreated
         $name = Get-NetworkName $networkEvent
         if ($networkEvent.Id -eq $ID_NETPROFILE_UP) {
+            if ($pendingOff -and ($at - $pendingOff).TotalSeconds -le $SESSION_FLAP_SECONDS) {
+                $pendingOff = $null
+            }
+            elseif ($pendingOff) {
+                $sessions.Add(('{0}  ->  {1}   ({2})   {3}' -f $openStart.ToString($SESSION_TIME_FORMAT),
+                    $pendingOff.ToString($SESSION_TIME_FORMAT), (Format-Span ($pendingOff - $openStart)), $openName).TrimEnd())
+                $openStart  = $null
+                $pendingOff = $null
+            }
             if (-not $openStart) { $openStart = $at; $openName = '' }
             # One connect logs several events while Windows identifies the network.
             if ($name) { $openName = $name }
         }
         elseif ($openStart) {
-            $sessions.Add(('{0}  ->  {1}   ({2})   {3}' -f $openStart.ToString($SESSION_TIME_FORMAT),
-                $at.ToString($SESSION_TIME_FORMAT), (Format-Span ($at - $openStart)), $openName).TrimEnd())
-            $openStart = $null
+            if (-not $pendingOff) { $pendingOff = $at }
         }
         elseif ($isFirst) {
             $sessions.Add(('before {0}  ->  {1}   (already online when the window started)   {2}' -f $sinceLabel,
@@ -180,7 +193,11 @@ function Write-UsageSummary {
         }
         $isFirst = $false
     }
-    if ($openStart -and $OnlineNow) {
+    if ($pendingOff) {
+        $sessions.Add(('{0}  ->  {1}   ({2})   {3}' -f $openStart.ToString($SESSION_TIME_FORMAT),
+            $pendingOff.ToString($SESSION_TIME_FORMAT), (Format-Span ($pendingOff - $openStart)), $openName).TrimEnd())
+    }
+    elseif ($openStart -and $OnlineNow) {
         $sessions.Add(('{0}  ->  still online   ({1} so far)   {2}' -f $openStart.ToString($SESSION_TIME_FORMAT),
             (Format-Span ((Get-Date) - $openStart)), $openName).TrimEnd())
     }

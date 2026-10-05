@@ -41,6 +41,9 @@ readonly MESSAGE_TRIM_LENGTH=200
 readonly MAX_LINES_PER_SECTION=15
 # How session times are printed in the usage answer, e.g. "05 Oct 10:15".
 readonly SESSION_TIME_FORMAT='%d %b %H:%M'
+# A drop that comes back within this many seconds (a boot-time link flap, a
+# Wi-Fi roam, a DHCP renew) is the same session, not a new one.
+readonly SESSION_FLAP_SECONDS=60
 readonly RULE_WIDTH=100
 
 # Bytes per mebibyte, used for every traffic figure in the report.
@@ -306,7 +309,7 @@ show_log_slice() {
 #   $1 = 1 if the machine is online right now, else 0
 summarise_sessions() {
   awk -F'|' -v online_now="$1" -v now="$(date '+%s')" -v window_start="$WINDOW_START_EPOCH" \
-            -v window_label="$WINDOW_START_LABEL" -v hours="$HOURS_BACK" '
+            -v window_label="$WINDOW_START_LABEL" -v hours="$HOURS_BACK" -v flap="$SESSION_FLAP_SECONDS" '
     function span(seconds,    minutes) {
       minutes = int(seconds / 60)
       if (minutes < 60) return minutes " min"
@@ -319,9 +322,19 @@ summarise_sessions() {
       next
     }
     { seen = 1 }
-    $2 == "ON"  { if (!open) { open = 1; start = $1; start_label = $3 }; next }
-    $2 == "OFF" { if (open) { lines[++n] = start_label "  ->  " $3 "   (" span($1 - start) ")"; open = 0 }; next }
+    function close_session(at, label) {
+      lines[++n] = start_label "  ->  " label "   (" span(at - start) ")"
+      open = 0; pending_off = 0
+    }
+    $2 == "ON" {
+      if (pending_off && $1 - off_at <= flap) { pending_off = 0; next }
+      if (pending_off) close_session(off_at, off_label)
+      if (!open) { open = 1; start = $1; start_label = $3 }
+      next
+    }
+    $2 == "OFF" { if (open && !pending_off) { pending_off = 1; off_at = $1; off_label = $3 }; next }
     END {
+      if (pending_off) close_session(off_at, off_label)
       if (open && online_now)  lines[++n] = start_label "  ->  still online   (" span(now - start) " so far)"
       if (open && !online_now) lines[++n] = start_label "  ->  end not logged"
       if (n == 0 && online_now) lines[++n] = "before " window_label "  ->  still online   (online for the whole window)"
@@ -350,7 +363,7 @@ show_usage_summary() {
         printf '%s' "$line" | grep -Eq "$RE_SESSION_ON" && kind=ON
         printf '%s|%s|%s\n' "$epoch" "$kind" "$(date -j -r "$epoch" "+${SESSION_TIME_FORMAT}")"
       done \
-    | sort -t'|' -k1,1n \
+    | sort -s -t'|' -k1,1n \
     | summarise_sessions "$online_now"
   compute_log_gap
   if [ -z "$LOG_OLDEST_ENTRY" ]; then
