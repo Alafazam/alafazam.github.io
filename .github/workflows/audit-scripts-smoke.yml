@@ -47,7 +47,8 @@ jobs:
         run: |
           set +e
           curl -fsSL "$COMMIT_BASE/${{ matrix.script }}" | sudo bash
-          status=${PIPESTATUS[1]}
+          # Copy PIPESTATUS at once: any later command, an assignment included, resets it.
+          pipe=("${PIPESTATUS[@]}"); status=${pipe[1]}
           echo "::notice::${{ matrix.script }} (this commit) exited ${status}"
           [ "$status" -eq 0 ] || [ "$status" -eq 1 ]
       - name: One-liner, live site
@@ -55,8 +56,7 @@ jobs:
         run: |
           set +e
           curl -fsSL "$LIVE_BASE/${{ matrix.script }}" | sudo bash
-          status=${PIPESTATUS[1]}
-          curl_status=${PIPESTATUS[0]}
+          pipe=("${PIPESTATUS[@]}"); curl_status=${pipe[0]}; status=${pipe[1]}
           echo "::notice::${{ matrix.script }} (live) curl exited ${curl_status}, script exited ${status}"
           [ "$curl_status" -eq 0 ] && { [ "$status" -eq 0 ] || [ "$status" -eq 1 ]; }
 
