@@ -31,6 +31,9 @@ param(
     # arguments and leaves nothing behind on the machine. A file is opt-in.
     [switch] $SaveReport,
 
+    # Print every event (default: the most recent per section).
+    [switch] $Full,
+
     # Predates console-only being the default. Still accepted so existing
     # commands keep working, and checked against an explicit request to save.
     [switch] $NoReportFile
@@ -71,6 +74,11 @@ $WLAN_EVENT_MEANING  = @{
 }
 
 $MESSAGE_TRIM_LENGTH = 160
+# A busy laptop logs hundreds of events in a few hours. Without a cap the
+# tables bury the quick answer, so each section shows only its most recent
+# events plus a count. -Full lifts the cap.
+$MAX_EVENTS_PER_SECTION = 15
+$MAX_TIMELINE_EVENTS    = 40
 $TABLE_WIDTH         = 220
 $TETHER_KEYWORDS     = 'RNDIS|Remote NDIS|Bluetooth PAN|USB Ethernet|Mobile Broadband|iPhone|Android|tether'
 
@@ -95,6 +103,23 @@ function Trim-Message {
     $flat = ($Text -replace "`r`n", ' ') -replace '\s+', ' '
     if ($flat.Length -le $MESSAGE_TRIM_LENGTH) { return $flat }
     return $flat.Substring(0, $MESSAGE_TRIM_LENGTH) + '...'
+}
+
+# Oldest-first events, keeping only the most recent $Max unless -Full.
+function Select-RecentEvents {
+    param([object[]] $Events, [int] $Max)
+    $sorted = @($Events | Sort-Object TimeCreated)
+    if ($Full -or $sorted.Count -le $Max) { return $sorted }
+    return @($sorted | Select-Object -Last $Max)
+}
+
+# Printed on its own line above a capped table. Piping it into Format-Table
+# instead would render the string as a one-column "Length" table.
+function Get-TruncationNote {
+    param([int] $Total, [int] $Max)
+    if (-not $Full -and $Total -gt $Max) {
+        "  (showing the last $Max of $Total events; add -Full to see all)"
+    }
 }
 
 # Reads one event log. A missing or disabled log is reported, never silently
@@ -149,7 +174,8 @@ $transcript = & {
     $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
     if ($prof.Count -eq 0) { 'No internet on / off events in window.' }
     else {
-        $prof | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $prof.Count $MAX_TIMELINE_EVENTS
+        Select-RecentEvents $prof $MAX_TIMELINE_EVENTS | ForEach-Object {
             $state   = if ($_.Id -eq $ID_NETPROFILE_UP) { 'Internet ON ' } else { 'Internet OFF' }
             $network = if ($_.Message -match 'Name:\s*(.+?)(\r|\n|$)') { $matches[1].Trim() } else { 'unknown network' }
             '  {0} : {1}   ({2})' -f $state, $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss'), $network
@@ -192,7 +218,8 @@ $transcript = & {
     if ($wlan.Count -eq 0) {
         'No wireless events in window.'
     } else {
-        $wlan | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $wlan.Count $MAX_EVENTS_PER_SECTION
+        Select-RecentEvents $wlan $MAX_EVENTS_PER_SECTION | ForEach-Object {
             [pscustomobject]@{
                 Time    = $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss')
                 Id      = $_.Id
@@ -206,7 +233,8 @@ $transcript = & {
     Write-Section "4. ALL NETWORK CONNECT / DISCONNECT (wired, wireless, tethered)"
     if ($prof.Count -eq 0) { 'No network profile events in window.' }
     else {
-        $prof | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $prof.Count $MAX_EVENTS_PER_SECTION
+        Select-RecentEvents $prof $MAX_EVENTS_PER_SECTION | ForEach-Object {
             [pscustomobject]@{
                 Time   = $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss')
                 Event  = if ($_.Id -eq $ID_NETPROFILE_UP) { 'CONNECTED' } else { 'DISCONNECTED' }
@@ -220,7 +248,8 @@ $transcript = & {
     $dhcp = Get-AuditEvents -LogName $LOG_DHCP
     if ($dhcp.Count -eq 0) { 'No DHCP events in window.' }
     else {
-        $dhcp | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $dhcp.Count $MAX_EVENTS_PER_SECTION
+        Select-RecentEvents $dhcp $MAX_EVENTS_PER_SECTION | ForEach-Object {
             [pscustomobject]@{
                 Time   = $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss')
                 Id     = $_.Id
@@ -234,7 +263,8 @@ $transcript = & {
     $ncsi = Get-AuditEvents -LogName $LOG_NCSI
     if ($ncsi.Count -eq 0) { 'No NCSI events in window (log is often disabled by default).' }
     else {
-        $ncsi | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $ncsi.Count $MAX_EVENTS_PER_SECTION
+        Select-RecentEvents $ncsi $MAX_EVENTS_PER_SECTION | ForEach-Object {
             [pscustomobject]@{
                 Time   = $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss')
                 Id     = $_.Id
@@ -249,7 +279,8 @@ $transcript = & {
            Where-Object { $_.Message -match $TETHER_KEYWORDS }
     if ($pnp.Count -eq 0) { 'No tethering or network-dongle device arrivals detected.' }
     else {
-        $pnp | Sort-Object TimeCreated | ForEach-Object {
+        Get-TruncationNote $pnp.Count $MAX_EVENTS_PER_SECTION
+        Select-RecentEvents $pnp $MAX_EVENTS_PER_SECTION | ForEach-Object {
             [pscustomobject]@{
                 Time   = $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss')
                 Detail = Trim-Message $_.Message

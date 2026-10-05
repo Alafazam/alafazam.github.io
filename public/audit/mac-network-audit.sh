@@ -36,6 +36,11 @@ readonly MIN_HOURS_BACK=1
 readonly MAX_HOURS_BACK=72
 
 readonly MESSAGE_TRIM_LENGTH=200
+# A busy laptop logs thousands of matching lines in a few hours. Without a cap
+# the raw slices bury the quick answer, so each section shows only its most
+# recent lines plus a count. --full lifts the cap.
+readonly MAX_LINES_PER_SECTION=15
+readonly MAX_TIMELINE_LINES=40
 readonly RULE_WIDTH=100
 
 # Bytes per mebibyte, used for every traffic figure in the report.
@@ -79,14 +84,16 @@ SAVE_REPORT=0
 # accepted so existing commands keep working, and it is checked against an
 # explicit request to save.
 NO_REPORT_FILE_REQUESTED=0
+FULL_OUTPUT=0
 
 print_usage() {
   cat <<USAGE
-Usage: $(basename "$0") [--hours N] [--save-report] [--output-directory DIR]
+Usage: $(basename "$0") [--hours N] [--full] [--save-report] [--output-directory DIR]
 
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
   --save-report          Also write the report to a file (default: console only).
   --output-directory DIR Where to write the report (default: ~/Desktop). Implies --save-report.
+  --full                 Print every matching log line (default: the most recent per section).
   --no-report-file       Console only. Already the default; kept for older commands.
   --help                 Show this message.
 USAGE
@@ -102,6 +109,10 @@ while [ $# -gt 0 ]; do
       OUTPUT_DIRECTORY="${2:-}"
       shift 2 || { echo "ERROR: --output-directory needs a value." >&2; exit 2; }
       SAVE_REPORT=1
+      ;;
+    --full)
+      FULL_OUTPUT=1
+      shift
       ;;
     --save-report)
       SAVE_REPORT=1
@@ -248,6 +259,20 @@ try_command() {
   return 0
 }
 
+# Prints indented lines, keeping only the most recent $2 unless --full.
+#   $1 = newline-separated text (oldest first), $2 = line cap
+print_capped() {
+  capped_text="$1"
+  cap="$2"
+  total_lines="$(printf '%s\n' "$capped_text" | wc -l | tr -d ' ')"
+  if [ "$FULL_OUTPUT" -eq 1 ] || [ "$total_lines" -le "$cap" ]; then
+    printf '%s\n' "$capped_text" | indent
+    return 0
+  fi
+  printf '  (showing the last %s of %s entries; add --full to see all)\n' "$cap" "$total_lines"
+  printf '%s\n' "$capped_text" | tail -n "$cap" | indent
+}
+
 # Slices the cached log window by keyword. Distinguishes three states that must
 # never be confused: source unreadable, source readable but window empty, hits.
 #   $1 = section label, $2 = extended regex
@@ -265,7 +290,7 @@ show_log_slice() {
     printf '  No %s entries in the last %s h (log was readable and genuinely empty).\n' "$label" "$HOURS_BACK"
     return 0
   fi
-  printf '%s\n' "$matches" | indent
+  print_capped "$matches" "$MAX_LINES_PER_SECTION"
   return 0
 }
 
@@ -289,7 +314,7 @@ show_online_timeline() {
     printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
     return 0
   fi
-  printf '%s\n' "$timeline" | indent
+  print_capped "$timeline" "$MAX_TIMELINE_LINES"
   printf '\n  Wi-Fi ON: %s   Wi-Fi OFF: %s   Network changes: %s\n' \
     "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")" \
     "$(count_log_slice "$RE_NETWORK_CHANGED")"
