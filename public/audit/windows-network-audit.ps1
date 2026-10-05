@@ -8,15 +8,15 @@
 
     Usage   : Right-click PowerShell -> Run as Administrator, then:
                   Set-ExecutionPolicy -Scope Process Bypass -Force
-                  .\Audit-ExamLaptopNetwork.ps1 -HoursBack 5
+                  .\Audit-ExamLaptopNetwork.ps1                # last 5 h, console only
+                  .\Audit-ExamLaptopNetwork.ps1 -SaveReport    # also save to the Desktop
 
-    Output  : Prints to console AND writes one plain-text artifact to the
-              Desktop, plus triggers the native Windows wireless report.
-              Pass -NoReportFile to print to the console only and write
-              nothing to disk.
+    Output  : Prints to the console. With -SaveReport (or -OutputDirectory)
+              it also writes one plain-text artifact, to the Desktop by
+              default, and triggers the native Windows wireless report.
 
     Notes   : Read-only. Nothing on the machine is modified except the two
-              report files it writes.
+              report files written under -SaveReport.
 #>
 
 [CmdletBinding()]
@@ -24,12 +24,23 @@ param(
     [ValidateRange(1, 72)]
     [int] $HoursBack = 5,
 
+    # Passing this implies -SaveReport.
     [string] $OutputDirectory = (Join-Path $env:USERPROFILE 'Desktop'),
 
-    # Console-only mode. Used by the copy-paste one-liner, where the point is
-    # to read the result on screen and leave nothing behind on the machine.
+    # Console-only is the default, so the copy-paste one-liner needs no
+    # arguments and leaves nothing behind on the machine. A file is opt-in.
+    [switch] $SaveReport,
+
+    # Predates console-only being the default. Still accepted so existing
+    # commands keep working, and checked against an explicit request to save.
     [switch] $NoReportFile
 )
+
+$writeReport = $SaveReport -or $PSBoundParameters.ContainsKey('OutputDirectory')
+if ($NoReportFile -and $writeReport) {
+    Write-Error '-NoReportFile contradicts -SaveReport / -OutputDirectory.'
+    exit 2
+}
 
 # ---------------------------------------------------------------------------
 # Configuration -- no magic numbers below this block
@@ -294,10 +305,10 @@ $transcript = & {
 # ---------------------------------------------------------------------------
 Write-Host $transcript
 
-if ($NoReportFile) {
+if (-not $writeReport) {
     # Console-only: no artifact, and the native wireless report is skipped
     # because it would drop an HTML file under C:\ProgramData.
-    Write-Host "`nConsole-only run: no report file was written." -ForegroundColor Green
+    Write-Host "`nConsole-only run: no report file was written. Add -SaveReport to save one." -ForegroundColor Green
 }
 else {
     Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8

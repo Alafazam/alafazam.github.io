@@ -71,10 +71,10 @@ const OS_GUIDES: OsGuide[] = [
       },
       {
         label: 'Run the audit',
-        command: `.\\windows-network-audit.ps1 -HoursBack ${DEFAULT_LOOKBACK_HOURS}`,
+        command: '.\\windows-network-audit.ps1 -SaveReport',
       },
     ],
-    oneLiner: `powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm ${SITE_ORIGIN}/audit/windows-network-audit.ps1))) -HoursBack ${DEFAULT_LOOKBACK_HOURS} -NoReportFile"`,
+    oneLiner: `powershell -NoProfile -ExecutionPolicy Bypass -Command "& ([scriptblock]::Create((irm ${SITE_ORIGIN}/audit/windows-network-audit.ps1)))"`,
     reportLocation: 'Desktop \\ NetworkAudit-<COMPUTERNAME>-<timestamp>.txt',
   },
   {
@@ -97,10 +97,10 @@ const OS_GUIDES: OsGuide[] = [
       },
       {
         label: 'Run the audit',
-        command: `sudo ./mac-network-audit.sh --hours ${DEFAULT_LOOKBACK_HOURS}`,
+        command: 'sudo ./mac-network-audit.sh --save-report',
       },
     ],
-    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/mac-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS} --no-report-file`,
+    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/mac-network-audit.sh | sudo bash`,
     reportLocation: '~/Desktop/NetworkAudit-<hostname>-<timestamp>.txt',
   },
   {
@@ -124,10 +124,10 @@ const OS_GUIDES: OsGuide[] = [
       },
       {
         label: 'Run the audit',
-        command: `sudo ./linux-network-audit.sh --hours ${DEFAULT_LOOKBACK_HOURS}`,
+        command: 'sudo ./linux-network-audit.sh --save-report',
       },
     ],
-    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/linux-network-audit.sh | sudo bash -s -- --hours ${DEFAULT_LOOKBACK_HOURS} --no-report-file`,
+    oneLiner: `curl -fsSL ${SITE_ORIGIN}/audit/linux-network-audit.sh | sudo bash`,
     reportLocation: '~/Desktop/NetworkAudit-<hostname>-<timestamp>.txt',
   },
 ];

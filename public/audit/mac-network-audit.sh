@@ -7,9 +7,11 @@
 #             during a proctored test.
 #
 #   Usage   : chmod +x mac-network-audit.sh
-#             sudo ./mac-network-audit.sh --hours 5
+#             sudo ./mac-network-audit.sh                 # last 5 h, console only
+#             sudo ./mac-network-audit.sh --save-report   # also save to the Desktop
 #
-#   Output  : Prints to console AND writes one plain-text artifact to the Desktop.
+#   Output  : Prints to the console. With --save-report (or --output-directory)
+#             it also writes one plain-text artifact, to the Desktop by default.
 #
 #   Notes   : Read-only. Nothing on the machine is modified except the report
 #             file it writes, plus a scratch copy of the log window under
@@ -70,17 +72,22 @@ readonly LOG_GAP_TOLERANCE_MINUTES=10
 # ---------------------------------------------------------------------------
 HOURS_BACK=$DEFAULT_HOURS_BACK
 OUTPUT_DIRECTORY=""
-# Console-only mode. Used by the copy-paste one-liner, where the point is to
-# read the result on screen and leave nothing behind on the machine.
-NO_REPORT_FILE=0
+# Console-only is the default, so the copy-paste one-liner needs no flags and
+# leaves nothing behind on the machine. A report file is opt-in.
+SAVE_REPORT=0
+# --no-report-file predates console-only being the default. It is still
+# accepted so existing commands keep working, and it is checked against an
+# explicit request to save.
+NO_REPORT_FILE_REQUESTED=0
 
 print_usage() {
   cat <<USAGE
-Usage: $(basename "$0") [--hours N] [--output-directory DIR] [--no-report-file]
+Usage: $(basename "$0") [--hours N] [--save-report] [--output-directory DIR]
 
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
-  --output-directory DIR Where to write the report (default: ~/Desktop).
-  --no-report-file       Print to the console only; write no report file at all.
+  --save-report          Also write the report to a file (default: console only).
+  --output-directory DIR Where to write the report (default: ~/Desktop). Implies --save-report.
+  --no-report-file       Console only. Already the default; kept for older commands.
   --help                 Show this message.
 USAGE
 }
@@ -94,9 +101,14 @@ while [ $# -gt 0 ]; do
     --output-directory|-o)
       OUTPUT_DIRECTORY="${2:-}"
       shift 2 || { echo "ERROR: --output-directory needs a value." >&2; exit 2; }
+      SAVE_REPORT=1
+      ;;
+    --save-report)
+      SAVE_REPORT=1
+      shift
       ;;
     --no-report-file)
-      NO_REPORT_FILE=1
+      NO_REPORT_FILE_REQUESTED=1
       shift
       ;;
     --help)
@@ -123,6 +135,12 @@ fi
 
 HOSTNAME_SHORT="$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo 'unknown-host')"
 
+if [ "$NO_REPORT_FILE_REQUESTED" -eq 1 ] && [ "$SAVE_REPORT" -eq 1 ]; then
+  echo "ERROR: --no-report-file contradicts --save-report / --output-directory." >&2
+  exit 2
+fi
+NO_REPORT_FILE=$((1 - SAVE_REPORT))
+
 REPORT_FILE=""
 if [ "$NO_REPORT_FILE" -eq 0 ]; then
   # The Desktop is the default drop point so there is one artifact per candidate
@@ -142,9 +160,6 @@ if [ "$NO_REPORT_FILE" -eq 0 ]; then
   # Spaces in a Mac's computer name are routine and make the filename awkward.
   HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
   REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
-elif [ -n "$OUTPUT_DIRECTORY" ]; then
-  echo "ERROR: --no-report-file and --output-directory contradict each other." >&2
-  exit 2
 fi
 
 WINDOW_START="$(date -v-"${HOURS_BACK}"H '+%Y-%m-%d %H:%M:%S' 2>/dev/null)"
@@ -467,7 +482,7 @@ if [ "$NO_REPORT_FILE" -eq 1 ]; then
   # No pipeline here, so run_audit executes in this shell and FAILURE_COUNT
   # survives to be read directly.
   run_audit 2>&1
-  printf '\nConsole-only run: no report file was written.\n'
+  printf '\nConsole-only run: no report file was written. Add --save-report to save one.\n'
   [ "$FAILURE_COUNT" -eq 0 ] && exit 0
   exit 1
 fi
