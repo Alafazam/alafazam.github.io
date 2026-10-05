@@ -51,6 +51,12 @@ readonly RE_LINKSTATE='LINK|link state|Interface .* (up|down)|nwi_|network reach
 readonly RE_DHCP='DHCP|BOOTP|dhcp|lease|LEASE|RENEW|REBIND|ACK from|OFFER|bound to'
 readonly RE_REACHABILITY='Reachability|reachability|nwi_state|Network is (up|down)|captive|Captive'
 readonly RE_TETHER='RNDIS|Remote NDIS|Bluetooth PAN|BluetoothPAN|USB Ethernet|AppleUSBEthernet|iPhone|iPad|Android|tether|Tether|Personal Hotspot|Hotspot|CDCEthernet|NCM|usbnet'
+# Quick-answer timeline. airportd logs these two at info level, which is why
+# the capture below passes --info. configd logs "network changed" whenever the
+# primary interface changes, which also covers cable and tethering.
+readonly RE_WIFI_JOINED='Successfully associated'
+readonly RE_WIFI_LEFT='DISASSOCIATE SUCCEEDED'
+readonly RE_NETWORK_CHANGED='network changed:'
 # Hardware ports whose presence means a non-Wi-Fi path exists on the machine.
 readonly RE_TETHER_PORT='iPhone|iPad|Bluetooth PAN|USB.*LAN|USB.*Ethernet|Thunderbolt Ethernet|Android'
 
@@ -248,6 +254,32 @@ show_log_slice() {
   return 0
 }
 
+# One line per event, oldest first, so the answer is readable at a glance.
+# Compact-style rows start "YYYY-MM-DD HH:MM:SS.mmm", trimmed here to seconds.
+show_online_timeline() {
+  if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then
+    printf '  !! UNREADABLE: the unified log could not be captured, so the timeline cannot be assessed.\n'
+    printf '  !! This is NOT the same as "nothing happened". Re-run with sudo and Full Disk Access.\n'
+    return 1
+  fi
+  timeline="$(grep -E "${RE_WIFI_JOINED}|${RE_WIFI_LEFT}|${RE_NETWORK_CHANGED}" "$LOG_DUMP" 2>/dev/null \
+    | awk -v joined="$RE_WIFI_JOINED" -v left="$RE_WIFI_LEFT" -v changed="$RE_NETWORK_CHANGED" \
+          -v maxlen="$MESSAGE_TRIM_LENGTH" '
+        { stamp = $1 " " substr($2, 1, 8) }
+        $0 ~ joined  { printf "Wi-Fi ON        : %s\n", stamp; next }
+        $0 ~ left    { printf "Wi-Fi OFF       : %s\n", stamp; next }
+        $0 ~ changed { detail = $0; sub(/.*network changed: */, "", detail)
+                       printf "Network changed : %s   %s\n", stamp, substr(detail, 1, maxlen) }')"
+  if [ -z "$timeline" ]; then
+    printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
+    return 0
+  fi
+  printf '%s\n' "$timeline" | indent
+  printf '\n  Wi-Fi ON: %s   Wi-Fi OFF: %s   Network changes: %s\n' \
+    "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")" \
+    "$(count_log_slice "$RE_NETWORK_CHANGED")"
+}
+
 count_log_slice() {
   if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then printf 'unknown (log unreadable)'; return; fi
   # grep -c exits 1 on a zero count, so the count is read from stdout, not $?.
@@ -288,7 +320,7 @@ run_audit() {
   # `2>&1 >file` order matters: stderr is bound to the capture pipe first, then
   # stdout is redirected into the dump. Reversing it would put log noise in the
   # dump and silently poison every slice below.
-  log_capture_errors="$(log show --last "${HOURS_BACK}h" --style compact \
+  log_capture_errors="$(log show --last "${HOURS_BACK}h" --style compact --info \
                           --predicate "$LOG_PREDICATE" 2>&1 >"$LOG_DUMP")"
   log_capture_status=$?
   if [ $log_capture_status -ne 0 ]; then
@@ -306,6 +338,10 @@ run_audit() {
       printf '%s\n' "$log_capture_errors" | indent
     fi
   fi
+
+  # -- 0. Quick answer -----------------------------------------------------
+  section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last ${HOURS_BACK} h)"
+  show_online_timeline
 
   # -- 1. Live state --------------------------------------------------------
   section '1. CURRENT NETWORK STATE (what it is connected to right now)'
@@ -403,6 +439,9 @@ run_audit() {
 
   # -- Verdict --------------------------------------------------------------
   section 'VERDICT'
+  printf '  WifiJoinedEvents      : %s\n' "$(count_log_slice "$RE_WIFI_JOINED")"
+  printf '  WifiLeftEvents        : %s\n' "$(count_log_slice "$RE_WIFI_LEFT")"
+  printf '  NetworkChangedEvents  : %s\n' "$(count_log_slice "$RE_NETWORK_CHANGED")"
   printf '  WifiEvents            : %s\n' "$(count_log_slice "$RE_WIFI")"
   printf '  LinkStateEvents       : %s\n' "$(count_log_slice "$RE_LINKSTATE")"
   printf '  DhcpEvents            : %s\n' "$(count_log_slice "$RE_DHCP")"

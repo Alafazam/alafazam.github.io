@@ -56,6 +56,17 @@ readonly RE_DHCP='DHCP|dhcp|dhclient|dhcpcd|DHCPACK|DHCPREQUEST|DHCPOFFER|DHCPDI
 readonly RE_REACHABILITY='connectivity|Connectivity|NetworkManager.*state.*(GLOBAL|SITE|PORTAL)|captive|Captive|nm-connectivity'
 readonly RE_TETHER='rndis|RNDIS|cdc_ether|cdc_ncm|cdc_mbim|usbnet|ipheth|Bluetooth.*PAN|bnep|android|Android|iPhone|iPad|tether|Tether|usb0|enx[0-9a-f]{12}'
 
+# Quick-answer timeline. NetworkManager logs its global state on every change
+# ("NetworkManager state is now CONNECTED_GLOBAL"); wpa_supplicant and
+# systemd-networkd cover hosts that do not run NetworkManager.
+readonly RE_INTERNET_ON='state is now CONNECTED_GLOBAL'
+readonly RE_INTERNET_LIMITED='state is now CONNECTED_(SITE|LOCAL)'
+readonly RE_INTERNET_OFF='state is now (DISCONNECTED|ASLEEP)'
+readonly RE_WIFI_JOINED='CTRL-EVENT-CONNECTED'
+readonly RE_WIFI_LEFT='CTRL-EVENT-DISCONNECTED'
+readonly RE_LINK_GAINED='Gained carrier'
+readonly RE_LINK_LOST='Lost carrier'
+
 # Traces left behind when the journal is deliberately wiped.
 readonly RE_LOG_CLEARED='vacuum|Vacuuming|journal.*(rotated|cleared|truncated)|systemd-journald.*(Permanent|Runtime) journal.*(deleted|removed)'
 # If the surviving log starts this many minutes after the window did, history
@@ -249,6 +260,39 @@ show_log_slice() {
   return 0
 }
 
+# One line per event, oldest first, so the answer is readable at a glance.
+# journalctl and classic syslog rows start "Mon DD HH:MM:SS"; rsyslog's
+# high-precision format starts with a single ISO-8601 field instead.
+show_online_timeline() {
+  if [ "$LOG_READABLE" -ne 1 ]; then
+    printf '  !! UNREADABLE: no system log could be captured, so the timeline cannot be assessed.\n'
+    printf '  !! This is NOT the same as "nothing happened". Re-run with sudo.\n'
+    return 1
+  fi
+  timeline="$(grep -E "${RE_INTERNET_ON}|${RE_INTERNET_LIMITED}|${RE_INTERNET_OFF}|${RE_WIFI_JOINED}|${RE_WIFI_LEFT}|${RE_LINK_GAINED}|${RE_LINK_LOST}" \
+                "$LOG_DUMP" 2>/dev/null \
+    | awk -v on="$RE_INTERNET_ON" -v limited="$RE_INTERNET_LIMITED" -v off="$RE_INTERNET_OFF" \
+          -v joined="$RE_WIFI_JOINED" -v left="$RE_WIFI_LEFT" \
+          -v gained="$RE_LINK_GAINED" -v lost="$RE_LINK_LOST" '
+        { stamp = ($1 ~ /^[0-9][0-9][0-9][0-9]-/) ? substr($1, 1, 19) : $1 " " $2 " " $3 }
+        $0 ~ on      { printf "Internet ON         : %s\n", stamp; next }
+        $0 ~ limited { printf "Network, no internet: %s\n", stamp; next }
+        $0 ~ off     { printf "Internet OFF        : %s\n", stamp; next }
+        $0 ~ joined  { printf "Wi-Fi ON            : %s\n", stamp; next }
+        $0 ~ left    { printf "Wi-Fi OFF           : %s\n", stamp; next }
+        # systemd-networkd writes "<interface>: Gained carrier".
+        $0 ~ gained  { iface = $(NF-2); sub(/:$/, "", iface); printf "Link up             : %s   %s\n", stamp, iface; next }
+        $0 ~ lost    { iface = $(NF-2); sub(/:$/, "", iface); printf "Link down           : %s   %s\n", stamp, iface }')"
+  if [ -z "$timeline" ]; then
+    printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
+    return 0
+  fi
+  printf '%s\n' "$timeline" | indent
+  printf '\n  Internet ON: %s   Internet OFF: %s   Wi-Fi ON: %s   Wi-Fi OFF: %s\n' \
+    "$(count_log_slice "$RE_INTERNET_ON")" "$(count_log_slice "$RE_INTERNET_OFF")" \
+    "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")"
+}
+
 count_log_slice() {
   if [ "$LOG_READABLE" -ne 1 ]; then printf 'unknown (log unreadable)'; return; fi
   # grep -c exits 1 on a zero count, so the count is read from stdout, not $?.
@@ -339,6 +383,10 @@ run_audit() {
     printf '  !! Every log-derived section below is INCONCLUSIVE, not clean.\n'
     record_failure 'no readable system log source on this host'
   fi
+
+  # -- 0. Quick answer -----------------------------------------------------
+  section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last ${HOURS_BACK} h)"
+  show_online_timeline
 
   # -- 1. Live state --------------------------------------------------------
   section '1. CURRENT NETWORK STATE (what it is connected to right now)'
@@ -474,6 +522,8 @@ run_audit() {
   # -- Verdict --------------------------------------------------------------
   section 'VERDICT'
   printf '  LogSource             : %s\n' "$LOG_SOURCE"
+  printf '  InternetOnEvents      : %s\n' "$(count_log_slice "$RE_INTERNET_ON")"
+  printf '  InternetOffEvents     : %s\n' "$(count_log_slice "$RE_INTERNET_OFF")"
   printf '  WifiEvents            : %s\n' "$(count_log_slice "$RE_WIFI")"
   printf '  LinkStateEvents       : %s\n' "$(count_log_slice "$RE_LINKSTATE")"
   printf '  DhcpEvents            : %s\n' "$(count_log_slice "$RE_DHCP")"

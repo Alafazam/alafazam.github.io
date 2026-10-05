@@ -133,6 +133,7 @@ const OS_GUIDES: OsGuide[] = [
 ];
 
 const WHAT_IS_COLLECTED = [
+  'A quick answer at the top: one line per internet ON / OFF event, with its time, so you can read the result at a glance.',
   'Every network connect and disconnect in the window, wired, wireless or tethered.',
   'DHCP and lease activity, which is hard evidence that a network was actually joined.',
   'Wi-Fi association timeline and the names (SSIDs) of networks connected to.',

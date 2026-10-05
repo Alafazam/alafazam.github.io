@@ -131,6 +131,24 @@ $transcript = & {
         "!! the audit below may be incomplete. Re-run as Administrator."
     }
 
+    # -- 0. Quick answer: internet on / off --------------------------------
+    # Same source as a plain `Get-WinEvent ... 10000/10001` one-liner, but
+    # filtered server-side and with the network name pulled out of each event.
+    Write-Section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last $HoursBack h)"
+    $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
+    if ($prof.Count -eq 0) { 'No internet on / off events in window.' }
+    else {
+        $prof | Sort-Object TimeCreated | ForEach-Object {
+            $state   = if ($_.Id -eq $ID_NETPROFILE_UP) { 'Internet ON ' } else { 'Internet OFF' }
+            $network = if ($_.Message -match 'Name:\s*(.+?)(\r|\n|$)') { $matches[1].Trim() } else { 'unknown network' }
+            '  {0} : {1}   ({2})' -f $state, $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss'), $network
+        }
+        ''
+        '  ON events: {0}   OFF events: {1}   (full detail in section 4)' -f `
+            @($prof | Where-Object Id -eq $ID_NETPROFILE_UP).Count,
+            @($prof | Where-Object Id -eq $ID_NETPROFILE_DOWN).Count
+    }
+
     # -- 1. Live state ------------------------------------------------------
     Write-Section '1. CURRENT NETWORK STATE (what it is connected to right now)'
     try {
@@ -175,7 +193,6 @@ $transcript = & {
 
     # -- 4. Any network, including cable and tethering ---------------------
     Write-Section "4. ALL NETWORK CONNECT / DISCONNECT (wired, wireless, tethered)"
-    $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
     if ($prof.Count -eq 0) { 'No network profile events in window.' }
     else {
         $prof | Sort-Object TimeCreated | ForEach-Object {
@@ -258,6 +275,7 @@ $transcript = & {
         WlanDisconnectEvents   = @($wlan | Where-Object Id -eq 8003).Count
         DistinctSsidsConnected = if ($ssids.Count) { $ssids -join ', ' } else { 'none' }
         NetworkConnectEvents   = @($prof | Where-Object Id -eq $ID_NETPROFILE_UP).Count
+        NetworkDisconnectEvents = @($prof | Where-Object Id -eq $ID_NETPROFILE_DOWN).Count
         DhcpEvents             = $dhcp.Count
         TetherDeviceArrivals   = $pnp.Count
         LogsClearedInWindow    = $cleared.Count
