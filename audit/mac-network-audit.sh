@@ -7,9 +7,11 @@
 #             during a proctored test.
 #
 #   Usage   : chmod +x mac-network-audit.sh
-#             sudo ./mac-network-audit.sh --hours 5
+#             sudo ./mac-network-audit.sh                 # last 5 h, console only
+#             sudo ./mac-network-audit.sh --save-report   # also save to the Desktop
 #
-#   Output  : Prints to console AND writes one plain-text artifact to the Desktop.
+#   Output  : Prints to the console. With --save-report (or --output-directory)
+#             it also writes one plain-text artifact, to the Desktop by default.
 #
 #   Notes   : Read-only. Nothing on the machine is modified except the report
 #             file it writes, plus a scratch copy of the log window under
@@ -51,6 +53,12 @@ readonly RE_LINKSTATE='LINK|link state|Interface .* (up|down)|nwi_|network reach
 readonly RE_DHCP='DHCP|BOOTP|dhcp|lease|LEASE|RENEW|REBIND|ACK from|OFFER|bound to'
 readonly RE_REACHABILITY='Reachability|reachability|nwi_state|Network is (up|down)|captive|Captive'
 readonly RE_TETHER='RNDIS|Remote NDIS|Bluetooth PAN|BluetoothPAN|USB Ethernet|AppleUSBEthernet|iPhone|iPad|Android|tether|Tether|Personal Hotspot|Hotspot|CDCEthernet|NCM|usbnet'
+# Quick-answer timeline. airportd logs these two at info level, which is why
+# the capture below passes --info. configd logs "network changed" whenever the
+# primary interface changes, which also covers cable and tethering.
+readonly RE_WIFI_JOINED='Successfully associated'
+readonly RE_WIFI_LEFT='DISASSOCIATE SUCCEEDED'
+readonly RE_NETWORK_CHANGED='network changed:'
 # Hardware ports whose presence means a non-Wi-Fi path exists on the machine.
 readonly RE_TETHER_PORT='iPhone|iPad|Bluetooth PAN|USB.*LAN|USB.*Ethernet|Thunderbolt Ethernet|Android'
 
@@ -64,13 +72,22 @@ readonly LOG_GAP_TOLERANCE_MINUTES=10
 # ---------------------------------------------------------------------------
 HOURS_BACK=$DEFAULT_HOURS_BACK
 OUTPUT_DIRECTORY=""
+# Console-only is the default, so the copy-paste one-liner needs no flags and
+# leaves nothing behind on the machine. A report file is opt-in.
+SAVE_REPORT=0
+# --no-report-file predates console-only being the default. It is still
+# accepted so existing commands keep working, and it is checked against an
+# explicit request to save.
+NO_REPORT_FILE_REQUESTED=0
 
 print_usage() {
   cat <<USAGE
-Usage: $(basename "$0") [--hours N] [--output-directory DIR]
+Usage: $(basename "$0") [--hours N] [--save-report] [--output-directory DIR]
 
   --hours N              Lookback window in hours (${MIN_HOURS_BACK}-${MAX_HOURS_BACK}, default ${DEFAULT_HOURS_BACK}).
-  --output-directory DIR Where to write the report (default: ~/Desktop).
+  --save-report          Also write the report to a file (default: console only).
+  --output-directory DIR Where to write the report (default: ~/Desktop). Implies --save-report.
+  --no-report-file       Console only. Already the default; kept for older commands.
   --help                 Show this message.
 USAGE
 }
@@ -84,6 +101,15 @@ while [ $# -gt 0 ]; do
     --output-directory|-o)
       OUTPUT_DIRECTORY="${2:-}"
       shift 2 || { echo "ERROR: --output-directory needs a value." >&2; exit 2; }
+      SAVE_REPORT=1
+      ;;
+    --save-report)
+      SAVE_REPORT=1
+      shift
+      ;;
+    --no-report-file)
+      NO_REPORT_FILE_REQUESTED=1
+      shift
       ;;
     --help)
       print_usage; exit 0
@@ -107,25 +133,34 @@ if [ "$HOURS_BACK" -lt "$MIN_HOURS_BACK" ] || [ "$HOURS_BACK" -gt "$MAX_HOURS_BA
   exit 2
 fi
 
-# The Desktop is the default drop point so there is one artifact per candidate
-# in an obvious place. Fall back to the home directory if it does not exist.
-if [ -z "$OUTPUT_DIRECTORY" ]; then
-  if [ -d "$HOME/Desktop" ]; then
-    OUTPUT_DIRECTORY="$HOME/Desktop"
-  else
-    OUTPUT_DIRECTORY="$HOME"
-  fi
-fi
-if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
-  echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+HOSTNAME_SHORT="$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo 'unknown-host')"
+
+if [ "$NO_REPORT_FILE_REQUESTED" -eq 1 ] && [ "$SAVE_REPORT" -eq 1 ]; then
+  echo "ERROR: --no-report-file contradicts --save-report / --output-directory." >&2
   exit 2
 fi
+NO_REPORT_FILE=$((1 - SAVE_REPORT))
 
-STAMP="$(date '+%Y%m%d-%H%M%S')"
-HOSTNAME_SHORT="$(scutil --get ComputerName 2>/dev/null || hostname -s 2>/dev/null || echo 'unknown-host')"
-# Spaces in a Mac's computer name are routine and make the filename awkward.
-HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
-REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
+REPORT_FILE=""
+if [ "$NO_REPORT_FILE" -eq 0 ]; then
+  # The Desktop is the default drop point so there is one artifact per candidate
+  # in an obvious place. Fall back to the home directory if it does not exist.
+  if [ -z "$OUTPUT_DIRECTORY" ]; then
+    if [ -d "$HOME/Desktop" ]; then
+      OUTPUT_DIRECTORY="$HOME/Desktop"
+    else
+      OUTPUT_DIRECTORY="$HOME"
+    fi
+  fi
+  if [ ! -d "$OUTPUT_DIRECTORY" ] || [ ! -w "$OUTPUT_DIRECTORY" ]; then
+    echo "ERROR: output directory '$OUTPUT_DIRECTORY' is missing or not writable." >&2
+    exit 2
+  fi
+  STAMP="$(date '+%Y%m%d-%H%M%S')"
+  # Spaces in a Mac's computer name are routine and make the filename awkward.
+  HOSTNAME_SAFE="$(printf '%s' "$HOSTNAME_SHORT" | tr ' /' '__')"
+  REPORT_FILE="${OUTPUT_DIRECTORY}/NetworkAudit-${HOSTNAME_SAFE}-${STAMP}.txt"
+fi
 
 WINDOW_START="$(date -v-"${HOURS_BACK}"H '+%Y-%m-%d %H:%M:%S' 2>/dev/null)"
 if [ -z "$WINDOW_START" ]; then
@@ -234,6 +269,32 @@ show_log_slice() {
   return 0
 }
 
+# One line per event, oldest first, so the answer is readable at a glance.
+# Compact-style rows start "YYYY-MM-DD HH:MM:SS.mmm", trimmed here to seconds.
+show_online_timeline() {
+  if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then
+    printf '  !! UNREADABLE: the unified log could not be captured, so the timeline cannot be assessed.\n'
+    printf '  !! This is NOT the same as "nothing happened". Re-run with sudo and Full Disk Access.\n'
+    return 1
+  fi
+  timeline="$(grep -E "${RE_WIFI_JOINED}|${RE_WIFI_LEFT}|${RE_NETWORK_CHANGED}" "$LOG_DUMP" 2>/dev/null \
+    | awk -v joined="$RE_WIFI_JOINED" -v left="$RE_WIFI_LEFT" -v changed="$RE_NETWORK_CHANGED" \
+          -v maxlen="$MESSAGE_TRIM_LENGTH" '
+        { stamp = $1 " " substr($2, 1, 8) }
+        $0 ~ joined  { printf "Wi-Fi ON        : %s\n", stamp; next }
+        $0 ~ left    { printf "Wi-Fi OFF       : %s\n", stamp; next }
+        $0 ~ changed { detail = $0; sub(/.*network changed: */, "", detail)
+                       printf "Network changed : %s   %s\n", stamp, substr(detail, 1, maxlen) }')"
+  if [ -z "$timeline" ]; then
+    printf '  No internet on / off events in the last %s h (log was readable and genuinely empty).\n' "$HOURS_BACK"
+    return 0
+  fi
+  printf '%s\n' "$timeline" | indent
+  printf '\n  Wi-Fi ON: %s   Wi-Fi OFF: %s   Network changes: %s\n' \
+    "$(count_log_slice "$RE_WIFI_JOINED")" "$(count_log_slice "$RE_WIFI_LEFT")" \
+    "$(count_log_slice "$RE_NETWORK_CHANGED")"
+}
+
 count_log_slice() {
   if [ "$UNIFIED_LOG_READABLE" -ne 1 ]; then printf 'unknown (log unreadable)'; return; fi
   # grep -c exits 1 on a zero count, so the count is read from stdout, not $?.
@@ -258,7 +319,11 @@ run_audit() {
   printf '  ElevatedShell  : %s\n' "$is_root"
   printf '  OSVersion      : %s\n' "$(sw_vers -productVersion 2>/dev/null || echo 'unknown')"
   printf '  LastBootTime   : %s\n' "$(sysctl -n kern.boottime 2>/dev/null || echo 'unknown')"
-  printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  if [ "$NO_REPORT_FILE" -eq 1 ]; then
+    printf '  ReportFile     : none (console-only run, nothing written to disk)\n'
+  else
+    printf '  ReportFile     : %s\n' "$REPORT_FILE"
+  fi
 
   if [ "$is_root" != yes ]; then
     printf '\n  !! WARNING: not running as root. `log show` will redact private data and\n'
@@ -270,7 +335,7 @@ run_audit() {
   # `2>&1 >file` order matters: stderr is bound to the capture pipe first, then
   # stdout is redirected into the dump. Reversing it would put log noise in the
   # dump and silently poison every slice below.
-  log_capture_errors="$(log show --last "${HOURS_BACK}h" --style compact \
+  log_capture_errors="$(log show --last "${HOURS_BACK}h" --style compact --info \
                           --predicate "$LOG_PREDICATE" 2>&1 >"$LOG_DUMP")"
   log_capture_status=$?
   if [ $log_capture_status -ne 0 ]; then
@@ -288,6 +353,10 @@ run_audit() {
       printf '%s\n' "$log_capture_errors" | indent
     fi
   fi
+
+  # -- 0. Quick answer -----------------------------------------------------
+  section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last ${HOURS_BACK} h)"
+  show_online_timeline
 
   # -- 1. Live state --------------------------------------------------------
   section '1. CURRENT NETWORK STATE (what it is connected to right now)'
@@ -385,6 +454,9 @@ run_audit() {
 
   # -- Verdict --------------------------------------------------------------
   section 'VERDICT'
+  printf '  WifiJoinedEvents      : %s\n' "$(count_log_slice "$RE_WIFI_JOINED")"
+  printf '  WifiLeftEvents        : %s\n' "$(count_log_slice "$RE_WIFI_LEFT")"
+  printf '  NetworkChangedEvents  : %s\n' "$(count_log_slice "$RE_NETWORK_CHANGED")"
   printf '  WifiEvents            : %s\n' "$(count_log_slice "$RE_WIFI")"
   printf '  LinkStateEvents       : %s\n' "$(count_log_slice "$RE_LINKSTATE")"
   printf '  DhcpEvents            : %s\n' "$(count_log_slice "$RE_DHCP")"
@@ -405,6 +477,15 @@ run_audit() {
     printf '\n  An unreadable section is NOT a clean section.\n'
   fi
 }
+
+if [ "$NO_REPORT_FILE" -eq 1 ]; then
+  # No pipeline here, so run_audit executes in this shell and FAILURE_COUNT
+  # survives to be read directly.
+  run_audit 2>&1
+  printf '\nConsole-only run: no report file was written. Add --save-report to save one.\n'
+  [ "$FAILURE_COUNT" -eq 0 ] && exit 0
+  exit 1
+fi
 
 # Everything is produced once and written to both destinations.
 run_audit 2>&1 | tee "$REPORT_FILE"

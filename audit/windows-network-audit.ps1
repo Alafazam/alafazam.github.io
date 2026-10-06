@@ -8,13 +8,15 @@
 
     Usage   : Right-click PowerShell -> Run as Administrator, then:
                   Set-ExecutionPolicy -Scope Process Bypass -Force
-                  .\Audit-ExamLaptopNetwork.ps1 -HoursBack 5
+                  .\Audit-ExamLaptopNetwork.ps1                # last 5 h, console only
+                  .\Audit-ExamLaptopNetwork.ps1 -SaveReport    # also save to the Desktop
 
-    Output  : Prints to console AND writes one plain-text artifact to the
-              Desktop, plus triggers the native Windows wireless report.
+    Output  : Prints to the console. With -SaveReport (or -OutputDirectory)
+              it also writes one plain-text artifact, to the Desktop by
+              default, and triggers the native Windows wireless report.
 
     Notes   : Read-only. Nothing on the machine is modified except the two
-              report files it writes.
+              report files written under -SaveReport.
 #>
 
 [CmdletBinding()]
@@ -22,8 +24,23 @@ param(
     [ValidateRange(1, 72)]
     [int] $HoursBack = 5,
 
-    [string] $OutputDirectory = (Join-Path $env:USERPROFILE 'Desktop')
+    # Passing this implies -SaveReport.
+    [string] $OutputDirectory = (Join-Path $env:USERPROFILE 'Desktop'),
+
+    # Console-only is the default, so the copy-paste one-liner needs no
+    # arguments and leaves nothing behind on the machine. A file is opt-in.
+    [switch] $SaveReport,
+
+    # Predates console-only being the default. Still accepted so existing
+    # commands keep working, and checked against an explicit request to save.
+    [switch] $NoReportFile
 )
+
+$writeReport = $SaveReport -or $PSBoundParameters.ContainsKey('OutputDirectory')
+if ($NoReportFile -and $writeReport) {
+    Write-Error '-NoReportFile contradicts -SaveReport / -OutputDirectory.'
+    exit 2
+}
 
 # ---------------------------------------------------------------------------
 # Configuration -- no magic numbers below this block
@@ -125,6 +142,24 @@ $transcript = & {
         "!! the audit below may be incomplete. Re-run as Administrator."
     }
 
+    # -- 0. Quick answer: internet on / off --------------------------------
+    # Same source as a plain `Get-WinEvent ... 10000/10001` one-liner, but
+    # filtered server-side and with the network name pulled out of each event.
+    Write-Section "0. QUICK ANSWER: INTERNET ON / OFF TIMELINE (last $HoursBack h)"
+    $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
+    if ($prof.Count -eq 0) { 'No internet on / off events in window.' }
+    else {
+        $prof | Sort-Object TimeCreated | ForEach-Object {
+            $state   = if ($_.Id -eq $ID_NETPROFILE_UP) { 'Internet ON ' } else { 'Internet OFF' }
+            $network = if ($_.Message -match 'Name:\s*(.+?)(\r|\n|$)') { $matches[1].Trim() } else { 'unknown network' }
+            '  {0} : {1}   ({2})' -f $state, $_.TimeCreated.ToString('yyyy-MM-dd HH:mm:ss'), $network
+        }
+        ''
+        '  ON events: {0}   OFF events: {1}   (full detail in section 4)' -f `
+            @($prof | Where-Object Id -eq $ID_NETPROFILE_UP).Count,
+            @($prof | Where-Object Id -eq $ID_NETPROFILE_DOWN).Count
+    }
+
     # -- 1. Live state ------------------------------------------------------
     Write-Section '1. CURRENT NETWORK STATE (what it is connected to right now)'
     try {
@@ -169,7 +204,6 @@ $transcript = & {
 
     # -- 4. Any network, including cable and tethering ---------------------
     Write-Section "4. ALL NETWORK CONNECT / DISCONNECT (wired, wireless, tethered)"
-    $prof = Get-AuditEvents -LogName $LOG_NETPROFILE -EventIds @($ID_NETPROFILE_UP, $ID_NETPROFILE_DOWN)
     if ($prof.Count -eq 0) { 'No network profile events in window.' }
     else {
         $prof | Sort-Object TimeCreated | ForEach-Object {
@@ -252,6 +286,7 @@ $transcript = & {
         WlanDisconnectEvents   = @($wlan | Where-Object Id -eq 8003).Count
         DistinctSsidsConnected = if ($ssids.Count) { $ssids -join ', ' } else { 'none' }
         NetworkConnectEvents   = @($prof | Where-Object Id -eq $ID_NETPROFILE_UP).Count
+        NetworkDisconnectEvents = @($prof | Where-Object Id -eq $ID_NETPROFILE_DOWN).Count
         DhcpEvents             = $dhcp.Count
         TetherDeviceArrivals   = $pnp.Count
         LogsClearedInWindow    = $cleared.Count
@@ -269,16 +304,24 @@ $transcript = & {
 # Emit
 # ---------------------------------------------------------------------------
 Write-Host $transcript
-Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8
 
-Write-Host "`nText report written to: $reportTxt" -ForegroundColor Green
+if (-not $writeReport) {
+    # Console-only: no artifact, and the native wireless report is skipped
+    # because it would drop an HTML file under C:\ProgramData.
+    Write-Host "`nConsole-only run: no report file was written. Add -SaveReport to save one." -ForegroundColor Green
+}
+else {
+    Set-Content -Path $reportTxt -Value $transcript -Encoding UTF8
 
-# Native Windows wireless report: last 3 days of sessions as HTML.
-try {
-    $null = netsh wlan show wlanreport 2>&1
-    Write-Host 'Wireless HTML report: C:\ProgramData\Microsoft\Windows\WlanReport\wlan-report-latest.html' -ForegroundColor Green
-} catch {
-    Write-Host "Could not generate wlanreport -> $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "`nText report written to: $reportTxt" -ForegroundColor Green
+
+    # Native Windows wireless report: last 3 days of sessions as HTML.
+    try {
+        $null = netsh wlan show wlanreport 2>&1
+        Write-Host 'Wireless HTML report: C:\ProgramData\Microsoft\Windows\WlanReport\wlan-report-latest.html' -ForegroundColor Green
+    } catch {
+        Write-Host "Could not generate wlanreport -> $($_.Exception.Message)" -ForegroundColor Yellow
+    }
 }
 
 if ($failures.Count -gt 0) { exit 1 } else { exit 0 }
