@@ -169,6 +169,15 @@
   @apply font-semibold;
 }
 
+/* Product screenshots: cap tall ones so a portrait shot doesn't fill the screen. */
+.prose figure.shot img {
+  @apply mx-auto my-0 max-h-[28rem] w-auto;
+}
+
+.prose figure.shot figcaption {
+  @apply text-center;
+}
+
 /* Print-specific styles */
 @media print {
   @page {
