@@ -16,7 +16,7 @@ const SiteNav = ({ onDownload }: SiteNavProps) => {
   return (
     <nav className="sticky top-0 z-40 border-b border-border bg-background/95">
       <div className="mx-auto max-w-4xl px-4">
-        <div className="flex items-center justify-end sm:justify-between h-14">
+        <div className="flex items-center justify-end sm:justify-between h-11">
           <Link
             to="/"
             className="hidden sm:block text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity"
@@ -35,7 +35,7 @@ const SiteNav = ({ onDownload }: SiteNavProps) => {
                   key={path}
                   to={path}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  className={`px-2.5 py-1.5 rounded-md text-sm transition-colors ${
                     isActive
                       ? 'text-foreground font-medium'
                       : 'text-muted-foreground hover:text-foreground'
@@ -50,9 +50,9 @@ const SiteNav = ({ onDownload }: SiteNavProps) => {
               onClick={onDownload}
               aria-label="Download résumé (PDF)"
               title="Download résumé (PDF)"
-              className="ml-1 grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              className="ml-0.5 grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
               </svg>
             </button>
