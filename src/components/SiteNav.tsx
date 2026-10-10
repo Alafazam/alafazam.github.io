@@ -27,7 +27,7 @@ const SiteNav = ({ onDownload }: SiteNavProps) => {
           <div className="flex items-center gap-1">
             {links.map(({ path, label }) => {
               // Sections stay highlighted on their detail routes
-              // (/apps/emi-calculator, /blog/<slug>, /projects/<slug>).
+              // (/blog/<slug>, /projects/<slug>, incl. /projects/emi-calculator).
               const isActive =
                 path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`);
               return (
