@@ -1,0 +1,13 @@
+[Unit]
+Description=Keep the nouveau GPU at a tested clock level, stepping down when hot
+After=sys-kernel-debug.mount systemd-modules-load.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/gpu-clock-guard
+ExecStopPost=/usr/local/sbin/gpu-clock-guard --reset
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

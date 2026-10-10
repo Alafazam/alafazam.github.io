@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPU Test Bench</title>
+<style>
+  :root {
+    --bg:#f6f6f4; --fg:#1d1d1f; --muted:#6b6b70; --card:#fff; --line:#e3e3e0;
+    --ok:#1f8a4c; --warn:#b26a00; --bad:#c0392b; --accent:#3b6fd8; --accent2:#c2410c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#161618; --fg:#ececee; --muted:#9a9aa0; --card:#1f1f22; --line:#2e2e33;
+      --ok:#4cc483; --warn:#f0a43a; --bad:#ff6b5b; --accent:#7aa2ff; --accent2:#ff8a4c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#161618; --fg:#ececee; --muted:#9a9aa0; --card:#1f1f22; --line:#2e2e33;
+    --ok:#4cc483; --warn:#f0a43a; --bad:#ff6b5b; --accent:#7aa2ff; --accent2:#ff8a4c;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; padding:28px 16px 48px; }
+  main { max-width:980px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  h2 { font-size:16px; margin:32px 0 8px; }
+  p { color:var(--muted); margin:0 0 14px; }
+  a { color:var(--accent); }
+  code { background:var(--card); border:1px solid var(--line); border-radius:5px; padding:1px 5px; font-size:13px; }
+  video, #gl { width:100%; border-radius:10px; background:#000; display:block; }
+  #gl { aspect-ratio:16/9; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0; }
+  button, select, label.file {
+    font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--line);
+    border-radius:8px; padding:6px 12px; cursor:pointer;
+  }
+  label.file input { display:none; }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin:12px 0; }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:0; }
+  .tile b { display:block; font-size:22px; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile span { color:var(--muted); font-size:13px; }
+  .tile canvas { width:100%; height:36px; display:block; margin-top:6px; }
+  .ok { color:var(--ok); } .warn { color:var(--warn); } .bad { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  td { padding:8px 12px; border-top:1px solid var(--line); vertical-align:top; overflow-wrap:anywhere; }
+  tr:first-child td { border-top:0; }
+  td:first-child { color:var(--muted); width:34%; }
+  .note { background:var(--card); border:1px dashed var(--line); border-radius:10px; padding:10px 12px; color:var(--muted); }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>GPU Test Bench</h1>
+  <p>Video decode, 3D load and what your browser sees of your GPU — built while tuning a GeForce GT 750M on the open-source nouveau driver.
+    The story: <a href="/blog/old-nvidia-gpu-linux">my old NVIDIA GPU was stuck in slow mode on Linux</a>.</p>
+
+  <!-- ───────────── Video ───────────── -->
+  <h2>1 · Video playback</h2>
+  <p>A 10-second 1080p H.264 clip, looping. Smooth colours and <em>Dropped</em> near 0 means playback keeps up.</p>
+  <video id="v" src="sample.mp4" autoplay muted loop playsinline controls></video>
+  <div class="row">
+    <label class="file">Play your own video… <input id="file" type="file" accept="video/*"></label>
+    <span id="src" class="muted"></span>
+  </div>
+  <div class="tiles">
+    <div class="tile"><b id="state">–</b><span>Status</span></div>
+    <div class="tile"><b id="res">–</b><span>Resolution</span></div>
+    <div class="tile"><b id="fps">–</b><span>Frames / second</span></div>
+    <div class="tile"><b id="decoded">–</b><span>Frames decoded</span></div>
+    <div class="tile"><b id="dropped">–</b><span>Dropped frames</span></div>
+    <div class="tile"><b id="hw">–</b><span>H.264 hardware decode*</span></div>
+  </div>
+  <p>* The browser's own answer (<code>mediaCapabilities.powerEfficient</code>). For the decoder actually in use, open
+    <code>chrome://media-internals</code> while this plays: <code>VaapiVideoDecoder</code> = GPU, <code>FFmpegVideoDecoder</code> = CPU.</p>
+
+  <!-- ───────────── 3D load ───────────── -->
+  <h2>2 · 3D load test</h2>
+  <p>A Mandelbrot shader that keeps the GPU busy. Compare FPS between clock levels — the display caps it at its refresh rate (usually 60), so use <em>Heavy</em> or <em>Extreme</em>.</p>
+  <canvas id="gl" width="960" height="540"></canvas>
+  <div class="row">
+    <button id="glToggle">Start</button>
+    <select id="glLevel">
+      <option value="128">Light</option>
+      <option value="512" selected>Heavy</option>
+      <option value="1500">Extreme</option>
+    </select>
+  </div>
+  <div class="tiles">
+    <div class="tile"><b id="glFps">–</b><span>Frames / second</span><canvas id="glFpsSpark"></canvas></div>
+    <div class="tile"><b id="glMs">–</b><span>ms per frame</span></div>
+  </div>
+
+  <!-- ───────────── Browser view ───────────── -->
+  <h2>3 · What the browser sees</h2>
+  <table id="browser"><tr><td>Checking…</td><td></td></tr></table>
+
+  <!-- ───────────── Live system ───────────── -->
+  <h2>4 · Live system stats</h2>
+  <div id="noLive" class="note" hidden>Live GPU/CPU temperatures and CPU load need a tiny local server reading <code>/sys</code> on your own
+    machine, so they're not available on this hosted copy. <a href="gpu-test-bench.zip" download>Download the bench</a>
+    (page + server + sample video, 2.6 MB), unzip, run <code>python3 serve.py</code> and open <code>http://127.0.0.1:8767</code>.</div>
+  <div id="live" hidden>
+    <div class="tiles">
+      <div class="tile"><b id="gpuTemp">–</b><span>GPU temperature</span><canvas id="gpuTempSpark"></canvas></div>
+      <div class="tile"><b id="cpuTemp">–</b><span>CPU temperature</span><canvas id="cpuTempSpark"></canvas></div>
+      <div class="tile"><b id="cpuPct">–</b><span>CPU usage</span><canvas id="cpuPctSpark"></canvas></div>
+      <div class="tile"><b id="memPct">–</b><span>Memory used</span><canvas id="memPctSpark"></canvas></div>
+    </div>
+    <table id="sys"></table>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+// Sparkline: last N values as a line, scaled to [min, max]
+function spark(canvas, values, min, max, color) {
+  const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+  const c = canvas.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.clearRect(0, 0, w, h);
+  if (values.length < 2) return;
+  const lo = Math.min(min, ...values), hi = Math.max(max, ...values), n = 90;
+  c.beginPath();
+  values.forEach((v, i) => {
+    const x = w - (values.length - 1 - i) * (w / (n - 1)), y = h - 2 - (v - lo) / (hi - lo || 1) * (h - 4);
+    i ? c.lineTo(x, y) : c.moveTo(x, y);
+  });
+  c.strokeStyle = color; c.lineWidth = 1.5; c.stroke();
+}
+const push = (arr, v) => { arr.push(v); if (arr.length > 90) arr.shift(); };
+
+/* ───────────── 1 · Video ───────────── */
+const v = $('v');
+let last = { t: performance.now(), n: 0 };
+$('file').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  v.src = URL.createObjectURL(f); $('src').textContent = f.name; last = { t: performance.now(), n: 0 };
+});
+v.addEventListener('error', () => {
+  $('state').textContent = 'No video'; $('state').className = 'bad';
+  $('src').textContent = v.src.endsWith('sample.mp4') ? 'sample.mp4 missing — pick a file' : '';
+});
+v.addEventListener('loadedmetadata', async () => {
+  if (!navigator.mediaCapabilities) return;
+  try {
+    const r = await navigator.mediaCapabilities.decodingInfo({ type: 'file', video: {
+      contentType: 'video/mp4; codecs="avc1.640028"', width: v.videoWidth || 1920, height: v.videoHeight || 1080,
+      bitrate: 8e6, framerate: 30 } });
+    $('hw').textContent = !r.supported ? 'Unsupported' : r.powerEfficient ? 'Yes (GPU)' : 'No (CPU)';
+    $('hw').className = r.powerEfficient ? 'ok' : 'warn';
+  } catch { $('hw').textContent = 'Unknown'; }
+});
+setInterval(() => {
+  const q = v.getVideoPlaybackQuality ? v.getVideoPlaybackQuality() : null;
+  const playing = !v.paused && !v.ended && v.readyState > 2;
+  if (!v.error) { $('state').textContent = playing ? 'Playing' : 'Paused'; $('state').className = playing ? 'ok' : ''; }
+  if (v.videoWidth) $('res').textContent = v.videoWidth + '×' + v.videoHeight;
+  if (q) {
+    const now = performance.now(), n = q.totalVideoFrames;
+    if (n >= last.n) $('fps').textContent = Math.round((n - last.n) / ((now - last.t) / 1000));
+    last = { t: now, n };
+    $('decoded').textContent = n.toLocaleString();
+    const pct = n ? q.droppedVideoFrames / n * 100 : 0;
+    $('dropped').textContent = q.droppedVideoFrames + (n ? ` (${pct.toFixed(1)}%)` : '');
+    $('dropped').className = pct > 1 ? 'bad' : 'ok';
+  }
+}, 1000);
+
+/* ───────────── 2 · 3D load ───────────── */
+const glCanvas = $('gl'), gl = glCanvas.getContext('webgl', { antialias: false });
+let glRun = false, glFrames = 0, glT0 = 0, glStart = 0, glFpsHist = [], prog, uTime, uIter;
+if (gl) {
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, `precision highp float;
+    uniform float t; uniform float iter; uniform vec2 res;
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;
+      float z=1.6/(1.+t*.25);  vec2 c=vec2(-.7436,.1318)+uv*z, w=vec2(0.);  float k=0.;
+      for(int i=0;i<1500;i++){ if(float(i)>=iter||dot(w,w)>4.) break; w=vec2(w.x*w.x-w.y*w.y,2.*w.x*w.y)+c; k++; }
+      float m=k/iter; gl_FragColor=vec4(.5+.5*cos(6.28*(m+vec3(0.,.33,.67))+t*.3)*step(m,.999),1.);
+    }`));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  uTime = gl.getUniformLocation(prog, 't'); uIter = gl.getUniformLocation(prog, 'iter');
+  gl.uniform2f(gl.getUniformLocation(prog, 'res'), glCanvas.width, glCanvas.height);
+}
+function frame(now) {
+  if (!glRun) return;
+  gl.uniform1f(uTime, ((now - glStart) / 1000) % 20);
+  gl.uniform1f(uIter, +$('glLevel').value);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  glFrames++;
+  if (now - glT0 >= 1000) {
+    const fps = glFrames * 1000 / (now - glT0);
+    $('glFps').textContent = fps.toFixed(0); $('glMs').textContent = (1000 / fps).toFixed(1);
+    push(glFpsHist, fps); spark($('glFpsSpark'), glFpsHist, 0, 60, css('--accent'));
+    glFrames = 0; glT0 = now;
+  }
+  requestAnimationFrame(frame);
+}
+$('glToggle').addEventListener('click', () => {
+  if (!gl) { $('glFps').textContent = 'No WebGL'; return; }
+  glRun = !glRun; $('glToggle').textContent = glRun ? 'Stop' : 'Start';
+  if (glRun) { glT0 = glStart = performance.now(); glFrames = 0; requestAnimationFrame(frame); }
+});
+
+/* ───────────── 3 · Browser view ───────────── */
+(async () => {
+  const rows = [];
+  const c = document.createElement('canvas'), g = c.getContext('webgl2') || c.getContext('webgl');
+  if (g) {
+    const dbg = g.getExtension('WEBGL_debug_renderer_info');
+    rows.push(['WebGL renderer', dbg ? g.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER)]);
+    rows.push(['WebGL vendor', dbg ? g.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : g.getParameter(g.VENDOR)]);
+    rows.push(['WebGL version', g.getParameter(g.VERSION)]);
+    rows.push(['Max texture size', g.getParameter(g.MAX_TEXTURE_SIZE) + ' px']);
+  } else rows.push(['WebGL', 'Not available (software rendering?)']);
+  if (navigator.gpu) {
+    try {
+      const a = await navigator.gpu.requestAdapter();
+      const i = a && (a.info || (a.requestAdapterInfo && await a.requestAdapterInfo()));
+      rows.push(['WebGPU', a ? [i?.vendor, i?.architecture, i?.description].filter(Boolean).join(' · ') || 'Adapter found' : 'No adapter']);
+    } catch { rows.push(['WebGPU', 'Error']); }
+  } else rows.push(['WebGPU', 'Not available in this browser']);
+  rows.push(['CPU threads', navigator.hardwareConcurrency]);
+  rows.push(['Screen', `${screen.width}×${screen.height} @ ${devicePixelRatio}x`]);
+  $('browser').innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td>${String(v ?? '–').replace(/</g, '&lt;')}</td></tr>`).join('');
+})();
+
+/* ───────────── 4 · Live system stats ───────────── */
+const hist = { gpu: [], cpuT: [], cpu: [], mem: [] };
+let liveOk = false, infoShown = false;
+const tempClass = t => t >= 85 ? 'bad' : t >= 70 ? 'warn' : 'ok';
+async function poll() {
+  try {
+    const s = await (await fetch('stats.json', { cache: 'no-store' })).json();
+    if (!liveOk) { liveOk = true; $('live').hidden = false; $('noLive').hidden = true; }
+    if (s.gpu_temp != null) { $('gpuTemp').textContent = s.gpu_temp + '°C'; $('gpuTemp').className = tempClass(s.gpu_temp); push(hist.gpu, s.gpu_temp); }
+    if (s.cpu_temp != null) { $('cpuTemp').textContent = s.cpu_temp + '°C'; $('cpuTemp').className = tempClass(s.cpu_temp); push(hist.cpuT, s.cpu_temp); }
+    if (s.cpu_percent != null) { $('cpuPct').textContent = s.cpu_percent.toFixed(0) + '%'; push(hist.cpu, s.cpu_percent); }
+    if (s.mem_percent != null) { $('memPct').textContent = s.mem_percent.toFixed(0) + '%'; push(hist.mem, s.mem_percent); }
+    spark($('gpuTempSpark'), hist.gpu, 40, 90, css('--accent2'));
+    spark($('cpuTempSpark'), hist.cpuT, 40, 90, css('--accent2'));
+    spark($('cpuPctSpark'), hist.cpu, 0, 100, css('--accent'));
+    spark($('memPctSpark'), hist.mem, 0, 100, css('--accent'));
+    if (!infoShown) {
+      infoShown = true;
+      const i = s.info;
+      $('sys').innerHTML = [['GPU', i.gpu], ['Kernel driver', i.driver], ['OpenGL renderer', i.renderer], ['Mesa', i.mesa],
+        ['Kernel', i.kernel], ['CPU', `${i.cpu} (${i.threads} threads)`], ['GPU power state', s.gpu_power]]
+        .map(([k, v]) => `<tr><td>${k}</td><td>${String(v || '–').replace(/</g, '&lt;')}</td></tr>`).join('');
+    }
+  } catch {
+    if (!liveOk) { $('noLive').hidden = false; return; }   // static copy: stop polling
+  }
+  setTimeout(poll, 1000);
+}
+poll();
+</script>
+</body>
+</html>
