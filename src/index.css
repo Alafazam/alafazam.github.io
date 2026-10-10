@@ -178,6 +178,13 @@
   @apply text-center;
 }
 
+/* Same-origin interactive embeds (sized by MarkdownContent's embed bridge) */
+.prose iframe[data-autoheight] {
+  @apply my-6 block w-full rounded-xl border border-border bg-card;
+  height: 140px;
+  transition: height 0.2s ease;
+}
+
 /* Print-specific styles */
 @media print {
   @page {

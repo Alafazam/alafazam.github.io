@@ -51,10 +51,9 @@ Knowing *why* something doesn't work, with a bug link to watch, is a perfectly g
 
 For the top level, I wanted to *see* what was happening rather than read numbers in a terminal. So we built a small page, the **[GPU Test Bench](/tools/gpu-test-bench/index.html)**. It plays a 1080p test video and counts dropped frames, runs a 3D load test with an FPS counter, and, when run on the laptop itself, shows live graphs of GPU and CPU temperature.
 
-<figure class="shot">
-<img src="/images/blog/old-nvidia-gpu/test-bench-video.webp" alt="GPU Test Bench playing a 1080p test pattern video, with tiles showing Playing, 1920×1080, 30 FPS, 0 dropped frames and 'No (CPU)' for hardware decode" loading="lazy" />
-<figcaption>Smooth 1080p at 30 FPS, zero dropped frames — decoded by the CPU, since the video chip is out of the picture.</figcaption>
-</figure>
+**Try it right here, on whatever you're reading this on.** It runs entirely in your browser, nothing to install, and nothing starts until you press the button:
+
+<iframe data-autoheight src="/tools/gpu-test-bench/index.html?embed=1" title="GPU Test Bench: video playback and GPU benchmark" loading="lazy" allow="compute-pressure"></iframe>
 
 Then the real test: level `0f`, with memory at 5000 MHz, for five minutes with the 3D load running the whole time. It held steady and peaked at **69°C**, well under the cut-off.
 
@@ -85,6 +84,6 @@ Having an AI pair that could read kernel logs, dig through bug trackers and writ
 
 ## Try it yourself
 
-- **[Open the GPU Test Bench](/tools/gpu-test-bench/index.html)** to see what your browser knows about your GPU, play the test video and run the 3D load test.
+- **[Open the full GPU Test Bench](/tools/gpu-test-bench/index.html)** for the live 3D view and everything your browser knows about your GPU. Works on phones too.
 - **[Download it](/tools/gpu-test-bench/gpu-test-bench.zip)** (2.6 MB) to get the live temperature graphs on your own machine: unzip, run `python3 serve.py`, and open `http://127.0.0.1:8767`. It needs only Python 3 and never leaves your computer.
 - Got a Kepler-era NVIDIA card (GeForce 600 or 700 series) on nouveau? The [temperature guard script](/tools/gpu-test-bench/gpu-clock-guard) and its [service file](/tools/gpu-test-bench/gpu-clock-guard.service) are there too. Read them first, and test your own levels with a revert in place before making anything permanent.
