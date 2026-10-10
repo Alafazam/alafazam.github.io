@@ -14,7 +14,7 @@ const SiteNav = ({ onDownload }: SiteNavProps) => {
   const { pathname } = useLocation();
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-40 border-b border-border bg-background/95">
       <div className="mx-auto max-w-4xl px-4">
         <div className="flex items-center justify-end sm:justify-between h-14">
           <Link
