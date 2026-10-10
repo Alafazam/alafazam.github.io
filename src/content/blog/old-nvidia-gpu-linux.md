@@ -6,6 +6,11 @@ tags: [linux, nvidia, ai, hardware]
 draft: true
 ---
 
+<figure class="shot">
+<img src="/images/blog/old-nvidia-gpu/cover.webp" alt="A person with bright orange hair, seen from behind, frustrated in front of a colourful video game on a TV" width="1600" height="686" />
+<figcaption>That feeling when the graphics just won't keep up. Still from <a href="https://coverr.co/">Coverr</a>.</figcaption>
+</figure>
+
 I've been using my old Lenovo Y500 again. It's a 2013 laptop with an NVIDIA GeForce GT 750M, now running Ubuntu, and it does its job. But it felt a bit sluggish, so one evening I went looking for the reason. First question: is the GPU even working properly?
 
 It was working. It just wasn't working very hard. The graphics card was running at its **slowest possible speed**, all the time, with its memory at **one-sixth** of what it's rated for.
