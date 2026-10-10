@@ -11,6 +11,10 @@ export interface Frontmatter {
   draft?: string;
   // blog
   date?: string;
+  /** Posts sharing a `series` name are linked as a numbered run. */
+  series?: string;
+  /** Position within the series; 0 is the series intro and is not counted as a part. */
+  seriesOrder?: number;
   // projects / work
   name?: string;
   tagline?: string;

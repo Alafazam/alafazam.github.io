@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { blogPosts, formatDate } from '../utils/content';
+import { blogPosts, formatDate, seriesOrderOf } from '../utils/content';
 import Seo from '../components/Seo';
 import { staticRoute } from '../seo/routes';
 
@@ -27,11 +27,21 @@ const Blog = () => {
                 to={`/blog/${post.slug}`}
                 className="card-interactive group p-5"
               >
-                {post.frontmatter.date && (
-                  <p className="text-xs font-medium text-muted-foreground">
-                    {formatDate(post.frontmatter.date)}
-                  </p>
-                )}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  {post.frontmatter.date && (
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {formatDate(post.frontmatter.date)}
+                    </p>
+                  )}
+                  {post.frontmatter.series && (
+                    <span
+                      title={post.frontmatter.series}
+                      className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+                    >
+                      {seriesOrderOf(post) === 0 ? 'Series intro' : `Series · Part ${seriesOrderOf(post)}`}
+                    </span>
+                  )}
+                </div>
                 <h2 className="text-xl font-semibold tracking-tight mt-1 group-hover:text-primary transition-colors">
                   {post.frontmatter.title}
                 </h2>
