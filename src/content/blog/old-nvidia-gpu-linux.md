@@ -62,11 +62,13 @@ Then the real test: level `0f`, with memory at 5000 MHz, for five minutes with t
 <figcaption>Live stats at level 0f under load: the GPU settles in the high 60s.</figcaption>
 </figure>
 
-| Level | 5-minute test | Peak temperature |
-|---|---|---|
-| `07` (boot) | — | 57°C idle |
-| `0a` | ✅ stable | 55°C |
-| `0f` | ✅ stable, under constant 3D load | 69°C |
+| Level | 5-minute test | Peak temperature | GPU Test Bench score |
+|---|---|---|---|
+| `07` (boot) | — | 57°C idle | ~50 |
+| `0a` | ✅ stable | 55°C | — |
+| `0f` | ✅ stable, under constant 3D load | 69°C | **~110** |
+
+Same laptop, same test, more than twice the score. Run the test above and see where your device lands.
 
 ## Making it stick, safely
 

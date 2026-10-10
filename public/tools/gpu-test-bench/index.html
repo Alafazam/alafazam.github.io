@@ -151,7 +151,7 @@ if (new URLSearchParams(location.search).has('embed') && parent !== window) {
 }
 
 // Reference numbers from the article's laptop (GeForce GT 750M, nouveau, Chrome on Ubuntu)
-const REF = { slow: null, fast: null };   // filled in once measured: { slow: <07 score>, fast: <0f score> }
+const REF = { slow: 50, fast: 110 };   // measured 2026-10-10: 07 → 47–52, 0f → 103–115
 
 function spark(canvas, values, min, max, color) {
   const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
