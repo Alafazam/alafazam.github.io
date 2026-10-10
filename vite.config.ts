@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import type { Plugin } from 'vite'
 import { readFileSync } from 'node:fs'
 import { isPublished, renderContent } from './src/content/render'
@@ -58,6 +59,7 @@ function preloadInterFont(): Plugin {
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     markdownContent(),
     preloadInterFont(),
     {

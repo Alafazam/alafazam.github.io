@@ -43,7 +43,7 @@ const MarkdownContent = ({ html }: MarkdownContentProps) => {
   return (
     <div
       ref={ref}
-      className="prose prose-zinc dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:scroll-mt-16 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-border prose-code:font-medium"
+      className="prose prose-zinc dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:scroll-mt-16 prose-a:text-primary prose-a:no-underline prose-a:hover:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-border prose-code:font-medium"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

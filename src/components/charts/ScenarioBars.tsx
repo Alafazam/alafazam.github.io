@@ -46,9 +46,9 @@ const ScenarioBars = ({ rows, formatValue }: ScenarioBarsProps) => {
                 <span className="w-20 shrink-0 text-[11px] text-gray-500 dark:text-gray-400">
                   {bar.label}
                 </span>
-                <span className="relative flex-1 h-3 rounded bg-gray-100 dark:bg-gray-800">
+                <span className="relative flex-1 h-3 rounded-sm bg-gray-100 dark:bg-gray-800">
                   <span
-                    className="absolute inset-y-0 left-0 rounded"
+                    className="absolute inset-y-0 left-0 rounded-sm"
                     style={{
                       width: `${Math.max(1, (bar.value / max) * 100)}%`,
                       background: row.color,
