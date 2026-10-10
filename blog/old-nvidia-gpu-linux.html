@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/avatar.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Alaf Azam Khan" />
+    <meta name="keywords" content="Alaf Azam Khan, retail tech product leadership, dual engineering product leader, AI-native product development, merchandising analytics platform, CPO track, retail SaaS platform, Increff" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0f2742" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Alaf Azam Khan" />
+    <meta property="og:image" content="https://alafazam.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Alaf Azam Khan — Director of Engineering & Product at Increff" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://alafazam.com/og-image.png" />
+    <meta name="twitter:image:alt" content="Alaf Azam Khan — Director of Engineering & Product at Increff" />
+
+    <!-- Title, description, og/twitter title+description, canonical and og:url are
+         set per route by src/components/Seo.tsx; the copies above are fallbacks the
+         prerender replaces. -->
+    
+
+    <!-- Structured data: Person -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Alaf Azam Khan",
+        "jobTitle": "Director of Engineering & Product",
+        "description": "Director of Engineering & Product at Increff. Grew from SDE to Director over 9+ years, scaling a retail SaaS suite to $12M+ ARR. Now building AI-native merchandising intelligence for global retail.",
+        "worksFor": { "@type": "Organization", "name": "Increff", "url": "https://www.increff.com/" },
+        "url": "https://alafazam.com/",
+        "image": "https://alafazam.com/avatar.jpg",
+        "sameAs": ["https://www.linkedin.com/in/alafazam/", "https://github.com/Alafazam"],
+        "knowsAbout": ["Product Management", "Engineering Leadership", "AI-Native Product Development", "Retail SaaS", "Merchandising Analytics", "Supply Chain"]
+      }
+    </script>
+
+    <!-- Dark mode support -->
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.getItem('theme') === 'dark' || 
+          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-C-erm2LK.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CMO5UMUD.css">
+    <link rel="preload" href="/assets/inter-latin-wght-normal-Dx4kXJAl.woff2" as="font" type="font/woff2" crossorigin="">
+  <title data-react-helmet="true">My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode. — Alaf Azam Khan</title><meta data-react-helmet="true" name="description" content="An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."/><meta data-react-helmet="true" property="og:title" content="My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode. — Alaf Azam Khan"/><meta data-react-helmet="true" property="og:description" content="An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."/><meta data-react-helmet="true" name="twitter:title" content="My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode. — Alaf Azam Khan"/><meta data-react-helmet="true" name="twitter:description" content="An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."/><meta data-react-helmet="true" property="og:url" content="https://alafazam.com/blog/old-nvidia-gpu-linux"/><link data-react-helmet="true" rel="canonical" href="https://alafazam.com/blog/old-nvidia-gpu-linux"/><script data-react-helmet="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.","description":"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug.","datePublished":"2026-10-10","dateModified":"2026-10-10","author":{"@type":"Person","name":"Alaf Azam Khan","url":"https://alafazam.com/"},"publisher":{"@type":"Person","name":"Alaf Azam Khan"},"mainEntityOfPage":"https://alafazam.com/blog/old-nvidia-gpu-linux","url":"https://alafazam.com/blog/old-nvidia-gpu-linux"}</script><script data-react-helmet="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alafazam.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alafazam.com/blog"},{"@type":"ListItem","position":3,"name":"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.","item":"https://alafazam.com/blog/old-nvidia-gpu-linux"}]}</script></head>
+  <body>
+    <div id="root" data-prerendered-path="/blog/old-nvidia-gpu-linux"><div class="min-h-screen bg-background text-foreground transition-colors duration-200"><nav class="sticky top-0 z-40 border-b border-border bg-background/95"><div class="mx-auto max-w-4xl px-4"><div class="flex items-center justify-end sm:justify-between h-11"><a class="hidden sm:block text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity" href="/" data-discover="true">Alaf Azam Khan</a><div class="flex items-center gap-1"><a class="px-2.5 py-1.5 rounded-md text-sm transition-colors text-muted-foreground hover:text-foreground" href="/" data-discover="true">Home</a><a class="px-2.5 py-1.5 rounded-md text-sm transition-colors text-muted-foreground hover:text-foreground" href="/projects" data-discover="true">Work</a><a aria-current="page" class="px-2.5 py-1.5 rounded-md text-sm transition-colors text-foreground font-medium" href="/blog" data-discover="true">Blog</a><button aria-label="Download résumé (PDF)" title="Download résumé (PDF)" class="ml-0.5 grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"><svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg></button></div></div></div></nav><button class="no-print fixed bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full border border-border bg-background/95 shadow-sm hover:bg-accent transition-colors z-50" aria-label="Switch to dark mode"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button><!--$--><div class="py-10 px-4"><div class="mx-auto max-w-3xl"><nav aria-label="Breadcrumb" class="text-sm"><ol class="flex flex-wrap items-center gap-1.5 text-muted-foreground"><li class="flex items-center gap-1.5"><a class="text-primary hover:underline" href="/" data-discover="true">Home</a></li><li class="flex items-center gap-1.5"><span aria-hidden="true">›</span><a class="text-primary hover:underline" href="/blog" data-discover="true">Blog</a></li><li class="flex items-center gap-1.5"><span aria-hidden="true">›</span><span aria-current="page" class="text-foreground">My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.</span></li></ol></nav><h1 class="text-3xl sm:text-4xl font-bold tracking-tight mt-4">My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.</h1><p class="text-sm text-muted-foreground mt-2 mb-8">October 10, 2026</p><div class="prose prose-zinc dark:prose-invert max-w-none prose-headings:tracking-tight prose-headings:scroll-mt-16 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-border prose-blockquote:border-l-border prose-code:font-medium"><figure class="shot">
+<img src="/images/blog/old-nvidia-gpu/cover.webp" alt="A person with bright orange hair, seen from behind, frustrated in front of a colourful video game on a TV" width="1600" height="686" />
+<figcaption>That feeling when the graphics just won't keep up. Still from <a href="https://coverr.co/">Coverr</a>.</figcaption>
+</figure>
+<p>I’ve been using my old Lenovo Y500 again. It’s a 2013 laptop with an NVIDIA GeForce GT 750M, now running Ubuntu, and it does its job. But it felt a bit sluggish, so one evening I went looking for the reason. First question: is the GPU even working properly?</p>
+<p>It was working. It just wasn’t working very hard. The graphics card was running at its <strong>slowest possible speed</strong>, all the time, with its memory at <strong>one-sixth</strong> of what it’s rated for.</p>
+<p>NVIDIA stopped supporting this generation of cards years ago, so Linux uses the open-source driver, called nouveau. It’s good, but it starts the card at its lowest clock level and never raises it.</p>
+<p>Then the developer in me spoke up. I had Claude Opus 5.5 running right there on that laptop, able to read logs and run commands. So why not tinker with it properly, and test as we go?</p>
+<h2>Three levels, one step at a time</h2>
+<p>The driver lists three clock levels for this card:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Core</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>07</code> (what it boots with)</td>
+<td>405 MHz</td>
+<td>810 MHz</td>
+</tr>
+<tr>
+<td><code>0a</code></td>
+<td>up to 1058 MHz</td>
+<td>1600 MHz</td>
+</tr>
+<tr>
+<td><code>0f</code></td>
+<td>up to 1058 MHz</td>
+<td>5000 MHz</td>
+</tr>
+</tbody>
+</table>
+<p>The obvious move is to jump straight to the top. The smart one is to go up one level at a time, because on some laptops of this era a higher level can freeze the whole screen.</p>
+<p>So before changing anything, we put the guards in place:</p>
+<ul>
+<li><strong>An automatic revert.</strong> Every test armed a timer that put the card back on its slowest level after 5 minutes. It ran as a system service, outside the terminal, so it would still fire even if the desktop locked up.</li>
+<li><strong>A temperature cut-off.</strong> If the GPU reached 85°C during a test, it dropped back straight away instead of waiting out the timer.</li>
+<li><strong>A reboot as the last resort.</strong> The card always starts on the slow level, so the worst case was a frozen screen and a restart, never a broken laptop.</li>
+</ul>
+<p>With that in place, the first test was the middle level, <code>0a</code>. It ran for five minutes while I kept using the laptop: stable, never above 55°C, and about 60% faster in a quick 3D benchmark. Then the timer switched it back, exactly as planned.</p>
+<h2>Two tracks</h2>
+<p>While the clock tests ran, we started a second track. Kepler cards like this one have a dedicated chip for decoding video. If it worked, the CPU wouldn’t have to do that job.</p>
+<p>That track ended in a dead end. The video chip needs a small piece of firmware, which loaded fine, but every attempt to decode a video crashed the player. Reading the kernel logs led us to an <a href="https://gitlab.freedesktop.org/mesa/mesa/-/issues/13611">open Mesa bug</a>, reported on this exact GPU, plus a <a href="https://gitlab.freedesktop.org/drm/nouveau/-/issues/437">second one in the kernel driver</a>. Neither has a fix yet. So we removed the firmware, and video stays on the CPU, which handles 1080p without dropping a frame anyway.</p>
+<p>Knowing <em>why</em> something doesn’t work, with a bug link to watch, is a perfectly good outcome for an evening.</p>
+<h2>Back to the clock speed, with something to watch</h2>
+<p>For the top level, I wanted to <em>see</em> what was happening rather than read numbers in a terminal. So we built a small page, the <strong><a href="/tools/gpu-test-bench/index.html">GPU Test Bench</a></strong>. It plays a 1080p test video and counts dropped frames, runs a 3D load test with an FPS counter, and, when run on the laptop itself, shows live graphs of GPU and CPU temperature.</p>
+<p><strong>Try it right here, on whatever you’re reading this on.</strong> It runs entirely in your browser, nothing to install, and nothing starts until you press the button:</p>
+<iframe data-autoheight src="/tools/gpu-test-bench/index.html?embed=1" title="GPU Test Bench: video playback and GPU benchmark" loading="lazy" allow="compute-pressure"></iframe>
+<p>Then the real test: level <code>0f</code>, with memory at 5000 MHz, for five minutes with the 3D load running the whole time. It held steady and peaked at <strong>69°C</strong>, well under the cut-off.</p>
+<figure class="shot">
+<img src="/images/blog/old-nvidia-gpu/test-bench-live-stats.webp" alt="Live system stats: GPU 69°C, CPU 76°C, CPU usage 15%, memory 45%, with small graphs, above a table showing GeForce GT 750M, nouveau, Mesa 26.0.8 and kernel 7.0" loading="lazy" />
+<figcaption>Live stats at level 0f under load: the GPU settles in the high 60s.</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>5-minute test</th>
+<th>Peak temperature</th>
+<th>GPU Test Bench score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>07</code> (boot)</td>
+<td>—</td>
+<td>57°C idle</td>
+<td>~50</td>
+</tr>
+<tr>
+<td><code>0a</code></td>
+<td>✅ stable</td>
+<td>55°C</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>0f</code></td>
+<td>✅ stable, under constant 3D load</td>
+<td>69°C</td>
+<td><strong>~110</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Same laptop, same test, more than twice the score. Run the test above and see where your device lands.</p>
+<h2>Making it stick, safely</h2>
+<p>One last surprise: the driver <em>knows</em> the GPU’s temperature limits, but it never slows the card down when it gets hot. Between roughly 85°C and an emergency shutdown at 135°C, nothing happens.</p>
+<p>So the guard from the tests became permanent. A small service now starts at boot and puts the card on <code>0f</code>. It checks the temperature every five seconds, steps down at 85°C, drops to the slowest level at 92°C, and climbs back up once things cool below 70°C. Every change is written to the system log, so I can always see what it did and why.</p>
+<p>On a normal day it does nothing at all. That’s the point.</p>
+<h2>What I liked about this</h2>
+<p>None of it was clever. The whole evening was small steps, each with a way back: test one level, watch it, let it revert, then decide on the next one. It’s the same way you’d roll out a risky change at work, applied to a 13-year-old laptop.</p>
+<p>Having an AI pair that could read kernel logs, dig through bug trackers and write the safety nets <em>before</em> we touched anything made that easy to stick to.</p>
+<h2>Try it yourself</h2>
+<ul>
+<li><strong><a href="/tools/gpu-test-bench/index.html">Open the full GPU Test Bench</a></strong> for the live 3D view and everything your browser knows about your GPU. Works on phones too.</li>
+<li><strong><a href="/tools/gpu-test-bench/gpu-test-bench.zip">Download it</a></strong> (2.6 MB) to get the live temperature graphs on your own machine: unzip, run <code>python3 serve.py</code>, and open <code>http://127.0.0.1:8767</code>. It needs only Python 3 and never leaves your computer.</li>
+<li>Got a Kepler-era NVIDIA card (GeForce 600 or 700 series) on nouveau? The <a href="/tools/gpu-test-bench/gpu-clock-guard">temperature guard script</a> and its <a href="/tools/gpu-test-bench/gpu-clock-guard.service">service file</a> are there too. Read them first, and test your own levels with a revert in place before making anything permanent.</li>
+</ul>
+</div></div></div><!--/$--></div></div>
+  </body>
+</html>
