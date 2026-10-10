@@ -16,7 +16,7 @@ const RecruiterPerspective = () => {
 
         {/* Visual Summary Card */}
         <div className="mb-8">
-          <div className="rounded-xl border border-border bg-card shadow-sm p-6">
+          <div className="rounded-xl border border-border bg-card shadow-xs p-6">
             <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">
               5-Second Snapshot
             </h3>
@@ -155,7 +155,7 @@ const RecruiterPerspective = () => {
         <div>
           <h2 className="text-xl font-bold mb-6">Decision Summary</h2>
           
-          <div className="rounded-xl border border-border bg-card shadow-sm p-6">
+          <div className="rounded-xl border border-border bg-card shadow-xs p-6">
             <div className="space-y-6">
               {/* Decision */}
               <div className="flex items-start gap-4 pb-4 border-b border-border">
