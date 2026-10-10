@@ -3,7 +3,6 @@ title: "My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode."
 date: 2026-10-10
 description: "An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."
 tags: [linux, nvidia, ai, hardware]
-draft: true
 ---
 
 <figure class="shot">
