@@ -1,0 +1,835 @@
+---
+title: "Building with Claude"
+date: TODO
+description: "A four-part training series I ran for my team: guardrails, the Claude Code workflow, deciding what to build, and multiplying what works. My team was using Claude Code constantly; the work was turning sessions into shipped changes."
+tags: [ai, workflows, engineering-leadership, tooling]
+layout: deck
+draft: true
+---
+
+<!--
+DRAFT, not published. Adapted from an internal training deck. Set a date, remove `draft:`, move up one folder to publish.
+`layout: deck` renders this body as raw HTML slides (no Markdown pass) in DeckContent; styles are under `.deck` in src/index.css.
+Each <section class="slide"> is one slide. data-part groups slides into parts; divider slides carry data-tab for the part tabs.
+Figures live in public/blog/building-with-claude/. Fig. 0 is redrawn from the deck's figure with a ratio-preserving dot field (3,900 dots, 60 blue = 1 in 65) so it carries no raw team counts.
+-->
+
+<section class="slide title-slide active" data-part="0" aria-label="Title">
+  <div class="tx">
+    <span class="mark">Training series</span>
+    <div>
+      <h1>Building with Claude</h1>
+      <p class="lead" style="margin-top:1.6cqw">Practices, guardrails and habits for shipping faster without lowering the bar.</p>
+    </div>
+    <div class="parts">
+      <div><span class="pn">Part 1</span><b>Guardrails and mindset</b></div>
+      <div><span class="pn">Part 2</span><b>The Claude Code workflow</b></div>
+      <div><span class="pn">Part 3</span><b>Beyond code</b></div>
+      <div><span class="pn">Part 4</span><b>Multiply what works</b></div>
+    </div>
+  </div>
+  <figure class="plate"><figcaption><b>Fig. 0</b>Each dot stands for a Claude Code session my team ran; about 1 in 65 became a pull request (blue). This series is about turning more grey into blue.</figcaption><img alt="A field of grey dots in which about 1 in 65 is blue" src="/blog/building-with-claude/fig-0.png"></figure>
+</section>
+
+<section class="slide" data-part="0" aria-label="How this series works">
+  <h2>How this series works</h2>
+  <p class="sub">Four short sessions. Each one ends with something you can use the same day.</p>
+  <div class="body">
+    <div class="row c4">
+      <div class="card"><span class="tag info">Part 1</span><p class="big">Guardrails and mindset</p><p class="mt-s">Everyone, 45 min</p><p class="mt-s">What never goes into a prompt, and who owns the output.</p></div>
+      <div class="card"><span class="tag info">Part 2</span><p class="big">The Claude Code workflow</p><p class="mt-s">Engineers and QA, 60 min, hands-on</p><p class="mt-s">Plan, build, test and review with Claude on a real repo.</p></div>
+      <div class="card"><span class="tag info">Part 3</span><p class="big">Beyond code</p><p class="mt-s">Everyone, 45 min</p><p class="mt-s">Deciding what to build, plus chat and Cowork for specs, docs and analysis.</p></div>
+      <div class="card"><span class="tag info">Part 4</span><p class="big">Multiply what works</p><p class="mt-s">Everyone, 30 min, then every two weeks</p><p class="mt-s">Share, turn mistakes into rules, and measure progress.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 1 ============ -->
+<section class="slide divider" data-part="1" data-tab="Guardrails" aria-label="Part 1">
+  <div class="dv">
+    <div class="pn">Part 1</div>
+    <h1>Guardrails and mindset</h1>
+    <p class="meta">Everyone, 45 minutes</p>
+    <ul class="covers">
+      <li>Where we are today</li>
+      <li>You are the engineer of record</li>
+      <li>AI amplifies your process</li>
+      <li>Data, secrets and tenant isolation</li>
+      <li>Merging is accountability</li>
+    </ul>
+  </div>
+  <figure class="plate"><figcaption><b>Fig. 1</b>Each chamber is one tenant's data, and nothing ever crosses a wall: 25 chambers, zero crossings. The blue chamber is the only one a query should ever touch.</figcaption><img alt="A grid of 25 sealed chambers, one highlighted" src="/blog/building-with-claude/fig-1.png"></figure>
+</section>
+
+<section class="slide" data-part="1" aria-label="Where we are">
+  <h2>Where we are today</h2>
+  <p class="sub">My team's Claude usage in one month.</p>
+  <div class="body">
+    <div class="row c3">
+      <div class="stat"><div class="n">~92%</div><div class="l">of the team uses Claude Code</div></div>
+      <div class="stat"><div class="n blue">1 in 65</div><div class="l">sessions became a pull request</div></div>
+      <div class="stat"><div class="n">~43%</div><div class="l">use Claude beyond code</div></div>
+    </div>
+    <p class="callout">We use Claude a lot. The gap is turning sessions into reviewed, shipped changes, and using it beyond code.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Engineer of record">
+  <h2>Claude drafts. You are the engineer of record.</h2>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 150" role="img" aria-label="Claude drafts, you review and decide, your name is on the PR">
+      <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--rule)"/></marker></defs>
+      <rect x="0" y="25" width="270" height="100" rx="16" style="fill:var(--soft);stroke:var(--line)"/>
+      <text class="t" x="135" y="70" text-anchor="middle">Claude drafts</text>
+      <text class="s" x="135" y="98" text-anchor="middle">code, tests, docs, plans</text>
+      <line class="ln" x1="280" y1="75" x2="335" y2="75" marker-end="url(#m1)"/>
+      <rect x="345" y="25" width="270" height="100" rx="16" style="fill:var(--accent-fill)"/>
+      <text class="tw" x="480" y="70" text-anchor="middle">You review and decide</text>
+      <text class="sw" x="480" y="98" text-anchor="middle">every line, every test</text>
+      <line class="ln" x1="625" y1="75" x2="680" y2="75" marker-end="url(#m1)"/>
+      <rect x="690" y="25" width="270" height="100" rx="16" stroke-width="2" style="fill:var(--page);stroke:var(--ink)"/>
+      <text class="t" x="825" y="70" text-anchor="middle">Your name on the PR</text>
+      <text class="s" x="825" y="98" text-anchor="middle">accountable for what ships</text>
+    </svg>
+    <div class="row c3 mt">
+      <div class="card soft"><h3>It lacks our context</h3><p>It doesn't know our tenants, clients or history unless you tell it.</p></div>
+      <div class="card soft"><h3>It can be confidently wrong</h3><p>Especially about methods and APIs that look plausible but don't exist.</p></div>
+      <div class="card soft"><h3>No review defence</h3><p>"Claude wrote it" never explains a bug in your PR.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="AI amplifies your process">
+  <h2>AI amplifies whatever process you already have</h2>
+  <div class="body">
+    <div class="row cw center">
+      <svg class="dia" viewBox="0 0 760 290" role="img" aria-label="A clear process through AI gives better work faster; a messy process through AI gives tech debt faster">
+        <defs><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--rule)"/></marker></defs>
+        <rect x="0" y="20" width="230" height="90" rx="14" style="fill:var(--soft);stroke:var(--line)"/>
+        <text class="t" x="115" y="60" text-anchor="middle">Clear process</text>
+        <text class="s" x="115" y="86" text-anchor="middle">plan, tests, review</text>
+        <line class="ln" x1="238" y1="65" x2="282" y2="65"/>
+        <polygon points="285,25 285,105 375,65" stroke-width="2" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <text x="314" y="72" font-size="19" font-weight="700" style="fill:var(--accent)">AI</text>
+        <line class="ln" x1="380" y1="65" x2="460" y2="65" marker-end="url(#m2)"/>
+        <rect x="470" y="20" width="290" height="90" rx="14" style="fill:var(--do-soft);stroke:var(--do-line)"/>
+        <text x="615" y="60" text-anchor="middle" font-size="21" font-weight="650" style="fill:var(--do)">Better work, faster</text>
+        <text class="s" x="615" y="86" text-anchor="middle">quality compounds</text>
+
+        <rect x="0" y="180" width="230" height="90" rx="14" style="fill:var(--soft);stroke:var(--line)"/>
+        <text class="t" x="115" y="220" text-anchor="middle">Messy process</text>
+        <text class="s" x="115" y="246" text-anchor="middle">no plan, no tests</text>
+        <line class="ln" x1="238" y1="225" x2="282" y2="225"/>
+        <polygon points="285,185 285,265 375,225" stroke-width="2" style="fill:var(--accent-soft);stroke:var(--accent)"/>
+        <text x="314" y="232" font-size="19" font-weight="700" style="fill:var(--accent)">AI</text>
+        <line class="ln" x1="380" y1="225" x2="460" y2="225" marker-end="url(#m2)"/>
+        <rect x="470" y="180" width="290" height="90" rx="14" style="fill:var(--dont-soft);stroke:var(--dont-line)"/>
+        <text x="615" y="220" text-anchor="middle" font-size="21" font-weight="650" style="fill:var(--dont)">Tech debt, faster</text>
+        <text class="s" x="615" y="246" text-anchor="middle">problems compound too</text>
+      </svg>
+      <ul class="notes">
+        <li>Speed isn't free. If you ship faster, you also need to catch problems faster.</li>
+        <li>The fix is better structure and clearer constraints, not more AI.</li>
+        <li>That's why the rest of this series is about process, not prompts.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Data in prompts">
+  <h2>Describe the shape of the data, never the data</h2>
+  <div class="body">
+    <div class="row cn">
+      <div class="card" style="border-color:var(--dont-line)">
+        <span class="tag bad">Never goes into a prompt</span>
+        <ul class="notes sm">
+          <li>Client or tenant data, including exports and screenshots</li>
+          <li>Credentials, API keys, tokens, .env files</li>
+          <li>Personal data about customers or colleagues</li>
+          <li>Production dumps and query results</li>
+          <li>Contracts and commercial terms</li>
+        </ul>
+      </div>
+      <div style="display:grid;gap:1.2cqw">
+        <div class="prompt"><div class="ph bad">Unsafe</div><pre>Here's last week's sales export for the client.
+Why is sell-through wrong? [pastes 2,000 rows]</pre></div>
+        <div class="prompt"><div class="ph good">Safe</div><pre>Here's the schema of the sales table (column names
+and types) and 5 synthetic rows. Sell-through comes
+out above 100% for some styles. Write a query to
+find the rows that cause it and explain likely causes.</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Tenant isolation">
+  <h2>Tenant isolation is a hard constraint</h2>
+  <div class="body">
+    <div class="row cw center">
+      <svg class="dia" viewBox="0 0 700 250" role="img" aria-label="A query scoped to tenant A reaches only tenant A; a path to tenant B is a critical defect">
+        <defs>
+          <marker id="m3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--do)"/></marker>
+          <marker id="m3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dont)"/></marker>
+        </defs>
+        <rect x="0" y="80" width="210" height="90" rx="14" style="fill:var(--accent-fill)"/>
+        <text class="tw" x="105" y="120" text-anchor="middle">Query</text>
+        <text class="sw" x="105" y="146" text-anchor="middle">tenant_id = A</text>
+        <path d="M215,110 C300,110 330,60 440,60" stroke-width="2.5" fill="none" marker-end="url(#m3g)" style="stroke:var(--do)"/>
+        <text x="300" y="70" font-size="15" font-weight="600" style="fill:var(--do)">scoped</text>
+        <path d="M215,140 C300,140 330,190 440,190" stroke-width="2.5" stroke-dasharray="7 6" fill="none" marker-end="url(#m3r)" style="stroke:var(--dont)"/>
+        <text x="300" y="214" font-size="15" font-weight="600" style="fill:var(--dont)">cross-tenant</text>
+        <circle cx="340" cy="168" r="13" stroke-width="2" style="fill:var(--page);stroke:var(--dont)"/>
+        <path d="M334,162 L346,174 M346,162 L334,174" stroke-width="2.5" style="stroke:var(--dont)"/>
+        <rect x="450" y="20" width="250" height="80" rx="14" style="fill:var(--do-soft);stroke:var(--do-line)"/>
+        <text class="t" x="575" y="66" text-anchor="middle">Tenant A data</text>
+        <rect x="450" y="150" width="250" height="80" rx="14" style="fill:var(--dont-soft);stroke:var(--dont-line)"/>
+        <text class="t" x="575" y="188" text-anchor="middle">Tenant B data</text>
+        <text class="s" x="575" y="212" text-anchor="middle">critical defect</text>
+      </svg>
+<pre class="code"><span class="k">def</span> get_stock(tenant_id: str, style_id: str):
+    <span class="k">if not</span> tenant_id:
+        <span class="k">raise</span> TenantContextMissing(
+            <span class="s">"tenant_id is required"</span>
+        )
+    <span class="k">return</span> stock_repo.find(
+        tenant_id=tenant_id,
+        style_id=style_id,
+    )</pre>
+    </div>
+    <p class="callout">Ask Claude: "List every data path this change touches and show where each one is scoped to a tenant."</p>
+  </div>
+</section>
+
+<section class="slide statement" data-part="1" aria-label="Merging is accountability">
+  <p class="q">Merging is accountability, not automation.</p>
+  <div class="row c3" style="margin-top:3.4cqw">
+    <div class="card soft"><h3>Explain every line</h3><p>Never merge code you can't explain to a reviewer.</p></div>
+    <div class="card soft"><h3>Watch for rubber stamps</h3><p>As speed goes up, review depth tends to go down. Don't let it.</p></div>
+    <div class="card soft"><h3>A human approves</h3><p>Every merge and every deploy is a human decision.</p></div>
+  </div>
+</section>
+
+<!-- ============ PART 2 ============ -->
+<section class="slide divider" data-part="2" data-tab="Workflow" aria-label="Part 2">
+  <div class="dv">
+    <div class="pn">Part 2</div>
+    <h1>The Claude Code workflow</h1>
+    <p class="meta">Engineers and QA, 60 minutes, hands-on</p>
+    <ul class="covers">
+      <li>The work moves to design and review</li>
+      <li>The loop: plan, slice, test, review</li>
+      <li>CLAUDE.md and our 20 rules</li>
+      <li>Code patterns we accept and reject</li>
+      <li>Verification and context hygiene</li>
+    </ul>
+  </div>
+  <figure class="plate"><figcaption><b>Fig. 2</b>The six stations on the outer ring are our workflow steps, from plan to PR. Each inner ring is another pass through the loop, tightening toward a clean result.</figcaption><img alt="Concentric loops converging, with six stations on the outer ring" src="/blog/building-with-claude/fig-2.png"></figure>
+</section>
+
+<section class="slide" data-part="2" aria-label="Time shift">
+  <h2>The work moves to design and review</h2>
+  <p class="sub">Claude writes code quickly, but it can't fix a bad design. Spend the time you save on the plan and the review.</p>
+  <div class="body">
+    <div class="split-bars">
+      <div>
+        <div class="lbl">Before AI</div>
+        <div class="bar"><span class="d" style="width:20%">Design</span><span class="b" style="width:55%">Writing code</span><span class="r" style="width:25%">Review</span></div>
+      </div>
+      <div>
+        <div class="lbl">With AI</div>
+        <div class="bar"><span class="d" style="width:45%">Design and planning</span><span class="b" style="width:15%">Code</span><span class="r" style="width:40%">Review and testing</span></div>
+      </div>
+    </div>
+    <p class="xs mt">Illustrative split. Your numbers will vary; the direction won't.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="The loop">
+  <h2>The loop, every time</h2>
+  <div class="body">
+    <svg class="dia" viewBox="0 -60 1000 290" role="img" aria-label="Plan, small slice, test, run locally, review, PR, with review looping back to plan">
+      <defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--accent)"/></marker></defs>
+      <path d="M752,48 C700,-45 132,-45 80,48" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#m4)" style="stroke:var(--accent)"/>
+      <rect x="350" y="-40" width="300" height="32" rx="16" style="fill:var(--accent-soft)"/>
+      <text x="500" y="-18" text-anchor="middle" font-size="15" font-weight="600" style="fill:var(--accent-2)">iterate: each loop is cheap now</text>
+      <line class="ln" x1="114" y1="90" x2="214" y2="90"/><line class="ln" x1="282" y1="90" x2="382" y2="90"/>
+      <line class="ln" x1="450" y1="90" x2="550" y2="90"/><line class="ln" x1="618" y1="90" x2="718" y2="90"/>
+      <line class="ln" x1="786" y1="90" x2="886" y2="90"/>
+      <g text-anchor="middle">
+        <circle cx="80" cy="90" r="34" style="fill:var(--accent-fill)"/><text x="80" y="97" font-size="20" font-weight="700" style="fill:#fff">1</text>
+        <circle cx="248" cy="90" r="34" style="fill:var(--accent-fill)"/><text x="248" y="97" font-size="20" font-weight="700" style="fill:#fff">2</text>
+        <circle cx="416" cy="90" r="34" style="fill:var(--accent-fill)"/><text x="416" y="97" font-size="20" font-weight="700" style="fill:#fff">3</text>
+        <circle cx="584" cy="90" r="34" style="fill:var(--accent-fill)"/><text x="584" y="97" font-size="20" font-weight="700" style="fill:#fff">4</text>
+        <circle cx="752" cy="90" r="34" style="fill:var(--accent-fill)"/><text x="752" y="97" font-size="20" font-weight="700" style="fill:#fff">5</text>
+        <circle cx="920" cy="90" r="34" stroke-width="2" style="fill:var(--page);stroke:var(--ink)"/><text x="920" y="97" font-size="20" font-weight="700" style="fill:var(--ink)">6</text>
+        <text class="t" x="80" y="165">Plan</text><text class="s" x="80" y="190">agree the approach</text>
+        <text class="t" x="248" y="165">Small slice</text><text class="s" x="248" y="190">one concern</text>
+        <text class="t" x="416" y="165">Test</text><text class="s" x="416" y="190">with the code</text>
+        <text class="t" x="584" y="165">Run locally</text><text class="s" x="584" y="190">see it pass</text>
+        <text class="t" x="752" y="165">Review</text><text class="s" x="752" y="190">your own diff first</text>
+        <text class="t" x="920" y="165">PR</text><text class="s" x="920" y="190">why, tests, risks</text>
+      </g>
+    </svg>
+    <p class="callout">AI doesn't reduce iterations. It makes each one cheaper, so do more of them. The first output is a draft, never the deliverable.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Plan first">
+  <h2>Step 1: plan before any code</h2>
+  <div class="body">
+    <div class="row cw center">
+      <div class="prompt"><div class="ph">Prompt</div><pre>Read src/allocation/ and its tests.
+Do not write or edit any code yet.
+
+Propose a plan to add a minimum display
+quantity check to allocation:
+- files you will change, and why
+- functions you will call (open each file
+  and confirm it exists)
+- tests you will add
+- open questions and assumptions
+
+Wait for my approval before implementing.</pre></div>
+      <ul class="notes">
+        <li>Use plan mode, so nothing is edited while you agree on the approach.</li>
+        <li>Rule: never propose changes to code you haven't read.</li>
+        <li>Challenge the plan. Do we need this table? What happens when this fails? It's cheaper to fix a plan than a diff.</li>
+        <li>If the plan touches many files, split the task.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Let Claude interview you">
+  <h2>For bigger work, let Claude interview you first</h2>
+  <div class="body">
+    <div class="row cn center">
+      <ul class="notes">
+        <li>Instead of writing a spec from scratch, let Claude question you until the gaps are gone.</li>
+        <li>Save the spec in the repo. It becomes the brief for implementation and an example for the next feature.</li>
+        <li>Break the plan into thin vertical slices, each one testable and shippable on its own.</li>
+      </ul>
+      <div class="prompt"><div class="ph">Prompt</div><pre>I want to add [feature]. Before writing anything,
+interview me. Ask one question at a time about:
+users, edge cases, failure modes, tenant
+boundaries and what's out of scope.
+
+When you have enough, write a spec with:
+goal, non-goals, API shape, data changes,
+tests, and open questions.
+
+Then split it into small slices, each one
+shippable and testable on its own.</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="CLAUDE.md">
+  <h2>CLAUDE.md: our standards in every repo</h2>
+  <div class="body">
+    <div class="row cn center">
+      <ul class="notes">
+        <li>Claude reads it at the start of every session, so everyone's Claude follows the same rules.</li>
+        <li>Keep it short and specific to the project: commands, rules, definition of done.</li>
+        <li>Every time you repeat an instruction, add it here instead.</li>
+        <li>Commit it, and review changes to it like code.</li>
+      </ul>
+<pre class="code"><span class="c"># CLAUDE.md</span>
+<span class="k">## Commands</span>
+Tests: pytest -q        UI: pnpm test
+
+<span class="k">## Non-negotiable</span>
+- Every query is tenant-scoped. No cross-tenant paths.
+- Read a file before referencing anything in it.
+- Smallest change that solves the task.
+  Don't touch unrelated code. Flag it instead.
+- Tests in the same change. Never edit a test to pass.
+- Ask before adding a dependency.
+- No magic numbers. Named constants or config.
+- Never swallow exceptions. Fail loudly and early.
+- Safe to run twice. Log state changes and calls.
+
+<span class="k">## Definition of done</span>
+- Tests run locally. Paste the output.
+- Docs updated if behaviour changed.
+- List every file changed and why.</pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Our 20 rules">
+  <h2>Our 20 rules, grouped</h2>
+  <div class="body">
+    <div class="rules">
+      <div class="card"><h3>Write it clearly</h3><ol>
+        <li><span>1</span>Explicitness over cleverness</li>
+        <li><span>2</span>Boring over clever</li>
+        <li><span>3</span>DRY: one home for each piece of business logic</li>
+        <li><span>15</span>No hardcoded values or magic numbers</li>
+        <li><span>18</span>No dead code, unused imports or unreachable branches</li>
+      </ol></div>
+      <div class="card"><h3>Structure it well</h3><ol>
+        <li><span>4</span>Changes don't ripple across layers</li>
+        <li><span>5</span>Side effects at the edges, pure business logic</li>
+        <li><span>10</span>Can't test it in isolation? Fix the structure</li>
+        <li><span>16</span>Smallest change that solves the problem</li>
+        <li><span>17</span>Public interfaces stay backward compatible</li>
+      </ol></div>
+      <div class="card"><h3>Keep it safe</h3><ol>
+        <li><span>6</span>Fail loudly, fail early</li>
+        <li><span>8</span>Tenant isolation is a hard constraint</li>
+        <li><span>14</span>Never assume a method, field or service exists</li>
+        <li><span>19</span>Idempotent by default</li>
+        <li><span>20</span>Log state changes and external calls</li>
+      </ol></div>
+      <div class="card"><h3>Ship it properly</h3><ol>
+        <li><span>7</span>Don't assume, prove it</li>
+        <li><span>9</span>Tests aren't optional under deadlines</li>
+        <li><span>11</span>Local testing before every PR</li>
+        <li><span>12</span>Docs are part of the work</li>
+        <li><span>13</span>Don't change what you weren't asked to</li>
+      </ol></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Invented APIs">
+  <h2>The most common failure: things that don't exist</h2>
+  <div class="body">
+    <div class="row c2">
+      <div>
+        <span class="tag bad">Looks right, isn't</span>
+<pre class="code">reserved = inventory_service.get_reserved_qty(
+    tenant_id, style_id
+)
+<span class="c"># get_reserved_qty() was never defined.
+# The name was a plausible guess.</span></pre>
+        <p class="sm mt-s" style="color:var(--muted)">Invented methods, fields, config keys and CLI flags read fine in review and fail at runtime.</p>
+      </div>
+      <div>
+        <span class="tag good">Put this in the prompt</span>
+        <div class="prompt"><div class="ph good">Prompt</div><pre>Before you use any function, class, field
+or config key:
+1. Open the file where it is defined.
+2. Quote its signature in your reply.
+3. If it doesn't exist, stop and tell me.
+   Don't create it silently.</pre></div>
+        <p class="sm mt-s" style="color:var(--muted)">In review, search the codebase for every new symbol in the diff.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Only what was asked">
+  <h2>Small slices, and only what was asked</h2>
+  <div class="body">
+    <div class="row c2">
+      <div>
+<pre class="code">Task: fix rounding in allocate_units()
+
+allocation/core.py   +4  -2    <span class="s">the fix</span>
+allocation/core.py   +38 -41   <span class="c">renamed variables</span>
+utils/dates.py       +12 -3    <span class="c">unrelated cleanup</span>
+pyproject.toml       +1  -1    <span class="c">bumped a dependency</span></pre>
+        <p class="sm mt-s" style="color:var(--muted)">One line of value, three sources of risk, and a diff nobody can review properly.</p>
+      </div>
+      <div>
+        <div class="prompt"><div class="ph good">Prompt</div><pre>Change only what's needed to fix this.
+If you notice other problems, list them
+under "Flagged, not fixed" at the end.
+Don't reformat, rename or upgrade
+anything else.</pre></div>
+        <p class="sm mt-s" style="color:var(--muted)">Flagged issues become their own tickets. Public interface changes need explicit approval.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Tests">
+  <h2>Tests that actually prove something</h2>
+  <div class="body">
+    <div class="row cn center">
+      <ul class="notes">
+        <li>For a bug, ask for a failing test first, then the fix.</li>
+        <li>Every bug fix leaves a regression test behind.</li>
+        <li>Never change a test to make it pass. Claude asks before modifying existing tests.</li>
+        <li>Check the tests test behaviour, not that a mock returns what the mock was told to.</li>
+        <li>Claude shows the test output. "Tests pass" without output doesn't count.</li>
+      </ul>
+<pre class="code"><span class="k">def</span> test_reorder_qty_is_never_negative():
+    <span class="k">assert</span> reorder_qty(on_hand=50, target=30) == 0
+
+
+<span class="k">def</span> test_on_hand_is_tenant_scoped(repo):
+    repo.seed(tenant_id=<span class="s">"t1"</span>, style_id=<span class="s">"S1"</span>, on_hand=5)
+    repo.seed(tenant_id=<span class="s">"t2"</span>, style_id=<span class="s">"S1"</span>, on_hand=500)
+
+    <span class="k">assert</span> get_on_hand(
+        repo, tenant_id=<span class="s">"t1"</span>, style_id=<span class="s">"S1"</span>
+    ) == 5</pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Fail loudly">
+  <h2>Fail loudly. Don't let Claude hide errors.</h2>
+  <div class="body">
+    <div class="row c2">
+      <div>
+        <span class="tag bad">Defensive code that hides bugs</span>
+<pre class="code"><span class="k">try</span>:
+    plan = load_plan(tenant_id, plan_id)
+<span class="k">except</span> Exception:
+    plan = {}  <span class="c"># carry on with empty plan</span></pre>
+        <p class="sm mt-s" style="color:var(--muted)">AI often adds broad try/except blocks to look robust. The result is wrong output and no error.</p>
+      </div>
+      <div>
+        <span class="tag good">Explicit and early</span>
+<pre class="code">plan = load_plan(tenant_id, plan_id)
+<span class="k">if</span> plan <span class="k">is</span> None:
+    <span class="k">raise</span> PlanNotFound(
+        f<span class="s">"plan {plan_id} not found "</span>
+        f<span class="s">"for tenant {tenant_id}"</span>
+    )</pre>
+        <p class="sm mt-s" style="color:var(--muted)">Catch only what you can handle. Never return a default just to keep going.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Pure core">
+  <h2>Pure core, I/O at the edges</h2>
+  <div class="body">
+    <div class="row cn center">
+      <ul class="notes">
+        <li>Business logic takes values and returns values. Easy to test, no mocks.</li>
+        <li>Thresholds come from config, not literals.</li>
+        <li>Writes use upserts or keys, so a retry doesn't double-apply.</li>
+        <li>State changes and external calls are logged with tenant context.</li>
+      </ul>
+<pre class="code"><span class="c"># Pure: no I/O, no hidden state</span>
+<span class="k">def</span> compute_replenishment(stock, policy) -&gt; int:
+    target = policy.target_cover_days * stock.daily_rate
+    <span class="k">return</span> max(target - stock.on_hand, 0)
+
+
+<span class="c"># Edge: reads, logs, writes</span>
+<span class="k">def</span> run_replenishment(tenant_id, style_id) -&gt; None:
+    stock = stock_repo.get(tenant_id, style_id)
+    policy = policy_repo.get(tenant_id)
+    qty = compute_replenishment(stock, policy)
+    logger.info(<span class="s">"replenishment computed"</span>, extra={
+        <span class="s">"tenant_id"</span>: tenant_id, <span class="s">"qty"</span>: qty,
+    })
+    order_repo.upsert(tenant_id, style_id, qty)</pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Separate writing from checking">
+  <h2>Separate writing from checking</h2>
+  <p class="sub">The session that wrote the code is the worst one to review it. Review in a fresh context, one lens at a time.</p>
+  <div class="body">
+    <div class="lanes">
+      <div class="card soft"><h3>Writer session</h3><p>Plans and implements one slice. Runs the tests.</p></div>
+      <div class="arrow">&rarr;</div>
+      <div class="card blue"><h3>Reviewer session, fresh context</h3><p>Reads the diff cold and reports issues with severity and location.</p>
+        <div class="chips"><span>Correctness</span><span>Tenant isolation</span><span>Security</span><span>Performance</span><span>Simplicity</span></div>
+      </div>
+    </div>
+    <div class="prompt mt"><div class="ph">Review prompt</div><pre>Review this diff as a senior engineer on this team. Check, in order: correctness, tenant isolation,
+security, performance, simplicity. For each issue give severity, file and line, and a suggested fix.</pre></div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Context hygiene">
+  <h2>Keep the context clean</h2>
+  <div class="body">
+    <div class="row c2 center">
+      <div class="gauge">
+        <div class="g"><b>Fresh</b><div class="track"><div style="width:25%;background:#10B981"></div></div></div>
+        <div class="desc">one task, only the relevant files</div>
+        <div class="g"><b>Working</b><div class="track"><div style="width:55%;background:var(--accent-fill)"></div></div></div>
+        <div class="desc">plan agreed, implementing a slice</div>
+        <div class="g"><b>Cluttered</b><div class="track"><div style="width:95%;background:#F97316"></div></div></div>
+        <div class="desc">old tasks, long logs, stale assumptions</div>
+      </div>
+      <ul class="notes">
+        <li>One task per session. Clear the context when you switch.</li>
+        <li>Clear between planning and building. The plan file carries over, the noise doesn't.</li>
+        <li>Two failed attempts? Stop, re-plan or narrow the task.</li>
+        <li>Read every command before approving it, especially migrations, force-push, deletes and CI changes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide statement" data-part="2" aria-label="The formula">
+  <h2 style="max-width:none">The difference is discipline, not tooling</h2>
+  <div style="display:grid;gap:2.4cqw;margin-top:3cqw">
+    <div class="formula">
+      <span class="term">Rigorous design</span><span class="op">+</span>
+      <span class="term">AI implementation</span><span class="op">+</span>
+      <span class="term">Aggressive review</span><span class="op">+</span>
+      <span class="term">Many iterations</span><span class="op">=</span>
+      <span class="res">Quality at speed</span>
+    </div>
+    <div class="formula">
+      <span class="term bad">No review</span><span class="op">+</span>
+      <span class="term bad">First output accepted</span><span class="op">=</span>
+      <span class="res bad">Tech debt at speed</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Pre-PR checklist">
+  <h2>Before you raise the PR</h2>
+  <div class="body">
+    <ul class="checklist">
+      <li>I can explain every line in this diff.</li>
+      <li>Every new method, field and config key exists. I checked.</li>
+      <li>Every data path is tenant-scoped.</li>
+      <li>Tests were added and I saw them pass locally.</li>
+      <li>Only the requested change is in the diff.</li>
+      <li>No swallowed exceptions, magic numbers or dead code.</li>
+      <li>Public interfaces are backward compatible, or the break is approved.</li>
+      <li>Re-running the operation is safe.</li>
+      <li>State changes and external calls are logged.</li>
+      <li>Docs and the PR description are updated: why, how tested, risks, revert plan.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PART 3 ============ -->
+<section class="slide divider" data-part="3" data-tab="Beyond code" aria-label="Part 3">
+  <div class="dv">
+    <div class="pn">Part 3</div>
+    <h1>Beyond code</h1>
+    <p class="meta">Everyone, 45 minutes</p>
+    <ul class="covers">
+      <li>Build the right thing first</li>
+      <li>Simple, boring, proven</li>
+      <li>Chat and Cowork in daily work</li>
+      <li>QA with Claude Code</li>
+    </ul>
+  </div>
+  <figure class="plate"><figcaption><b>Fig. 3</b>Every grey line is something we could build, and AI makes all of them cheap to start. The blue line is the one we chose on purpose: deciding what to build is now the scarce skill.</figcaption><img alt="Many faint paths from one origin, with a single blue path chosen" src="/blog/building-with-claude/fig-3.png"></figure>
+</section>
+
+<section class="slide" data-part="3" aria-label="Deciding what to build">
+  <h2>Building got cheap. Deciding what to build didn't.</h2>
+  <div class="body">
+    <div class="row cn center">
+      <svg class="dia" viewBox="0 0 600 320" role="img" aria-label="Conceptual chart: code written rises steeply over time while value delivered stays flat">
+        <line x1="50" y1="20" x2="50" y2="280" stroke-width="2" style="stroke:var(--ink)"/>
+        <line x1="50" y1="280" x2="580" y2="280" stroke-width="2" style="stroke:var(--ink)"/>
+        <path d="M50,255 C220,250 330,200 470,90 S560,40 570,35" stroke-width="4" fill="none" stroke-linecap="round" style="stroke:var(--accent)"/>
+        <path d="M50,235 C200,228 380,232 570,224" stroke-width="4" fill="none" stroke-dasharray="2 10" stroke-linecap="round" style="stroke:var(--rule)"/>
+        <text x="455" y="28" text-anchor="end" font-size="17" font-weight="650" style="fill:var(--accent)">Code written</text>
+        <text x="420" y="210" font-size="17" font-weight="650" style="fill:var(--muted)">Value delivered</text>
+        <text class="s" x="575" y="305" text-anchor="end">time</text>
+        <text class="s" x="58" y="305">conceptual</text>
+      </svg>
+      <div>
+        <ul class="notes">
+          <li>When anyone can generate code, features alone don't stand out. Knowing what to build and why does.</li>
+          <li>Ask "Why are we building this?" before the first prompt.</li>
+          <li>First build the right thing. Then build it right.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="3" aria-label="Pragmatic choices">
+  <h2>Pragmatic beats theoretically perfect</h2>
+  <div class="body">
+    <div class="row c3">
+      <div class="card"><span class="tag info">Simplest first</span><p class="big">What's the simplest thing we could ship?</p><p class="mt-s">Ship that. Optimise after it's delivered and used, not before.</p></div>
+      <div class="card"><span class="tag info">Boring tech</span><p class="big">Proven over shiny</p><p class="mt-s">Claude makes adding a new library easy. That doesn't make it a good idea.</p></div>
+      <div class="card"><span class="tag info">Prototype to decide</span><p class="big">A PoC now takes hours</p><p class="mt-s">Use one to test feasibility before you promise a date or a design.</p></div>
+    </div>
+    <p class="callout">Every decision is a trade-off. Bring the business the pros and cons in their language, not a flat yes or no.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="3" aria-label="Chat and Cowork">
+  <h2>Chat and Cowork in daily work</h2>
+  <p class="sub">Same data rules apply: redact first, and treat every output as a draft.</p>
+  <div class="body">
+    <div class="row c3" style="gap:1.4cqw">
+      <div class="card"><h3>Design docs and ADRs</h3><p>"Turn these notes into an ADR: context, options, decision, consequences. List what's missing."</p></div>
+      <div class="card"><h3>Spec review</h3><p>"Find gaps, edge cases and conflicting requirements. Ask me questions instead of assuming."</p></div>
+      <div class="card"><h3>Ticket breakdown</h3><p>"Split this spec into tickets with acceptance criteria, boundaries and test cases."</p></div>
+      <div class="card"><h3>Log and incident analysis</h3><p>"From these redacted logs, build a timeline and the most likely causes, ranked."</p></div>
+      <div class="card"><h3>Test plans</h3><p>"From this spec, write a test plan: happy path, boundaries, failures, tenant isolation."</p></div>
+      <div class="card"><h3>PR descriptions</h3><p>"From this diff, write a PR description: why, how it was tested, risks, revert plan."</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="3" aria-label="QA with Claude Code">
+  <h2>QA with Claude Code</h2>
+  <div class="body">
+    <div class="row cn center">
+      <ul class="notes">
+        <li>Automation lives in the same repos, under the same review rules as production code.</li>
+        <li>Synthetic data only. Fixtures come from factories, never from client exports.</li>
+        <li>Every feature gets a tenant isolation test as standard.</li>
+        <li>Every bug report comes with a failing test that reproduces it.</li>
+        <li>An AI first-look review on each PR catches the basics: committed secrets, missing tests, unlinked tickets.</li>
+      </ul>
+      <div class="prompt"><div class="ph">Prompt</div><pre>From this spec, write test cases for
+allocation caps:
+- happy path
+- boundaries: 0, max, max + 1
+- invalid and missing input
+- one test proving tenant A cannot
+  read or change tenant B's data
+
+Use only synthetic data from
+tests/factories.py.
+Run the suite and show me the output.</pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 4 ============ -->
+<section class="slide divider" data-part="4" data-tab="Multiply" aria-label="Part 4">
+  <div class="dv">
+    <div class="pn">Part 4</div>
+    <h1>Multiply what works</h1>
+    <p class="meta">Everyone, 30 minutes, then every two weeks</p>
+    <ul class="covers">
+      <li>Why multiplying beats heroics</li>
+      <li>Turn mistakes into rules</li>
+      <li>Share in the open</li>
+      <li>Measure what matters</li>
+      <li>Do and don't</li>
+    </ul>
+  </div>
+  <figure class="plate"><figcaption><b>Fig. 4</b>One person's good habit spreads to five people, then twenty-five, then a hundred and twenty-five. Sharing what works beats being the hero who does it alone.</figcaption><img alt="One point branching to five, twenty-five and one hundred twenty-five" src="/blog/building-with-claude/fig-4.png"></figure>
+</section>
+
+<section class="slide" data-part="4" aria-label="Multiplier">
+  <h2>Make five people 20% better</h2>
+  <p class="sub">Your best workflow is worth more shared than kept. That goes for prompts, CLAUDE.md lines and review habits.</p>
+  <div class="body">
+    <div class="mult">
+      <div>
+        <div class="tiles"><div class="tile"><div class="base"></div><div class="up"></div></div></div>
+        <div class="total">You improve: +20%</div>
+      </div>
+      <div>
+        <div class="tiles">
+          <div class="tile"><div class="base"></div><div class="up"></div></div>
+          <div class="tile"><div class="base"></div><div class="up"></div></div>
+          <div class="tile"><div class="base"></div><div class="up"></div></div>
+          <div class="tile"><div class="base"></div><div class="up"></div></div>
+          <div class="tile"><div class="base"></div><div class="up"></div></div>
+        </div>
+        <div class="total blue">Five people improve: +100% team capacity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="4" aria-label="Turn mistakes into rules">
+  <h2>Turn every mistake into a rule</h2>
+  <div class="body">
+    <div class="row cn center">
+      <svg class="dia" viewBox="0 0 600 460" role="img" aria-label="Loop: something goes wrong, fix the process not the person, ask if Claude could catch it next time, encode it">
+        <defs><marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--accent)"/></marker></defs>
+        <path d="M412,62 Q470,70 470,186" class="lb" marker-end="url(#m5)"/>
+        <path d="M470,272 Q470,395 414,400" class="lb" marker-end="url(#m5)"/>
+        <path d="M188,400 Q130,395 130,274" class="lb" marker-end="url(#m5)"/>
+        <path d="M130,188 Q130,70 186,62" class="lb" marker-end="url(#m5)"/>
+        <g text-anchor="middle">
+          <rect x="190" y="24" width="220" height="76" rx="14" style="fill:var(--dont-soft);stroke:var(--dont-line)"/>
+          <text class="t" x="300" y="56">Something</text><text class="t" x="300" y="82">goes wrong</text>
+          <rect x="360" y="192" width="220" height="76" rx="14" style="fill:var(--page);stroke:var(--line)"/>
+          <text class="t" x="470" y="224">Fix the process,</text><text class="t" x="470" y="250">not the person</text>
+          <rect x="190" y="362" width="220" height="76" rx="14" style="fill:var(--accent-soft);stroke:var(--accent-line)"/>
+          <text class="t" x="300" y="394">Could Claude catch</text><text class="t" x="300" y="420">this next time?</text>
+          <rect x="20" y="192" width="220" height="76" rx="14" style="fill:var(--accent-fill)"/>
+          <text class="tw" x="130" y="224">Encode it</text><text class="sw" x="130" y="250">CLAUDE.md, test, lint rule</text>
+        </g>
+      </svg>
+      <ul class="notes">
+        <li>No blame. An AI-introduced bug passed through a prompt, a review and our tests. Fix the step that let it through.</li>
+        <li>Give feedback on mistakes privately. Share the lesson publicly.</li>
+        <li>Each encoded rule means one less thing a human has to catch.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="4" aria-label="Share in the open">
+  <h2>Create a space and seed it</h2>
+  <p class="sub">Don't wait for someone to assign it. Start sharing useful things and let it compound.</p>
+  <div class="body">
+    <div class="row c3">
+      <div class="card"><span class="tag info">Daily</span><p class="big">Team AI channel</p><p class="mt-s">Post one prompt, skill or workflow that saved you time this week.</p></div>
+      <div class="card"><span class="tag info">Every two weeks</span><p class="big">Show-and-tell</p><p class="mt-s">15 minutes. One person, one real workflow, one lesson.</p></div>
+      <div class="card"><span class="tag info">Ongoing</span><p class="big">Shared library</p><p class="mt-s">Reusable prompts, review workflows and CLAUDE.md snippets in one repo.</p></div>
+    </div>
+    <p class="callout">Don't just flag a problem. Bring the data, the cost, and an offer to help fix it.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="4" aria-label="Measure what matters">
+  <h2>Measure what matters, then work from red</h2>
+  <p class="sub">Each metric gets thresholds we agree as a team. Every month we review the trend and start with whatever is red.</p>
+  <div class="body">
+    <table class="score">
+      <thead><tr><th>Metric</th><th>What it tells us</th><th>Thresholds</th></tr></thead>
+      <tbody>
+        <tr><td>Sessions that end in a merged PR</td><td>Are we shipping, or just exploring?</td><td><span class="dots"><span class="dot g"></span><span class="dot y"></span><span class="dot r"></span></span></td></tr>
+        <tr><td>People using more than one surface</td><td>Is Claude helping beyond code?</td><td><span class="dots"><span class="dot g"></span><span class="dot y"></span><span class="dot r"></span></span></td></tr>
+        <tr><td>Regression tests per bug fix</td><td>Are we learning from mistakes?</td><td><span class="dots"><span class="dot g"></span><span class="dot y"></span><span class="dot r"></span></span></td></tr>
+        <tr><td>Review comments on AI-introduced issues</td><td>Is our process catching problems early?</td><td><span class="dots"><span class="dot g"></span><span class="dot y"></span><span class="dot r"></span></span></td></tr>
+        <tr><td>Rules added to CLAUDE.md</td><td>Are lessons being encoded?</td><td><span class="dots"><span class="dot g"></span><span class="dot y"></span><span class="dot r"></span></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-part="4" aria-label="Do and don't">
+  <h2>Do and don't</h2>
+  <div class="dd">
+    <div class="do">
+      <h3>Do</h3>
+      <ul>
+        <li>Plan first and keep slices small</li>
+        <li>Write tests with the code and run them locally</li>
+        <li>Review in a fresh context before the PR</li>
+        <li>Scope every query to a tenant</li>
+        <li>Encode every repeated instruction</li>
+        <li>Share what works</li>
+      </ul>
+    </div>
+    <div class="dont">
+      <h3>Don't</h3>
+      <ul>
+        <li>Paste client data, secrets or personal data</li>
+        <li>Ship the first output or code you can't explain</li>
+        <li>Let it change things you didn't ask for</li>
+        <li>Accept methods or fields you haven't verified</li>
+        <li>Change a test to make it pass</li>
+        <li>Blame a person for a process gap</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="4" aria-label="This week">
+  <h2>This week</h2>
+  <div class="body">
+    <div class="row c3">
+      <div class="card blue"><span class="tag info">1</span><p class="big">Add CLAUDE.md</p><p class="mt-s">To every repo you own, starting from the template in Part 2.</p></div>
+      <div class="card blue"><span class="tag info">2</span><p class="big">Plan first</p><p class="mt-s">Use the plan-first prompt on your next task, then review in a fresh session.</p></div>
+      <div class="card blue"><span class="tag info">3</span><p class="big">Share one thing</p><p class="mt-s">Post one prompt or workflow that worked in the team channel.</p></div>
+    </div>
+    <p class="xs" style="margin-top:3cqw">Credit to the Engineering Leadership newsletter, whose writing on AI-assisted engineering, pragmatic engineering and multiplier leadership informed much of this series.</p>
+  </div>
+</section>

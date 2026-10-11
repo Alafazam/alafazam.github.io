@@ -1,6 +1,8 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import DeckContent from '../components/DeckContent';
 import MarkdownContent from '../components/MarkdownContent';
+import { DECK_LAYOUT } from '../utils/content';
 import { useDraftPosts } from '../hooks/useDraftPosts';
 
 const DraftPost = () => {
@@ -11,13 +13,27 @@ const DraftPost = () => {
   if (!import.meta.env.DEV) return <Navigate to="/blog" replace />;
   if (draftPosts && !post) return <Navigate to="/blog" replace />;
 
+  const head = (
+    <Helmet>
+      <meta name="robots" content="noindex,nofollow" />
+      <title>{post?.frontmatter.title || 'Draft outline'} — Local preview</title>
+    </Helmet>
+  );
+
+  // A slide deck fills the viewport below the site nav, so it skips the article chrome.
+  if (post?.frontmatter.layout === DECK_LAYOUT) {
+    return (
+      <>
+        {head}
+        <DeckContent title={post.frontmatter.title ?? ''} html={post.html} />
+      </>
+    );
+  }
+
   return (
     <div className="bg-white px-4 py-10 text-gray-900 dark:bg-gray-900 dark:text-white">
       <div className="mx-auto max-w-3xl">
-        <Helmet>
-          <meta name="robots" content="noindex,nofollow" />
-          <title>{post?.frontmatter.title || 'Draft outline'} — Local preview</title>
-        </Helmet>
+        {head}
         <Link to="/blog" className="text-sm text-blue-600 hover:underline dark:text-blue-400">
           ← All writing
         </Link>

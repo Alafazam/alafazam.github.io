@@ -9,6 +9,7 @@ export interface Frontmatter {
   // blog
   date?: string;
   draft?: string;
+  layout?: string;
   // projects / work
   name?: string;
   tagline?: string;
@@ -26,6 +27,9 @@ export interface ContentItem {
   html: string;
   excerpt: string;
 }
+
+// Posts with `layout: deck` are hand-written slide HTML rendered by DeckContent.
+export const DECK_LAYOUT = 'deck';
 
 const escapeHtml = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -75,7 +79,9 @@ export function loadContent(glob: Record<string, string>): ContentItem[] {
   return Object.entries(glob).map(([path, raw]) => {
     const slug = path.split('/').pop()!.replace(/\.md$/, '');
     const { data, body } = parseFrontmatter(raw);
-    const html = md.render(body);
+    // Deck bodies skip Markdown: markdown-it ends an HTML block at the first blank line,
+    // which would split the slides' <pre> blocks.
+    const html = data.layout === DECK_LAYOUT ? body : md.render(body);
     const excerpt =
       data.description ||
       body.replace(/<!--[\s\S]*?-->/g, '').replace(/[#>*`_[\]]/g, '').trim().slice(0, 160);

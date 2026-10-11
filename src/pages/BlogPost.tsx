@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { getBlogPost, formatDate } from '../utils/content';
+import { getBlogPost, formatDate, DECK_LAYOUT } from '../utils/content';
+import DeckContent from '../components/DeckContent';
 import MarkdownContent from '../components/MarkdownContent';
 
 const BlogPost = () => {
@@ -24,15 +25,29 @@ const BlogPost = () => {
     url,
   };
 
+  const head = (
+    <Helmet>
+      <title>{frontmatter.title} — Alaf Azam Khan</title>
+      {frontmatter.description && <meta name="description" content={frontmatter.description} />}
+      <link rel="canonical" href={url} />
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+
+  // A slide deck fills the viewport below the site nav, so it skips the article chrome.
+  if (frontmatter.layout === DECK_LAYOUT) {
+    return (
+      <>
+        {head}
+        <DeckContent title={frontmatter.title ?? ''} html={html} />
+      </>
+    );
+  }
+
   return (
     <div className="py-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
       <div className="mx-auto max-w-3xl">
-        <Helmet>
-          <title>{frontmatter.title} — Alaf Azam Khan</title>
-          {frontmatter.description && <meta name="description" content={frontmatter.description} />}
-          <link rel="canonical" href={url} />
-          <script type="application/ld+json">{JSON.stringify(schema)}</script>
-        </Helmet>
+        {head}
 
         <Link to="/blog" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
           ← All writing

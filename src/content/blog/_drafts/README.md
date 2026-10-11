@@ -4,6 +4,8 @@ Files here are **not published**. The local Vite development server shows them i
 
 **To publish a draft:** finish the copy, set a real `date:`, remove the `draft:` line, and move the file up one level into `src/content/blog/`.
 
+**Slide-deck posts:** `layout: deck` in the frontmatter renders the body as a horizontal slide deck (`src/components/DeckContent.tsx`) instead of an article. The body is raw HTML, not Markdown: one `<section class="slide" data-part="N">` per slide, with divider slides (`class="slide divider"`) carrying `data-tab` for the part tabs. Styles live under `.deck` in `src/index.css`; use the theme tokens (`var(--accent)`, `var(--line)`, …) rather than hex colours so slides work in light and dark mode. `building-with-claude.md` is the reference example.
+
 Each draft below is an outline, not a finished essay — a thesis, a target reader, section beats, the specific evidence to pull in, and a **Bar check** section (intended non-obvious thesis + the rubric dimension most at risk). Structure it in your own voice, then ship.
 
 ## Staged drafts (8)
