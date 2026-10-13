@@ -11,6 +11,8 @@ export interface Frontmatter {
   draft?: string;
   // blog
   date?: string;
+  // DECK_LAYOUT renders the post as a horizontal slide deck (DeckContent)
+  layout?: string;
   // projects / work
   name?: string;
   tagline?: string;
@@ -28,6 +30,9 @@ export interface ContentItem {
   html: string;
   excerpt: string;
 }
+
+/** Frontmatter `layout` for posts whose body is hand-written slide HTML. */
+export const DECK_LAYOUT = 'deck';
 
 /** What the build emits for one Markdown file; the slug comes from its path. */
 export type RenderedContent = Omit<ContentItem, 'slug'>;

@@ -5,6 +5,8 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { blogTrail } from '../seo/breadcrumbs';
 import { absoluteUrl, blogPath, SITE_URL, TITLE_SUFFIX } from '../seo/site';
 import { getBlogPost, formatDate } from '../utils/content';
+import { DECK_LAYOUT } from '../content/types';
+import DeckContent from '../components/DeckContent';
 import MarkdownContent from '../components/MarkdownContent';
 
 const BlogPost = () => {
@@ -28,18 +30,35 @@ const BlogPost = () => {
     url,
   };
 
+  const head = (
+    <>
+      <Seo
+        path={blogPath(post.slug)}
+        title={`${frontmatter.title}${TITLE_SUFFIX}`}
+        description={frontmatter.description || post.excerpt}
+        indexable
+      />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
+    </>
+  );
+
+  // A slide deck fills the viewport below the site nav, so it skips the
+  // article chrome (breadcrumbs, title, date); its title is the deck's <h1>.
+  if (frontmatter.layout === DECK_LAYOUT) {
+    return (
+      <>
+        {head}
+        <DeckContent title={frontmatter.title || post.slug} html={html} />
+      </>
+    );
+  }
+
   return (
     <div className="py-10 px-4">
       <div className="mx-auto max-w-3xl">
-        <Seo
-          path={blogPath(post.slug)}
-          title={`${frontmatter.title}${TITLE_SUFFIX}`}
-          description={frontmatter.description || post.excerpt}
-          indexable
-        />
-        <Helmet>
-          <script type="application/ld+json">{JSON.stringify(schema)}</script>
-        </Helmet>
+        {head}
 
         <Breadcrumbs items={blogTrail(frontmatter.title || post.slug, post.slug)} />
 

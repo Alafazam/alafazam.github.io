@@ -4,7 +4,7 @@
 
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js/lib/common';
-import type { Frontmatter, RenderedContent } from './types';
+import { DECK_LAYOUT, type Frontmatter, type RenderedContent } from './types';
 
 const escapeHtml = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -56,7 +56,9 @@ export const isPublished = (frontmatter: Frontmatter, showDrafts: boolean): bool
 
 export function renderContent(raw: string): RenderedContent {
   const { data, body } = parseFrontmatter(raw);
-  const html = md.render(body);
+  // Deck bodies are raw slide HTML. markdown-it ends an HTML block at the first
+  // blank line, which would split the slides' <pre> blocks, so they skip it.
+  const html = data.layout === DECK_LAYOUT ? body : md.render(body);
   const excerpt =
     data.description ||
     body.replace(/<!--[\s\S]*?-->/g, '').replace(/[#>*`_[\]]/g, '').trim().slice(0, 160);
