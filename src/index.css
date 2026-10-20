@@ -185,6 +185,185 @@
   transition: height 0.2s ease;
 }
 
+/* "The Era of Personal Software" post (.ps-*): a before/after TV screen, numbered steps, stat cards,
+   a screenshot grid, a copyable prompt, a fork list and a risk box. Colours come from the site tokens. */
+.prose .ps-dek {
+  @apply text-lg leading-relaxed text-muted-foreground sm:text-xl;
+}
+
+.prose .ps-eyebrow {
+  @apply mb-2 mt-14 font-mono text-xs font-semibold uppercase tracking-widest text-primary;
+}
+
+.prose .ps-eyebrow + h2 {
+  @apply mt-0;
+}
+
+/* A faint eight-point star (khatam) tiling behind the screen, masked so it takes the primary colour. */
+.prose .ps-stage {
+  @apply relative my-10 rounded-2xl border border-border p-3 sm:p-5;
+  background: hsl(var(--muted) / 0.4);
+}
+
+.prose .ps-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--primary) / 0.12);
+  pointer-events: none;
+  --khatam: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='black' stroke-width='1.2'%3E%3Crect x='16' y='16' width='24' height='24'/%3E%3Crect x='16' y='16' width='24' height='24' transform='rotate(45 28 28)'/%3E%3Ccircle cx='28' cy='28' r='4'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask: var(--khatam) repeat;
+  mask: var(--khatam) repeat;
+}
+
+.prose .ps-stage figcaption {
+  @apply relative mt-3 text-center text-sm text-muted-foreground;
+}
+
+.prose .ps-compare {
+  --pos: 50%;
+  @apply relative overflow-hidden rounded-xl border border-border bg-black shadow-xl;
+  aspect-ratio: 16 / 9;
+}
+
+.prose .ps-compare img {
+  @apply absolute inset-0 m-0 block h-full w-full max-w-none rounded-none border-0 object-cover;
+}
+
+.prose .ps-compare-before {
+  @apply absolute inset-0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.prose .ps-compare-divider {
+  @apply pointer-events-none absolute inset-y-0 w-0.5 bg-primary;
+  left: var(--pos);
+  margin-left: -1px;
+}
+
+.prose .ps-compare-knob {
+  @apply pointer-events-none absolute grid h-11 w-11 place-items-center rounded-full bg-primary text-sm text-primary-foreground shadow-lg;
+  top: 50%;
+  left: var(--pos);
+  transform: translate(-50%, -50%);
+}
+
+.prose .ps-compare input[type="range"] {
+  @apply absolute inset-0 m-0 h-full w-full cursor-ew-resize opacity-0;
+}
+
+.prose .ps-compare input[type="range"]:focus-visible ~ .ps-compare-knob {
+  @apply ring-2 ring-foreground ring-offset-2 ring-offset-background;
+}
+
+.prose .ps-compare-tag {
+  @apply pointer-events-none absolute top-3 rounded-md bg-black/60 px-2 py-1 font-mono text-[0.65rem] font-semibold uppercase tracking-widest text-white;
+}
+
+.prose .ps-compare-tag.ps-left { @apply left-3; }
+.prose .ps-compare-tag.ps-right { @apply right-3; }
+
+.prose .ps-steps {
+  @apply my-8 grid list-none gap-5 p-0;
+  counter-reset: ps-step;
+}
+
+.prose .ps-steps > li {
+  @apply grid gap-x-4 gap-y-1;
+  counter-increment: ps-step;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+}
+
+.prose .ps-steps > li::before {
+  content: counter(ps-step);
+  @apply row-span-2 grid h-9 w-9 place-items-center rounded-full border border-primary font-mono text-sm text-primary;
+}
+
+.prose .ps-steps h3 {
+  @apply m-0 mt-1.5 text-base font-semibold text-foreground;
+}
+
+.prose .ps-steps p {
+  @apply m-0 leading-relaxed text-muted-foreground;
+}
+
+.prose .ps-steps a { @apply text-primary hover:underline; }
+
+.prose .ps-stats {
+  @apply my-8 grid grid-cols-1 gap-3 sm:grid-cols-3;
+}
+
+.prose .ps-stat {
+  @apply rounded-xl border border-border bg-card p-4;
+}
+
+.prose .ps-stat b {
+  @apply block text-3xl font-bold tracking-tight text-foreground;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose .ps-stat span {
+  @apply text-sm text-muted-foreground;
+}
+
+.prose .ps-gallery {
+  @apply my-8 grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+.prose .ps-gallery figure { @apply m-0; }
+
+.prose .ps-gallery img {
+  @apply m-0 block w-full rounded-lg border border-border object-cover;
+  aspect-ratio: 16 / 9;
+}
+
+.prose .ps-gallery figcaption {
+  @apply mt-2 text-sm text-muted-foreground;
+}
+
+.prose .ps-prompt {
+  @apply relative my-6;
+}
+
+.prose .ps-prompt pre {
+  @apply m-0 overflow-x-auto whitespace-pre-wrap rounded-xl border border-border bg-muted p-4 pr-20 font-mono text-[0.8rem] leading-relaxed text-foreground;
+}
+
+.prose .ps-copy {
+  @apply absolute right-2.5 top-2.5 rounded-md bg-primary px-2.5 py-1.5 font-mono text-xs font-semibold uppercase tracking-wide text-primary-foreground transition-opacity hover:opacity-90;
+}
+
+.prose .ps-forks {
+  @apply my-6 list-none p-0;
+}
+
+.prose .ps-forks li {
+  @apply grid gap-x-5 gap-y-1 border-t border-border py-3 sm:grid-cols-[14rem_minmax(0,1fr)];
+}
+
+.prose .ps-forks li:last-child { @apply border-b; }
+
+.prose .ps-forks a {
+  @apply break-words font-mono text-sm text-primary hover:underline;
+}
+
+.prose .ps-forks span { @apply text-muted-foreground; }
+
+.prose .ps-risk {
+  @apply my-6 rounded-r-xl border border-l-4 border-border border-l-primary bg-card px-5 py-4;
+}
+
+.prose .ps-risk h3 {
+  @apply m-0 mb-2 text-base font-semibold text-foreground;
+}
+
+.prose .ps-risk ul {
+  @apply m-0 list-disc space-y-1.5 pl-5 text-muted-foreground;
+}
+
+.prose .ps-risk b { @apply font-semibold text-foreground; }
+
 /* Print-specific styles */
 @media print {
   @page {

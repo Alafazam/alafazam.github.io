@@ -36,10 +36,64 @@ const useEmbedBridge = (root: React.RefObject<HTMLDivElement>) => {
   }, [root]);
 };
 
+// Before/after sliders in posts: <div data-compare> holds two stacked images and an <input type="range">;
+// dragging sets --pos, which clips the "before" image (see .ps-compare in src/index.css).
+const useCompareSliders = (root: React.RefObject<HTMLDivElement>) => {
+  useEffect(() => {
+    const sliders = Array.from(root.current?.querySelectorAll<HTMLElement>('[data-compare]') ?? []);
+    const cleanups = sliders.map((slider) => {
+      const range = slider.querySelector<HTMLInputElement>('input[type="range"]');
+      if (!range) throw new Error('[data-compare] needs an <input type="range">');
+      const update = () => slider.style.setProperty('--pos', `${range.value}%`);
+      range.addEventListener('input', update);
+      update();
+      return () => range.removeEventListener('input', update);
+    });
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [root]);
+};
+
+// Copy buttons in posts: <button data-copy="id"> copies the text of the element with that id. When the
+// clipboard is refused, the text is selected instead so it can be copied by hand.
+const COPY_RESET_MS = 2000;
+
+const useCopyButtons = (root: React.RefObject<HTMLDivElement>) => {
+  useEffect(() => {
+    const buttons = Array.from(root.current?.querySelectorAll<HTMLButtonElement>('button[data-copy]') ?? []);
+    const cleanups = buttons.map((button) => {
+      const label = button.textContent;
+      const onClick = () => {
+        const target = document.getElementById(button.dataset.copy ?? '');
+        if (!target) throw new Error(`data-copy target #${button.dataset.copy} is missing`);
+        const selectText = () => {
+          const range = document.createRange();
+          range.selectNodeContents(target);
+          window.getSelection()?.removeAllRanges();
+          window.getSelection()?.addRange(range);
+          button.textContent = 'Selected';
+        };
+        if (!navigator.clipboard) {
+          selectText();
+          return;
+        }
+        navigator.clipboard
+          .writeText(target.textContent ?? '')
+          .then(() => { button.textContent = 'Copied'; }, selectText);
+        window.setTimeout(() => { button.textContent = label; }, COPY_RESET_MS);
+      };
+      button.addEventListener('click', onClick);
+      return () => button.removeEventListener('click', onClick);
+    });
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [root]);
+};
+
 // Renders pre-compiled Markdown HTML with Tailwind Typography styling.
 const MarkdownContent = ({ html }: MarkdownContentProps) => {
   const ref = useRef<HTMLDivElement>(null);
   useEmbedBridge(ref);
+  useCompareSliders(ref);
+  useCopyButtons(ref);
   return (
     <div
       ref={ref}
