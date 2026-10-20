@@ -827,7 +827,112 @@ Run the suite and show me the output.</pre></div>
     <p class="xs" style="margin-top:3cqw">Credit to the Engineering Leadership newsletter, whose writing on AI-assisted engineering, pragmatic engineering and multiplier leadership informed much of this series.</p>
   </div>
 </section>
-`,excerpt:"A four-part training series I ran for my team on building with Claude: guardrails, the Claude Code workflow, deciding what to build, and multiplying what works."},o=null,r={frontmatter:{title:"15 Must-Have GNOME Extensions for Anyone Switching to Linux",date:"2026-10-06",description:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac.",tags:["linux","gnome","productivity","macos"]},html:`<p>Switching to a GNOME-based distro — Ubuntu, Fedora, Pop!_OS, Debian — from Windows or macOS? Stock GNOME is clean and fast, but within an hour you’ll reach for something that isn’t there: a clipboard history, snap layouts, a hot corner that shows your windows, dark mode that follows the sun.</p>
+`,excerpt:"A four-part training series I ran for my team on building with Claude: guardrails, the Claude Code workflow, deciding what to build, and multiplying what works."},o={frontmatter:{title:"The Era of Personal Software Is Here",date:"2026-10-20",description:"I used Claude to take my TV's home screen apart and rebuild it for my family: no ads, our apps in one row, our photos and the day's prayer times. What changed, how to do it yourself, and the supply-chain risk that comes with it.",tags:["ai","personal-software","android-tv","open-source","security"]},html:`<!--
+Layout pieces (.ps-*) are styled in src/index.css. The before/after slider ([data-compare]) and the copy
+button ([data-copy]) are wired up by MarkdownContent. Screenshots live in
+public/images/blog/personal-software-tv/ and are taken from the TV itself. The page's only h1 is the post title.
+-->
+<p class="ps-dek">I used Claude to take my TV's home screen apart and rebuild it for my family: no ads, our apps in one row, photos we chose, and the day's prayer times. This is what changed, how you can do the same, and the risk that comes with it.</p>
+<figure class="ps-stage not-prose">
+<div class="ps-compare" data-compare>
+<img src="/images/blog/personal-software-tv/prayer-home.jpg" alt="After: a mosque photo as wallpaper, the next prayer time in a gold pill under the clock, and eight apps in one row" width="1280" height="720" />
+<div class="ps-compare-before"><img src="/images/blog/personal-software-tv/before-stock-home.jpg" alt="Before: the stock Google TV home with a sponsored Hero ad, a Sponsored by JioHotstar row and a PatchWall tile" width="1280" height="720" /></div>
+<div class="ps-compare-divider" aria-hidden="true"></div>
+<input type="range" min="0" max="100" value="50" aria-label="Drag to compare the TV home screen before and after" />
+<div class="ps-compare-knob" aria-hidden="true">⟷</div>
+<span class="ps-compare-tag ps-left">Before</span>
+<span class="ps-compare-tag ps-right">After</span>
+</div>
+<figcaption>My Xiaomi MiTV-AXSO2 (Android TV 9). Drag across the screen to compare. Both are screenshots taken from the TV.</figcaption>
+</figure>
+<p>My TV opened with an advert. Before I could get to Netflix, there was a sponsored banner for a motorbike, a row “Sponsored by JioHotstar”, and a Xiaomi home screen I never asked for. The TV is a small Android computer, and like most computers it does what its maker wants first.</p>
+<p>So I opened Claude Code on my laptop and asked it to help me take back the home screen. It found the TV on my Wi-Fi, made a backup, and switched off the parts I didn’t want. Then we built the parts I did want. It took one evening and one morning, and I wrote almost none of the code myself.</p>
+<p class="ps-eyebrow">What we changed, in order</p>
+<h2>From a billboard to our TV</h2>
+<ol class="ps-steps not-prose">
+<li><h3>Found the TV and backed it up</h3><p>With USB debugging on, the TV accepts commands over Wi-Fi. Claude found it, saved the list of apps and every setting, and wrote a restore script before touching anything.</p></li>
+<li><h3>Switched off 33 apps</h3><p>Tracking, sponsored rows, Xiaomi's PatchWall, partner auto-installs and apps nobody used. They are disabled, not deleted: one command brings them all back.</p></li>
+<li><h3>Replaced the home screen</h3><p>I copied the open-source <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> launcher and set it up with our eight apps in one row. You can do the same, copy <a href="https://github.com/Alafazam/cleanyourtv">mine</a>, or just ask Claude to build a launcher the way you want it.</p></li>
+<li><h3>Added wallpapers that change</h3><p>A folder of photos changes behind Home every 30 minutes. A Wallpaper tile opens a picker, so anyone can choose one with the remote.</p></li>
+<li><h3>Added prayer times</h3><p>Calculated on the TV, with no internet: Bengaluru, Karachi method, Hanafi Asr, plus the Hijri date. The current and next prayer sit under the clock, a tile opens the full day, and the screensaver shows it over the photos.</p></li>
+</ol>
+<figure class="ps-wallstrip not-prose">
+<div class="ps-wallstrip-grid">
+<img src="/images/blog/personal-software-tv/wallpaper-01.jpg" alt="Home with a white mosque, gold domes and a crescent moon as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-04.jpg" alt="Home with minarets against a red sunset as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-09.jpg" alt="Home with the Sheikh Zayed Grand Mosque reflected in water at dusk as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-12.jpg" alt="Home with the Kaaba and pilgrims as the wallpaper" width="1280" height="720" loading="lazy" />
+</div>
+<figcaption>The same home screen with four of our wallpapers. A new one appears every 30 minutes, or you pick one from the Wallpaper tile.</figcaption>
+</figure>
+<div class="ps-stats not-prose">
+<div class="ps-stat"><b>33</b><span>apps switched off, all reversible</span></div>
+<div class="ps-stat"><b>550 → 850</b><span>MB of free memory</span></div>
+<div class="ps-stat"><b>0</b><span>sponsored rows or adverts</span></div>
+</div>
+<div class="ps-gallery not-prose">
+<figure><img src="/images/blog/personal-software-tv/picker.jpg" alt="Wallpaper picker with twelve mosque photos, the current one marked Now" width="1280" height="720" loading="lazy" /><figcaption>The Wallpaper picker. The photos are free ones from Unsplash.</figcaption></figure>
+<figure><img src="/images/blog/personal-software-tv/prayer-page.jpg" alt="Prayer Times page with six cards from Fajr to Isha, Dhuhr highlighted in green" width="1280" height="720" loading="lazy" /><figcaption>The Prayer Times page, opened from its own tile.</figcaption></figure>
+<figure><img src="/images/blog/personal-software-tv/prayer-screensaver.jpg" alt="Screensaver with the clock and six prayer cards over a photo of minarets at sunset" width="1280" height="720" loading="lazy" /><figcaption>The screensaver: clock, prayer times and our photos.</figcaption></figure>
+<figure><img src="/images/blog/personal-software-tv/tile.jpg" alt="The app grid under the dock with the Wallpaper tile at the end" width="1280" height="720" loading="lazy" /><figcaption>The rest of the apps, with the Wallpaper tile at the end.</figcaption></figure>
+</div>
+<p class="ps-eyebrow">Why this matters</p>
+<h2>Software for an audience of one</h2>
+<p>For most of my life, software was something you bought. If a product did something you didn’t like, you lived with it, complained, or switched brands. Changing it meant being a developer with a free weekend.</p>
+<p>That has changed. I didn’t need to know how Android launchers work, or which of 124 packages on my TV were safe to switch off. Claude read the TV’s logs, ran the commands, built the app, installed it, and checked every step with a screenshot from the TV. My job was to decide: keep the voice remote, keep casting, show these eight apps, use these photos, calculate prayer times the way my family prays.</p>
+<p>I think this is what personal software means. You can open almost anything you own, keep the parts you like, and replace the rest with something made only for you. Nobody would sell a launcher with Hanafi Asr times for Bengaluru on the screensaver. Now nobody has to.</p>
+<p class="ps-eyebrow">Do it yourself</p>
+<h2>All you need is this</h2>
+<p>You need an Android TV or Google TV, a computer on the same Wi-Fi, and <a href="https://claude.com/claude-code">Claude Code</a>.</p>
+<ol class="ps-steps not-prose">
+<li><h3>Turn on USB debugging on the TV</h3><p>Settings → Device Preferences → About → press OK on <b>Build</b> seven times. Go back to Developer options and turn on <b>USB debugging</b>.</p></li>
+<li><h3>Open Claude Code in an empty folder</h3><p>On your computer, on the same Wi-Fi as the TV.</p></li>
+<li><h3>Paste the prompt below, with your TV model</h3><p>Claude asks before it changes anything you might use.</p></li>
+<li><h3>Accept "Allow USB debugging?" on the TV</h3><p>Tick "Always allow from this computer", then answer Claude's questions about your apps.</p></li>
+<li><h3>Turn USB debugging off when you're done</h3><p>The new home screen keeps working without it.</p></li>
+</ol>
+<div class="ps-prompt not-prose">
+<button type="button" class="ps-copy" data-copy="ps-prompt-text">Copy</button>
+<pre id="ps-prompt-text">My TV model is: &lt;YOUR TV MODEL&gt;. It is on my Wi-Fi with USB debugging on.
+Find it over ADB, back up its app list and settings, and write a restore script first.
+List the installed apps, and ask me before you switch off anything I might use.
+Disable the maker's tracking, sponsored rows and preinstalled apps I don't want:
+only disable, never uninstall system apps.
+Then build me a small, simple home screen with my favourite apps in one row,
+and check every change with a screenshot from the TV.</pre>
+</div>
+<p>You don’t have to copy anyone’s launcher: Claude can build one from scratch with exactly the settings you want. Starting from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and its <a href="https://github.com/Gathin23/cleanyourtv/blob/main/PROMPT.md">full prompt</a> gets you more for free: bug fixes, translations, and app lists that other people have tested on 66 TV models.</p>
+<p class="ps-eyebrow">Everyone is doing this</p>
+<h2>763 forks in three days</h2>
+<p>The cleanyourtv repo went up on 17 October 2026. Three days later it had about 6,400 stars and 763 forks. When I looked through the forks, 92 of them had changed the launcher in their own way:</p>
+<ul class="ps-forks not-prose">
+<li><a href="https://github.com/manojm321/jain-tv-launcher">manojm321/jain-tv-launcher</a><span>A Jain calendar on the home screen, calculated offline</span></li>
+<li><a href="https://github.com/majnioui/CleanXiaomiTV">majnioui/CleanXiaomiTV</a><span>A Prayer Times screen with the Hijri date, the idea behind mine</span></li>
+<li><a href="https://github.com/gpokhark/cleanyourtv">gpokhark/cleanyourtv</a><span>A "Last on YouTube" row of recently watched videos</span></li>
+<li><a href="https://github.com/wevbert/cleanyourtv">wevbert/cleanyourtv</a><span>A Netflix data limiter and a PlayStation tile</span></li>
+<li><a href="https://github.com/briansilah/tv-vibehack">briansilah/tv-vibehack</a><span>A frosted "liquid glass" dock with cover art</span></li>
+<li><a href="https://github.com/amineio/google-tv-apps">amineio/google-tv-apps</a><span>A bedtime clock with viewing limits for kids</span></li>
+</ul>
+<p>Each one is somebody’s TV, made for their house. That is the part I find exciting.</p>
+<p class="ps-eyebrow">The catch</p>
+<h2>The same superpower works for attackers</h2>
+<p>AI made it cheap to fork a project, change it and send the change back. That is why one small repo has hundreds of forks and a steady stream of contributions. It also makes the supply chain wider than anyone can read.</p>
+<p>The home screen is the first app your TV runs, every time. Mine can read the photos folder and knows which Wi-Fi it’s on. If someone slips harmful code into a popular repo, everyone who pulls the latest version and installs it puts that code on their TV. I merged 83 commits from the original repo without reading every line before I stopped to think about this.</p>
+<div class="ps-risk not-prose">
+<h3>What I do now</h3>
+<ul>
+<li><b>Build from my own fork.</b> Nothing updates on its own; the TV only changes when I build and install.</li>
+<li><b>Don't sync blindly.</b> If I want something new from the original, I read that change, or ask Claude to review it, and copy only that part.</li>
+<li><b>Check permissions.</b> My launcher has no internet permission, so it can't send data out by itself.</li>
+<li><b>Keep changes small.</b> A focused change is easy to read; a big merge is not.</li>
+<li><b>Close the door afterwards.</b> USB debugging goes off when I'm done.</li>
+</ul>
+</div>
+<p class="ps-eyebrow">Credits</p>
+<h2>Built on other people’s work</h2>
+<p>The launcher, the prompt and the tools come from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> by Gathin (MIT licence). The prayer-times screen was inspired by <a href="https://github.com/majnioui/CleanXiaomiTV">CleanXiaomiTV</a> by majnioui. The wallpapers are free photos from <a href="https://unsplash.com">Unsplash</a>; the photographers are listed in my fork’s notes.</p>
+<p>My changes are open source at <a href="https://github.com/Alafazam/cleanyourtv">github.com/Alafazam/cleanyourtv</a>. I sent back what fit the original: my TV’s app list, a <a href="https://github.com/Gathin23/cleanyourtv/pull/204">showcase entry</a> (merged) and a <a href="https://github.com/Gathin23/cleanyourtv/issues/207">bug report</a>.</p>
+`,excerpt:"I used Claude to take my TV's home screen apart and rebuild it for my family: no ads, our apps in one row, our photos and the day's prayer times. What changed, how to do it yourself, and the supply-chain risk that comes with it."},r=null,l={frontmatter:{title:"15 Must-Have GNOME Extensions for Anyone Switching to Linux",date:"2026-10-06",description:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac.",tags:["linux","gnome","productivity","macos"]},html:`<p>Switching to a GNOME-based distro — Ubuntu, Fedora, Pop!_OS, Debian — from Windows or macOS? Stock GNOME is clean and fast, but within an hour you’ll reach for something that isn’t there: a clipboard history, snap layouts, a hot corner that shows your windows, dark mode that follows the sun.</p>
 <p>These 15 extensions fill those gaps. The list leans toward a <strong>Mac-like feel</strong>, because I use a Mac at work and wanted my Linux machine to work the same way. I could have installed Zorin OS, which ships a Mac-style layout out of the box, but I went with Ubuntu for its faster updates and much bigger community. A handful of extensions closes the gap anyway.</p>
 <div class="story-lede">
 <p class="story-lede-label">Before the list: try Handy</p>
@@ -993,7 +1098,7 @@ Run the suite and show me the output.</pre></div>
 <li><strong>Anything you wouldn’t notice was gone.</strong> Every extension is one more thing that can break on the next GNOME release. If you can’t name the habit an extension serves, skip it.</li>
 </ul>
 <p>Start with the TL;DR table, install the five that match your oldest habits, and add the rest when you miss them.</p>
-`,excerpt:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac."},l={frontmatter:{title:"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.",date:"2026-10-10",description:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug.",tags:["linux","nvidia","ai","hardware"]},html:`<figure class="shot">
+`,excerpt:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac."},d={frontmatter:{title:"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.",date:"2026-10-10",description:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug.",tags:["linux","nvidia","ai","hardware"]},html:`<figure class="shot">
 <img src="/images/blog/old-nvidia-gpu/cover.webp" alt="A person with bright orange hair, seen from behind, frustrated in front of a colourful video game on a TV" width="1600" height="686" />
 <figcaption>That feeling when the graphics just won't keep up. Still from <a href="https://coverr.co/">Coverr</a>.</figcaption>
 </figure>
@@ -1094,7 +1199,7 @@ Run the suite and show me the output.</pre></div>
 <li><strong><a href="/tools/gpu-test-bench/gpu-test-bench.zip">Download it</a></strong> (2.6 MB) to get the live temperature graphs on your own machine: unzip, run <code>python3 serve.py</code>, and open <code>http://127.0.0.1:8767</code>. It needs only Python 3 and never leaves your computer.</li>
 <li>Got a Kepler-era NVIDIA card (GeForce 600 or 700 series) on nouveau? The <a href="/tools/gpu-test-bench/gpu-clock-guard">temperature guard script</a> and its <a href="/tools/gpu-test-bench/gpu-clock-guard.service">service file</a> are there too. Read them first, and test your own levels with a revert in place before making anything permanent.</li>
 </ul>
-`,excerpt:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."},d=null,c={frontmatter:{title:"The Day I Stopped Prioritizing Features",date:"2025-12-14",description:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention.",tags:["prioritization","roadmap","leadership"]},html:`<p>A few years ago, I was leading a team of four PMs across six products at Increff — a B2B retail-tech SaaS company serving over a hundred enterprise customers. My backlog looked like every PM’s nightmare.</p>
+`,excerpt:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."},h=null,c={frontmatter:{title:"The Day I Stopped Prioritizing Features",date:"2025-12-14",description:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention.",tags:["prioritization","roadmap","leadership"]},html:`<p>A few years ago, I was leading a team of four PMs across six products at Increff — a B2B retail-tech SaaS company serving over a hundred enterprise customers. My backlog looked like every PM’s nightmare.</p>
 <p>Sales wanted features to close deals. Customer Success wanted features to retain accounts. Onboarding wanted features to cut implementation time. Engineering wanted architectural cleanup. Founders had strategic bets they wanted placed. Customers had urgent, contract-threatening asks. And every single request came with data attached, proving why it deserved to go first.</p>
 <p>I did what most PMs do. I went looking for a better prioritization framework.</p>
 <p>RICE. MoSCoW. Value vs. Effort. Opportunity scoring. I tried variations of all of them.</p>
@@ -1142,7 +1247,7 @@ Run the suite and show me the output.</pre></div>
 <hr>
 <p><em>The operating mechanics of the framework — lists, theme-setting, the escalation chain — are also summarized in <a href="/projects/roa-prioritization">my work section</a>.</em></p>
 <p><em>If you’re running into a version of this in your own org, I’d genuinely like to hear how you’re solving it — reach out on <a href="https://www.linkedin.com/in/alafazam">LinkedIn</a>.</em></p>
-`,excerpt:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention."},h={frontmatter:{title:"The Demo Is the Spec",date:"2026-08-29",description:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides.",tags:["product","prototyping","ai","design"]},html:`<!-- The opening scene uses the story-lede treatment; the argument resumes below it. -->
+`,excerpt:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention."},p={frontmatter:{title:"The Demo Is the Spec",date:"2026-08-29",description:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides.",tags:["product","prototyping","ai","design"]},html:`<!-- The opening scene uses the story-lede treatment; the argument resumes below it. -->
 <div class="story-lede">
 <p class="story-lede-label">From the work</p>
 <p>We had a clean story for each user.</p>
@@ -1232,7 +1337,7 @@ Run the suite and show me the output.</pre></div>
 <p>Stop asking whether each screen matches its section of the document. Ask whether the product feels coherent when the user refuses to follow the document’s order.</p>
 <p>That is the standard prose cannot meet.</p>
 <p>Ship the demo, and let the thing that can feel wrong become the spec.</p>
-`,excerpt:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides."},p=null,u={frontmatter:{name:"AI-First Interface Strategy",tagline:"The platform as an intelligent backend",category:"Builds",status:"Active",impact:"Merchandising decisions in natural language",icon:"bot",order:"2",tags:["AI","Platform","MCP"]},html:`<p>Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural language instead of clicking through screens.</p>
+`,excerpt:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides."},u=null,g={frontmatter:{name:"AI-First Interface Strategy",tagline:"The platform as an intelligent backend",category:"Builds",status:"Active",impact:"Merchandising decisions in natural language",icon:"bot",order:"2",tags:["AI","Platform","MCP"]},html:`<p>Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural language instead of clicking through screens.</p>
 <h2>Problem</h2>
 <p>Powerful platforms still bottleneck on the UI. Every workflow means training users on screens, and the value is gated behind knowing where to click.</p>
 <h2>Approach</h2>
@@ -1248,7 +1353,7 @@ Run the suite and show me the output.</pre></div>
 <p>A merchandiser can ask, “rebalance next month’s OTB for the stores that under-sold this range”, and the assistant calls the right tools in the right order, with the platform’s own optimization doing the heavy lifting.</p>
 <h2>Why it matters</h2>
 <p>It decouples the platform’s value from its screens. Clients can bring their own assistant, and years of merchandising algorithms become something you can just talk to.</p>
-`,excerpt:"Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural"},g={frontmatter:{name:"GAN Thinking Mode",tagline:"Adversarial reasoning framework",category:"Frameworks & Processes",status:"Active",impact:"Kills weak ideas before they ship",icon:"brain",order:"5",tags:["Methodology","Product thinking","Notion"]},html:`<p>GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A “generator” proposes, a “discriminator” attacks, and only ideas that survive the adversarial loop move forward — surfacing weak assumptions early.</p>
+`,excerpt:"Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural"},m={frontmatter:{name:"GAN Thinking Mode",tagline:"Adversarial reasoning framework",category:"Frameworks & Processes",status:"Active",impact:"Kills weak ideas before they ship",icon:"brain",order:"5",tags:["Methodology","Product thinking","Notion"]},html:`<p>GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A “generator” proposes, a “discriminator” attacks, and only ideas that survive the adversarial loop move forward — surfacing weak assumptions early.</p>
 <h2>The idea</h2>
 <p>Most product decisions die from unexamined assumptions, not bad execution. Borrowing from generative adversarial networks, I made the critique an explicit, structured step rather than an afterthought.</p>
 <h2>How it works</h2>
@@ -1265,7 +1370,7 @@ Run the suite and show me the output.</pre></div>
 <li>The best discriminator prompts are boring: <em>what breaks at 10× scale? what does Sales promise that this doesn’t do? what’s the migration story?</em></li>
 <li>Surviving the loop is a signal a team can rally behind. “This got attacked and lived” builds more conviction than any pitch deck.</li>
 </ul>
-`,excerpt:'GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A "generator" proposes, a "discriminator" attacks, an'},m={frontmatter:{name:"KidQueue",tagline:"Parent-controlled video curation",category:"Builds",status:"In progress",impact:"Safety by curation, not moderation",icon:"play",order:"1",tags:["Consumer","Product design","Safety-first"]},html:`<p>KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and queue it up — safety by design rather than by moderation.</p>
+`,excerpt:'GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A "generator" proposes, a "discriminator" attacks, an'},f={frontmatter:{name:"KidQueue",tagline:"Parent-controlled video curation",category:"Builds",status:"In progress",impact:"Safety by curation, not moderation",icon:"play",order:"1",tags:["Consumer","Product design","Safety-first"]},html:`<p>KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and queue it up — safety by design rather than by moderation.</p>
 <h2>Why I’m building it</h2>
 <p>The default video experience for kids optimizes for watch time, not for the values a parent actually has. KidQueue flips that: the parent is the curator, and the algorithm is out of the loop.</p>
 <h2>What it does</h2>
@@ -1278,7 +1383,7 @@ Run the suite and show me the output.</pre></div>
 <p>“Kids mode” usually means moderation: filtering the worst content out of an infinite feed. Moderation asks <em>is this bad enough to block?</em>, an unwinnable game against an endless catalog. Curation asks <em>is this good enough to include?</em>, a game a parent can win in ten minutes a week. When the queue ends, it ends, and that’s a feature rather than a bug.</p>
 <h2>Why it matters beyond kids’ video</h2>
 <p>It’s the same argument I make in enterprise software: defaults are the real product, and whoever controls the default controls the outcome. KidQueue moves the default from “the platform decides what plays next” to “the parent already decided.”</p>
-`,excerpt:"KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and"},f={frontmatter:{name:"Return-on-Attention (ROA) Prioritization",tagline:"One lens to align focus across teams",category:"Frameworks & Processes",impact:"Urgent-critical asks → 0 per sprint",icon:"target",order:"4",tags:["Prioritization","Roadmap","Alignment"]},html:`<p><strong>Return on Attention (ROA)</strong> is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus enterprise customers. Its core claim is simple: the scarce resource in a product organization is not engineering hours or money. It’s <strong>attention</strong> — leadership attention, department-head attention, PM attention. ROA is a system for deciding where that attention gets deployed, so that spending it <em>once, upstream</em> keeps paying out for months, instead of being re-spent in a crisis meeting every two weeks.</p>
+`,excerpt:"KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and"},y={frontmatter:{name:"Return-on-Attention (ROA) Prioritization",tagline:"One lens to align focus across teams",category:"Frameworks & Processes",impact:"Urgent-critical asks → 0 per sprint",icon:"target",order:"4",tags:["Prioritization","Roadmap","Alignment"]},html:`<p><strong>Return on Attention (ROA)</strong> is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus enterprise customers. Its core claim is simple: the scarce resource in a product organization is not engineering hours or money. It’s <strong>attention</strong> — leadership attention, department-head attention, PM attention. ROA is a system for deciding where that attention gets deployed, so that spending it <em>once, upstream</em> keeps paying out for months, instead of being re-spent in a crisis meeting every two weeks.</p>
 <blockquote>
 <p>The origin story — why RICE, MoSCoW, and friends kept failing me, and how this emerged from first principles — is in the essay <a href="/blog/return-on-attention">The Day I Stopped Prioritizing Features</a>. This page is the reference manual: what the framework is and how it works.</p>
 </blockquote>
@@ -1470,7 +1575,7 @@ Run the suite and show me the output.</pre></div>
 <li><strong>Not portable as-is.</strong> It fits Increff’s shape: multi-product, B2B, engineers mapped to products. Steal the reasoning — attention is the constraint; negotiate upstream, on a rolling window — and rebuild the mechanics for your own org. That loop is the transferable part.</li>
 </ul>
 <p><em>Full narrative version, including everything that broke before this worked: <a href="/blog/return-on-attention">The Day I Stopped Prioritizing Features</a>.</em></p>
-`,excerpt:"Return on Attention (ROA) is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus en"},y={frontmatter:{name:"Two-Clock Release & Delivery",tagline:"Continuous merge, controlled client releases",category:"Frameworks & Processes",impact:"Eliminated pod blocking & unsafe rollbacks",icon:"clock",order:"3",tags:["Delivery","Feature flags","Release management"]},html:`<p>Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on release cadence and clients never get surprised.</p>
+`,excerpt:"Return on Attention (ROA) is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus en"},w={frontmatter:{name:"Two-Clock Release & Delivery",tagline:"Continuous merge, controlled client releases",category:"Frameworks & Processes",impact:"Eliminated pod blocking & unsafe rollbacks",icon:"clock",order:"3",tags:["Delivery","Feature flags","Release management"]},html:`<p>Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on release cadence and clients never get surprised.</p>
 <h2>Problem</h2>
 <p>When merge and release are the same clock, pods block each other waiting for a release train, and rollbacks are risky because half-finished work is already merged.</p>
 <h2>Approach</h2>
@@ -1480,4 +1585,4 @@ Run the suite and show me the output.</pre></div>
 <h2>The part that’s cultural, not technical</h2>
 <p>Feature flags have to be owned as a <em>product</em> tool. Which flag turns on for which client, in which release, is a product decision. The flag system is really a client-communication system wearing an engineering costume.</p>
 <p>Enterprise clients don’t want surprises; they want a predictable cadence they can plan training and change management around. The slow clock gives them that, while the fast clock keeps engineering from ever waiting on a release train.</p>
-`,excerpt:"Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on relea"};function a(t){return Object.entries(t).flatMap(([e,n])=>n?[{slug:e.split("/").pop().replace(/\.md$/,""),...n}]:[])}const w=Object.assign({"../content/blog/building-kidqueue.md":null,"../content/blog/building-with-claude.md":i,"../content/blog/gan-thinking-mode.md":o,"../content/blog/must-have-gnome-extensions.md":r,"../content/blog/old-nvidia-gpu-linux.md":l,"../content/blog/platform-as-intelligent-backend.md":d,"../content/blog/return-on-attention.md":c,"../content/blog/the-demo-is-the-spec.md":h,"../content/blog/two-clock-delivery.md":p}),v=Object.assign({"../content/projects/ai-first-interface.md":u,"../content/projects/gan-thinking-mode.md":g,"../content/projects/kidqueue.md":m,"../content/projects/roa-prioritization.md":f,"../content/projects/two-clock-delivery.md":y}),b=a(w).sort((t,e)=>(e.frontmatter.date||"").localeCompare(t.frontmatter.date||"")),s=a(v).sort((t,e)=>Number(t.frontmatter.order||0)-Number(e.frontmatter.order||0)),T=t=>b.find(e=>e.slug===t),I=t=>s.find(e=>e.slug===t),k=["Builds","Frameworks & Processes"],x={Builds:"Products and systems I've designed and shipped.","Frameworks & Processes":"Operating frameworks and processes I've designed and run at scale."},A=()=>k.map(e=>({category:e,description:x[e]||"",items:s.filter(n=>(n.frontmatter.category||"Builds")===e)})).filter(e=>e.items.length>0),S=[{href:"/projects/emi-calculator",name:"EMI Scenario Planner",tagline:"Loan what-ifs, side by side",description:"Build home-loan repayment scenarios and compare them: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI, a one-off prepayment — and what each one saves in interest and years.",tags:["Personal finance","Home loan","India"],icon:"calculator"}],C=t=>t?new Date(t).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"";export{S as T,T as a,b,C as f,I as g,A as p};
+`,excerpt:"Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on relea"};function a(t){return Object.entries(t).flatMap(([e,n])=>n?[{slug:e.split("/").pop().replace(/\.md$/,""),...n}]:[])}const v=Object.assign({"../content/blog/building-kidqueue.md":null,"../content/blog/building-with-claude.md":i,"../content/blog/era-of-personal-software.md":o,"../content/blog/gan-thinking-mode.md":r,"../content/blog/must-have-gnome-extensions.md":l,"../content/blog/old-nvidia-gpu-linux.md":d,"../content/blog/platform-as-intelligent-backend.md":h,"../content/blog/return-on-attention.md":c,"../content/blog/the-demo-is-the-spec.md":p,"../content/blog/two-clock-delivery.md":u}),b=Object.assign({"../content/projects/ai-first-interface.md":g,"../content/projects/gan-thinking-mode.md":m,"../content/projects/kidqueue.md":f,"../content/projects/roa-prioritization.md":y,"../content/projects/two-clock-delivery.md":w}),k=a(v).sort((t,e)=>(e.frontmatter.date||"").localeCompare(t.frontmatter.date||"")),s=a(b).sort((t,e)=>Number(t.frontmatter.order||0)-Number(e.frontmatter.order||0)),I=t=>k.find(e=>e.slug===t),A=t=>s.find(e=>e.slug===t),x=["Builds","Frameworks & Processes"],T={Builds:"Products and systems I've designed and shipped.","Frameworks & Processes":"Operating frameworks and processes I've designed and run at scale."},S=()=>x.map(e=>({category:e,description:T[e]||"",items:s.filter(n=>(n.frontmatter.category||"Builds")===e)})).filter(e=>e.items.length>0),C=[{href:"/projects/emi-calculator",name:"EMI Scenario Planner",tagline:"Loan what-ifs, side by side",description:"Build home-loan repayment scenarios and compare them: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI, a one-off prepayment — and what each one saves in interest and years.",tags:["Personal finance","Home loan","India"],icon:"calculator"}],P=t=>t?new Date(t).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"";export{C as T,I as a,k as b,P as f,A as g,S as p};
