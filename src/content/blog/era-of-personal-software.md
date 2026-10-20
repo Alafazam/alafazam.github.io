@@ -37,10 +37,20 @@ So I opened Claude Code on my laptop and asked it to help me take back the home 
 <ol class="ps-steps not-prose">
 <li><h3>Found the TV and backed it up</h3><p>With USB debugging on, the TV accepts commands over Wi-Fi. Claude found it, saved the list of apps and every setting, and wrote a restore script before touching anything.</p></li>
 <li><h3>Switched off 33 apps</h3><p>Tracking, sponsored rows, Xiaomi's PatchWall, partner auto-installs and apps nobody used. They are disabled, not deleted: one command brings them all back.</p></li>
-<li><h3>Replaced the home screen</h3><p>The open-source <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> launcher, set up with our eight apps in one row. Inputs, Wi-Fi and Settings stay one press away.</p></li>
+<li><h3>Replaced the home screen</h3><p>I copied the open-source <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> launcher and set it up with our eight apps in one row. You can do the same, copy <a href="https://github.com/Alafazam/cleanyourtv">mine</a>, or just ask Claude to build a launcher the way you want it.</p></li>
 <li><h3>Added wallpapers that change</h3><p>A folder of photos changes behind Home every 30 minutes. A Wallpaper tile opens a picker, so anyone can choose one with the remote.</p></li>
 <li><h3>Added prayer times</h3><p>Calculated on the TV, with no internet: Bengaluru, Karachi method, Hanafi Asr, plus the Hijri date. The current and next prayer sit under the clock, a tile opens the full day, and the screensaver shows it over the photos.</p></li>
 </ol>
+
+<figure class="ps-wallstrip not-prose">
+<div class="ps-wallstrip-grid">
+<img src="/images/blog/personal-software-tv/wallpaper-01.jpg" alt="Home with a white mosque, gold domes and a crescent moon as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-04.jpg" alt="Home with minarets against a red sunset as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-09.jpg" alt="Home with the Sheikh Zayed Grand Mosque reflected in water at dusk as the wallpaper" width="1280" height="720" loading="lazy" />
+<img src="/images/blog/personal-software-tv/wallpaper-12.jpg" alt="Home with the Kaaba and pilgrims as the wallpaper" width="1280" height="720" loading="lazy" />
+</div>
+<figcaption>The same home screen with four of our wallpapers. A new one appears every 30 minutes, or you pick one from the Wallpaper tile.</figcaption>
+</figure>
 
 <div class="ps-stats not-prose">
 <div class="ps-stat"><b>33</b><span>apps switched off, all reversible</span></div>
