@@ -364,7 +364,7 @@ anything else.</pre></div>
       <g class="ga" style="--d:3.5s;--fy:140px"><circle class="g-f" cx="700" cy="80" r="17"/><text class="g-lbl" x="700" y="80">E</text></g>
     </svg>
     <div class="row c2 mt">
-      <div class="card soft"><h3>git pull</h3><p>Gets new commits from GitHub and adds them to your branch. Use <code>git pull --rebase</code>, so your local commits stay on top.</p></div>
+      <div class="card soft"><h3>git pull</h3><p>Gets new commits from GitHub and adds them to your branch. On a feature branch, <code>git pull origin main</code> brings in main's new commits with a merge commit.</p></div>
       <div class="card soft"><h3>git push</h3><p>Sends your commits to GitHub. Push your feature branch. Never push directly to main.</p></div>
     </div>
   </div>
@@ -402,73 +402,80 @@ anything else.</pre></div>
 </section>
 
 <section class="slide" data-part="1" aria-label="Merge commit">
-  <h2>Strategy 1: merge commit</h2>
-  <p class="sub">Your branch grows while main moves. At merge time, git joins the two streams with a new merge commit M, which has two parents and its own message.</p>
+  <h2>Flow 1: merge commit</h2>
+  <p class="sub">Main keeps every commit from your branch, plus a merge commit for the PR. The history shows the real path, with side streams. Good for long-lived branches, such as a release branch.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 300" role="img" aria-label="A feature branch starts at C and gets commits F1, F2 and F3, while main gets D and E. Then F3 and E join in a new merge commit M on main, with the message: Merge pull request #123 from feature/min-display-qty.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="Step 1: a branch starts at C and gets F1, F2 and F3 while main gets D and E. Step 2: git pull origin main adds merge commit M1 on the branch. Step 3: you resolve conflicts. Step 4: you raise PR #123. Step 5: the PR merges with merge commit M2 on main, whose parents are E and M1.">
       <text class="g-row" x="20" y="205">main</text>
-      <text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text>
       <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
-      <!-- Drawn before the commits, so the line passes under C. -->
+      <text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text>
+      <!-- Lines are drawn before the commits, so they pass under them. -->
       <path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.3s"/>
+      <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
+      <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
+      <line class="g-feat-line gd" pathLength="1" x1="567" y1="90" x2="623" y2="90" style="--d:2.7s"/>
+      <path class="g-line gd" pathLength="1" d="M567,200 C610,200 600,90 623,90" style="--d:2.7s"/>
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="711" y2="200" style="--d:5.4s"/>
+      <path class="g-feat-line gd" pathLength="1" d="M657,90 C700,90 690,200 711,200" style="--d:5.4s"/>
       <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
       <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
-
-      <g class="ga" style="--d:0.7s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
-      <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
-      <g class="ga" style="--d:1s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
-      <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
-      <g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
-
       <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:1.6s"/>
       <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
       <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:1.9s"/>
       <g class="ga" style="--d:1.9s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <g class="ga" style="--d:0.7s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <g class="ga" style="--d:1s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
 
-      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="621" y2="200" style="--d:2.5s"/>
-      <path class="g-feat-line gd" pathLength="1" d="M567,90 C610,90 600,200 621,200" style="--d:2.5s"/>
-      <g class="ga" style="--d:3s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="19"/><text class="g-lbl w" x="640" y="200">M</text></g>
-
-      <g class="ga" style="--d:3.5s;--fy:-12px">
-        <line class="g-pop-tail" x1="640" y1="221" x2="640" y2="236"/>
-        <rect class="g-pop" x="560" y="236" width="390" height="56" rx="8"/>
-        <text class="g-pop-msg" x="576" y="258">Merge pull request #123</text>
-        <text class="g-pop-sub" x="576" y="280">from feature/min-display-qty · parents: E, F3</text>
-      </g>
+      <text class="g-cmd ga" x="100" y="40" style="--d:2.4s">git pull origin main</text>
+      <g class="ga" style="--d:3s;--fs:0.3"><circle class="g-f" cx="640" cy="90" r="17"/><text class="g-lbl" x="640" y="90">M1</text></g>
+      <g class="go" style="--d:4.4s"><g class="ga" style="--d:3.5s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">Resolve conflicts, run tests, commit</text>
+      </g></g>
+      <g class="go" style="--d:5.4s"><g class="ga" style="--d:4.5s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">Raise PR #123: feature → main</text>
+      </g></g>
+      <g class="ga" style="--d:5.9s;--fs:0.3"><circle class="g-new" cx="730" cy="200" r="19"/><text class="g-lbl w" x="730" y="200">M2</text></g>
+      <g><g class="ga" style="--d:6.3s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">Merge pull request #123 from feature/x</text>
+      </g></g>
+      <text class="g-note ga" x="765" y="205" style="--d:6.6s">parents: E, M1</text>
     </svg>
-    <div class="row c3 mt">
-      <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, plus M. The history shows the true path, with many side streams.</p></div>
-      <div class="card soft"><h3>Roll back</h3><p><code>git revert -m 1 M</code> removes the whole feature. You must tell git which parent to keep.</p></div>
-      <div class="card soft"><h3>Good for</h3><p>Long-lived branches, such as a release branch that merges back into main.</p></div>
-    </div>
+    <ol class="steps mt">
+      <li class="gs" style="--d:0.3s"><b>1 Branch</b><code>git switch -c feature/x</code><span>Commit as often as you like.</span></li>
+      <li class="gs" style="--d:2.4s"><b>2 Bring main in</b><code>git pull origin main</code><span>Merge commit M1 on your branch.</span></li>
+      <li class="gs" style="--d:3.5s"><b>3 Resolve</b><code>git commit</code><span>Fix conflicts, run the tests.</span></li>
+      <li class="gs" style="--d:4.5s"><b>4 Raise a PR</b><code>gh pr create</code><span>Review on GitHub.</span></li>
+      <li class="gs" style="--d:5.4s"><b>5 Merge commit</b><code>gh pr merge --merge</code><span>Merge commit M2 on main.</span></li>
+    </ol>
   </div>
 </section>
 
 <section class="slide" data-part="1" aria-label="Rebase">
-  <h2>Strategy 2: rebase</h2>
-  <p class="sub">Main moves while you work. <code>git rebase origin/main</code> replays your commits, one by one, on top of the new main. The PR then adds them to main in a straight line.</p>
+  <h2>Flow 2: rebase</h2>
+  <p class="sub">You replay your commits on top of the new main, then main takes them as they are. The history is a straight line with every commit. Good when each commit is a clean, separate step.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 300" role="img" aria-label="A feature branch starts at C and gets F1, F2 and F3, while main gets D and E. git rebase origin/main moves F1, F2 and F3 so that the branch starts at E. A PR is raised, and the merge moves F1, F2 and F3 onto main in a straight line, with no merge commit.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="Step 1: a branch starts at C and gets F1, F2 and F3 while main gets D and E. Step 2: git rebase origin/main moves F1, F2 and F3 so that the branch starts at E. Step 3: you resolve conflicts. Step 4: you raise PR #123. Step 5: the merge moves F1, F2 and F3 onto main in a straight line, with no merge commit.">
       <text class="g-row" x="20" y="205">main</text>
-      <g class="go" style="--d:4.8s"><text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text></g>
       <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
+      <g class="go" style="--d:5.4s"><text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text></g>
       <!-- Lines are drawn before the commits, so they pass under C and E. -->
       <g class="go" style="--d:2.6s"><path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.3s"/></g>
-      <g class="go" style="--d:4.8s"><path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:3.3s"/></g>
-      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="623" y2="200" style="--d:5.3s"/>
+      <g class="go" style="--d:5.4s"><path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:3.3s"/></g>
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="623" y2="200" style="--d:5.9s"/>
       <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
       <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
-
-      <!-- 1. Work on the branch while main moves. -->
       <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:1.6s"/>
       <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
       <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:1.9s"/>
       <g class="ga" style="--d:1.9s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
-
-      <!-- F1-F3 and their lines move as one: right at the rebase (2), then down at the merge (4). -->
-      <g class="gm" style="--d:4.8s;--mx:0px;--my:110px">
+      <!-- F1-F3 and their lines move as one: right at the rebase (step 2), then down at the merge (step 5). -->
+      <g class="gm" style="--d:5.4s;--mx:0px;--my:110px">
         <g class="gm" style="--d:2.6s;--mx:270px;--my:0px">
           <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
           <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
@@ -477,54 +484,82 @@ anything else.</pre></div>
           <g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
         </g>
       </g>
-
-      <!-- 2. Rebase. -->
       <text class="g-cmd ga" x="100" y="40" style="--d:2.3s">git rebase origin/main</text>
-
-      <!-- 3. Raise a PR. -->
-      <g class="go" style="--d:4.8s"><g class="ga" style="--d:3.9s;--fy:8px">
-        <rect class="g-pop" x="600" y="16" width="340" height="34" rx="8"/>
-        <text class="g-pop-msg" x="616" y="38">Raise PR #123: feature → main</text>
+      <g class="go" style="--d:4.4s"><g class="ga" style="--d:3.6s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">Resolve conflicts, git rebase --continue</text>
       </g></g>
-
-      <!-- 4. Merge. -->
-      <text class="g-note mid ga" x="730" y="250" style="--d:5.6s">merged: same changes, new commit IDs, no merge commit</text>
+      <g class="go" style="--d:5.4s"><g class="ga" style="--d:4.5s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">Raise PR #123: feature → main</text>
+      </g></g>
+      <text class="g-note mid ga" x="730" y="250" style="--d:6.2s">merged: same changes, new commit IDs, no merge commit</text>
     </svg>
-    <div class="row c3 mt">
-      <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, in a straight line. There is no merge commit.</p></div>
-      <div class="card soft"><h3>Roll back</h3><p>Revert each commit of the feature, newest first. You must find all of them.</p></div>
-      <div class="card soft"><h3>Good for</h3><p>Branches where each commit is a clean, separate step that you want to keep on main.</p></div>
-    </div>
+    <ol class="steps mt">
+      <li class="gs" style="--d:0.3s"><b>1 Branch</b><code>git switch -c feature/x</code><span>Commit as often as you like.</span></li>
+      <li class="gs" style="--d:2.3s"><b>2 Bring main in</b><code>git rebase origin/main</code><span>Your commits move on top of main.</span></li>
+      <li class="gs" style="--d:3.6s"><b>3 Resolve</b><code>git rebase --continue</code><span>Fix conflicts per commit, then push --force-with-lease.</span></li>
+      <li class="gs" style="--d:4.5s"><b>4 Raise a PR</b><code>gh pr create</code><span>Review on GitHub.</span></li>
+      <li class="gs" style="--d:5.4s"><b>5 Rebase and merge</b><code>gh pr merge --rebase</code><span>Your commits go on main.</span></li>
+    </ol>
   </div>
 </section>
 
-<section class="slide" data-part="1" aria-label="Squash">
-  <h2>Strategy 3: squash and merge</h2>
-  <p class="sub">Git combines all your commits into one new commit S and puts it on top of main. The result is a straight line with one commit per PR.</p>
+<section class="slide" data-part="1" aria-label="Squash and merge">
+  <h2>Flow 3: squash and merge</h2>
+  <p class="sub">Bring main into your branch before the PR, so you find conflicts on your branch, not on main. Then main gets one commit per PR.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commits F1, F2 and F3 move together into one commit S, which goes on main after E.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="Step 1: a branch starts at C and gets F1, F2 and F3 while main gets D and E. Step 2: git pull origin main adds a merge commit M on the branch, joined to E. Step 3: you resolve conflicts and run the tests. Step 4: you raise PR #123. Step 5: squash and merge combines F1, F2, F3 and M into one commit S on main.">
       <text class="g-row" x="20" y="205">main</text>
-      <text class="g-row go" x="20" y="95" style="--d:0.3s">feature</text>
-      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
+      <g class="go" style="--d:5.4s"><text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text></g>
+      <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
+      <!-- Lines are drawn before the commits, so they pass under them. -->
+      <g class="go" style="--d:5.4s">
+        <path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.3s"/>
+        <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
+        <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
+        <line class="g-feat-line gd" pathLength="1" x1="567" y1="90" x2="623" y2="90" style="--d:2.7s"/>
+        <path class="g-line gd" pathLength="1" d="M567,200 C610,200 600,90 623,90" style="--d:2.7s"/>
+      </g>
       <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
       <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
-      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
-      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
-      <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90 L533,90" style="--d:0.3s"/>
-      <g class="go" style="--d:0.5s;--tx:270px;--ty:110px;--ts:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
-      <g class="go" style="--d:0.5s;--tx:180px;--ty:110px;--ts:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
-      <g class="go" style="--d:0.5s;--tx:90px;--ty:110px;--ts:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
 
-      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="619" y2="200" style="--d:1s"/>
-      <g class="ga" style="--d:1s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="21"/><text class="g-lbl w" x="640" y="200">S</text></g>
-      <text class="g-note ga" x="675" y="205" style="--d:1.4s">S = F1 + F2 + F3, one commit for PR #123</text>
+      <!-- Step 1: work on the branch while main moves. -->
+      <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:1.6s"/>
+      <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:1.9s"/>
+      <g class="ga" style="--d:1.9s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <g class="go" style="--d:5.4s;--tx:270px;--ty:110px;--ts:0.4"><g class="ga" style="--d:0.7s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g></g>
+      <g class="go" style="--d:5.4s;--tx:180px;--ty:110px;--ts:0.4"><g class="ga" style="--d:1s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g></g>
+      <g class="go" style="--d:5.4s;--tx:90px;--ty:110px;--ts:0.4"><g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g></g>
+
+      <!-- Step 2: bring main into the branch with a merge commit. -->
+      <text class="g-cmd ga" x="100" y="40" style="--d:2.4s">git pull origin main</text>
+      <g class="go" style="--d:5.4s;--tx:0px;--ty:110px;--ts:0.4"><g class="ga" style="--d:3s;--fs:0.3"><circle class="g-f" cx="640" cy="90" r="17"/><text class="g-lbl" x="640" y="90">M</text></g></g>
+
+      <!-- Step 3: resolve conflicts. Step 4: raise a PR. -->
+      <g class="go" style="--d:4.4s"><g class="ga" style="--d:3.5s;--fy:8px">
+        <rect class="g-pop" x="580" y="16" width="360" height="34" rx="8"/>
+        <text class="g-pop-msg" x="596" y="38">Resolve conflicts, run tests, commit</text>
+      </g></g>
+      <g class="go" style="--d:5.4s"><g class="ga" style="--d:4.5s;--fy:8px">
+        <rect class="g-pop" x="580" y="16" width="360" height="34" rx="8"/>
+        <text class="g-pop-msg" x="596" y="38">Raise PR #123: feature → main</text>
+      </g></g>
+
+      <!-- Step 5: squash and merge. -->
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="619" y2="200" style="--d:5.8s"/>
+      <g class="ga" style="--d:5.9s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="21"/><text class="g-lbl w" x="640" y="200">S</text></g>
+      <text class="g-note ga" x="675" y="205" style="--d:6.3s">S = F1 + F2 + F3 + M (PR #123)</text>
     </svg>
-    <div class="row c3 mt">
-      <div class="card soft"><h3>What main keeps</h3><p>One commit per PR. The PR title and description become its message. The small commits stay in the PR.</p></div>
-      <div class="card soft"><h3>Roll back</h3><p><code>git revert S</code> removes the whole feature in one step.</p></div>
-      <div class="card soft"><h3>Good for</h3><p>Most feature and fix PRs. GitHub calls this <b>Squash and merge</b>.</p></div>
-    </div>
+    <ol class="steps mt">
+      <li class="gs" style="--d:0.3s"><b>1 Branch</b><code>git switch -c feature/x</code><span>Commit as often as you like.</span></li>
+      <li class="gs" style="--d:2.4s"><b>2 Bring main in</b><code>git pull origin main</code><span>A merge commit on your branch.</span></li>
+      <li class="gs" style="--d:3.5s"><b>3 Resolve</b><code>git commit</code><span>Fix conflicts, run the tests.</span></li>
+      <li class="gs" style="--d:4.5s"><b>4 Raise a PR</b><code>gh pr create</code><span>Review on GitHub.</span></li>
+      <li class="gs" style="--d:5.4s"><b>5 Squash and merge</b><code>gh pr merge --squash</code><span>One commit on main.</span></li>
+    </ol>
   </div>
 </section>
 
@@ -562,16 +597,17 @@ Do not push to main.</pre></div>
         </ul>
       </div>
       <div class="prompt"><div class="ph">Every feature</div><pre>git switch main
-git pull --rebase
+git pull
 git switch -c feature/min-display-qty
 
 # commit as often as you like
 
-git fetch origin
-git rebase origin/main
-git push --force-with-lease
+git pull origin main     # bring main in
+# resolve conflicts, run the tests, commit
+git push
 
-# open a PR, then: Squash and merge</pre></div>
+gh pr create
+gh pr merge --squash     # after review</pre></div>
     </div>
   </div>
 </section>

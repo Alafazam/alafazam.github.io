@@ -810,6 +810,16 @@
   from { opacity: 1; transform: none; }
   to { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--ts, 1)); }
 }
+/* Step strip under a git diagram. Each .gs step appears at --d and glows for a moment. */
+.deck .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1cqw; list-style: none; padding: 0; margin-bottom: 0; }
+.deck .steps li { display: flex; flex-direction: column; gap: 0.3cqw; padding: 1cqw 1.2cqw; border: 1px solid var(--dk-line); border-radius: var(--radius); background: var(--dk-soft); font-size: var(--t-xs); color: var(--dk-muted); }
+.deck .steps b { font-size: var(--t-sm); color: var(--dk-ink); }
+.deck .steps code { color: var(--dk-accent); font-size: var(--t-xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.deck .slide.active .gs { animation: dk-git-in 0.6s ease-out var(--d, 0s) both, dk-step-glow 1.8s ease-out var(--d, 0s) both; }
+@keyframes dk-step-glow {
+  from { border-color: var(--dk-accent); background: var(--dk-accent-soft); }
+  to { border-color: var(--dk-line); background: var(--dk-soft); }
+}
 @keyframes dk-git-move {
   from { transform: none; }
   to { transform: translate(var(--mx, 0px), var(--my, 0px)); }
@@ -822,6 +832,7 @@
   .deck .slide.active .ga, .deck .slide.active .gd { animation: none; }
   .deck .slide.active .go { animation: none; opacity: 0; }
   .deck .slide.active .gm { animation: none; transform: translate(var(--mx, 0px), var(--my, 0px)); }
+  .deck .slide.active .gs { animation: none; }
 }
 @media (max-width: 820px), (max-aspect-ratio: 1/1) {
   .deck-tabs .tl { display: none; }
@@ -830,7 +841,7 @@
   .deck-viewport { align-items: stretch; }
   .deck .stage, .deck:fullscreen .stage { width: 100%; height: 100%; aspect-ratio: auto; }
   .deck .slide { padding: 24px 20px; }
-  .deck .row.c2, .deck .row.c3, .deck .row.c4, .deck .row.cw, .deck .row.cn, .deck .parts, .deck .rules, .deck .dd, .deck .lanes, .deck .mult { grid-template-columns: 1fr; }
+  .deck .row.c2, .deck .row.c3, .deck .row.c4, .deck .row.cw, .deck .row.cn, .deck .parts, .deck .rules, .deck .dd, .deck .lanes, .deck .mult, .deck .steps { grid-template-columns: 1fr; }
   .deck .lanes .arrow { transform: rotate(90deg); }
   .deck .checklist { columns: 1; }
   .deck .body { justify-content: flex-start; }
