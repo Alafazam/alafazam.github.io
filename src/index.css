@@ -810,6 +810,19 @@
   from { opacity: 1; transform: none; }
   to { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--ts, 1)); }
 }
+/* Stage labels above a git slide; .on marks the stage the slide is about. */
+.deck .stages { display: flex; flex-wrap: wrap; gap: 0.6cqw; list-style: none; padding: 0; margin: 0 0 1cqw; font-size: var(--t-xs); }
+.deck .stages li { padding: 0.2em 0.8em; border: 1px solid var(--dk-line); border-radius: 9999px; color: var(--dk-muted); }
+.deck .stages li.on { border-color: var(--dk-accent-line); background: var(--dk-accent-soft); color: var(--dk-accent); font-weight: 650; }
+
+/* Side-by-side comparison panels; .chosen marks the option we recommend. */
+.deck .panels { align-items: stretch; }
+.deck .panel { display: flex; flex-direction: column; gap: 0.8cqw; padding: 1.2cqw 1.4cqw; border: 1px solid var(--dk-line); border-radius: var(--radius); }
+.deck .panel.chosen { border-color: var(--dk-accent); background: var(--dk-accent-soft); }
+.deck .panel h3 { display: flex; align-items: center; justify-content: space-between; gap: 0.6em; margin: 0; }
+.deck .panel h3 .tag { margin: 0; }
+.deck .panel p { font-size: var(--t-xs); color: var(--dk-muted); }
+
 /* Step strip under a git diagram. Each .gs step appears at --d and glows for a moment. */
 .deck .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1cqw; list-style: none; padding: 0; margin-bottom: 0; }
 .deck .steps li { display: flex; flex-direction: column; gap: 0.3cqw; padding: 1cqw 1.2cqw; border: 1px solid var(--dk-line); border-radius: var(--radius); background: var(--dk-soft); font-size: var(--t-xs); color: var(--dk-muted); }
