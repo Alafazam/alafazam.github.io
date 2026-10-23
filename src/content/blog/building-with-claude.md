@@ -447,29 +447,48 @@ anything else.</pre></div>
 
 <section class="slide" data-part="1" aria-label="Rebase">
   <h2>Strategy 2: rebase</h2>
-  <p class="sub">Git replays each of your commits, one by one, on top of the newest main. The result is a straight line.</p>
+  <p class="sub">Main moves while you work. <code>git rebase origin/main</code> replays your commits, one by one, on top of the new main. The PR then adds them to main in a straight line.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commits F1, F2 and F3 leave the branch and are replayed on main after E as new commits F1 prime, F2 prime and F3 prime.">
+    <svg class="dia" viewBox="0 0 960 300" role="img" aria-label="A feature branch starts at C and gets F1, F2 and F3, while main gets D and E. git rebase origin/main moves F1, F2 and F3 so that the branch starts at E. A PR is raised, and the merge moves F1, F2 and F3 onto main in a straight line, with no merge commit.">
       <text class="g-row" x="20" y="205">main</text>
-      <text class="g-row go" x="20" y="95" style="--d:0.4s">feature</text>
-      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
+      <g class="go" style="--d:4.8s"><text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text></g>
+      <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
+      <!-- Lines are drawn before the commits, so they pass under C and E. -->
+      <g class="go" style="--d:2.6s"><path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.3s"/></g>
+      <g class="go" style="--d:4.8s"><path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:3.3s"/></g>
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="623" y2="200" style="--d:5.3s"/>
       <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
       <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
-      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
-      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
-      <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90 L533,90" style="--d:0.4s"/>
-      <g class="go" style="--d:0.4s"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
-      <g class="go" style="--d:0.7s"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
-      <g class="go" style="--d:1s"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
 
-      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="623" y2="200" style="--d:0.6s"/>
-      <g class="ga" style="--d:0.6s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="640" cy="200" r="17"/><text class="g-lbl" x="640" y="200">F1′</text></g>
-      <line class="g-line gd" pathLength="1" x1="657" y1="200" x2="713" y2="200" style="--d:0.9s"/>
-      <g class="ga" style="--d:0.9s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="730" cy="200" r="17"/><text class="g-lbl" x="730" y="200">F2′</text></g>
-      <line class="g-line gd" pathLength="1" x1="747" y1="200" x2="803" y2="200" style="--d:1.2s"/>
-      <g class="ga" style="--d:1.2s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="820" cy="200" r="17"/><text class="g-lbl" x="820" y="200">F3′</text></g>
-      <text class="g-note mid ga" x="730" y="250" style="--d:1.7s">new commits with new IDs</text>
+      <!-- 1. Work on the branch while main moves. -->
+      <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:1.6s"/>
+      <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:1.9s"/>
+      <g class="ga" style="--d:1.9s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+
+      <!-- F1-F3 and their lines move as one: right at the rebase (2), then down at the merge (4). -->
+      <g class="gm" style="--d:4.8s;--mx:0px;--my:110px">
+        <g class="gm" style="--d:2.6s;--mx:270px;--my:0px">
+          <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
+          <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
+          <g class="ga" style="--d:0.7s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+          <g class="ga" style="--d:1s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+          <g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+        </g>
+      </g>
+
+      <!-- 2. Rebase. -->
+      <text class="g-cmd ga" x="100" y="40" style="--d:2.3s">git rebase origin/main</text>
+
+      <!-- 3. Raise a PR. -->
+      <g class="go" style="--d:4.8s"><g class="ga" style="--d:3.9s;--fy:8px">
+        <rect class="g-pop" x="600" y="16" width="340" height="34" rx="8"/>
+        <text class="g-pop-msg" x="616" y="38">Raise PR #123: feature → main</text>
+      </g></g>
+
+      <!-- 4. Merge. -->
+      <text class="g-note mid ga" x="730" y="250" style="--d:5.6s">merged: same changes, new commit IDs, no merge commit</text>
     </svg>
     <div class="row c3 mt">
       <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, in a straight line. There is no merge commit.</p></div>
