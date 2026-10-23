@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type TouchEvent as ReactTouchEvent } from 'react';
+import { RotateCcw } from 'lucide-react';
 
 interface DeckContentProps {
   title: string;
@@ -7,35 +8,17 @@ interface DeckContentProps {
 
 interface DeckPart {
   id: string;
-  title: string;
   tab: string;
 }
 
 // Horizontal finger travel, in pixels, that counts as a swipe to the next or previous slide.
 const SWIPE_THRESHOLD_PX = 50;
-const INTRO_PART_ID = '0';
-const INTRO_PART_TITLE = 'Introduction';
+// Elements that animate when their slide becomes active (see the git diagram styles in index.css).
+const ANIMATED_SELECTOR = '.ga, .go, .gd';
 
 const slideIndexFromHash = (total: number): number => {
   const n = parseInt(window.location.hash.slice(1), 10);
   return Number.isNaN(n) || n < 1 || n > total ? 0 : n - 1;
-};
-
-// "Part 2: The Claude Code workflow" on the left of each slide's footer, "2.03" on the right.
-const buildSlideFoot = (slides: HTMLElement[], index: number, partTitles: Map<string, string>): HTMLElement => {
-  const partId = slides[index].dataset.part ?? INTRO_PART_ID;
-  const positionInPart = slides.slice(0, index + 1).filter((s) => s.dataset.part === partId).length;
-
-  const left = document.createElement('span');
-  left.textContent = index === 0 ? '' : partTitles.get(partId) ?? '';
-  const right = document.createElement('span');
-  right.textContent =
-    partId === INTRO_PART_ID ? String(index + 1) : `${partId}.${String(positionInPart).padStart(2, '0')}`;
-
-  const foot = document.createElement('div');
-  foot.className = 'slide-foot';
-  foot.append(left, right);
-  return foot;
 };
 
 // Renders a `layout: deck` post as a slide deck: one <section class="slide"> per slide,
@@ -50,7 +33,7 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
   const [current, setCurrent] = useState(0);
   const total = slides.length;
 
-  // Collect the slides once the HTML is in the DOM, and give each one its footer.
+  // Collect the slides once the HTML is in the DOM.
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) throw new Error('Deck stage element is missing');
@@ -60,25 +43,11 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
 
     const partList = found
       .filter((s) => s.classList.contains('divider'))
-      .map((s) => ({
-        id: s.dataset.part ?? '',
-        title: s.querySelector('.hero')?.textContent ?? '',
-        tab: s.dataset.tab ?? '',
-      }));
-    const partTitles = new Map<string, string>([[INTRO_PART_ID, INTRO_PART_TITLE]]);
-    partList.forEach((p) => partTitles.set(p.id, `Part ${p.id}: ${p.title}`));
-
-    const feet = found.map((slide, i) => {
-      const foot = buildSlideFoot(found, i, partTitles);
-      slide.appendChild(foot);
-      return foot;
-    });
+      .map((s) => ({ id: s.dataset.part ?? '', tab: s.dataset.tab ?? '' }));
 
     setSlides(found);
     setParts(partList);
     setCurrent(slideIndexFromHash(found.length));
-
-    return () => feet.forEach((foot) => foot.remove());
   }, [html]);
 
   // Show the current slide and mirror its number in the URL hash.
@@ -146,6 +115,17 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
   };
 
   const currentPart = slides[current]?.dataset.part;
+  const hasAnimation = Boolean(slides[current]?.querySelector(ANIMATED_SELECTOR));
+
+  // The animations run while a slide has the `active` class. Removing and adding the class
+  // restarts them; reading offsetWidth makes the browser apply the removal first.
+  const replayAnimation = () => {
+    const slide = slides[current];
+    if (!slide) return;
+    slide.classList.remove('active');
+    void slide.offsetWidth;
+    slide.classList.add('active');
+  };
   const goToPart = (partId: string) => {
     const index = slides.findIndex((s) => s.dataset.part === partId);
     if (index !== -1) setCurrent(index);
@@ -201,6 +181,17 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
           <div style={{ width: total > 0 ? `${((current + 1) / total) * 100}%` : '0%' }} />
         </div>
         <span className="deck-hint">Arrow keys to move, F for full screen</span>
+        {hasAnimation && (
+          <button
+            type="button"
+            className="btn-outline px-3"
+            aria-label="Replay animation"
+            title="Replay animation"
+            onClick={replayAnimation}
+          >
+            <RotateCcw className="h-4 w-4" aria-hidden="true" />
+          </button>
+        )}
         <button type="button" className="btn-outline" onClick={toggleFullscreen}>
           Full screen
         </button>
