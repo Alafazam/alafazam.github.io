@@ -58,6 +58,7 @@ with a ratio-preserving dot field (3,900 dots, 60 blue = 1 in 65), so it carries
       <li>Plan, slice, test and verify</li>
       <li>Clear rules and pure business logic</li>
       <li>Retries, rollout and recovery</li>
+      <li>Pull, push and one squash commit per PR</li>
       <li>Turn mistakes into rules</li>
     </ul>
   </div>
@@ -324,6 +325,217 @@ anything else.</pre></div>
       <li>State changes and external calls are logged.</li>
       <li>Docs and the PR description are updated: why, how tested, risks, revert plan.</li>
     </ul>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Pull and push">
+  <h2>Pull and push</h2>
+  <p class="sub">Git keeps a copy of the history on GitHub and a copy on your laptop. Pull and push move commits between them.</p>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 290" role="img" aria-label="A teammate's commit D moves from GitHub to your laptop with git pull. Your commit E moves from your laptop to GitHub with git push.">
+      <defs><marker id="gm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dk-accent)"/></marker></defs>
+      <text class="g-row" x="20" y="85">GitHub</text>
+      <text class="g-row" x="20" y="225">Your laptop</text>
+      <line class="g-line" x1="220" y1="80" x2="460" y2="80"/>
+      <line class="g-line" x1="220" y1="220" x2="460" y2="220"/>
+      <g><circle class="g-c" cx="220" cy="80" r="17"/><text class="g-lbl" x="220" y="80">A</text></g>
+      <g><circle class="g-c" cx="340" cy="80" r="17"/><text class="g-lbl" x="340" y="80">B</text></g>
+      <g><circle class="g-c" cx="460" cy="80" r="17"/><text class="g-lbl" x="460" y="80">C</text></g>
+      <g><circle class="g-c" cx="220" cy="220" r="17"/><text class="g-lbl" x="220" y="220">A</text></g>
+      <g><circle class="g-c" cx="340" cy="220" r="17"/><text class="g-lbl" x="340" y="220">B</text></g>
+      <g><circle class="g-c" cx="460" cy="220" r="17"/><text class="g-lbl" x="460" y="220">C</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="477" y1="80" x2="563" y2="80" style="--d:0.3s"/>
+      <g class="ga" style="--d:0.3s;--fs:0.4"><circle class="g-c" cx="580" cy="80" r="17"/><text class="g-lbl" x="580" y="80">D</text></g>
+      <text class="g-note mid ga" x="580" y="38" style="--d:0.6s">a teammate merged this</text>
+
+      <line class="g-arrow ga" x1="580" y1="102" x2="580" y2="196" marker-end="url(#gm-arrow)" style="--d:1.2s"/>
+      <text class="g-cmd ga" x="598" y="155" style="--d:1.2s">git pull</text>
+      <line class="g-line gd" pathLength="1" x1="477" y1="220" x2="563" y2="220" style="--d:1.6s"/>
+      <g class="ga" style="--d:1.6s;--fy:-140px"><circle class="g-c" cx="580" cy="220" r="17"/><text class="g-lbl" x="580" y="220">D</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="597" y1="220" x2="683" y2="220" style="--d:2.4s"/>
+      <g class="ga" style="--d:2.4s;--fs:0.4"><circle class="g-f" cx="700" cy="220" r="17"/><text class="g-lbl" x="700" y="220">E</text></g>
+      <text class="g-note mid ga" x="700" y="268" style="--d:2.6s">your commit</text>
+
+      <line class="g-arrow ga" x1="700" y1="198" x2="700" y2="104" marker-end="url(#gm-arrow)" style="--d:3.1s"/>
+      <text class="g-cmd ga" x="718" y="155" style="--d:3.1s">git push</text>
+      <line class="g-line gd" pathLength="1" x1="597" y1="80" x2="683" y2="80" style="--d:3.5s"/>
+      <g class="ga" style="--d:3.5s;--fy:140px"><circle class="g-f" cx="700" cy="80" r="17"/><text class="g-lbl" x="700" y="80">E</text></g>
+    </svg>
+    <div class="row c2 mt">
+      <div class="card soft"><h3>git pull</h3><p>Gets new commits from GitHub and adds them to your branch. Use <code>git pull --rebase</code>, so your local commits stay on top.</p></div>
+      <div class="card soft"><h3>git push</h3><p>Sends your commits to GitHub. Push your feature branch. Never push directly to main.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Branches">
+  <h2>A branch is a new stream</h2>
+  <p class="sub">You start a branch from a commit on main. Your commits go on the branch, and main keeps moving without you.</p>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="A feature branch starts at commit C. Commits F1, F2 and F3 go on the branch. At the same time, commits D and E go on main.">
+      <text class="g-row" x="20" y="205">main</text>
+      <text class="g-row ga" x="20" y="95" style="--d:0.5s">feature</text>
+      <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
+      <!-- Drawn before the commits, so the line passes under C. -->
+      <path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.4s"/>
+      <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
+      <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
+      <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
+
+      <text class="g-cmd ga" x="400" y="40" style="--d:0.5s">git switch -c feature/min-display-qty</text>
+      <g class="ga" style="--d:0.8s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1.2s"/>
+      <g class="ga" style="--d:1.2s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.6s"/>
+      <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:2.2s"/>
+      <g class="ga" style="--d:2.2s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:2.6s"/>
+      <g class="ga" style="--d:2.6s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <text class="g-note ga" x="580" y="205" style="--d:2.9s">teammates merged D and E</text>
+    </svg>
+    <p class="callout">Now your work and main have moved apart. The merge strategy decides how F1, F2 and F3 join main. The next three slides start from this picture.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Merge commit">
+  <h2>Strategy 1: merge commit</h2>
+  <p class="sub">Git joins the two streams with a new merge commit M. M has two parents: E on main and F3 on your branch.</p>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commit F3 on the branch and commit E on main both connect to a new merge commit M on main.">
+      <text class="g-row" x="20" y="205">main</text>
+      <text class="g-row" x="20" y="95">feature</text>
+      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
+      <path class="g-feat-line" d="M280,200 C325,200 325,90 370,90 L533,90"/>
+      <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
+      <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
+      <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
+      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <g><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <g><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <g><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="621" y2="200" style="--d:0.5s"/>
+      <path class="g-feat-line gd" pathLength="1" d="M567,90 C610,90 600,200 621,200" style="--d:0.5s"/>
+      <g class="ga" style="--d:1s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="19"/><text class="g-lbl w" x="640" y="200">M</text></g>
+      <text class="g-note ga" x="675" y="205" style="--d:1.4s">main: A B C D E F1 F2 F3 M</text>
+    </svg>
+    <div class="row c3 mt">
+      <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, plus M. The history shows the true path, with many side streams.</p></div>
+      <div class="card soft"><h3>Roll back</h3><p><code>git revert -m 1 M</code> removes the whole feature. You must tell git which parent to keep.</p></div>
+      <div class="card soft"><h3>Good for</h3><p>Long-lived branches, such as a release branch that merges back into main.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Rebase">
+  <h2>Strategy 2: rebase</h2>
+  <p class="sub">Git replays each of your commits, one by one, on top of the newest main. The result is a straight line.</p>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commits F1, F2 and F3 leave the branch and are replayed on main after E as new commits F1 prime, F2 prime and F3 prime.">
+      <text class="g-row" x="20" y="205">main</text>
+      <text class="g-row go" x="20" y="95" style="--d:0.4s">feature</text>
+      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
+      <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
+      <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
+      <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
+      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90 L533,90" style="--d:0.4s"/>
+      <g class="go" style="--d:0.4s"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <g class="go" style="--d:0.7s"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <g class="go" style="--d:1s"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="623" y2="200" style="--d:0.6s"/>
+      <g class="ga" style="--d:0.6s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="640" cy="200" r="17"/><text class="g-lbl" x="640" y="200">F1′</text></g>
+      <line class="g-line gd" pathLength="1" x1="657" y1="200" x2="713" y2="200" style="--d:0.9s"/>
+      <g class="ga" style="--d:0.9s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="730" cy="200" r="17"/><text class="g-lbl" x="730" y="200">F2′</text></g>
+      <line class="g-line gd" pathLength="1" x1="747" y1="200" x2="803" y2="200" style="--d:1.2s"/>
+      <g class="ga" style="--d:1.2s;--fx:-270px;--fy:-110px"><circle class="g-f" cx="820" cy="200" r="17"/><text class="g-lbl" x="820" y="200">F3′</text></g>
+      <text class="g-note mid ga" x="730" y="250" style="--d:1.7s">new commits with new IDs</text>
+    </svg>
+    <div class="row c3 mt">
+      <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, in a straight line. There is no merge commit.</p></div>
+      <div class="card soft"><h3>Roll back</h3><p>Revert each commit of the feature, newest first. You must find all of them.</p></div>
+      <div class="card soft"><h3>Good for</h3><p>Branches where each commit is a clean, separate step that you want to keep on main.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Squash">
+  <h2>Strategy 3: squash and merge</h2>
+  <p class="sub">Git combines all your commits into one new commit S and puts it on top of main. The result is a straight line with one commit per PR.</p>
+  <div class="body">
+    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commits F1, F2 and F3 move together into one commit S, which goes on main after E.">
+      <text class="g-row" x="20" y="205">main</text>
+      <text class="g-row go" x="20" y="95" style="--d:0.3s">feature</text>
+      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
+      <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
+      <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
+      <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
+      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+      <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90 L533,90" style="--d:0.3s"/>
+      <g class="go" style="--d:0.5s;--tx:270px;--ty:110px;--ts:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <g class="go" style="--d:0.5s;--tx:180px;--ty:110px;--ts:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <g class="go" style="--d:0.5s;--tx:90px;--ty:110px;--ts:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="619" y2="200" style="--d:1s"/>
+      <g class="ga" style="--d:1s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="21"/><text class="g-lbl w" x="640" y="200">S</text></g>
+      <text class="g-note ga" x="675" y="205" style="--d:1.4s">S = F1 + F2 + F3, one commit for PR #123</text>
+    </svg>
+    <div class="row c3 mt">
+      <div class="card soft"><h3>What main keeps</h3><p>One commit per PR. The PR title and description become its message. The small commits stay in the PR.</p></div>
+      <div class="card soft"><h3>Roll back</h3><p><code>git revert S</code> removes the whole feature in one step.</p></div>
+      <div class="card soft"><h3>Good for</h3><p>Most feature and fix PRs. GitHub calls this <b>Squash and merge</b>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Compare merge strategies">
+  <h2>Our guideline: one squash commit per PR</h2>
+  <div class="body">
+    <table class="score">
+      <thead><tr><th>Strategy</th><th>Main after the merge</th><th>Roll back the feature</th><th>Small commits</th></tr></thead>
+      <tbody>
+        <tr><td>Merge commit</td><td>All commits plus M; history has side streams</td><td><code>git revert -m 1 M</code></td><td>On main</td></tr>
+        <tr><td>Rebase</td><td>All commits, in a straight line</td><td>Revert each commit</td><td>On main</td></tr>
+        <tr><td>Squash and merge</td><td>One commit per PR, in a straight line</td><td>One <code>git revert</code></td><td>In the PR only</td></tr>
+      </tbody>
+    </table>
+    <p class="callout">One PR = one commit on main = one revert. The history reads like a list of features and fixes, and <code>git bisect</code> points at a PR.</p>
+    <p class="xs" style="margin-top:2cqw">A revert undoes code, not data. A feature that changed data or a schema also needs the recovery plan from the rollout slide.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="1" aria-label="Make squash the default">
+  <h2>Make squash the easy path</h2>
+  <div class="body">
+    <div class="row c2">
+      <div>
+        <ul class="notes">
+          <li>In the repo settings, allow only <b>Squash and merge</b>. Require a linear history. Delete branches after the merge.</li>
+          <li>Keep each PR small: one feature or one fix. A large squash commit is hard to review and hard to bisect.</li>
+          <li>Write the PR title and description as the commit message: what changed and why.</li>
+          <li>Do not start a branch from another unmerged branch. After a squash, its commits no longer match main.</li>
+        </ul>
+      </div>
+      <div class="prompt"><div class="ph">Every feature</div><pre>git switch main
+git pull --rebase
+git switch -c feature/min-display-qty
+
+# commit as often as you like
+
+git fetch origin
+git rebase origin/main
+git push --force-with-lease
+
+# open a PR, then: Squash and merge</pre></div>
+    </div>
   </div>
 </section>
 
