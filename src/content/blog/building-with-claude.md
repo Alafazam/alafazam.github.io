@@ -403,26 +403,39 @@ anything else.</pre></div>
 
 <section class="slide" data-part="1" aria-label="Merge commit">
   <h2>Strategy 1: merge commit</h2>
-  <p class="sub">Git joins the two streams with a new merge commit M. M has two parents: E on main and F3 on your branch.</p>
+  <p class="sub">Your branch grows while main moves. At merge time, git joins the two streams with a new merge commit M, which has two parents and its own message.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 270" role="img" aria-label="Commit F3 on the branch and commit E on main both connect to a new merge commit M on main.">
+    <svg class="dia" viewBox="0 0 960 300" role="img" aria-label="A feature branch starts at C and gets commits F1, F2 and F3, while main gets D and E. Then F3 and E join in a new merge commit M on main, with the message: Merge pull request #123 from feature/min-display-qty.">
       <text class="g-row" x="20" y="205">main</text>
-      <text class="g-row" x="20" y="95">feature</text>
-      <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
-      <path class="g-feat-line" d="M280,200 C325,200 325,90 370,90 L533,90"/>
+      <text class="g-row ga" x="20" y="95" style="--d:0.4s">feature</text>
+      <line class="g-line" x1="100" y1="200" x2="280" y2="200"/>
+      <!-- Drawn before the commits, so the line passes under C. -->
+      <path class="g-feat-line gd" pathLength="1" d="M280,200 C325,200 325,90 370,90" style="--d:0.3s"/>
       <g><circle class="g-c" cx="100" cy="200" r="17"/><text class="g-lbl" x="100" y="200">A</text></g>
       <g><circle class="g-c" cx="190" cy="200" r="17"/><text class="g-lbl" x="190" y="200">B</text></g>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
-      <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
-      <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
-      <g><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
-      <g><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
-      <g><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
 
-      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="621" y2="200" style="--d:0.5s"/>
-      <path class="g-feat-line gd" pathLength="1" d="M567,90 C610,90 600,200 621,200" style="--d:0.5s"/>
-      <g class="ga" style="--d:1s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="19"/><text class="g-lbl w" x="640" y="200">M</text></g>
-      <text class="g-note ga" x="675" y="205" style="--d:1.4s">main: A B C D E F1 F2 F3 M</text>
+      <g class="ga" style="--d:0.7s;--fs:0.4"><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
+      <line class="g-feat-line gd" pathLength="1" x1="387" y1="90" x2="443" y2="90" style="--d:1s"/>
+      <g class="ga" style="--d:1s;--fs:0.4"><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+      <line class="g-feat-line gd" pathLength="1" x1="477" y1="90" x2="533" y2="90" style="--d:1.3s"/>
+      <g class="ga" style="--d:1.3s;--fs:0.4"><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="297" y1="200" x2="443" y2="200" style="--d:1.6s"/>
+      <g class="ga" style="--d:1.6s;--fs:0.4"><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
+      <line class="g-line gd" pathLength="1" x1="477" y1="200" x2="533" y2="200" style="--d:1.9s"/>
+      <g class="ga" style="--d:1.9s;--fs:0.4"><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
+
+      <line class="g-line gd" pathLength="1" x1="567" y1="200" x2="621" y2="200" style="--d:2.5s"/>
+      <path class="g-feat-line gd" pathLength="1" d="M567,90 C610,90 600,200 621,200" style="--d:2.5s"/>
+      <g class="ga" style="--d:3s;--fs:0.3"><circle class="g-new" cx="640" cy="200" r="19"/><text class="g-lbl w" x="640" y="200">M</text></g>
+
+      <g class="ga" style="--d:3.5s;--fy:-12px">
+        <line class="g-pop-tail" x1="640" y1="221" x2="640" y2="236"/>
+        <rect class="g-pop" x="560" y="236" width="390" height="56" rx="8"/>
+        <text class="g-pop-msg" x="576" y="258">Merge pull request #123</text>
+        <text class="g-pop-sub" x="576" y="280">from feature/min-display-qty · parents: E, F3</text>
+      </g>
     </svg>
     <div class="row c3 mt">
       <div class="card soft"><h3>What main keeps</h3><p>Every commit from the branch, plus M. The history shows the true path, with many side streams.</p></div>

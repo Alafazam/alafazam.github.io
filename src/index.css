@@ -789,6 +789,11 @@
 .deck svg .g-note { font-size: 15px; fill: var(--dk-muted); }
 .deck svg .g-note.mid { text-anchor: middle; }
 .deck svg .g-row { font-size: 15px; font-weight: 650; fill: var(--dk-ink); }
+/* Popover with a commit message, pointing at a commit above it. */
+.deck svg .g-pop { fill: var(--dk-panel); stroke: var(--dk-line); stroke-width: 1.5; }
+.deck svg .g-pop-tail { stroke: var(--dk-line); stroke-width: 1.5; }
+.deck svg .g-pop-msg { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; font-weight: 650; fill: var(--dk-ink); }
+.deck svg .g-pop-sub { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; fill: var(--dk-muted); }
 .deck svg .g-cmd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 15px; font-weight: 650; fill: var(--dk-accent); }
 .deck .ga, .deck .go { transform-box: fill-box; transform-origin: center; }
 .deck .slide.active .ga { animation: dk-git-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
