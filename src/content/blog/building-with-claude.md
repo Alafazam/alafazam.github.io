@@ -404,7 +404,7 @@ anything else.</pre></div>
 
 <section class="slide" data-part="1" aria-label="Stage 2, option A: merge main in">
   <ol class="stages" aria-label="Stages"><li>1 Branch and commit</li><li class="on">2 Update your branch</li><li>3 Merge the PR</li></ol>
-  <h2>Stage 2, option A: merge main into your branch</h2>
+  <h2>Stage 2, option A: merge main in</h2>
   <p class="sub">Pull main into your branch. Git adds a merge commit M1 on your branch. If there are conflicts, you fix them on your branch, not on main.</p>
   <div class="body">
     <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git pull origin main joins E to a new merge commit M1 after F3 on the feature branch. You resolve conflicts, run the tests and commit.">
@@ -443,10 +443,10 @@ anything else.</pre></div>
 
 <section class="slide" data-part="1" aria-label="Stage 2, option B: rebase on main">
   <ol class="stages" aria-label="Stages"><li>1 Branch and commit</li><li class="on">2 Update your branch</li><li>3 Merge the PR</li></ol>
-  <h2>Stage 2, option B: rebase your branch on main</h2>
-  <p class="sub">Git moves your commits so that your branch starts from the newest main (E). If there are conflicts, you fix them commit by commit.</p>
+  <h2>Stage 2, option B: rebase on main</h2>
+  <p class="sub">Git puts main's new commits (D and E) under your work and replays F1, F2 and F3 after E. Only your branch changes; main changes in stage 3.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git rebase origin/main moves F1, F2 and F3 so that the feature branch starts at E. You resolve conflicts with git rebase --continue, then push with --force-with-lease.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git rebase origin/main brings D and E into the feature branch and replays F1, F2 and F3 after E. Main does not change. You resolve conflicts with git rebase --continue, then push with --force-with-lease.">
       <!-- Lines are drawn before the commits, so they pass under C and E. -->
       <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90" style="--d:0.6s"/>
       <path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:1.3s"/>
@@ -471,10 +471,11 @@ anything else.</pre></div>
         <text class="g-pop-msg" x="576" y="38">Conflicts? Fix, then git rebase --continue</text>
       </g>
       <text class="g-cmd ga" x="100" y="250" style="--d:2.4s">git push --force-with-lease</text>
-      <text class="g-note mid ga" x="730" y="130" style="--d:2.1s">your branch now starts at E</text>
+      <text class="g-note mid ga" x="730" y="130" style="--d:2.1s">your branch: A B C D E F1 F2 F3</text>
+      <text class="g-note ga" x="580" y="205" style="--d:2.1s">main does not change</text>
     </svg>
     <div class="row c3 mt">
-      <div class="card soft"><h3>Your commits</h3><p>F1, F2 and F3 get new IDs on top of main. There is no extra commit.</p></div>
+      <div class="card soft"><h3>Your commits</h3><p>D and E come into your branch. F1, F2 and F3 are replayed after E with new IDs. There is no extra commit.</p></div>
       <div class="card soft"><h3>Conflicts</h3><p>You may resolve them once per commit.</p></div>
       <div class="card soft"><h3>Push</h3><p>The branch history changed, so push with <code>--force-with-lease</code>.</p></div>
     </div>
