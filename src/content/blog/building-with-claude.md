@@ -500,15 +500,20 @@ anything else.</pre></div>
   <h2>Our guideline: one squash commit per PR</h2>
   <div class="body">
     <table class="score">
-      <thead><tr><th>Strategy</th><th>Main after the merge</th><th>Roll back the feature</th><th>Small commits</th></tr></thead>
+      <thead><tr><th>Strategy</th><th>Main after the merge</th><th>Roll back the feature</th><th>Ask Claude</th></tr></thead>
       <tbody>
-        <tr><td>Merge commit</td><td>All commits plus M; history has side streams</td><td><code>git revert -m 1 M</code></td><td>On main</td></tr>
-        <tr><td>Rebase</td><td>All commits, in a straight line</td><td>Revert each commit</td><td>On main</td></tr>
-        <tr><td>Squash and merge</td><td>One commit per PR, in a straight line</td><td>One <code>git revert</code></td><td>In the PR only</td></tr>
+        <tr><td>Merge commit</td><td>All commits plus M; history has side streams</td><td><code>git revert -m 1 M</code></td><td>"Merge origin/main into this branch. Show me each conflict before you resolve it."</td></tr>
+        <tr><td>Rebase</td><td>All commits, in a straight line</td><td>Revert each commit</td><td>"Rebase this branch on origin/main. Stop at each conflict and explain both sides."</td></tr>
+        <tr><td>Squash and merge</td><td>One commit per PR, in a straight line</td><td>One <code>git revert</code></td><td>"Open a PR for this branch. Write the title and description as the commit message. Merge it with <code>gh pr merge --squash</code>."</td></tr>
       </tbody>
     </table>
-    <p class="callout">One PR = one commit on main = one revert. The history reads like a list of features and fixes, and <code>git bisect</code> points at a PR.</p>
-    <p class="xs" style="margin-top:2cqw">A revert undoes code, not data. A feature that changed data or a schema also needs the recovery plan from the rollout slide.</p>
+    <div class="row cw center mt">
+      <p class="callout" style="margin-top:0">One PR = one commit on main = one revert. The history reads like a list of features and fixes, and <code>git bisect</code> points at a PR. A revert undoes code, not data: a change to data or a schema also needs the recovery plan from the rollout slide.</p>
+      <div class="prompt"><div class="ph">Roll back with Claude</div><pre>Find the squash commit for PR #123 on main.
+Create a branch, run git revert on that commit,
+run the tests and open a PR.
+Do not push to main.</pre></div>
+    </div>
   </div>
 </section>
 

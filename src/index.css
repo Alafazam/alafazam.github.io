@@ -580,7 +580,7 @@
 /* Slide system */
 .deck .slide {
   position: absolute; inset: 0; display: none; flex-direction: column; margin: 0;
-  padding: 4.4cqw 5.6cqw 6.2cqw; overflow-y: auto;
+  padding: 4.4cqw 5.6cqw; overflow-y: auto;
   --t-hero: clamp(32px, 6.4cqw, 104px);
   --t-h2: clamp(23px, 3.25cqw, 52px);
   --t-lg: clamp(18px, 2.15cqw, 34px);
@@ -593,10 +593,6 @@
 .deck .slide.active { display: flex; }
 /* Prerendered HTML has no active slide until DeckContent hydrates; show the first. */
 .deck .stage:not([data-ready]) .slide:first-child { display: flex; }
-.deck .slide-foot {
-  position: absolute; left: 5.6cqw; right: 5.6cqw; bottom: 2.2cqw;
-  display: flex; justify-content: space-between; font-size: var(--t-xs); color: var(--dk-muted);
-}
 .deck .slide h2, .deck .slide h3, .deck .slide p { margin: 0; }
 /* Slide titles are <h2 class="hero">: the page's single <h1> is the deck title (scripts/prerender.mjs checks). */
 .deck .slide .hero { font-size: var(--t-hero); line-height: 1.02; font-weight: 800; letter-spacing: -0.035em; color: var(--dk-ink); max-width: none; margin: 0; }
@@ -687,7 +683,6 @@
 .deck .title-slide .parts { grid-template-columns: 1fr 1fr; row-gap: 1.6cqw; }
 .deck .title-slide .hero { font-size: clamp(32px, 4.9cqw, 80px); }
 .deck .title-slide .lead { font-size: var(--t-body); }
-.deck .divider .slide-foot, .deck .title-slide .slide-foot { right: calc(50% + 5.6cqw); }
 
 /* Stats */
 .deck .stat .n { font-size: clamp(30px, 5cqw, 80px); font-weight: 800; letter-spacing: -0.04em; color: var(--dk-ink); line-height: 1; }
@@ -757,6 +752,8 @@
 .deck .score th { text-align: left; font-weight: 600; color: var(--dk-muted); font-size: var(--t-xs); padding: 0 1cqw 0.8cqw 0; border-bottom: 1px solid var(--dk-line); }
 .deck .score td { padding: 1cqw 1cqw 1cqw 0; border-bottom: 1px solid var(--dk-line); vertical-align: top; }
 .deck .score td:first-child { color: var(--dk-ink); font-weight: 600; }
+/* Keep short commands on one line, so a narrow column does not break them. */
+.deck .score code { white-space: nowrap; }
 .deck .dots { display: flex; gap: 0.5em; }
 .deck .dot { width: 0.9em; height: 0.9em; border-radius: 50%; display: inline-block; }
 .deck .dot.g { background: #10b981; }
@@ -819,14 +816,12 @@
   .deck-hint { display: none; }
   .deck-viewport { align-items: stretch; }
   .deck .stage, .deck:fullscreen .stage { width: 100%; height: 100%; aspect-ratio: auto; }
-  .deck .slide { padding: 24px 20px 56px; }
-  .deck .slide-foot { left: 20px; right: 20px; bottom: 16px; }
+  .deck .slide { padding: 24px 20px; }
   .deck .row.c2, .deck .row.c3, .deck .row.c4, .deck .row.cw, .deck .row.cn, .deck .parts, .deck .rules, .deck .dd, .deck .lanes, .deck .mult { grid-template-columns: 1fr; }
   .deck .lanes .arrow { transform: rotate(90deg); }
   .deck .checklist { columns: 1; }
   .deck .body { justify-content: flex-start; }
   .deck .plate { position: static; width: 100%; height: auto; border-left: 0; margin-top: 20px; }
   .deck .plate img { height: auto; }
-  .deck .divider .slide-foot, .deck .title-slide .slide-foot { right: 20px; }
   .deck .divider .dv, .deck .title-slide .tx { width: 100%; height: auto; gap: 20px; }
 }
