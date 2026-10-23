@@ -694,7 +694,7 @@
 .deck .stat .n.blue { color: var(--dk-accent); }
 .deck .stat .l { font-size: var(--t-sm); color: var(--dk-muted); margin-top: 0.8cqw; max-width: 18ch; }
 .deck .stat { border-top: 1px solid var(--dk-line); padding-top: 1.6cqw; }
-.deck .callout { margin-top: 2.6cqw; padding: 1.4cqw 1.8cqw; border-left: 3px solid var(--dk-accent); background: var(--dk-accent-soft); border-radius: 0 10px 10px 0; color: var(--dk-ink); max-width: 72ch; }
+.deck .slide .callout { margin-top: 2.6cqw; padding: 1.4cqw 1.8cqw; border-left: 3px solid var(--dk-accent); background: var(--dk-accent-soft); border-radius: 0 10px 10px 0; color: var(--dk-ink); max-width: 72ch; }
 
 /* Statement slide */
 .deck .statement { justify-content: center; }
@@ -732,12 +732,11 @@
 .deck .formula .op { color: var(--dk-muted); font-weight: 500; }
 
 /* Rules */
-.deck .rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; }
+.deck .rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; min-height: 0; overflow-y: auto; }
 .deck .rules .card { padding: 1.4cqw 1.5cqw 0.6cqw; }
 .deck .rules h3 { padding-bottom: 0.7cqw; border-bottom: 1px solid var(--dk-line); margin-bottom: 0.4cqw; }
-.deck .rules ol { list-style: none; padding: 0; margin: 0; font-size: var(--t-xs); }
-.deck .rules li { display: grid; grid-template-columns: 2em 1fr; margin: 0.85cqw 0; color: var(--dk-ink-2); }
-.deck .rules li span { color: var(--dk-accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+.deck .rules ul { list-style: disc; padding: 0 0 0 1em; margin: 0; font-size: var(--t-xs); }
+.deck .rules li { margin: 0.85cqw 0; color: var(--dk-ink-2); }
 
 /* Checklist */
 .deck .checklist { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 4cqw; }
