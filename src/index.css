@@ -786,6 +786,7 @@
 .deck svg .g-c { fill: var(--dk-page); stroke: var(--dk-ink-2); stroke-width: 2.5; }
 .deck svg .g-f { fill: var(--dk-accent-soft); stroke: var(--dk-accent); stroke-width: 2.5; }
 .deck svg .g-new { fill: var(--dk-accent-fill); }
+.deck svg .g-conflict { fill: none; stroke: var(--dk-dont); stroke-width: 3; stroke-dasharray: 5 4; }
 .deck svg .g-lbl { font-size: 13px; font-weight: 650; fill: var(--dk-ink); text-anchor: middle; dominant-baseline: central; }
 .deck svg .g-lbl.w { fill: #fff; }
 .deck svg .g-note { font-size: 15px; fill: var(--dk-muted); }

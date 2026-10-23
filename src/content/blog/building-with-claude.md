@@ -405,9 +405,9 @@ anything else.</pre></div>
 <section class="slide" data-part="1" aria-label="Stage 2, option A: merge main in">
   <ol class="stages" aria-label="Stages"><li>1 Branch and commit</li><li class="on">2 Update your branch</li><li>3 Merge the PR</li></ol>
   <h2>Stage 2, option A: merge main in</h2>
-  <p class="sub">Pull main into your branch. Git adds a merge commit M1 on your branch. If there are conflicts, you fix them on your branch, not on main.</p>
+  <p class="sub">Pull main into your branch. Git makes a merge commit M1 on your branch. If main and your work changed the same lines, git stops once and you fix the conflict, on your branch, not on main.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git pull origin main joins E to a new merge commit M1 after F3 on the feature branch. You resolve conflicts, run the tests and commit.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git pull origin main joins E to a new merge commit M1 after F3 on the feature branch. M1 has a conflict. You fix the files, run git add and git commit, and the conflict clears.">
       <path class="g-feat-line" d="M280,200 C325,200 325,90 370,90"/>
       <!-- Lines are drawn before the commits, so they pass under them. -->
       <line class="g-feat-line gd" pathLength="1" x1="567" y1="90" x2="623" y2="90" style="--d:0.6s"/>
@@ -427,16 +427,17 @@ anything else.</pre></div>
           <g><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
       <text class="g-cmd ga" x="100" y="40" style="--d:0.3s">git pull origin main</text>
       <g class="ga" style="--d:1s;--fs:0.3"><circle class="g-f" cx="640" cy="90" r="17"/><text class="g-lbl" x="640" y="90">M1</text></g>
-      <g class="ga" style="--d:1.5s;--fy:8px">
+      <g class="go" style="--d:3s"><circle class="g-conflict ga" cx="640" cy="90" r="24" style="--d:1.3s;--fs:1.4"/></g>
+      <g class="go" style="--d:3s"><g class="ga" style="--d:1.5s;--fy:8px">
         <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
-        <text class="g-pop-msg" x="576" y="38">Resolve conflicts, run tests, commit</text>
-      </g>
-      <text class="g-note ga" x="670" y="95" style="--d:2s">your branch now has D and E</text>
+        <text class="g-pop-msg" x="576" y="38">Conflict: fix files, git add, git commit</text>
+      </g></g>
+      <text class="g-note ga" x="670" y="95" style="--d:3.2s">resolved: your branch now has D and E</text>
     </svg>
     <div class="row c3 mt">
       <div class="card soft"><h3>Your commits</h3><p>F1, F2 and F3 stay as they are. M1 records the update.</p></div>
-      <div class="card soft"><h3>Conflicts</h3><p>You resolve them once, in the merge commit M1.</p></div>
-      <div class="card soft"><h3>Push</h3><p>A normal <code>git push</code>. Nothing is rewritten.</p></div>
+      <div class="card soft"><h3>If there is a conflict</h3><p>Git stops and marks the lines in the files. Fix them, then <code>git add</code> the files.</p></div>
+      <div class="card soft"><h3>To finish</h3><p><code>git commit</code> completes M1. Run the tests. You fix conflicts once, for all your commits.</p></div>
     </div>
   </div>
 </section>
@@ -444,12 +445,17 @@ anything else.</pre></div>
 <section class="slide" data-part="1" aria-label="Stage 2, option B: rebase on main">
   <ol class="stages" aria-label="Stages"><li>1 Branch and commit</li><li class="on">2 Update your branch</li><li>3 Merge the PR</li></ol>
   <h2>Stage 2, option B: rebase on main</h2>
-  <p class="sub">Git puts main's new commits (D and E) under your work and replays F1, F2 and F3 after E. Only your branch changes; main changes in stage 3.</p>
+  <p class="sub">Git puts D and E under your work and replays F1, F2 and F3 after E. Only your branch changes. A merge stops once for conflicts; a rebase can stop at each commit that conflicts.</p>
   <div class="body">
-    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git rebase origin/main brings D and E into the feature branch and replays F1, F2 and F3 after E. Main does not change. You resolve conflicts with git rebase --continue, then push with --force-with-lease.">
+    <svg class="dia" viewBox="0 0 960 262" role="img" aria-label="git rebase origin/main replays the feature commits after E, one at a time. F1 moves cleanly. F2 stops with a conflict: you fix the files, run git add and git rebase --continue. Then F3 moves. Main does not change.">
       <!-- Lines are drawn before the commits, so they pass under C and E. -->
-      <path class="g-feat-line go" d="M280,200 C325,200 325,90 370,90" style="--d:0.6s"/>
-      <path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:1.3s"/>
+      <!-- The old branch stays as a ghost until its last commit has moved. -->
+      <g class="go" style="--d:3.6s">
+        <path class="g-feat-line" d="M280,200 C325,200 325,90 370,90 L533,90"/>
+      </g>
+      <line class="g-feat-line gd" pathLength="1" x1="657" y1="90" x2="713" y2="90" style="--d:2s"/>
+      <line class="g-feat-line gd" pathLength="1" x1="747" y1="90" x2="803" y2="90" style="--d:4.2s"/>
+      <path class="g-feat-line gd" pathLength="1" d="M550,200 C595,200 595,90 640,90" style="--d:1.1s"/>
       <text class="g-row" x="20" y="205">main</text>
       <text class="g-row" x="20" y="95">feature</text>
       <line class="g-line" x1="100" y1="200" x2="533" y2="200"/>
@@ -458,27 +464,32 @@ anything else.</pre></div>
       <g><circle class="g-c" cx="280" cy="200" r="17"/><text class="g-lbl" x="280" y="200">C</text></g>
       <g><circle class="g-c" cx="460" cy="200" r="17"/><text class="g-lbl" x="460" y="200">D</text></g>
       <g><circle class="g-c" cx="550" cy="200" r="17"/><text class="g-lbl" x="550" y="200">E</text></g>
-      <g class="gm" style="--d:0.6s;--mx:270px;--my:0px">
-          <line class="g-feat-line" x1="387" y1="90" x2="443" y2="90"/>
-          <line class="g-feat-line" x1="477" y1="90" x2="533" y2="90"/>
-          <g><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
-          <g><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
-          <g><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
-      </g>
       <text class="g-cmd ga" x="100" y="40" style="--d:0.3s">git rebase origin/main</text>
-      <g class="ga" style="--d:1.8s;--fy:8px">
-        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
-        <text class="g-pop-msg" x="576" y="38">Conflicts? Fix, then git rebase --continue</text>
+
+      <!-- Git replays one commit at a time; the new lines are drawn as each commit arrives. -->
+      <g class="gm" style="--d:0.6s;--mx:270px;--my:0px">
+        <g><circle class="g-f" cx="370" cy="90" r="17"/><text class="g-lbl" x="370" y="90">F1</text></g>
       </g>
-      <text class="g-cmd ga" x="100" y="250" style="--d:2.4s">git push --force-with-lease</text>
-      <text class="g-note mid ga" x="730" y="130" style="--d:2.1s">your branch: A B C D E F1 F2 F3</text>
-      <text class="g-note ga" x="580" y="205" style="--d:2.1s">main does not change</text>
+      <g class="gm" style="--d:1.4s;--mx:270px;--my:0px">
+        <g><circle class="g-f" cx="460" cy="90" r="17"/><text class="g-lbl" x="460" y="90">F2</text></g>
+        <g class="go" style="--d:3.4s"><circle class="g-conflict ga" cx="460" cy="90" r="24" style="--d:2.1s;--fs:1.4"/></g>
+      </g>
+      <g class="gm" style="--d:3.6s;--mx:270px;--my:0px">
+        <g><circle class="g-f" cx="550" cy="90" r="17"/><text class="g-lbl" x="550" y="90">F3</text></g>
+      </g>
+
+      <g class="go" style="--d:3.4s"><g class="ga" style="--d:2.2s;--fy:8px">
+        <rect class="g-pop" x="560" y="16" width="380" height="34" rx="8"/>
+        <text class="g-pop-msg" x="576" y="38">F2 conflicts: fix files, git add, continue</text>
+      </g></g>
+      <text class="g-cmd ga" x="100" y="250" style="--d:2.6s">git rebase --continue</text>
+      <text class="g-note mid ga" x="730" y="130" style="--d:4.4s">your branch: A B C D E F1 F2 F3</text>
+      <text class="g-note ga" x="580" y="205" style="--d:4.4s">main does not change</text>
     </svg>
     <div class="row c3 mt">
-      <div class="card soft"><h3>Your commits</h3><p>D and E come into your branch. F1, F2 and F3 are replayed after E with new IDs. There is no extra commit.</p></div>
-      <div class="card soft"><h3>Conflicts</h3><p>You may resolve them once per commit.</p></div>
-      <div class="card soft"><h3>Push</h3><p>The branch history changed, so push with <code>--force-with-lease</code>.</p></div>
-    </div>
+      <div class="card soft"><h3>Your commits</h3><p>D and E come into your branch. F1, F2 and F3 are replayed after E, one at a time, with new IDs.</p></div>
+      <div class="card soft"><h3>If there is a conflict</h3><p>The rebase stops at that commit (here F2) and marks the lines. Fix them, then <code>git add</code> the files.</p></div>
+      <div class="card soft"><h3>To finish</h3><p><code>git rebase --continue</code> replays the next commit. Repeat for each commit that stops, then run the tests.</p></div>
   </div>
 </section>
 
@@ -598,7 +609,7 @@ anything else.</pre></div>
       <li class="gs" style="--d:0.3s"><b>1 Branch</b><code>git switch -c feature/x</code><span>Commit as often as you like.</span></li>
       <li class="gs" style="--d:2.4s"><b>2 Bring main in</b><code>git pull origin main</code><span>A merge commit on your branch.</span></li>
       <li class="gs" style="--d:3.5s"><b>3 Resolve</b><code>git commit</code><span>Fix conflicts, run the tests.</span></li>
-      <li class="gs" style="--d:4.5s"><b>4 Raise a PR</b><code>gh pr create</code><span>Review on GitHub.</span></li>
+      <li class="gs" style="--d:4.5s"><b>4 Raise a PR</b><code>git push, gh pr create</code><span>Push the branch, open the PR.</span></li>
       <li class="gs" style="--d:5.4s"><b>5 Squash and merge</b><code>gh pr merge --squash</code><span>One commit on main.</span></li>
     </ol>
   </div>
@@ -613,6 +624,7 @@ anything else.</pre></div>
         <li>Keep each PR small: one feature or one fix. A large squash commit is hard to review and hard to roll back.</li>
         <li>Write the PR title and description as the commit message: what changed and why.</li>
         <li>Do not start a branch from another unmerged branch. After a squash, its commits no longer match main.</li>
+        <li>If you rebased (option B) a branch that you already pushed, push it with <code>git push --force-with-lease</code>.</li>
       </ul>
       <div style="display:grid;gap:1.2cqw">
         <div class="prompt"><div class="ph">Stage 2: update with Claude</div><pre>Merge origin/main into this branch.
