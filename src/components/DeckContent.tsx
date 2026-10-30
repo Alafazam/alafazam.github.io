@@ -13,8 +13,8 @@ interface DeckPart {
 
 // Horizontal finger travel, in pixels, that counts as a swipe to the next or previous slide.
 const SWIPE_THRESHOLD_PX = 50;
-// Elements that animate when their slide becomes active (see the git diagram styles in index.css).
-const ANIMATED_SELECTOR = '.ga, .go, .gd';
+// Elements that animate when their slide becomes active (see the git diagram and AI layer styles in index.css).
+const ANIMATED_SELECTOR = '.ga, .go, .gd, .gx';
 
 const slideIndexFromHash = (total: number): number => {
   const n = parseInt(window.location.hash.slice(1), 10);
