@@ -1,3 +1,4 @@
+import { RotateCcw } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState, type TouchEvent as ReactTouchEvent } from 'react';
 
 interface DeckContentProps {
@@ -15,6 +16,8 @@ interface DeckPart {
 const SWIPE_THRESHOLD_PX = 50;
 const INTRO_PART_ID = '0';
 const INTRO_PART_TITLE = 'Introduction';
+// Elements that animate when their slide becomes active (see the AI layer styles in index.css).
+const ANIMATED_SELECTOR = '.ga, .gd, .gs, .gx';
 
 const slideIndexFromHash = (total: number): number => {
   const n = parseInt(window.location.hash.slice(1), 10);
@@ -146,6 +149,17 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
   };
 
   const currentPart = slides[current]?.dataset.part;
+  const hasAnimation = Boolean(slides[current]?.querySelector(ANIMATED_SELECTOR));
+
+  // The animations run while a slide has the `active` class. Removing and adding the class
+  // restarts them; reading offsetWidth makes the browser apply the removal first.
+  const replayAnimation = () => {
+    const slide = slides[current];
+    if (!slide) return;
+    slide.classList.remove('active');
+    void slide.offsetWidth;
+    slide.classList.add('active');
+  };
   const goToPart = (partId: string) => {
     const index = slides.findIndex((s) => s.dataset.part === partId);
     if (index !== -1) setCurrent(index);
@@ -201,6 +215,17 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
           <div style={{ width: total > 0 ? `${((current + 1) / total) * 100}%` : '0%' }} />
         </div>
         <span className="deck-hint">Arrow keys to move, F for full screen</span>
+        {hasAnimation && (
+          <button
+            type="button"
+            className="btn-outline px-3"
+            aria-label="Replay animation"
+            title="Replay animation"
+            onClick={replayAnimation}
+          >
+            <RotateCcw className="h-4 w-4" aria-hidden="true" />
+          </button>
+        )}
         <button type="button" className="btn-outline" onClick={toggleFullscreen}>
           Full screen
         </button>
