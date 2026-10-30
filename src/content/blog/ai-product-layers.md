@@ -376,7 +376,7 @@ Model prices and benchmark leaders are as of late October 2026; check them befor
         <tr><td><img class="lg" src="/images/blog/ai-product-layers/logos/openai.svg" alt="OpenAI"> GPT-6 Astra</td><td class="cost">₹950<span class="usd">$10</span></td><td class="cost">₹4,750<span class="usd">$50</span></td><td><div class="minibar gx" style="--w:100%;background:var(--ly-int-fill);--d:0.7s"></div></td></tr>
       </tbody>
     </table>
-    <p class="xs mt-s">List prices in US dollars (small grey), late October 2026, converted at ₹95 per dollar. The Haiku price is for prompts up to 100K tokens. Prices drop often; check before you quote.</p>
+    <p class="xs mt-s">US list prices in grey, late Oct 2026, at ₹95 per dollar. Haiku: prompts up to 100K tokens. Check before you quote.</p>
   </div>
 </section>
 
@@ -1128,7 +1128,7 @@ deliveries in October [2].
   <p class="sub">Planners ask questions about their business and get answers with sources. Agents can propose changes, and a person approves them.</p>
   <div class="body">
     <div class="wirerow" style="grid-template-columns:1.25fr 1fr">
-      <div><a class="shot" href="/images/blog/ai-product-layers/shots/ms-ai-engine.jpg" target="_blank" rel="noopener"><img alt="The AI copilot beside the MS buy sheet, listing three issues to fix before sign-off" src="/images/blog/ai-product-layers/shots/ms-ai-engine.jpg"></a>
+  <div class="wirerow" style="grid-template-columns:1.1fr 1fr">shots/ms-ai-engine.jpg" target="_blank" rel="noopener"><img alt="The AI copilot beside the MS buy sheet, listing three issues to fix before sign-off" src="/images/blog/ai-product-layers/shots/ms-ai-engine.jpg"></a>
         <p class="src">Image: our MS planning app, with demo data.</p></div>
       <div>
         <table class="score tight">
