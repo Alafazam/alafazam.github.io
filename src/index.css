@@ -694,7 +694,7 @@
 .deck .stat .n.blue { color: var(--dk-accent); }
 .deck .stat .l { font-size: var(--t-sm); color: var(--dk-muted); margin-top: 0.8cqw; max-width: 18ch; }
 .deck .stat { border-top: 1px solid var(--dk-line); padding-top: 1.6cqw; }
-.deck .callout { margin-top: 2.6cqw; padding: 1.4cqw 1.8cqw; border-left: 3px solid var(--dk-accent); background: var(--dk-accent-soft); border-radius: 0 10px 10px 0; color: var(--dk-ink); max-width: 72ch; }
+.deck .slide .callout { margin-top: 2.6cqw; padding: 1.4cqw 1.8cqw; border-left: 3px solid var(--dk-accent); background: var(--dk-accent-soft); border-radius: 0 10px 10px 0; color: var(--dk-ink); max-width: 72ch; }
 
 /* Statement slide */
 .deck .statement { justify-content: center; }
@@ -732,12 +732,11 @@
 .deck .formula .op { color: var(--dk-muted); font-weight: 500; }
 
 /* Rules */
-.deck .rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; }
+.deck .rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; min-height: 0; overflow-y: auto; }
 .deck .rules .card { padding: 1.4cqw 1.5cqw 0.6cqw; }
 .deck .rules h3 { padding-bottom: 0.7cqw; border-bottom: 1px solid var(--dk-line); margin-bottom: 0.4cqw; }
-.deck .rules ol { list-style: none; padding: 0; margin: 0; font-size: var(--t-xs); }
-.deck .rules li { display: grid; grid-template-columns: 2em 1fr; margin: 0.85cqw 0; color: var(--dk-ink-2); }
-.deck .rules li span { color: var(--dk-accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+.deck .rules ul { list-style: disc; padding: 0 0 0 1em; margin: 0; font-size: var(--t-xs); }
+.deck .rules li { margin: 0.85cqw 0; color: var(--dk-ink-2); }
 
 /* Checklist */
 .deck .checklist { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 4cqw; }
@@ -758,6 +757,8 @@
 .deck .score th { text-align: left; font-weight: 600; color: var(--dk-muted); font-size: var(--t-xs); padding: 0 1cqw 0.8cqw 0; border-bottom: 1px solid var(--dk-line); }
 .deck .score td { padding: 1cqw 1cqw 1cqw 0; border-bottom: 1px solid var(--dk-line); vertical-align: top; }
 .deck .score td:first-child { color: var(--dk-ink); font-weight: 600; }
+/* Keep short commands on one line, so a narrow column does not break them. */
+.deck .score code { white-space: nowrap; }
 .deck .dots { display: flex; gap: 0.5em; }
 .deck .dot { width: 0.9em; height: 0.9em; border-radius: 50%; display: inline-block; }
 .deck .dot.g { background: #10b981; }
@@ -777,7 +778,324 @@
 .deck .dd .do li::before { content: "+"; position: absolute; left: 0.1em; color: var(--dk-do); font-weight: 800; }
 .deck .dd .dont li::before { content: "\2212"; position: absolute; left: 0.1em; color: var(--dk-dont); font-weight: 800; }
 
-@media (prefers-reduced-motion: reduce) { .deck-progress div { transition: none; } }
+/* Diagram parts that animate when their slide becomes active.
+   .ga  appears (optional start offset --fx/--fy and start scale --fs),
+   .gd  draws a line; the element needs pathLength="1".
+   --d sets the start delay. A slide that becomes active again replays its animation. */
+.deck .ga { transform-box: fill-box; transform-origin: center; }
+.deck .slide.active .ga { animation: dk-git-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
+.deck .slide.active .gd { stroke-dasharray: 1; animation: dk-git-draw 0.5s ease-out var(--d, 0s) both; }
+@keyframes dk-git-in {
+  from { opacity: 0; transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(var(--fs, 1)); }
+  to { opacity: 1; transform: none; }
+}
+/* A diagram that shrinks to the height left in the slide body, so long slides do not
+   push their content up under the title. The viewBox keeps its aspect ratio. */
+.deck .body > svg.dia.fit { flex: 1 1 0; min-height: 0; height: auto; }
+
+/* Small print for trade-offs under a slide's main content. */
+.deck .tradeoffs { font-size: var(--t-xs); line-height: 1.55; color: var(--dk-muted); border-top: 1px solid var(--dk-line); padding-top: 1cqw; }
+.deck .tradeoffs b { color: var(--dk-ink-2); }
+.deck .slide h2 .tag { vertical-align: middle; margin: 0 0 0 0.4em; }
+
+/* Step strip. Each .gs step appears at --d and glows for a moment. */
+.deck .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1cqw; list-style: none; padding: 0; margin-bottom: 0; }
+.deck .steps li { display: flex; flex-direction: column; gap: 0.3cqw; padding: 1cqw 1.2cqw; border: 1px solid var(--dk-line); border-radius: var(--radius); background: var(--dk-soft); font-size: var(--t-xs); color: var(--dk-muted); }
+.deck .steps b { font-size: var(--t-sm); color: var(--dk-ink); }
+.deck .steps code { color: var(--dk-accent); font-size: var(--t-xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.deck .slide.active .gs { animation: dk-git-in 0.6s ease-out var(--d, 0s) both, dk-step-glow 1.8s ease-out var(--d, 0s) both; }
+@keyframes dk-step-glow {
+  from { border-color: var(--dk-accent); background: var(--dk-accent-soft); }
+  to { border-color: var(--dk-line); background: var(--dk-soft); }
+}
+@keyframes dk-git-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* "How AI products are built" deck: five layers, each with its own colour.
+   Top to bottom: interface, harness, context, inference, model. */
+.deck {
+  /* A warm-to-cool ramp: the top layer (what people see) is warm, the bottom (what it runs on) is deep blue. */
+  --ly-int: #c2410c; --ly-int-soft: #fff1e8;
+  --ly-har: #be185d; --ly-har-soft: #fdeaf3;
+  --ly-ctx: #7e22ce; --ly-ctx-soft: #f5ecfd;
+  --ly-inf: #4338ca; --ly-inf-soft: #eef0fd;
+  --ly-mod: #1e3a8a; --ly-mod-soft: #e8eef9;
+  /* Solid fills carry white text, so they keep strong colours in both themes. */
+  --ly-int-fill: #ea580c; --ly-har-fill: #db2777; --ly-ctx-fill: #9333ea; --ly-inf-fill: #4f46e5; --ly-mod-fill: #1e3a8a;
+}
+.dark .deck {
+  --ly-int: #fb923c; --ly-int-soft: rgb(249 115 22 / 0.14);
+  --ly-har: #f472b6; --ly-har-soft: rgb(236 72 153 / 0.14);
+  --ly-ctx: #c084fc; --ly-ctx-soft: rgb(168 85 247 / 0.14);
+  --ly-inf: #a5b4fc; --ly-inf-soft: rgb(99 102 241 / 0.16);
+  --ly-mod: #93c5fd; --ly-mod-soft: rgb(59 130 246 / 0.15);
+}
+/* Layer label: a small solid square in the layer colour, then the name in body ink. */
+.deck .lc { display: inline-flex; align-items: center; gap: 0.45em; font-size: var(--t-xs); font-weight: 650; color: var(--dk-ink); white-space: nowrap; }
+.deck .lc::before { content: ""; width: 0.8em; height: 0.8em; border-radius: 3px; background: var(--lc, var(--dk-rule)); flex: none; }
+.deck .lc.int { --lc: var(--ly-int-fill); }
+.deck .lc.har { --lc: var(--ly-har-fill); }
+.deck .lc.ctx { --lc: var(--ly-ctx-fill); }
+.deck .lc.inf { --lc: var(--ly-inf-fill); }
+.deck .lc.mod { --lc: var(--ly-mod-fill); }
+
+/* The layer funnel drawn on divider plates; data-on marks the layer the part is about
+   (solid), the others stay tinted. data-on="all" shows every layer solid. */
+.deck .plate svg.stack5 { flex: 1; min-height: 0; width: 100%; height: auto; padding: 3cqw; }
+.deck svg.stack5 path { stroke-width: 1.5; stroke-linejoin: round; }
+.deck svg.stack5 .nm { font-size: 22px; font-weight: 700; text-anchor: middle; }
+.deck svg.stack5 .ds { font-size: 14px; text-anchor: middle; opacity: 0.85; }
+.deck svg.stack5 .l-int path { fill: var(--ly-int-soft); stroke: var(--ly-int); } .deck svg.stack5 .l-int text { fill: var(--ly-int); }
+.deck svg.stack5 .l-har path { fill: var(--ly-har-soft); stroke: var(--ly-har); } .deck svg.stack5 .l-har text { fill: var(--ly-har); }
+.deck svg.stack5 .l-ctx path { fill: var(--ly-ctx-soft); stroke: var(--ly-ctx); } .deck svg.stack5 .l-ctx text { fill: var(--ly-ctx); }
+.deck svg.stack5 .l-inf path { fill: var(--ly-inf-soft); stroke: var(--ly-inf); } .deck svg.stack5 .l-inf text { fill: var(--ly-inf); }
+.deck svg.stack5 .l-mod path { fill: var(--ly-mod-soft); stroke: var(--ly-mod); } .deck svg.stack5 .l-mod text { fill: var(--ly-mod); }
+.deck [data-on="int"] svg.stack5 .l-int path, .deck [data-on="all"] svg.stack5 .l-int path { fill: var(--ly-int-fill); stroke: var(--ly-int-fill); }
+.deck [data-on="har"] svg.stack5 .l-har path, .deck [data-on="all"] svg.stack5 .l-har path { fill: var(--ly-har-fill); stroke: var(--ly-har-fill); }
+.deck [data-on="ctx"] svg.stack5 .l-ctx path, .deck [data-on="all"] svg.stack5 .l-ctx path { fill: var(--ly-ctx-fill); stroke: var(--ly-ctx-fill); }
+.deck [data-on="inf"] svg.stack5 .l-inf path, .deck [data-on="all"] svg.stack5 .l-inf path { fill: var(--ly-inf-fill); stroke: var(--ly-inf-fill); }
+.deck [data-on="mod"] svg.stack5 .l-mod path, .deck [data-on="all"] svg.stack5 .l-mod path { fill: var(--ly-mod-fill); stroke: var(--ly-mod-fill); }
+.deck [data-on="int"] svg.stack5 .l-int text, .deck [data-on="har"] svg.stack5 .l-har text, .deck [data-on="ctx"] svg.stack5 .l-ctx text,
+.deck [data-on="inf"] svg.stack5 .l-inf text, .deck [data-on="mod"] svg.stack5 .l-mod text, .deck [data-on="all"] svg.stack5 text { fill: #fff; }
+
+/* Assembling funnel: HTML bands that drop in one by one (.ga with --fy and --d).
+   Each band is narrower than the one above, and its sides slant in by --slant. */
+.deck .build { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3cqw; align-items: center; }
+.deck .bands { --slant: 1.9cqw; display: grid; gap: 0.45cqw; }
+.deck .band { justify-self: center; display: grid; grid-template-columns: 2.2em 1fr; align-items: center; column-gap: 1cqw; padding: 0.7cqw calc(var(--slant) + 1.4cqw); color: #fff;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, var(--slant) 100%); }
+.deck .band:nth-child(1) { width: 100%; }
+.deck .band:nth-child(2) { width: calc(100% - 2 * var(--slant)); }
+.deck .band:nth-child(3) { width: calc(100% - 4 * var(--slant)); }
+.deck .band:nth-child(4) { width: calc(100% - 6 * var(--slant)); }
+.deck .band:nth-child(5) { width: calc(100% - 8 * var(--slant)); }
+.deck .band b { font-size: var(--t-lg); letter-spacing: -0.02em; }
+.deck .band .n { font-size: var(--t-sm); font-weight: 700; font-variant-numeric: tabular-nums; opacity: 0.8; }
+.deck .band span.d { grid-column: 2; font-size: var(--t-xs); opacity: 0.88; }
+.deck .band.int { background: var(--ly-int-fill); }
+.deck .band.har { background: var(--ly-har-fill); }
+.deck .band.ctx { background: var(--ly-ctx-fill); }
+.deck .band.inf { background: var(--ly-inf-fill); }
+.deck .band.mod { background: var(--ly-mod-fill); }
+.deck .legend5 { display: grid; gap: 1.1cqw; }
+.deck .legend5 div { display: grid; grid-template-columns: 6.5em 1fr; gap: 1.2cqw; font-size: var(--t-sm); align-items: baseline; }
+
+/* Bar chart: each bar grows from the left (.gx); --w is its width. */
+.deck .bars { display: grid; gap: 0.6cqw; }
+.deck .bars .br { display: grid; grid-template-columns: 21em 1fr 5em; gap: 1.2cqw; align-items: center; font-size: var(--t-xs); }
+.deck .bars .br b { color: var(--dk-ink); font-size: var(--t-sm); white-space: nowrap; }
+.deck .bars .br small { display: inline; margin-left: 0.5em; color: var(--dk-muted); font-size: var(--t-xs); font-weight: 400; }
+.deck .bars .track2 { height: clamp(14px, 1.7cqw, 28px); background: var(--dk-soft); border-radius: 6px; overflow: hidden; }
+.deck .bars .fill { height: 100%; width: var(--w); border-radius: 6px; transform-origin: left center; }
+.deck .bars .val { font-variant-numeric: tabular-nums; color: var(--dk-ink); font-weight: 650; text-align: right; }
+.deck .fill.p-ant { background: #d97757; } .deck .fill.p-oai { background: #10a37f; } .deck .fill.p-goo { background: #4285f4; } .deck .fill.p-open { background: #8b5cf6; }
+.deck .gx { transform-origin: left center; }
+.deck .slide.active .gx { animation: ly-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
+@keyframes ly-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.deck .keyrow { display: flex; flex-wrap: wrap; gap: 1.4cqw; font-size: var(--t-xs); color: var(--dk-muted); }
+.deck .keyrow i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 3px; margin-right: 0.4em; vertical-align: -0.05em; }
+
+/* Token chips: a sentence split into tokens, appearing one by one. */
+.deck .toks { display: flex; flex-wrap: wrap; gap: 0.5cqw; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: var(--t-body); }
+.deck .toks span { padding: 0.15em 0.35em; border-radius: 6px; white-space: pre; }
+.deck .toks span:nth-child(4n+1) { background: var(--ly-int-soft); } .deck .toks span:nth-child(4n+2) { background: var(--ly-ctx-soft); }
+.deck .toks span:nth-child(4n+3) { background: var(--ly-inf-soft); } .deck .toks span:nth-child(4n) { background: var(--ly-har-soft); }
+
+/* Interface wireframes with numbered callouts and a legend beside them. */
+.deck .wire { border: 1.5px solid var(--dk-line); border-radius: 12px; background: var(--dk-panel); overflow: hidden; font-size: var(--t-sm); color: var(--dk-muted); display: flex; flex-direction: column; min-height: 0; }
+.deck .wire .wbar { display: flex; align-items: center; gap: 0.5em; padding: 0.7cqw 1cqw; border-bottom: 1px solid var(--dk-line); background: var(--dk-soft); }
+.deck .wire .wbar i { width: 0.7em; height: 0.7em; border-radius: 50%; background: var(--dk-line); display: inline-block; }
+.deck .wire .wbar span { margin-left: 0.6em; font-weight: 600; color: var(--dk-ink-2); }
+.deck .wire .wbody { display: grid; grid-template-columns: 26% 1fr; flex: 1; min-height: 0; }
+.deck .wire .wbody.one { grid-template-columns: 1fr; }
+.deck .wire .side { border-right: 1px solid var(--dk-line); padding: 1cqw; display: grid; gap: 0.6cqw; align-content: start; background: var(--dk-soft); }
+.deck .wire .main { padding: 1.2cqw; display: grid; gap: 0.8cqw; align-content: start; position: relative; }
+.deck .wire .ln2 { height: 0.7em; border-radius: 4px; background: var(--dk-line); }
+.deck .wire .msg { border: 1px solid var(--dk-line); border-radius: 8px; padding: 0.6cqw 0.8cqw; background: var(--dk-page); color: var(--dk-ink-2); }
+.deck .wire .msg.me { justify-self: end; background: var(--dk-accent-soft); border-color: var(--dk-accent-line); }
+.deck .wire .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; color: var(--dk-ink-2); line-height: 1.55; }
+.deck .wire .pill2 { display: inline-block; padding: 0.1em 0.6em; border-radius: 9999px; border: 1px solid var(--dk-line); background: var(--dk-page); }
+.deck .wire .pill2.on { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: transparent; }
+.deck .co { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--dk-dont-fill); color: #fff; font-size: var(--t-xs); font-weight: 700; flex: none; font-style: normal; }
+.deck .callouts { list-style: none; padding: 0; margin: 0; display: grid; gap: 1cqw; font-size: var(--t-sm); }
+.deck .callouts li { display: grid; grid-template-columns: 1.9em 1fr; gap: 0.8cqw; align-items: start; }
+.deck .callouts b { color: var(--dk-ink); }
+.deck .wirerow { display: grid; grid-template-columns: 1.45fr 1fr; gap: 3cqw; align-items: center; min-height: 0; }
+
+/* Cards in a row share one height. */
+.deck .row.eq { align-items: stretch; }
+
+/* Brand logos on a white tile, so dark logos read in both themes. */
+.deck img.lg { display: inline-block; height: 1.45em; width: 1.45em; padding: 0.18em; background: #fff; border: 1px solid var(--dk-line); border-radius: 7px; vertical-align: middle; margin: 0 0.15em; }
+.deck .lg-t { display: inline-block; font-size: var(--t-sm); font-weight: 650; padding: 0.15em 0.55em; border: 1px solid var(--dk-line); border-radius: 7px; background: var(--dk-panel); color: var(--dk-ink-2); margin: 0.1em 0.15em; white-space: nowrap; }
+.deck .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5cqw; }
+.deck .logos.big img.lg { height: 2.4em; width: 2.4em; padding: 0.35em; border-radius: 10px; }
+
+/* Screenshots: framed, clickable to open full size; .pin marks a numbered callout at --x/--y (percent). */
+.deck .shot { position: relative; margin: 0; display: block; border: 1px solid var(--dk-line); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: var(--dk-shadow); }
+.deck .shot img { display: block; width: 100%; height: auto; }
+.deck a.shot:hover { border-color: var(--dk-accent); }
+.deck .shot .pin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9); }
+.deck .src { font-size: var(--t-xs); color: var(--dk-muted); margin-top: 0.5cqw; }
+
+/* "Who asks whom" arrow under a ladder: from people asking AI to AI asking people. */
+.deck .flow { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1.4cqw; padding: 0.9cqw 1.6cqw; border-radius: 9999px; font-size: var(--t-sm); font-weight: 650; color: #fff;
+  background: linear-gradient(90deg, var(--ly-mod-fill), var(--ly-inf-fill), var(--ly-ctx-fill), var(--ly-har-fill), var(--ly-int-fill)); }
+.deck .flow::after { content: ""; position: absolute; right: -1.2cqw; top: 50%; transform: translateY(-50%); border: 1.3cqw solid transparent; border-left: 1.6cqw solid var(--ly-int-fill); border-right: 0; }
+.deck .flow span:nth-child(2) { font-weight: 500; opacity: 0.9; }
+
+/* Context window mock: a composer with a usage ring. */
+.deck .ctxmock { border: 1.5px solid var(--dk-line); border-radius: 16px; background: var(--dk-panel); padding: 1.4cqw 1.6cqw; display: grid; gap: 1.2cqw; font-size: var(--t-sm); color: var(--dk-muted); }
+.deck .ctxmock .bar3 { display: flex; align-items: center; gap: 0.8cqw; }
+.deck .ctxmock .ring { margin-left: auto; display: inline-flex; align-items: center; gap: 0.5em; color: var(--dk-ink); font-weight: 650; }
+.deck .ctxmock .pop { justify-self: end; border: 1px solid var(--dk-line); border-radius: 10px; padding: 0.8cqw 1cqw; background: var(--dk-page); color: var(--dk-ink-2); width: 62%; font-size: var(--t-xs); display: grid; gap: 0.4cqw; }
+.deck .ctxmock .pop .track { height: 0.9em; }
+
+/* Increff plate: the company logo instead of the layer funnel. */
+.deck .plate.brand { align-items: center; justify-content: center; }
+.deck .plate.brand img { flex: none; width: 62%; height: auto; }
+.deck .plate.brand .on-dark { display: none; }
+.dark .deck .plate.brand img { filter: none; mix-blend-mode: normal; }
+.dark .deck .plate.brand .on-light { display: none; }
+.dark .deck .plate.brand .on-dark { display: block; }
+
+/* Bigger cards for the closing summary. */
+.deck .row.bigtext { gap: 1.6cqw; }
+.deck .row.bigtext .card .big { font-size: calc(var(--t-lg) * 1.12); line-height: 1.2; }
+.deck .row.bigtext .card p { font-size: var(--t-body); }
+.deck .row.bigtext .lc { font-size: var(--t-sm); }
+
+/* Highlighted table rows: what we use. */
+.deck table.score tr.use td { background: var(--dk-do-soft); }
+.deck table.score tr.use td:first-child { box-shadow: inset 3px 0 0 var(--dk-do); padding-left: 0.8cqw; }
+.deck .score .cost { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.deck .score .minibar { height: 0.8em; border-radius: 4px; width: var(--w); min-width: 3px; }
+
+/* Larger table text for slides with few rows, so they read from the back of a room. */
+.deck table.score.lg { font-size: var(--t-body); }
+
+/* Ladder: rungs that rise one after another. */
+.deck .ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1cqw; align-items: end; }
+.deck .ladder .rung { border: 1px solid var(--dk-line); border-radius: var(--radius); background: var(--dk-panel); padding: 1.1cqw 1.2cqw; display: grid; gap: 0.5cqw; align-content: start; font-size: var(--t-xs); }
+.deck .ladder .rung b { font-size: var(--t-sm); color: var(--dk-ink); }
+.deck .ladder .rung .lv { color: var(--dk-accent); font-weight: 700; }
+.deck .ladder .rung .ex { color: var(--dk-muted); }
+/* "To move right" hints, one per gap between rungs. */
+.deck .ladder.next { align-items: start; margin-top: 0.8cqw; }
+.deck .ladder.next div { font-size: var(--t-xs); color: var(--dk-ink-2); border-top: 2px dashed var(--dk-line); padding-top: 0.5cqw; }
+.deck .ladder.next b { display: block; color: var(--dk-accent); font-size: var(--t-xs); }
+
+/* Larger logos, for tables and cards where the brand is the point. */
+.deck .lgx img.lg { height: 2.1em; width: 2.1em; padding: 0.3em; border-radius: 9px; }
+.deck .lgx .lg-t { font-size: var(--t-sm); }
+
+/* Layer labels pinned on a screenshot at --x/--y (percent). */
+.deck .shot .lpin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); font-style: normal; font-size: var(--t-xs); font-weight: 700; color: #fff; padding: 0.2em 0.65em; border-radius: 9999px; white-space: nowrap; box-shadow: 0 0 0 2px #fff, var(--dk-shadow); }
+.deck .shot .lpin.int { background: var(--ly-int-fill); }
+.deck .shot .lpin.har { background: var(--ly-har-fill); }
+.deck .shot .lpin.ctx { background: var(--ly-ctx-fill); }
+.deck .shot .lpin.inf { background: var(--ly-inf-fill); }
+.deck .shot .lpin.mod { background: var(--ly-mod-fill); }
+
+/* Tour screenshots: a dot on each point, a dotted leader to its number at the right edge. */
+.deck .shot.tour { overflow: visible; margin-right: 1.4cqw; }
+.deck .shot.tour > img { border-radius: 12px; }
+.deck .shot .leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.deck .shot .leaders line { stroke: var(--dk-dont-fill); stroke-width: 2; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.deck .shot .dot { position: absolute; left: var(--x); top: var(--y); width: 0.75cqw; height: 0.75cqw; transform: translate(-50%, -50%); border-radius: 50%; background: var(--dk-dont-fill); box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9); }
+.deck .shot.tour .pin { left: 100%; }
+
+/* A prompt taken apart: label, arrow, the words that do that job. */
+.deck .anatomy { display: grid; grid-template-columns: auto auto 1fr; gap: 0.9cqw 1cqw; align-items: center; }
+.deck .anatomy .k { font-size: var(--t-xs); font-weight: 700; color: #fff; padding: 0.25em 0.8em; border-radius: 9999px; text-align: center; }
+.deck .anatomy .ar { color: var(--dk-rule); font-size: var(--t-sm); }
+.deck .anatomy .v { font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--t-xs); line-height: 1.5; background: var(--dk-panel); border: 1px solid var(--dk-line); border-left: 4px solid var(--kc); border-radius: 8px; padding: 0.5cqw 1cqw; color: var(--dk-ink); }
+
+/* Small line icons at the top of a card. */
+.deck .card .ic { width: 2.6cqw; height: 2.6cqw; display: block; margin-bottom: 0.6cqw; fill: none; stroke: var(--ly-inf-fill); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.deck .card .ic.har { stroke: var(--ly-har-fill); }
+
+/* The harness as a body: figure styles. */
+.deck svg.body .bone { fill: none; stroke: var(--ly-har-fill); stroke-width: 7; stroke-linecap: round; }
+.deck svg.body .rib { fill: none; stroke: var(--ly-har-fill); stroke-width: 4; stroke-linecap: round; opacity: 0.75; }
+.deck svg.body .joint { fill: var(--dk-page); stroke: var(--ly-har-fill); stroke-width: 3.5; }
+.deck svg.body .muscle { fill: var(--ly-har-soft); stroke: var(--ly-har); stroke-width: 1.5; }
+.deck svg.body .skull { fill: var(--dk-page); stroke: var(--ly-har-fill); stroke-width: 4; }
+.deck svg.body .brain { fill: var(--ly-mod-fill); }
+.deck svg.body .fold { fill: none; stroke: #93c5fd; stroke-width: 2; stroke-linecap: round; }
+.deck svg.body .sig { fill: none; stroke: var(--ly-inf-fill); stroke-width: 3; stroke-linecap: round; }
+.deck svg.body .lead { stroke: var(--dk-rule); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.deck svg.body .lt { font-size: 15px; font-weight: 700; }
+.deck svg.body .ls { font-size: 12.5px; fill: var(--dk-muted); }
+.deck .plate svg.body { flex: 1; min-height: 0; width: 100%; height: auto; padding: 2cqw; }
+
+/* Group header rows inside a table (price tiers). */
+.deck table.score tr.grp td { font-size: var(--t-xs); font-weight: 700; color: var(--dk-accent); background: var(--dk-soft); padding-top: 0.45cqw; padding-bottom: 0.45cqw; }
+
+/* A model name with its logo, larger than body text. */
+.deck .mdls { display: flex; flex-wrap: wrap; gap: 0.5cqw 1.1cqw; margin-top: 0.8cqw; }
+.deck .mdl { display: inline-flex; align-items: center; gap: 0.3em; font-size: var(--t-sm); font-weight: 650; color: var(--dk-ink); white-space: nowrap; }
+.deck .mdl img.lg { height: 1.7em; width: 1.7em; margin: 0; }
+
+/* Increff wordmark in a table header; the highlighted column is ours. */
+.deck img.inc { height: 1.5em; width: auto; vertical-align: -0.1em; margin-right: 0.2em; }
+.deck img.inc.on-d { display: none; }
+.dark .deck img.inc.on-l { display: none; }
+.dark .deck img.inc.on-d { display: inline; }
+.deck table.score .hl { background: var(--dk-do-soft); font-weight: 650; }
+.deck table.score th.inc-h img.inc { display: block; height: 2.6em; margin-bottom: 0.3em; }
+.deck table.score th.inc-h img.inc.on-d, .dark .deck table.score th.inc-h img.inc.on-l { display: none; }
+.dark .deck table.score th.inc-h img.inc.on-d { display: block; }
+.deck table.score th.inc-h span { display: block; }
+.deck table.score.tight td { padding-top: 0.3cqw; padding-bottom: 0.3cqw; }
+
+/* White tiles behind logos drawn inside diagrams, so dark logos read on a dark slide. */
+.deck svg .lgtile { fill: #fff; stroke: var(--dk-line); }
+
+/* Dark theme: logos sit on a dark tile, and the black or near-black ones are inverted so they read. */
+.dark .deck img.lg { background: var(--dk-panel); }
+.dark .deck svg .lgtile { fill: var(--dk-panel); }
+.dark .deck :is(img.lg, svg image):is(
+  [src*="/anthropic.svg"], [src*="/bfl.svg"], [src*="/confluence.svg"], [src*="/cursor.svg"],
+  [src*="/elevenlabs.svg"], [src*="/github.svg"], [src*="/githubcopilot.svg"], [src*="/midjourney.svg"],
+  [src*="/moonshot.svg"], [src*="/notion.svg"], [src*="/openai.svg"], [src*="/qwen.svg"],
+  [src*="/slack.svg"], [src*="/suno.svg"], [src*="/v0.svg"],
+  [href*="/notion.svg"], [href*="/slack.svg"]
+) { filter: invert(1) hue-rotate(180deg); background: hsl(240 10% 94.1%); border-color: hsl(240 3.7% 84.1%); }
+/* The filter also inverts the tile, so the two colours above are --dk-panel and --dk-line before inversion. */
+
+/* Interface patterns: a 2×2 grid, screenshot on the left of each card, text on the right. */
+.deck .row.patterns { grid-template-columns: 1fr 1fr; gap: 1.4cqw; }
+.deck .row.patterns .card { display: grid; grid-template-columns: 1.6fr 1fr; grid-template-rows: auto 1fr; gap: 0.4cqw 1.2cqw; padding: 1cqw; }
+.deck .row.patterns .card h3 { grid-column: 2; grid-row: 1; }
+.deck .row.patterns .card .shot { grid-column: 1; grid-row: 1 / 3; margin: 0; align-self: center; }
+.deck .row.patterns .card p { grid-column: 2; grid-row: 2; margin: 0; }
+
+/* Price table: the tier spans its two models. */
+.deck table.score td.tier { vertical-align: middle; border-right: 1px solid var(--dk-line); }
+.deck table.score td.tier b { display: block; color: var(--dk-ink); }
+.deck table.score td.tier span { display: block; font-size: var(--t-xs); color: var(--dk-muted); }
+
+/* Prompt layers as rings around the model. */
+.deck svg.rings circle { stroke: var(--dk-page); stroke-width: 3; }
+.deck svg.rings { max-height: 35cqw; justify-self: center; }
+.deck svg.rings text { font-weight: 700; font-size: 14px; fill: #fff; }
+
+@media (max-width: 820px), (max-aspect-ratio: 1/1) {
+  .deck .build, .deck .wirerow, .deck .ladder { grid-template-columns: 1fr; }
+  .deck .wire .wbody { grid-template-columns: 1fr; }
+  .deck .wire .side { display: none; }
+  .deck .bars .br { grid-template-columns: 8em 1fr 4.5em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck .slide.active .gx { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-progress div { transition: none; }
+  /* Show the end state of the diagrams without motion. */
+  .deck .slide.active .ga, .deck .slide.active .gd { animation: none; }
+  .deck .slide.active .gs { animation: none; }
+}
 @media (max-width: 820px), (max-aspect-ratio: 1/1) {
   .deck-tabs .tl { display: none; }
   .deck-tabs .tn { margin-right: 0; }
@@ -786,7 +1104,7 @@
   .deck .stage, .deck:fullscreen .stage { width: 100%; height: 100%; aspect-ratio: auto; }
   .deck .slide { padding: 24px 20px 56px; }
   .deck .slide-foot { left: 20px; right: 20px; bottom: 16px; }
-  .deck .row.c2, .deck .row.c3, .deck .row.c4, .deck .row.cw, .deck .row.cn, .deck .parts, .deck .rules, .deck .dd, .deck .lanes, .deck .mult { grid-template-columns: 1fr; }
+  .deck .row.c2, .deck .row.c3, .deck .row.c4, .deck .row.cw, .deck .row.cn, .deck .parts, .deck .rules, .deck .dd, .deck .lanes, .deck .mult, .deck .steps { grid-template-columns: 1fr; }
   .deck .lanes .arrow { transform: rotate(90deg); }
   .deck .checklist { columns: 1; }
   .deck .body { justify-content: flex-start; }
@@ -795,3 +1113,38 @@
   .deck .divider .slide-foot, .deck .title-slide .slide-foot { right: 20px; }
   .deck .divider .dv, .deck .title-slide .tx { width: 100%; height: auto; gap: 20px; }
 }
+
+/* Example cards: a large logo with no tile, the words beside it. */
+.deck .card.wl { display: flex; align-items: center; gap: 1.2cqw; }
+.deck .card.wl p { margin: 0; }
+.deck img.lg.bare, .dark .deck img.lg.bare { height: 5cqw; width: 5cqw; flex: none; padding: 0; margin: 0; border: 0; background: none; border-radius: 0; }
+
+/* Models we don't use: a dark warning box, set apart from the cards. */
+.deck .spooky { margin-top: 2.6cqw; padding: 1cqw 1.6cqw; border: 2px dashed #b91c1c; border-radius: 12px; background: repeating-linear-gradient(135deg, rgb(127 29 29 / 0.08) 0 12px, transparent 12px 24px), var(--dk-panel); }
+.deck .spooky .sk-h { margin: 0 0 0.4cqw; font-size: var(--t-sm); font-weight: 750; letter-spacing: 0.04em; text-transform: uppercase; color: #b91c1c; }
+.deck .spooky .sk-h span { font-size: 1.4em; vertical-align: -0.1em; margin-right: 0.3em; }
+.dark .deck .spooky { border-color: #f87171; }
+.dark .deck .spooky .sk-h { color: #f87171; }
+
+/* Rupee price with the dollar list price below it. */
+.deck table.score td.cost .usd { display: block; font-size: var(--t-xs); font-weight: 400; color: var(--dk-muted); }
+
+/* Two pills side by side in one cell. */
+.deck .pills { display: inline-flex; flex-wrap: wrap; gap: 0.4em; }
+
+/* Lever cards: icon on the left, title and text on the right. */
+.deck .card.side { display: grid; grid-template-columns: auto 1fr; column-gap: 1.2cqw; align-content: start; }
+.deck .card.side .ic { grid-row: 1 / 3; width: 4.2cqw; height: 4.2cqw; margin: 0; }
+.deck .card.side h3, .deck .card.side p { grid-column: 2; }
+
+/* How much effort each way of giving context takes, low to high. */
+.deck .effort { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1cqw 2.2cqw; margin-top: 1.2cqw; font-size: var(--t-xs); font-weight: 650; color: var(--dk-ink-2); }
+.deck .effort i { position: relative; height: 0.9cqw; border-radius: 9999px; background: linear-gradient(90deg, #22c55e, #eab308, #dc2626); }
+.deck .effort i::after { content: ""; position: absolute; right: -1cqw; top: 50%; transform: translateY(-50%); border: 0.9cqw solid transparent; border-left: 1.1cqw solid #dc2626; border-right: 0; }
+
+/* Closing slide: photo, thanks, company logo. */
+.deck .slide.thanks .body { align-items: center; justify-content: center; text-align: center; gap: 1.2cqw; }
+.deck .slide.thanks .me { width: 12cqw; height: 12cqw; border-radius: 50%; object-fit: cover; box-shadow: var(--dk-shadow); }
+.deck .slide.thanks .hero { margin: 0; }
+.deck .slide.thanks .meta { margin: 0; color: var(--dk-muted); }
+.deck .slide.thanks img.inc { height: 4.5cqw; margin: 0.8cqw 0 0; }
