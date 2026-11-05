@@ -166,37 +166,40 @@ Wait for my approval before implementing.</pre></div>
 <section class="slide" data-part="1" aria-label="The loop">
   <h2>The loop, every time</h2>
   <div class="body">
-    <svg class="dia" viewBox="0 -60 1000 300" role="img" aria-label="Specify, plan, tasks, approve, build one slice, test, review, PR, with review looping back to specify">
+    <svg class="dia" viewBox="0 -60 1000 300" role="img" aria-label="Specify, plan, tasks, check the spec, approve, build one slice, test, review, PR, with review looping back to specify">
       <defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dk-accent)"/></marker></defs>
-      <path d="M810,56 C750,-45 120,-45 60,56" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#m4)" style="stroke:var(--dk-accent)"/>
-      <rect x="310" y="-42" width="380" height="32" rx="16" style="fill:var(--dk-accent-soft)"/>
-      <text x="500" y="-20" text-anchor="middle" font-size="15" font-weight="600" style="fill:var(--dk-accent-2)">iterate: change the spec, not only the code</text>
-      <rect x="20" y="206" width="330" height="30" rx="8" style="fill:var(--dk-soft)"/><text class="s" x="185" y="227" text-anchor="middle">one document: the spec</text>
-      <rect x="520" y="206" width="330" height="30" rx="8" style="fill:var(--dk-soft)"/><text class="s" x="685" y="227" text-anchor="middle">once per task, small and checked</text>
-      <line class="ln" x1="92" y1="90" x2="153" y2="90"/>
-        <line class="ln" x1="217" y1="90" x2="278" y2="90"/>
-        <line class="ln" x1="342" y1="90" x2="403" y2="90"/>
-        <line class="ln" x1="467" y1="90" x2="528" y2="90"/>
-        <line class="ln" x1="592" y1="90" x2="653" y2="90"/>
-        <line class="ln" x1="717" y1="90" x2="778" y2="90"/>
-        <line class="ln" x1="842" y1="90" x2="903" y2="90"/>
+      <path d="M834,58 C774,-45 110,-45 50,58" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#m4)" style="stroke:var(--dk-accent)"/>
+      <rect x="290" y="-42" width="380" height="32" rx="16" style="fill:var(--dk-accent-soft)"/>
+      <text x="480" y="-20" text-anchor="middle" font-size="15" font-weight="600" style="fill:var(--dk-accent-2)">iterate: change the spec, not only the code</text>
+      <rect x="0" y="204" width="436" height="30" rx="8" style="fill:var(--dk-soft)"/><text class="s" x="218" y="225" text-anchor="middle">the spec: write it, then review it once</text>
+      <rect x="560" y="204" width="324" height="30" rx="8" style="fill:var(--dk-soft)"/><text class="s" x="722" y="225" text-anchor="middle">once per task, small and checked</text>
+      <line class="ln" x1="80" y1="90" x2="132" y2="90"/>
+        <line class="ln" x1="192" y1="90" x2="244" y2="90"/>
+        <line class="ln" x1="304" y1="90" x2="356" y2="90"/>
+        <line class="ln" x1="416" y1="90" x2="468" y2="90"/>
+        <line class="ln" x1="528" y1="90" x2="580" y2="90"/>
+        <line class="ln" x1="640" y1="90" x2="692" y2="90"/>
+        <line class="ln" x1="752" y1="90" x2="804" y2="90"/>
+        <line class="ln" x1="864" y1="90" x2="916" y2="90"/>
       <g text-anchor="middle">
-        <circle cx="60" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="60" y="97" font-size="18" font-weight="700" style="fill:#fff">1</text>
-        <circle cx="185" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="185" y="97" font-size="18" font-weight="700" style="fill:#fff">2</text>
-        <circle cx="310" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="310" y="97" font-size="18" font-weight="700" style="fill:#fff">3</text>
-        <polygon points="435,60 465,90 435,120 405,90" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-accent)"/><text x="435" y="96" font-size="16" font-weight="700" style="fill:var(--dk-accent)">OK?</text>
-        <circle cx="560" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="560" y="97" font-size="18" font-weight="700" style="fill:#fff">4</text>
-        <circle cx="685" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="685" y="97" font-size="18" font-weight="700" style="fill:#fff">5</text>
-        <circle cx="810" cy="90" r="30" style="fill:var(--dk-accent-fill)"/><text x="810" y="97" font-size="18" font-weight="700" style="fill:#fff">6</text>
-        <circle cx="935" cy="90" r="30" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-ink)"/><text x="935" y="97" font-size="18" font-weight="700" style="fill:var(--dk-ink)">7</text>
-        <text class="t" x="60" y="160">Specify</text><text class="s" x="60" y="184">why, what</text>
-        <text class="t" x="185" y="160">Plan</text><text class="s" x="185" y="184">how, files</text>
-        <text class="t" x="310" y="160">Tasks</text><text class="s" x="310" y="184">small steps</text>
-        <text class="t" x="435" y="160">Approve</text><text class="s" x="435" y="184">you say OK</text>
-        <text class="t" x="560" y="160">Build</text><text class="s" x="560" y="184">one slice</text>
-        <text class="t" x="685" y="160">Test</text><text class="s" x="685" y="184">with the code</text>
-        <text class="t" x="810" y="160">Review</text><text class="s" x="810" y="184">fresh eyes</text>
-        <text class="t" x="935" y="160">PR</text><text class="s" x="935" y="184">why and proof</text>
+        <circle cx="50" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="50" y="96" font-size="17" font-weight="700" style="fill:#fff">1</text>
+        <circle cx="162" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="162" y="96" font-size="17" font-weight="700" style="fill:#fff">2</text>
+        <circle cx="274" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="274" y="96" font-size="17" font-weight="700" style="fill:#fff">3</text>
+        <circle cx="386" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="386" y="96" font-size="17" font-weight="700" style="fill:#fff">4</text>
+        <polygon points="498,62 526,90 498,118 470,90" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-accent)"/><text x="498" y="95" font-size="15" font-weight="700" style="fill:var(--dk-accent)">OK?</text>
+        <circle cx="610" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="610" y="96" font-size="17" font-weight="700" style="fill:#fff">5</text>
+        <circle cx="722" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="722" y="96" font-size="17" font-weight="700" style="fill:#fff">6</text>
+        <circle cx="834" cy="90" r="28" style="fill:var(--dk-accent-fill)"/><text x="834" y="96" font-size="17" font-weight="700" style="fill:#fff">7</text>
+        <circle cx="946" cy="90" r="28" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-ink)"/><text x="946" y="96" font-size="17" font-weight="700" style="fill:var(--dk-ink)">8</text>
+        <text class="t" x="50" y="158">Specify</text><text class="s" x="50" y="182">why, what</text>
+        <text class="t" x="162" y="158">Plan</text><text class="s" x="162" y="182">how, files</text>
+        <text class="t" x="274" y="158">Tasks</text><text class="s" x="274" y="182">small steps</text>
+        <text class="t" x="386" y="158">Check</text><text class="s" x="386" y="182">review the spec</text>
+        <text class="t" x="498" y="158">Approve</text><text class="s" x="498" y="182">you say OK</text>
+        <text class="t" x="610" y="158">Build</text><text class="s" x="610" y="182">one slice</text>
+        <text class="t" x="722" y="158">Test</text><text class="s" x="722" y="182">with the code</text>
+        <text class="t" x="834" y="158">Review</text><text class="s" x="834" y="182">the diff, fresh</text>
+        <text class="t" x="946" y="158">PR</text><text class="s" x="946" y="182">why and proof</text>
       </g>
     </svg>
     <p class="callout">Your approval is the checkpoint: no code changes before it. After it, AI makes each loop cheap, so do more of them. The first output is a draft, never the deliverable.</p>
