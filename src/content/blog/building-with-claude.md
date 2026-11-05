@@ -764,6 +764,7 @@ run the tests and open a PR. Do not push to main.</pre></div>
       <li>Personal, repo and folder instructions</li>
       <li>Referencing Markdown files</li>
       <li>Plan, question and review</li>
+      <li>Spec-driven development</li>
       <li>Agent boundaries and context hygiene</li>
     </ul>
   </div>
@@ -859,6 +860,131 @@ tests, and open questions.
 Then split it into small slices, each one
 shippable and testable on its own.</pre></div>
     </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Spec-driven development">
+  <h2>Spec-driven development: write the intent down first</h2>
+  <p class="sub">The spec is the agreed intent for one change. The code is built from it and checked against it.</p>
+  <div class="body">
+    <div class="row c2 eq">
+      <div class="card"><span class="tag bad">Prompt, then code</span><p class="big mt-s">The intent gets lost</p><p class="mt-s">You prompt and the agent writes code. The "why" stays in a chat that is gone tomorrow. Nobody can check the code against anything.</p></div>
+      <div class="card blue"><span class="tag good">Spec, then code</span><p class="big mt-s">The intent is kept</p><p class="mt-s">You agree on a short spec first. The agent builds from it, and you check the result against it. The spec stays in the repo, next to the code.</p></div>
+    </div>
+    <div class="chips"><span>GitHub Spec Kit</span><span>OpenSpec</span><span>AWS Kiro</span></div>
+    <p class="xs mt-s">Public tools that do the same. We use the method in Claude Code plan mode, with no extra tool.</p>
+    <p class="callout">You already did two parts of this: the interview (specify) and plan mode (plan). Spec-driven development makes them a habit, and keeps the result.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="The spec-driven loop">
+  <h2>The loop: specify, plan, tasks, build</h2>
+  <div class="body">
+    <svg class="dia" viewBox="0 -60 1000 290" role="img" aria-label="Specify, plan, tasks, then an approval gate, then build, with build looping back to specify">
+      <defs><marker id="msd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--dk-accent)"/></marker></defs>
+      <path d="M880,48 C820,-45 160,-45 100,48" stroke-width="2" stroke-dasharray="6 6" fill="none" marker-end="url(#msd)" style="stroke:var(--dk-accent)"/>
+      <rect x="330" y="-40" width="340" height="32" rx="16" style="fill:var(--dk-accent-soft)"/>
+      <text x="500" y="-18" text-anchor="middle" font-size="15" font-weight="600" style="fill:var(--dk-accent-2)">change the spec, not only the code</text>
+      <line class="ln" x1="134" y1="90" x2="276" y2="90"/><line class="ln" x1="344" y1="90" x2="486" y2="90"/>
+      <line class="ln" x1="554" y1="90" x2="664" y2="90"/><line class="ln" x1="736" y1="90" x2="846" y2="90"/>
+      <g text-anchor="middle">
+        <circle cx="100" cy="90" r="34" style="fill:var(--dk-accent-fill)"/><text x="100" y="97" font-size="20" font-weight="700" style="fill:#fff">1</text>
+        <circle cx="310" cy="90" r="34" style="fill:var(--dk-accent-fill)"/><text x="310" y="97" font-size="20" font-weight="700" style="fill:#fff">2</text>
+        <circle cx="520" cy="90" r="34" style="fill:var(--dk-accent-fill)"/><text x="520" y="97" font-size="20" font-weight="700" style="fill:#fff">3</text>
+        <polygon points="700,54 736,90 700,126 664,90" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-accent)"/><text x="700" y="96" font-size="18" font-weight="700" style="fill:var(--dk-accent)">OK?</text>
+        <circle cx="880" cy="90" r="34" stroke-width="2" style="fill:var(--dk-page);stroke:var(--dk-ink)"/><text x="880" y="97" font-size="20" font-weight="700" style="fill:var(--dk-ink)">4</text>
+        <text class="t" x="100" y="165">Specify</text><text class="s" x="100" y="190">why and what</text>
+        <text class="t" x="310" y="165">Plan</text><text class="s" x="310" y="190">how, which files</text>
+        <text class="t" x="520" y="165">Tasks</text><text class="s" x="520" y="190">small steps, each checked</text>
+        <text class="t" x="700" y="165">You approve</text><text class="s" x="700" y="190">the checkpoint</text>
+        <text class="t" x="880" y="165">Build</text><text class="s" x="880" y="190">task by task</text>
+      </g>
+    </svg>
+    <ul class="notes sm mt">
+      <li>Steps 1–3 are one document. With the line from "Start tomorrow", plan mode writes it: the plan <b>is</b> the spec.</li>
+      <li>Your plan approval is the checkpoint. No code changes before it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="What a good spec has">
+  <h2>What a good spec has</h2>
+  <p class="sub">Six short parts. The example is the minimum display quantity check from "Step 1".</p>
+  <div class="body">
+    <div class="row c3" style="gap:1.4cqw">
+      <div class="card"><h3>Why</h3><p>The problem and the outcome, in two sentences.</p><p class="mt-s"><b>Ex.</b> Stores get 1–2 units, so the shelf looks empty.</p></div>
+      <div class="card"><h3>Requirements</h3><p>R1, R2 …, each one testable: "when …, then …". Say what is out of scope too.</p><p class="mt-s"><b>Ex.</b> R1. When a store gets less than its minimum, then it gets zero.</p></div>
+      <div class="card"><h3>Design</h3><p>How, and which files change. Reuse what is there.</p><p class="mt-s"><b>Ex.</b> A pure <code>applyMinDisplay()</code> in <code>src/allocation/</code>.</p></div>
+      <div class="card"><h3>Tasks</h3><p>Small steps in order, each with its check.</p><p class="mt-s"><b>Ex.</b> 1. <code>applyMinDisplay()</code> and its tests.</p></div>
+      <div class="card"><h3>Verification</h3><p>The tests and checks that prove each requirement.</p><p class="mt-s"><b>Ex.</b> Unit tests for R1–R3; before and after screenshots.</p></div>
+      <div class="card"><h3>Open questions</h3><p>Each unclear point, with a proposed answer.</p><p class="mt-s"><b>Ex.</b> No minimum set? Proposed: skip the check.</p></div>
+    </div>
+    <p class="callout">Write it as a story: the problem, how the change works, then the details. Add a diagram when a flow is easier to see than to read.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Split the tasks, then check the spec">
+  <h2>Split the tasks, then check the spec</h2>
+  <div class="body">
+    <div class="row c2">
+      <div>
+        <div class="prompt"><div class="ph">tasks.md</div><pre>- [ ] 1. applyMinDisplay() and its tests (R1, R3)
+- [ ] 2. [P] Freed units go to the next store (R2)
+- [ ] 3. [P] Show the minimum in the grid tooltip
+- [ ] 4. Call it from allocate.ts; run all tests</pre></div>
+        <ul class="notes sm mt-s">
+          <li><b>[P]</b> means "can run in parallel": it touches other files than the open tasks, and it does not wait for them.</li>
+          <li>Task 1 first. Then tasks 2 and 3 at the same time, each in its own session. Task 4 last.</li>
+        </ul>
+      </div>
+      <div class="card soft"><h3>Before anyone builds</h3>
+        <ul class="notes sm mt-s">
+          <li><b>Self-check.</b> Each requirement has a task and a check. Each task serves a requirement.</li>
+          <li><b>One review round.</b> A fresh session reads the spec cold: what is missing, wrong or too big? (More in "Separate writing from checking".)</li>
+          <li><b>Rewrite it whole.</b> Fold the fixes in, so it reads as if it was right the first time. Keep no review notes.</li>
+        </ul></div>
+    </div>
+    <p class="callout">Fix the gaps here. After your OK, the agent builds what the spec says, and nothing more.</p>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="One folder per change">
+  <h2>One folder per change, with the proof</h2>
+  <div class="body">
+    <div class="row cw center">
+      <div><a class="shot" href="/images/blog/building-with-claude/spec-html-example.jpg" target="_blank" rel="noopener"><img alt="The spec of the minimum display quantity example as one HTML page: why, a flow diagram, and the requirements" src="/images/blog/building-with-claude/spec-html-example.jpg"></a>
+        <p class="src">spec.html of the example, made from the folder. Demo data.</p></div>
+      <div>
+        <div class="prompt"><div class="ph">The folder</div><pre>specs/2026-11-05-min-display-qty/
+  spec.md     the spec, all six parts
+  tasks.md    the checklist, ticked as you go
+  checks.md   each check and its result
+  before.png  screenshots, demo data
+  after.png
+  spec.html   one page of it all (spec-html)</pre></div>
+        <ul class="notes sm mt-s">
+          <li>Commit the folder with the code. The next person reads why, not only what.</li>
+          <li>Keep it out of <code>docs/</code>: that folder is often published.</li>
+          <li>The proof holds no secrets and no client data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="2" aria-label="Start tomorrow">
+  <h2>Start tomorrow</h2>
+  <div class="body">
+    <div class="row c2 eq">
+      <div class="card"><h3>Claude Code</h3><p>Add one line to <code>~/.claude/CLAUDE.md</code> to try it, or to <code>repo/CLAUDE.md</code> for the team. Then plan in plan mode and approve the plan.</p>
+        <pre class="code mt-s">For a feature or behaviour change, plan it as a spec.
+After my OK, save it in specs/&lt;date&gt;-&lt;name&gt;/
+and build from it.</pre></div>
+      <div class="card blue"><h3>Agent Studio</h3><p>Rolling out now. The agent writes the spec, explains it in plain words and waits for your OK. Then it builds, ticks the tasks and adds the proof.</p></div>
+    </div>
+    <div class="prompt mt"><div class="ph">Prompt, for any one task</div><pre>Plan this as a spec: why, requirements, design, tasks (mark [P] for the ones that can run
+in parallel), verification and open questions. Wait for my OK before you change code.</pre></div>
+    <p class="xs mt-s">Skip it for questions, tiny edits and bug fixes. A bug fix starts with a failing test.</p>
   </div>
 </section>
 
