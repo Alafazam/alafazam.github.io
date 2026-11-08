@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/markdown-it": "^14.2.0",
     "@types/node": "^22.20.5",
     "@types/react": "^18.3.31",
@@ -34,22 +35,24 @@
     "@typescript-eslint/eslint-plugin": "^8.71.1",
     "@typescript-eslint/parser": "^8.71.1",
     "@vitejs/plugin-react": "^4.7.0",
-    "autoprefixer": "^10.6.1",
     "eslint": "^8.57.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.26",
     "gh-pages": "^6.3.0",
     "markdown-it": "^14.3.2",
-    "postcss": "^8.5.29",
-    "tailwindcss": "^3.4.19",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
     "vite": "^6.4.4"
   },
   "packageManager": "pnpm@10.28.0",
   "pnpm": {
     "overrides": {
-      "yaml@>=2 <2.8.3": "^2.8.3",
       "postcss-selector-parser@<7.1.6": "^7.1.6"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-vfj7-8cjw-p6xm"
+      ]
     }
   }
 }

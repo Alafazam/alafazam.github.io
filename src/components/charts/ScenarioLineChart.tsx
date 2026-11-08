@@ -238,7 +238,7 @@ const ScenarioLineChart = ({
                 style={{ background: s.color }}
                 aria-hidden="true"
               />
-              <span className="truncate max-w-[9rem]">{s.name}</span>
+              <span className="truncate max-w-36">{s.name}</span>
               <span className="ml-auto pl-2 font-medium tabular-nums text-gray-900 dark:text-white">
                 {hover < s.points.length ? formatValue(s.points[hover]) : 'closed'}
               </span>
