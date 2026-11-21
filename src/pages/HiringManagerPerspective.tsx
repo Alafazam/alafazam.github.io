@@ -8,7 +8,7 @@ const HiringManagerPerspective = () => {
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold mb-4">👨‍💼 Hiring Manager's Perspective</h1>
+          <h1 className="text-2xl font-bold mb-4">Hiring Manager's Perspective</h1>
           <p className="text-lg text-muted-foreground">
             Why Alaf thinks he is a good fit for the role
           </p>
@@ -32,7 +32,7 @@ const HiringManagerPerspective = () => {
           
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-3">🤝 Strategic Business Partner</h3>
+              <h3 className="text-lg font-semibold mb-3">Strategic Business Partner</h3>
               <ul className="space-y-2">
                 <li>Understands P&L impact (revenue generation, cost optimization)</li>
                 <li>Built functions from scratch - entrepreneurial mindset</li>
@@ -42,7 +42,7 @@ const HiringManagerPerspective = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">⚙️ Technical Credibility</h3>
+              <h3 className="text-lg font-semibold mb-3">Technical Credibility</h3>
               <ul className="space-y-2">
                 <li>Engineering background means dev teams will respect him</li>
                 <li>Kubernetes, cloud architecture, database design expertise</li>
@@ -52,7 +52,7 @@ const HiringManagerPerspective = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">👥 Team Builder & Mentor</h3>
+              <h3 className="text-lg font-semibold mb-3">Team Builder & Mentor</h3>
               <ul className="space-y-2">
                 <li>Developed 3 APMs (Associate Product Managers) into independent Product Managers - team scaling</li>
                 <li>Cross-functional team building (pre-sales, onboarding)</li>
@@ -62,7 +62,7 @@ const HiringManagerPerspective = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">🚀 Future-Ready Leadership</h3>
+              <h3 className="text-lg font-semibold mb-3">Future-Ready Leadership</h3>
               <ul className="space-y-2">
                 <li>AI adoption puts him ahead of 90% of PMs</li>
                 <li>Supply chain + tech expertise increasingly valuable</li>
@@ -79,16 +79,16 @@ const HiringManagerPerspective = () => {
           
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-3">🎯 Director-Level Engineering & Product Role</h3>
+              <h3 className="text-lg font-semibold mb-3">Director-Level Engineering & Product Role</h3>
               <div>
                 <p className="mb-3"><strong>Immediate Role:</strong> Director of Engineering & Product</p>
                 <p className="mb-3"><strong>Mandate:</strong> Engineering and product for a product line under one leader</p>
-                <p><strong>Rationale:</strong> Alaf already runs both functions at Increff — a 40-person org across 6 products and $12M+ ARR — so he can step into the same dual mandate here.</p>
+                <p><strong>Rationale:</strong> Alaf already runs both functions at Increff (a 40-person org across 6 products and $12M+ ARR), so he can step into the same dual mandate here.</p>
               </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">📦 Multi-Product Ownership</h3>
+              <h3 className="text-lg font-semibold mb-3">Multi-Product Ownership</h3>
               <div>
                 <p className="mb-3"><strong>Scope:</strong> 2-3 product lines initially, scaling to full portfolio</p>
                 <p className="mb-3"><strong>Team Size:</strong> An engineering and product org at the 40-person scale he runs today</p>
@@ -97,7 +97,7 @@ const HiringManagerPerspective = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">👥 Team Lead Responsibilities</h3>
+              <h3 className="text-lg font-semibold mb-3">Team Lead Responsibilities</h3>
               <div>
                 <p className="mb-3"><strong>Direct Reports:</strong> Engineering managers and product managers</p>
                 <p className="mb-3"><strong>Mentorship Role:</strong> Develop managers and PMs like Alaf did at Increff</p>
@@ -113,7 +113,7 @@ const HiringManagerPerspective = () => {
           
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-3">💎 Salary Positioning</h3>
+              <h3 className="text-lg font-semibold mb-3">Salary Positioning</h3>
               <ul className="space-y-2">
                 <li><strong>Band:</strong> Top 10% for market</li>
                 <li><strong>Rationale:</strong> Proven revenue generation track record</li>
@@ -123,7 +123,7 @@ const HiringManagerPerspective = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-3">🚀 90-Day Plan</h3>
+              <h3 className="text-lg font-semibold mb-3">90-Day Plan</h3>
               <ul className="space-y-2">
                 <li><strong>Month 1:</strong> Domain deep-dive, team integration</li>
                 <li><strong>Month 2:</strong> Product roadmap assessment</li>
@@ -178,7 +178,7 @@ const HiringManagerPerspective = () => {
               <li>• <strong>Long-term Growth:</strong> VP / CPO-CTO trajectory</li>
               <li>• <strong>Cultural Fit:</strong> Innovation mindset aligns with company vision</li>
               <li>• <strong>Risk Level:</strong> Low - proven track record at scale</li>
-              <li>• <strong>Team Impact:</strong> Will elevate engineering and product practice together</li>
+              <li>• <strong>Team Impact:</strong> Will raise the bar for engineering and product practice together</li>
             </ul>
           </div>
           

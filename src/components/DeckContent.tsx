@@ -212,7 +212,7 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
           Next
         </button>
         <div className="deck-progress" aria-hidden="true">
-          <div style={{ width: total > 0 ? `${((current + 1) / total) * 100}%` : '0%' }} />
+          <div style={{ transform: `scaleX(${total > 0 ? (current + 1) / total : 0})` }} />
         </div>
         <span className="deck-hint">Arrow keys to move, F for full screen</span>
         {hasAnimation && (

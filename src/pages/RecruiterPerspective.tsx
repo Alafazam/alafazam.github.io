@@ -1,3 +1,4 @@
+import { Bot, Brain, CircleCheck, Lightbulb, Rocket, Target, Wallet, Zap } from 'lucide-react';
 import Seo from '../components/Seo';
 import { staticRoute } from '../seo/routes';
 
@@ -8,7 +9,7 @@ const RecruiterPerspective = () => {
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold mb-4">🎯 Recruiter Notes: Alaf Azam Khan</h1>
+          <h1 className="text-2xl font-bold mb-4">Recruiter Notes: Alaf Azam Khan</h1>
           <p className="text-lg text-muted-foreground">
             Internal assessment - why this profile caught my attention
           </p>
@@ -17,32 +18,32 @@ const RecruiterPerspective = () => {
         {/* Visual Summary Card */}
         <div className="mb-8">
           <div className="rounded-xl border border-border bg-card shadow-sm p-6">
-            <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wide">
-              5-Second Snapshot
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">
+              5-second snapshot
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
               <div className="text-center">
-                <div className="text-2xl mb-2">🚀</div>
+                <Rocket aria-hidden="true" className="h-6 w-6 text-primary mx-auto mb-2" />
                 <div className="text-sm font-medium text-muted-foreground mb-1">Role</div>
                 <div className="font-semibold">Director of Engineering & Product</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">🧠</div>
+                <Brain aria-hidden="true" className="h-6 w-6 text-primary mx-auto mb-2" />
                 <div className="text-sm font-medium text-muted-foreground mb-1">Scope</div>
                 <div className="font-semibold">6 products, 40-person org</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">💰</div>
+                <Wallet aria-hidden="true" className="h-6 w-6 text-primary mx-auto mb-2" />
                 <div className="text-sm font-medium text-muted-foreground mb-1">Revenue</div>
                 <div className="font-semibold">Helps in closing large deals</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">🚀</div>
+                <Rocket aria-hidden="true" className="h-6 w-6 text-primary mx-auto mb-2" />
                 <div className="text-sm font-medium text-muted-foreground mb-1">ARR</div>
                 <div className="font-semibold">Driving products with $12M+ ARR</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl mb-2">🤖</div>
+                <Bot aria-hidden="true" className="h-6 w-6 text-primary mx-auto mb-2" />
                 <div className="text-sm font-medium text-muted-foreground mb-1">AI Impact</div>
                 <div className="font-semibold">Building AI-native merchandising intelligence</div>
               </div>
@@ -54,7 +55,7 @@ const RecruiterPerspective = () => {
         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4">First thoughts when I saw this profile:</h2>
           <p className="text-lg font-semibold mb-4 text-green-600 dark:text-green-400">
-            "Wait, this actually looks really good. Let me dig deeper..."
+            “Wait, this actually looks really good. Let me dig deeper…”
           </p>
           <p className="text-base text-muted-foreground">
             Honestly? This isn't your typical leadership profile. Most candidates either have the business side OR the technical chops. Alaf has both, plus he's actually built stuff and can point to real revenue numbers. That's rare.
@@ -71,7 +72,7 @@ const RecruiterPerspective = () => {
             {/* Left Column - 60% */}
             <div className="col-span-3 space-y-6">
               <div>
-                <h3 className="text-lg font-semibold mb-3">The revenue stuff is legit 💰</h3>
+                <h3 className="text-lg font-semibold mb-3">The revenue stuff is legit</h3>
                 <p className="mb-2 text-muted-foreground">Look, most PMs talk about "impact" but can't quantify it. This guy has:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ ₹30L+ monthly recurring revenue (that's actual money coming in)</li>
@@ -82,7 +83,7 @@ const RecruiterPerspective = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-3">He can actually talk to engineers 🧠</h3>
+                <h3 className="text-lg font-semibold mb-3">He can actually talk to engineers</h3>
                 <p className="mb-2 text-muted-foreground">This is huge. Most PMs are either business-only or tech-only. He grew up as an engineer:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ Started as SDE1, worked up to SDE3, moved into product, and now leads both as Director</li>
@@ -93,7 +94,7 @@ const RecruiterPerspective = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-3">The scale is impressive 📊</h3>
+                <h3 className="text-lg font-semibold mb-3">The scale is impressive</h3>
                 <p className="mb-2 text-muted-foreground">These aren't startup numbers, this is enterprise-level stuff:</p>
                 <ul className="space-y-1 ml-4">
                   <li>→ 200M+ SKUs (that's a lot of data to manage)</li>
@@ -108,7 +109,7 @@ const RecruiterPerspective = () => {
             <div className="col-span-2 space-y-6">
               {/* AI Trends Highlight */}
               <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold mb-3 text-purple-800 dark:text-purple-300">He's ahead on AI trends 🤖</h3>
+                <h3 className="text-lg font-semibold mb-3 text-purple-800 dark:text-purple-300">He's ahead on AI trends</h3>
                 <p className="mb-2 text-purple-700 dark:text-purple-300 text-sm">While everyone's still figuring out ChatGPT, he's already implementing:</p>
                 <ul className="space-y-1 text-sm text-purple-700 dark:text-purple-300">
                   <li>→ AI-first product development culture</li>
@@ -137,7 +138,7 @@ const RecruiterPerspective = () => {
 
               {/* Fast Track Recommendation */}
               <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold mb-3 text-green-800 dark:text-green-300">🔥 Fast-track this one</h3>
+                <h3 className="text-lg font-semibold mb-3 text-green-800 dark:text-green-300">Fast-track this one</h3>
                 <div className="space-y-2 text-sm text-green-700 dark:text-green-300">
                   <p>→ <strong>Priority:</strong> Top 5% this quarter</p>
                   <p>→ <strong>Timeline:</strong> Interview this week</p>
@@ -159,18 +160,18 @@ const RecruiterPerspective = () => {
             <div className="space-y-6">
               {/* Decision */}
               <div className="flex items-start gap-4 pb-4 border-b border-border">
-                <div className="text-2xl">✅</div>
+                <CircleCheck aria-hidden="true" className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Decision</div>
                   <div className="text-green-600 dark:text-green-400 font-medium">
-                    "Hire immediately — senior-level ready"
+                    “Hire immediately: senior-level ready”
                   </div>
                 </div>
               </div>
 
               {/* Target Role */}
               <div className="flex items-start gap-4 pb-4 border-b border-border">
-                <div className="text-2xl">🎯</div>
+                <Target aria-hidden="true" className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Target Role</div>
                   <div className="text-muted-foreground">
@@ -181,7 +182,7 @@ const RecruiterPerspective = () => {
 
               {/* Unique Strength */}
               <div className="flex items-start gap-4 pb-4 border-b border-border">
-                <div className="text-2xl">💡</div>
+                <Lightbulb aria-hidden="true" className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Unique Strength</div>
                   <div className="text-muted-foreground">
@@ -192,7 +193,7 @@ const RecruiterPerspective = () => {
 
               {/* Impact */}
               <div className="flex items-start gap-4">
-                <div className="text-2xl">💥</div>
+                <Zap aria-hidden="true" className="h-6 w-6 text-primary mt-1 shrink-0" />
                 <div className="flex-1">
                   <div className="font-semibold text-lg mb-1">Impact</div>
                   <div className="text-muted-foreground">

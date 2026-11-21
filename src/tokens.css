@@ -1,0 +1,128 @@
+/* Palette tokens that are not part of the shadcn HSL channels in index.css.
+   Every literal colour in the site's CSS lives here; index.css only references these. */
+
+/* ---------------------------------------------------------------------------
+   Chart series colours (EMI scenario planner).
+
+   Two selected sets, not one set auto-flipped: the same eight hues, stepped for
+   each surface. Validated as a categorical palette against #ffffff and #111827:
+   both clear the lightness band, chroma floor, CVD separation (worst adjacent
+   ΔE 9.1 light / 8.4 dark) and the normal-vision floor (19.6 / 19.3). Three of
+   the light steps sit under 3:1 on white, so charts using them must carry
+   visible labels and a table equivalent; the comparison table and legend do.
+
+   Kept as custom properties rather than Tailwind classes so an SVG `stroke` can
+   reference them directly and the theme toggle needs no redraw. Slot order is
+   the colourblind-safety mechanism: assign in order, never cycle.
+   --------------------------------------------------------------------------- */
+:root {
+  --viz-1: #2a78d6; /* blue */
+  --viz-2: #eb6834; /* orange */
+  --viz-3: #1baf7a; /* aqua */
+  --viz-4: #eda100; /* yellow */
+  --viz-5: #e87ba4; /* magenta */
+
+  /* Print: near-black ink on near-white paper. */
+  --print-paper: hsl(0 0% 99%);
+  --print-ink: hsl(240 10% 4%);
+}
+
+:root.dark {
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+}
+
+/* Slide decks (see the .deck rules in index.css). */
+.deck {
+  /* Deck-only colours; dark-mode values below. */
+  --dk-ink-2: #3f3f46;
+  --dk-rule: #a1a1aa;
+  --dk-accent-2: #1d4ed8;
+  /* Solid blue boxes carry light text, so they keep a strong blue in both themes. */
+  --dk-accent-fill: #2563eb;
+  --dk-accent-soft: #eef3fe;
+  --dk-accent-mid: #bfd3fe;
+  --dk-accent-line: #d6e2fd;
+  --dk-do: #047857;
+  --dk-do-soft: #ecfdf5;
+  --dk-do-line: #a7e3cb;
+  --dk-dont: #c2410c;
+  --dk-dont-fill: #c2410c;
+  --dk-dont-soft: #fff4ed;
+  --dk-dont-line: #f8cbae;
+  --dk-code-bg: #fafafa;
+  --dk-code-ink: #383a42;
+  --dk-code-dim: #a0a1a7;
+  --dk-code-key: #a626a4;
+  --dk-code-str: #50a14f;
+  --dk-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 1px 3px rgb(0 0 0 / 0.04);
+
+  /* Text and strokes on solid fills, in both themes. */
+  --dk-on-fill: hsl(0 0% 98%);
+  --dk-on-fill-soft: #dbe6ff;
+  /* Light tiles behind logos and screenshots, in both themes. */
+  --dk-tile: hsl(240 20% 99%);
+  --dk-halo: hsl(0 0% 98% / 0.9);
+  /* Dark-mode tile for logos inverted with a filter (light values, inverted at render). */
+  --dk-tile-inverted: hsl(240 10% 94.1%);
+  --dk-tile-inverted-line: hsl(240 3.7% 84.1%);
+  /* Status dots. */
+  --dk-status-ok: #10b981;
+  --dk-status-warn: #f59e0b;
+  --dk-status-bad: #ef4444;
+  /* Effort ramp: low to high. */
+  --dk-effort-lo: #22c55e;
+  --dk-effort-mid: #eab308;
+  --dk-effort-hi: #dc2626;
+  /* Provider brand fills. */
+  --dk-brand-anthropic: #d97757;
+  --dk-brand-openai: #10a37f;
+  --dk-brand-google: #4285f4;
+  --dk-brand-open: #8b5cf6;
+  /* Body diagram fold line. */
+  --dk-fold: #93c5fd;
+  /* The warning box. */
+  --dk-spooky: #b91c1c;
+  --dk-spooky-wash: rgb(127 29 29 / 0.08);
+
+  /* "How AI products are built" deck: five layers, each with its own colour.
+     A warm-to-cool ramp: the top layer (what people see) is warm, the bottom (what it runs on) is deep blue. */
+  --ly-int: #c2410c; --ly-int-soft: #fff1e8;
+  --ly-har: #be185d; --ly-har-soft: #fdeaf3;
+  --ly-ctx: #7e22ce; --ly-ctx-soft: #f5ecfd;
+  --ly-inf: #4338ca; --ly-inf-soft: #eef0fd;
+  --ly-mod: #1e3a8a; --ly-mod-soft: #e8eef9;
+  /* Solid fills carry light text, so they keep strong colours in both themes. */
+  --ly-int-fill: #ea580c; --ly-har-fill: #db2777; --ly-ctx-fill: #9333ea; --ly-inf-fill: #4f46e5; --ly-mod-fill: #1e3a8a;
+}
+
+.dark .deck {
+  --dk-ink-2: #d4d4d8;
+  --dk-rule: #71717a;
+  --dk-accent-2: #93c5fd;
+  --dk-accent-soft: rgb(59 130 246 / 0.15);
+  --dk-accent-mid: rgb(96 165 250 / 0.3);
+  --dk-accent-line: rgb(96 165 250 / 0.3);
+  --dk-do: #34d399;
+  --dk-do-soft: rgb(16 185 129 / 0.12);
+  --dk-do-line: rgb(52 211 153 / 0.3);
+  --dk-dont: #fb923c;
+  --dk-dont-soft: rgb(249 115 22 / 0.12);
+  --dk-dont-line: rgb(251 146 60 / 0.3);
+  --dk-code-bg: rgb(255 255 255 / 0.03);
+  --dk-code-ink: #d1d5db;
+  --dk-code-dim: #6b7280;
+  --dk-code-key: #c678dd;
+  --dk-code-str: #98c379;
+  --dk-shadow: none;
+  --dk-spooky: #f87171;
+
+  --ly-int: #fb923c; --ly-int-soft: rgb(249 115 22 / 0.14);
+  --ly-har: #f472b6; --ly-har-soft: rgb(236 72 153 / 0.14);
+  --ly-ctx: #c084fc; --ly-ctx-soft: rgb(168 85 247 / 0.14);
+  --ly-inf: #a5b4fc; --ly-inf-soft: rgb(99 102 241 / 0.16);
+  --ly-mod: #93c5fd; --ly-mod-soft: rgb(59 130 246 / 0.15);
+}

@@ -124,7 +124,7 @@ const InterviewerPerspective = () => {
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold mb-4">🎤 Interviewer's Perspective</h1>
+          <h1 className="text-2xl font-bold mb-4">Interviewer's Perspective</h1>
           <p className="text-lg text-muted-foreground">
             Key questions I'd ask and what Alaf has to say about them
           </p>
@@ -173,6 +173,7 @@ const InterviewerPerspective = () => {
                     <div className="flex items-center justify-between">
                       <h3 className="text-base font-semibold">{question.question}</h3>
                       <svg
+                        aria-hidden="true"
                         className={`w-5 h-5 transform transition-transform ${
                           expandedQuestion === question.id ? 'rotate-180' : ''
                         }`}

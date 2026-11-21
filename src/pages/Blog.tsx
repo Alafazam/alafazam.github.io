@@ -39,7 +39,7 @@ const Blog = () => {
                   {post.frontmatter.description || post.excerpt}
                 </p>
                 <span className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary">
-                  Read →
+                  Read
                 </span>
               </Link>
             ))}

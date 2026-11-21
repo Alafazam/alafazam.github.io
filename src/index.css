@@ -1,3 +1,8 @@
+/* Hallmark · checked: 2026-11-22 · genre: editorial (inferred)
+ * floor: 5 FAIL left: 54+67 Header.tsx:38 (kept by owner), 2a deck flow ramp (owner's call), 19 index.html <title> + EmiCalculator.tsx:907 empty cell · fixed: 48, 7a, 10a, 30a, 33, 39a, 63, 67, 19, 26b · kept by owner: the hero title line (Header.tsx, 54/67) · structural: printed, not rebuilt (6b, 58)
+ * built: the project · redesign: polish · v2.0.0 */
+@import './tokens.css';
+
 /* Inter, Latin subset only. @fontsource-variable/inter's index.css declares all
    seven subsets; the site's text is Latin, and the one outlier (₹, U+20B9) was
    pulling the 83 KB latin-ext file onto every page. It now renders from the
@@ -71,6 +76,11 @@
     @apply border-border;
   }
 
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -94,6 +104,9 @@
     @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-5
       transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
       focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
   }
   .btn-primary {
     @apply btn bg-primary text-primary-foreground shadow-sm hover:bg-primary/90;
@@ -132,6 +145,11 @@
     background-color: transparent;
     transform: scale(1);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .highlight-achievement { animation: none; }
 }
 
 /* Markdown code blocks — highlight.js (atom-one-dark) supplies token colors */
@@ -182,7 +200,6 @@
 .prose iframe[data-autoheight] {
   @apply my-6 block w-full rounded-xl border border-border bg-card;
   height: 140px;
-  transition: height 0.2s ease;
 }
 
 /* "The Era of Personal Software" post (.ps-*): a before/after TV screen, numbered steps, stat cards,
@@ -392,8 +409,8 @@
     padding: 0;
     font-size: 12pt;
     line-height: 1.4;
-    background: #fff !important;
-    color: #000 !important;
+    background: var(--print-paper) !important;
+    color: var(--print-ink) !important;
   }
 
   /* Hide interactive chrome in print view */
@@ -409,7 +426,7 @@
 
   /* Better link handling for print */
   a {
-    color: #000;
+    color: var(--print-ink);
     text-decoration: none;
   }
 
@@ -444,35 +461,7 @@
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Chart series colours (EMI scenario planner).
-
-   Two selected sets, not one set auto-flipped: the same eight hues, stepped for
-   each surface. Validated as a categorical palette against #ffffff and #111827 —
-   both clear the lightness band, chroma floor, CVD separation (worst adjacent
-   ΔE 9.1 light / 8.4 dark) and the normal-vision floor (19.6 / 19.3). Three of
-   the light steps sit under 3:1 on white, so charts using them must carry
-   visible labels and a table equivalent — the comparison table and legend do.
-
-   Kept as custom properties rather than Tailwind classes so an SVG `stroke` can
-   reference them directly and the theme toggle needs no redraw. Slot order is
-   the colourblind-safety mechanism: assign in order, never cycle.
-   --------------------------------------------------------------------------- */
-:root {
-  --viz-1: #2a78d6; /* blue */
-  --viz-2: #eb6834; /* orange */
-  --viz-3: #1baf7a; /* aqua */
-  --viz-4: #eda100; /* yellow */
-  --viz-5: #e87ba4; /* magenta */
-}
-
-:root.dark {
-  --viz-1: #3987e5;
-  --viz-2: #d95926;
-  --viz-3: #199e70;
-  --viz-4: #c98500;
-  --viz-5: #d55181;
-}
+/* Chart series colours (--viz-*) live in tokens.css. */
 
 /*
  * Slide decks: posts with `layout: deck` (see DeckContent). Ported from the
@@ -496,28 +485,7 @@
   --dk-line: hsl(var(--border));
   --dk-soft: hsl(var(--muted) / 0.6);
   --dk-accent: hsl(var(--primary));
-  /* Deck-only colours; dark-mode values below. */
-  --dk-ink-2: #3f3f46;
-  --dk-rule: #a1a1aa;
-  --dk-accent-2: #1d4ed8;
-  /* Solid blue boxes carry white text, so they keep a strong blue in both themes. */
-  --dk-accent-fill: #2563eb;
-  --dk-accent-soft: #eef3fe;
-  --dk-accent-mid: #bfd3fe;
-  --dk-accent-line: #d6e2fd;
-  --dk-do: #047857;
-  --dk-do-soft: #ecfdf5;
-  --dk-do-line: #a7e3cb;
-  --dk-dont: #c2410c;
-  --dk-dont-fill: #c2410c;
-  --dk-dont-soft: #fff4ed;
-  --dk-dont-line: #f8cbae;
-  --dk-code-bg: #fafafa;
-  --dk-code-ink: #383a42;
-  --dk-code-dim: #a0a1a7;
-  --dk-code-key: #a626a4;
-  --dk-code-str: #50a14f;
-  --dk-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 1px 3px rgb(0 0 0 / 0.04);
+  /* Deck-only colours (--dk-*, --ly-*) live in tokens.css. */
 
   display: flex;
   flex-direction: column;
@@ -527,27 +495,6 @@
   overflow: hidden;
   background: var(--dk-page);
   color: var(--dk-ink);
-}
-
-.dark .deck {
-  --dk-ink-2: #d4d4d8;
-  --dk-rule: #71717a;
-  --dk-accent-2: #93c5fd;
-  --dk-accent-soft: rgb(59 130 246 / 0.15);
-  --dk-accent-mid: rgb(96 165 250 / 0.3);
-  --dk-accent-line: rgb(96 165 250 / 0.3);
-  --dk-do: #34d399;
-  --dk-do-soft: rgb(16 185 129 / 0.12);
-  --dk-do-line: rgb(52 211 153 / 0.3);
-  --dk-dont: #fb923c;
-  --dk-dont-soft: rgb(249 115 22 / 0.12);
-  --dk-dont-line: rgb(251 146 60 / 0.3);
-  --dk-code-bg: rgb(255 255 255 / 0.03);
-  --dk-code-ink: #d1d5db;
-  --dk-code-dim: #6b7280;
-  --dk-code-key: #c678dd;
-  --dk-code-str: #98c379;
-  --dk-shadow: none;
 }
 
 .deck-tabs button:focus-visible { outline: 2px solid var(--dk-accent); outline-offset: 2px; }
@@ -562,9 +509,9 @@
 .deck-tabs button:not([aria-current="true"]):hover { color: var(--dk-ink); background: var(--dk-soft); }
 .deck-tabs .tn { font-variant-numeric: tabular-nums; margin-right: 6px; opacity: 0.8; }
 .deck-counter { font-size: 13px; color: var(--dk-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.deck-bottombar button:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+.deck-bottombar button:disabled, .deck-bottombar button:disabled:hover { background: var(--dk-soft); color: var(--dk-muted); border-color: var(--dk-line); box-shadow: none; cursor: not-allowed; }
 .deck-progress { flex: 1; height: 4px; background: var(--dk-line); border-radius: 9999px; overflow: hidden; }
-.deck-progress div { height: 100%; background: var(--dk-accent); border-radius: 9999px; transition: width 200ms ease; }
+.deck-progress div { width: 100%; height: 100%; background: var(--dk-accent); border-radius: 9999px; transform-origin: left center; transition: transform 200ms ease; }
 .deck-hint { font-size: 12px; color: var(--dk-muted); white-space: nowrap; }
 
 .deck-viewport { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
@@ -652,8 +599,8 @@
 .deck svg.dia text { font-family: inherit; }
 .deck svg .t { font-size: 21px; font-weight: 650; fill: var(--dk-ink); }
 .deck svg .s { font-size: 15px; fill: var(--dk-muted); }
-.deck svg .tw { font-size: 21px; font-weight: 650; fill: #fff; }
-.deck svg .sw { font-size: 15px; fill: #dbe6ff; }
+.deck svg .tw { font-size: 21px; font-weight: 650; fill: var(--dk-on-fill); }
+.deck svg .sw { font-size: 15px; fill: var(--dk-on-fill-soft); }
 .deck svg .a { fill: var(--dk-accent); }
 .deck svg .ln { stroke: var(--dk-rule); stroke-width: 2; fill: none; }
 .deck svg .lb { stroke: var(--dk-accent); stroke-width: 2.5; fill: none; }
@@ -705,7 +652,7 @@
 .deck .split-bars .lbl { font-size: var(--t-sm); font-weight: 600; color: var(--dk-ink); margin-bottom: 0.6cqw; }
 .deck .bar { display: flex; height: clamp(34px, 4.4cqw, 70px); border-radius: 10px; overflow: hidden; font-size: var(--t-sm); font-weight: 600; }
 .deck .bar span { display: flex; align-items: center; padding: 0 1.2cqw; white-space: nowrap; overflow: hidden; }
-.deck .bar .d { background: var(--dk-accent-fill); color: #fff; }
+.deck .bar .d { background: var(--dk-accent-fill); color: var(--dk-on-fill); }
 .deck .bar .b { background: var(--dk-line); color: var(--dk-ink-2); }
 .deck .bar .r { background: var(--dk-accent-mid); color: var(--dk-accent-2); }
 
@@ -728,7 +675,7 @@
 .deck .formula .term { padding: 0.5em 0.9em; border-radius: 12px; background: var(--dk-accent-soft); color: var(--dk-accent-2); }
 .deck .formula .term.bad { background: var(--dk-dont-soft); color: var(--dk-dont); }
 .deck .formula .res { padding: 0.5em 0.9em; border-radius: 12px; background: var(--dk-do-soft); color: var(--dk-do); }
-.deck .formula .res.bad { background: var(--dk-dont-fill); color: #fff; }
+.deck .formula .res.bad { background: var(--dk-dont-fill); color: var(--dk-on-fill); }
 .deck .formula .op { color: var(--dk-muted); font-weight: 500; }
 
 /* Rules */
@@ -761,9 +708,9 @@
 .deck .score code { white-space: nowrap; }
 .deck .dots { display: flex; gap: 0.5em; }
 .deck .dot { width: 0.9em; height: 0.9em; border-radius: 50%; display: inline-block; }
-.deck .dot.g { background: #10b981; }
-.deck .dot.y { background: #f59e0b; }
-.deck .dot.r { background: #ef4444; }
+.deck .dot.g { background: var(--dk-status-ok); }
+.deck .dot.y { background: var(--dk-status-warn); }
+.deck .dot.r { background: var(--dk-status-bad); }
 
 /* Do and don't */
 .deck .dd { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; flex: 1; min-height: 0; margin-top: 2cqw; }
@@ -812,23 +759,7 @@
 
 /* "How AI products are built" deck: five layers, each with its own colour.
    Top to bottom: interface, harness, context, inference, model. */
-.deck {
-  /* A warm-to-cool ramp: the top layer (what people see) is warm, the bottom (what it runs on) is deep blue. */
-  --ly-int: #c2410c; --ly-int-soft: #fff1e8;
-  --ly-har: #be185d; --ly-har-soft: #fdeaf3;
-  --ly-ctx: #7e22ce; --ly-ctx-soft: #f5ecfd;
-  --ly-inf: #4338ca; --ly-inf-soft: #eef0fd;
-  --ly-mod: #1e3a8a; --ly-mod-soft: #e8eef9;
-  /* Solid fills carry white text, so they keep strong colours in both themes. */
-  --ly-int-fill: #ea580c; --ly-har-fill: #db2777; --ly-ctx-fill: #9333ea; --ly-inf-fill: #4f46e5; --ly-mod-fill: #1e3a8a;
-}
-.dark .deck {
-  --ly-int: #fb923c; --ly-int-soft: rgb(249 115 22 / 0.14);
-  --ly-har: #f472b6; --ly-har-soft: rgb(236 72 153 / 0.14);
-  --ly-ctx: #c084fc; --ly-ctx-soft: rgb(168 85 247 / 0.14);
-  --ly-inf: #a5b4fc; --ly-inf-soft: rgb(99 102 241 / 0.16);
-  --ly-mod: #93c5fd; --ly-mod-soft: rgb(59 130 246 / 0.15);
-}
+/* Layer colours (--ly-*) live in tokens.css. */
 /* Layer label: a small solid square in the layer colour, then the name in body ink. */
 .deck .lc { display: inline-flex; align-items: center; gap: 0.45em; font-size: var(--t-xs); font-weight: 650; color: var(--dk-ink); white-space: nowrap; }
 .deck .lc::before { content: ""; width: 0.8em; height: 0.8em; border-radius: 3px; background: var(--lc, var(--dk-rule)); flex: none; }
@@ -855,13 +786,13 @@
 .deck [data-on="inf"] svg.stack5 .l-inf path, .deck [data-on="all"] svg.stack5 .l-inf path { fill: var(--ly-inf-fill); stroke: var(--ly-inf-fill); }
 .deck [data-on="mod"] svg.stack5 .l-mod path, .deck [data-on="all"] svg.stack5 .l-mod path { fill: var(--ly-mod-fill); stroke: var(--ly-mod-fill); }
 .deck [data-on="int"] svg.stack5 .l-int text, .deck [data-on="har"] svg.stack5 .l-har text, .deck [data-on="ctx"] svg.stack5 .l-ctx text,
-.deck [data-on="inf"] svg.stack5 .l-inf text, .deck [data-on="mod"] svg.stack5 .l-mod text, .deck [data-on="all"] svg.stack5 text { fill: #fff; }
+.deck [data-on="inf"] svg.stack5 .l-inf text, .deck [data-on="mod"] svg.stack5 .l-mod text, .deck [data-on="all"] svg.stack5 text { fill: var(--dk-on-fill); }
 
 /* Assembling funnel: HTML bands that drop in one by one (.ga with --fy and --d).
    Each band is narrower than the one above, and its sides slant in by --slant. */
 .deck .build { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3cqw; align-items: center; }
 .deck .bands { --slant: 1.9cqw; display: grid; gap: 0.45cqw; }
-.deck .band { justify-self: center; display: grid; grid-template-columns: 2.2em 1fr; align-items: center; column-gap: 1cqw; padding: 0.7cqw calc(var(--slant) + 1.4cqw); color: #fff;
+.deck .band { justify-self: center; display: grid; grid-template-columns: 2.2em 1fr; align-items: center; column-gap: 1cqw; padding: 0.7cqw calc(var(--slant) + 1.4cqw); color: var(--dk-on-fill);
   clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, var(--slant) 100%); }
 .deck .band:nth-child(1) { width: 100%; }
 .deck .band:nth-child(2) { width: calc(100% - 2 * var(--slant)); }
@@ -887,7 +818,7 @@
 .deck .bars .track2 { height: clamp(14px, 1.7cqw, 28px); background: var(--dk-soft); border-radius: 6px; overflow: hidden; }
 .deck .bars .fill { height: 100%; width: var(--w); border-radius: 6px; transform-origin: left center; }
 .deck .bars .val { font-variant-numeric: tabular-nums; color: var(--dk-ink); font-weight: 650; text-align: right; }
-.deck .fill.p-ant { background: #d97757; } .deck .fill.p-oai { background: #10a37f; } .deck .fill.p-goo { background: #4285f4; } .deck .fill.p-open { background: #8b5cf6; }
+.deck .fill.p-ant { background: var(--dk-brand-anthropic); } .deck .fill.p-oai { background: var(--dk-brand-openai); } .deck .fill.p-goo { background: var(--dk-brand-google); } .deck .fill.p-open { background: var(--dk-brand-open); }
 .deck .gx { transform-origin: left center; }
 .deck .slide.active .gx { animation: ly-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s) both; }
 @keyframes ly-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
@@ -915,7 +846,7 @@
 .deck .wire .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; color: var(--dk-ink-2); line-height: 1.55; }
 .deck .wire .pill2 { display: inline-block; padding: 0.1em 0.6em; border-radius: 9999px; border: 1px solid var(--dk-line); background: var(--dk-page); }
 .deck .wire .pill2.on { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: transparent; }
-.deck .co { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--dk-dont-fill); color: #fff; font-size: var(--t-xs); font-weight: 700; flex: none; font-style: normal; }
+.deck .co { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--dk-dont-fill); color: var(--dk-on-fill); font-size: var(--t-xs); font-weight: 700; flex: none; font-style: normal; }
 .deck .callouts { list-style: none; padding: 0; margin: 0; display: grid; gap: 1cqw; font-size: var(--t-sm); }
 .deck .callouts li { display: grid; grid-template-columns: 1.9em 1fr; gap: 0.8cqw; align-items: start; }
 .deck .callouts b { color: var(--dk-ink); }
@@ -925,20 +856,20 @@
 .deck .row.eq { align-items: stretch; }
 
 /* Brand logos on a white tile, so dark logos read in both themes. */
-.deck img.lg { display: inline-block; height: 1.45em; width: 1.45em; padding: 0.18em; background: #fff; border: 1px solid var(--dk-line); border-radius: 7px; vertical-align: middle; margin: 0 0.15em; }
+.deck img.lg { display: inline-block; height: 1.45em; width: 1.45em; padding: 0.18em; background: var(--dk-tile); border: 1px solid var(--dk-line); border-radius: 7px; vertical-align: middle; margin: 0 0.15em; }
 .deck .lg-t { display: inline-block; font-size: var(--t-sm); font-weight: 650; padding: 0.15em 0.55em; border: 1px solid var(--dk-line); border-radius: 7px; background: var(--dk-panel); color: var(--dk-ink-2); margin: 0.1em 0.15em; white-space: nowrap; }
 .deck .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5cqw; }
 .deck .logos.big img.lg { height: 2.4em; width: 2.4em; padding: 0.35em; border-radius: 10px; }
 
 /* Screenshots: framed, clickable to open full size; .pin marks a numbered callout at --x/--y (percent). */
-.deck .shot { position: relative; margin: 0; display: block; border: 1px solid var(--dk-line); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: var(--dk-shadow); }
+.deck .shot { position: relative; margin: 0; display: block; border: 1px solid var(--dk-line); border-radius: 12px; overflow: hidden; background: var(--dk-tile); box-shadow: var(--dk-shadow); }
 .deck .shot img { display: block; width: 100%; height: auto; }
 .deck a.shot:hover { border-color: var(--dk-accent); }
-.deck .shot .pin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9); }
+.deck .shot .pin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); box-shadow: 0 0 0 3px var(--dk-halo); }
 .deck .src { font-size: var(--t-xs); color: var(--dk-muted); margin-top: 0.5cqw; }
 
 /* "Who asks whom" arrow under a ladder: from people asking AI to AI asking people. */
-.deck .flow { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1.4cqw; padding: 0.9cqw 1.6cqw; border-radius: 9999px; font-size: var(--t-sm); font-weight: 650; color: #fff;
+.deck .flow { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1.4cqw; padding: 0.9cqw 1.6cqw; border-radius: 9999px; font-size: var(--t-sm); font-weight: 650; color: var(--dk-on-fill);
   background: linear-gradient(90deg, var(--ly-mod-fill), var(--ly-inf-fill), var(--ly-ctx-fill), var(--ly-har-fill), var(--ly-int-fill)); }
 .deck .flow::after { content: ""; position: absolute; right: -1.2cqw; top: 50%; transform: translateY(-50%); border: 1.3cqw solid transparent; border-left: 1.6cqw solid var(--ly-int-fill); border-right: 0; }
 .deck .flow span:nth-child(2) { font-weight: 500; opacity: 0.9; }
@@ -989,7 +920,7 @@
 .deck .lgx .lg-t { font-size: var(--t-sm); }
 
 /* Layer labels pinned on a screenshot at --x/--y (percent). */
-.deck .shot .lpin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); font-style: normal; font-size: var(--t-xs); font-weight: 700; color: #fff; padding: 0.2em 0.65em; border-radius: 9999px; white-space: nowrap; box-shadow: 0 0 0 2px #fff, var(--dk-shadow); }
+.deck .shot .lpin { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); font-style: normal; font-size: var(--t-xs); font-weight: 700; color: var(--dk-on-fill); padding: 0.2em 0.65em; border-radius: 9999px; white-space: nowrap; box-shadow: 0 0 0 2px var(--dk-on-fill), var(--dk-shadow); }
 .deck .shot .lpin.int { background: var(--ly-int-fill); }
 .deck .shot .lpin.har { background: var(--ly-har-fill); }
 .deck .shot .lpin.ctx { background: var(--ly-ctx-fill); }
@@ -1001,12 +932,12 @@
 .deck .shot.tour > img { border-radius: 12px; }
 .deck .shot .leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .deck .shot .leaders line { stroke: var(--dk-dont-fill); stroke-width: 2; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
-.deck .shot .dot { position: absolute; left: var(--x); top: var(--y); width: 0.75cqw; height: 0.75cqw; transform: translate(-50%, -50%); border-radius: 50%; background: var(--dk-dont-fill); box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9); }
+.deck .shot .dot { position: absolute; left: var(--x); top: var(--y); width: 0.75cqw; height: 0.75cqw; transform: translate(-50%, -50%); border-radius: 50%; background: var(--dk-dont-fill); box-shadow: 0 0 0 3px var(--dk-halo); }
 .deck .shot.tour .pin { left: 100%; }
 
 /* A prompt taken apart: label, arrow, the words that do that job. */
 .deck .anatomy { display: grid; grid-template-columns: auto auto 1fr; gap: 0.9cqw 1cqw; align-items: center; }
-.deck .anatomy .k { font-size: var(--t-xs); font-weight: 700; color: #fff; padding: 0.25em 0.8em; border-radius: 9999px; text-align: center; }
+.deck .anatomy .k { font-size: var(--t-xs); font-weight: 700; color: var(--dk-on-fill); padding: 0.25em 0.8em; border-radius: 9999px; text-align: center; }
 .deck .anatomy .ar { color: var(--dk-rule); font-size: var(--t-sm); }
 .deck .anatomy .v { font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--t-xs); line-height: 1.5; background: var(--dk-panel); border: 1px solid var(--dk-line); border-left: 4px solid var(--kc); border-radius: 8px; padding: 0.5cqw 1cqw; color: var(--dk-ink); }
 
@@ -1021,7 +952,7 @@
 .deck svg.body .muscle { fill: var(--ly-har-soft); stroke: var(--ly-har); stroke-width: 1.5; }
 .deck svg.body .skull { fill: var(--dk-page); stroke: var(--ly-har-fill); stroke-width: 4; }
 .deck svg.body .brain { fill: var(--ly-mod-fill); }
-.deck svg.body .fold { fill: none; stroke: #93c5fd; stroke-width: 2; stroke-linecap: round; }
+.deck svg.body .fold { fill: none; stroke: var(--dk-fold); stroke-width: 2; stroke-linecap: round; }
 .deck svg.body .sig { fill: none; stroke: var(--ly-inf-fill); stroke-width: 3; stroke-linecap: round; }
 .deck svg.body .lead { stroke: var(--dk-rule); stroke-width: 1.5; stroke-dasharray: 3 4; }
 .deck svg.body .lt { font-size: 15px; font-weight: 700; }
@@ -1049,7 +980,7 @@
 .deck table.score.tight td { padding-top: 0.3cqw; padding-bottom: 0.3cqw; }
 
 /* White tiles behind logos drawn inside diagrams, so dark logos read on a dark slide. */
-.deck svg .lgtile { fill: #fff; stroke: var(--dk-line); }
+.deck svg .lgtile { fill: var(--dk-tile); stroke: var(--dk-line); }
 
 /* Dark theme: logos sit on a dark tile, and the black or near-black ones are inverted so they read. */
 .dark .deck img.lg { background: var(--dk-panel); }
@@ -1060,7 +991,7 @@
   [src*="/moonshot.svg"], [src*="/notion.svg"], [src*="/openai.svg"], [src*="/qwen.svg"],
   [src*="/slack.svg"], [src*="/suno.svg"], [src*="/v0.svg"],
   [href*="/notion.svg"], [href*="/slack.svg"]
-) { filter: invert(1) hue-rotate(180deg); background: hsl(240 10% 94.1%); border-color: hsl(240 3.7% 84.1%); }
+) { filter: invert(1) hue-rotate(180deg); background: var(--dk-tile-inverted); border-color: var(--dk-tile-inverted-line); }
 /* The filter also inverts the tile, so the two colours above are --dk-panel and --dk-line before inversion. */
 
 /* Interface patterns: a 2×2 grid, screenshot on the left of each card, text on the right. */
@@ -1078,7 +1009,7 @@
 /* Prompt layers as rings around the model. */
 .deck svg.rings circle { stroke: var(--dk-page); stroke-width: 3; }
 .deck svg.rings { max-height: 35cqw; justify-self: center; }
-.deck svg.rings text { font-weight: 700; font-size: 14px; fill: #fff; }
+.deck svg.rings text { font-weight: 700; font-size: 14px; fill: var(--dk-on-fill); }
 
 @media (max-width: 820px), (max-aspect-ratio: 1/1) {
   .deck .build, .deck .wirerow, .deck .ladder { grid-template-columns: 1fr; }
@@ -1120,11 +1051,9 @@
 .deck img.lg.bare, .dark .deck img.lg.bare { height: 5cqw; width: 5cqw; flex: none; padding: 0; margin: 0; border: 0; background: none; border-radius: 0; }
 
 /* Models we don't use: a dark warning box, set apart from the cards. */
-.deck .spooky { margin-top: 2.6cqw; padding: 1cqw 1.6cqw; border: 2px dashed #b91c1c; border-radius: 12px; background: repeating-linear-gradient(135deg, rgb(127 29 29 / 0.08) 0 12px, transparent 12px 24px), var(--dk-panel); }
-.deck .spooky .sk-h { margin: 0 0 0.4cqw; font-size: var(--t-sm); font-weight: 750; letter-spacing: 0.04em; text-transform: uppercase; color: #b91c1c; }
+.deck .spooky { margin-top: 2.6cqw; padding: 1cqw 1.6cqw; border: 2px dashed var(--dk-spooky); border-radius: 12px; background: repeating-linear-gradient(135deg, var(--dk-spooky-wash) 0 12px, transparent 12px 24px), var(--dk-panel); }
+.deck .spooky .sk-h { margin: 0 0 0.4cqw; font-size: var(--t-sm); font-weight: 750; color: var(--dk-spooky); }
 .deck .spooky .sk-h span { font-size: 1.4em; vertical-align: -0.1em; margin-right: 0.3em; }
-.dark .deck .spooky { border-color: #f87171; }
-.dark .deck .spooky .sk-h { color: #f87171; }
 
 /* Rupee price with the dollar list price below it. */
 .deck table.score td.cost .usd { display: block; font-size: var(--t-xs); font-weight: 400; color: var(--dk-muted); }
@@ -1139,8 +1068,8 @@
 
 /* How much effort each way of giving context takes, low to high. */
 .deck .effort { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1cqw 2.2cqw; margin-top: 1.2cqw; font-size: var(--t-xs); font-weight: 650; color: var(--dk-ink-2); }
-.deck .effort i { position: relative; height: 0.9cqw; border-radius: 9999px; background: linear-gradient(90deg, #22c55e, #eab308, #dc2626); }
-.deck .effort i::after { content: ""; position: absolute; right: -1cqw; top: 50%; transform: translateY(-50%); border: 0.9cqw solid transparent; border-left: 1.1cqw solid #dc2626; border-right: 0; }
+.deck .effort i { position: relative; height: 0.9cqw; border-radius: 9999px; background: linear-gradient(90deg, var(--dk-effort-lo), var(--dk-effort-mid), var(--dk-effort-hi)); }
+.deck .effort i::after { content: ""; position: absolute; right: -1cqw; top: 50%; transform: translateY(-50%); border: 0.9cqw solid transparent; border-left: 1.1cqw solid var(--dk-effort-hi); border-right: 0; }
 
 /* Closing slide: photo, thanks, company logo. */
 .deck .slide.thanks .body { align-items: center; justify-content: center; text-align: center; gap: 1.2cqw; }

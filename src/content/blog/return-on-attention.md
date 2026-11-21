@@ -97,6 +97,6 @@ And to be clear — I'm not asking you to adopt Return on Attention either, at l
 
 ---
 
-*The operating mechanics of the framework — lists, theme-setting, the escalation chain — are also summarized in [my work section](/projects/roa-prioritization).*
+*The operating mechanics of the framework (lists, theme-setting, the escalation chain) are in the companion post, [Return on Attention: how the framework runs](/blog/return-on-attention-framework).*
 
 *If you're running into a version of this in your own org, I'd genuinely like to hear how you're solving it — reach out on [LinkedIn](https://www.linkedin.com/in/alafazam).*

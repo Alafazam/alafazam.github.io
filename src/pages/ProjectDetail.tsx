@@ -12,11 +12,20 @@ const statusVariants: Record<string, 'success' | 'warning'> = {
   'In progress': 'warning',
 };
 
+/** Project pages that became blog posts; old links land on the post. */
+const MOVED_TO_BLOG: Record<string, string> = {
+  'ai-first-interface': 'platform-as-intelligent-backend',
+  'two-clock-delivery': 'two-clock-delivery',
+  'roa-prioritization': 'return-on-attention-framework',
+  'mf-portfolio-analyser': 'mf-portfolio-analyser',
+};
+
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProject(slug) : undefined;
 
-  if (!project) return <Navigate to="/projects" replace />;
+  if (slug && MOVED_TO_BLOG[slug]) return <Navigate to={`/blog/${MOVED_TO_BLOG[slug]}`} replace />;
+  if (!project || project.frontmatter.link) return <Navigate to="/projects" replace />;
 
   const { frontmatter, html } = project;
   const { name, tagline, status, tags, link, category, impact } = frontmatter;
@@ -35,7 +44,7 @@ const ProjectDetail = () => {
         <Breadcrumbs items={workTrail(title, project.slug)} />
 
         {category && (
-          <p className="mt-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="mt-4 text-sm font-medium text-muted-foreground">
             {category}
           </p>
         )}
@@ -74,7 +83,7 @@ const ProjectDetail = () => {
             rel="noopener noreferrer"
             className="btn-primary mt-8"
           >
-            Visit project →
+            Visit project
           </a>
         )}
       </div>
