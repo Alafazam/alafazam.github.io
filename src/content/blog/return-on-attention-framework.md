@@ -1,16 +1,13 @@
 ---
-name: Return-on-Attention (ROA) Prioritization
-tagline: One lens to align focus across teams
-category: Frameworks & Processes
-impact: Urgent-critical asks → 0 per sprint
-icon: target
-order: 4
-tags: [Prioritization, Roadmap, Alignment]
+title: "Return on Attention: how the framework runs"
+date: 2026-07-03
+description: "The reference manual for Return on Attention: the ranked lists, rolling theme-setting and two-hop escalation chain I use to prioritize across six products, four PMs and 100+ enterprise customers."
+tags: [prioritization, roadmap, leadership]
 ---
 
 **Return on Attention (ROA)** is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus enterprise customers. Its core claim is simple: the scarce resource in a product organization is not engineering hours or money. It's **attention** — leadership attention, department-head attention, PM attention. ROA is a system for deciding where that attention gets deployed, so that spending it *once, upstream* keeps paying out for months, instead of being re-spent in a crisis meeting every two weeks.
 
-> The origin story — why RICE, MoSCoW, and friends kept failing me, and how this emerged from first principles — is in the essay [The Day I Stopped Prioritizing Features](/blog/return-on-attention). This page is the reference manual: what the framework is and how it works.
+> The origin story — why RICE, MoSCoW, and friends kept failing me, and how this emerged from first principles — is in the essay [The Day I Stopped Prioritizing Features](/blog/return-on-attention). This post is the reference manual: what the framework is and how it works.
 
 ## The problem it solves
 

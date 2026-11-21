@@ -39,7 +39,7 @@ function resolvePath(pathname) {
 }
 
 // Paths on this domain served by other repos' GitHub Pages (project sites), not by this build.
-const PROJECT_SITES = ['/mf-portfolio-analyser/'];
+const PROJECT_SITES = ['/mf-portfolio-analyser/', '/screenreels/'];
 
 /** Site-relative pathname for a URL this site serves, or null if external. */
 function internalPath(value) {

@@ -8,6 +8,7 @@ import {
   Clock,
   PlayCircle,
   Target,
+  Video,
   ArrowRight,
   type LucideIcon,
 } from 'lucide-react';
@@ -25,6 +26,7 @@ const iconMap: Record<string, LucideIcon> = {
   clock: Clock,
   play: PlayCircle,
   target: Target,
+  video: Video,
 };
 
 const statusVariants: Record<string, 'success' | 'warning'> = {
@@ -43,12 +45,15 @@ interface CardProps {
   tags: string[];
   /** "Read" for a write-up, "Open" for something you can actually use. */
   cta: string;
+  /** True when `to` is another site (a product's own landing page). */
+  external?: boolean;
 }
 
-const Card = ({ to, icon, name, tagline, status, body, impact, tags, cta }: CardProps) => {
+const Card = ({ to, icon, name, tagline, status, body, impact, tags, cta, external }: CardProps) => {
   const Icon = iconMap[icon] || Boxes;
-  return (
-    <Link to={to} className="card-interactive group relative flex flex-col p-5">
+  const className = 'card-interactive group relative flex flex-col p-5';
+  const content = (
+    <>
       <div className="flex items-start gap-3">
         <span className="shrink-0 grid place-items-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
           <Icon className="h-5 w-5" />
@@ -88,6 +93,15 @@ const Card = ({ to, icon, name, tagline, status, body, impact, tags, cta }: Card
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
+    </>
+  );
+  return external ? (
+    <a href={to} target="_blank" rel="noopener noreferrer" className={className}>
+      {content}
+    </a>
+  ) : (
+    <Link to={to} className={className}>
+      {content}
     </Link>
   );
 };
@@ -116,11 +130,12 @@ const SideProjects = () => {
 
               <div className="grid gap-5 sm:grid-cols-2">
                 {group.items.map((project) => {
-                  const { name, tagline, status, tags, impact, icon } = project.frontmatter;
+                  const { name, tagline, status, tags, impact, icon, link } = project.frontmatter;
                   return (
                     <Card
                       key={project.slug}
-                      to={`/projects/${project.slug}`}
+                      to={link || `/projects/${project.slug}`}
+                      external={Boolean(link)}
                       icon={icon || ''}
                       name={name || project.slug}
                       tagline={tagline}
@@ -128,7 +143,7 @@ const SideProjects = () => {
                       body={project.excerpt}
                       impact={impact}
                       tags={tags || []}
-                      cta="Read"
+                      cta={link ? 'Open' : 'Read'}
                     />
                   );
                 })}

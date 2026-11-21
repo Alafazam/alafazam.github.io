@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "The platform as an intelligent backend"
 date: 2026-07-05
 description: "Exposing a merchandising platform as MCP tools plus a skills layer, so enterprise AI assistants drive it in natural language instead of clicks."
@@ -22,4 +21,4 @@ Three design principles have mattered most:
 
 The strategic effect is bigger than convenience: it decouples the platform's value from its screens. Clients can bring their own assistant, and the deep feature set becomes something you can just *talk to*.
 
-More detail in [my work section](/projects/ai-first-interface). This one is early — expect follow-ups as real client workflows land.
+This one is early. Expect follow-ups as real client workflows land.

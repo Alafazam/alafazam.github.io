@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Two clocks: continuous merge, monthly releases"
 date: 2026-02-08
 description: "Decoupling how fast engineers merge from how often clients see change — feature flags as a release-management tool, not an engineering toy."
@@ -22,4 +21,4 @@ What this bought us:
 
 The subtle part is cultural, not technical: feature flags have to be owned as a *product* tool. Which flag turns on for which client, in which release, is a product decision — the flag system is really a client-communication system wearing an engineering costume.
 
-I've written up the operating details in [my work section](/projects/two-clock-delivery). If you're fighting release-train gridlock, start by separating the two clocks — everything else follows.
+If you're fighting release-train gridlock, start by separating the two clocks. Everything else follows.

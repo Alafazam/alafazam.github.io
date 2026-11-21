@@ -17,7 +17,8 @@ export interface ManifestEntry {
 export function routeManifest(): ManifestEntry[] {
   return [
     ...STATIC_ROUTES.map((r) => ({ path: r.path, url: absoluteUrl(r.path), indexable: r.indexable })),
-    ...projects.map((p) => ({
+    // A project with a `link` is a card pointing at its own landing page: no detail route.
+    ...projects.filter((p) => !p.frontmatter.link).map((p) => ({
       path: projectPath(p.slug),
       url: absoluteUrl(projectPath(p.slug)),
       indexable: true,
