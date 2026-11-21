@@ -330,7 +330,7 @@ const EmiCalculator = () => {
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">EMI Scenario Planner</h1>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
-            The EMI is the easy half. The useful half is the what-ifs — pay ₹5k more a month,
+            The EMI is the easy half. The useful half is the what-ifs: pay ₹5k more a month,
             stretch to 25 years, add a 13th EMI, step up 5% a year, drop a bonus in at year two.
             Build each one as a scenario and compare them side by side.
           </p>
@@ -560,8 +560,8 @@ const EmiCalculator = () => {
                   }`}
                 >
                   <span
-                    className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
-                      draft.extraEmiPerYear ? 'left-[18px]' : 'left-0.5'
+                    className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                      draft.extraEmiPerYear ? 'translate-x-4' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -745,7 +745,7 @@ const EmiCalculator = () => {
                       className="min-w-0 flex-1 bg-transparent text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-1 -mx-1"
                     />
                     {isBaseline && (
-                      <span className="shrink-0 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-300">
+                      <span className="shrink-0 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-500 dark:text-gray-300">
                         Baseline
                       </span>
                     )}
@@ -868,7 +868,7 @@ const EmiCalculator = () => {
                 Every scenario compared on EMI, time to close, total interest and total outgo.
               </caption>
               <thead>
-                <tr className="text-left text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                <tr className="text-left text-sm text-gray-500 dark:text-gray-400">
                   <th scope="col" className="pb-3 pr-3 font-medium">
                     Metric
                   </th>

@@ -43,7 +43,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
                 </h3>
               )}
               {index === 0 && (
-                <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg aria-hidden="true" className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               )}
@@ -75,7 +75,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
               <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                 {experience.techStack && experience.techStack.length > 0 && (
                   <div className="flex flex-wrap items-center">
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground mr-2">Tech</span>
+                    <span className="text-xs font-medium text-muted-foreground mr-2">Tech</span>
                     {experience.techStack.map((tech, techIndex) => (
                       <Badge key={techIndex} variant="secondary" className="mr-2 mb-1">
                         {tech}
@@ -86,7 +86,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences }) => {
                 
                 {experience.productTools && experience.productTools.length > 0 && (
                   <div className="flex flex-wrap items-center">
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground mr-2">Tools</span>
+                    <span className="text-xs font-medium text-muted-foreground mr-2">Tools</span>
                     {experience.productTools.map((tool, toolIndex) => (
                       <Badge key={toolIndex} variant="secondary" className="mr-2 mb-1">
                         {tool}

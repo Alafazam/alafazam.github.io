@@ -288,7 +288,7 @@ const CampusHiring = () => {
         </div>
 
         <header className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Campus Hiring — Network Audit</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Campus Hiring: Network Audit</h1>
           <p className="text-gray-600 dark:text-gray-300">
             Copy one read-only command into a terminal to report this machine&rsquo;s network
             activity over the last {DEFAULT_LOOKBACK_HOURS} hours. It prints to the screen and
@@ -299,7 +299,7 @@ const CampusHiring = () => {
         {detectedOs === null && (
           <p className="mb-6 flex items-start gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 text-sm text-gray-600 dark:text-gray-300">
             <Info className="h-4 w-4 mt-0.5 shrink-0 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-            <span>Operating system not recognised — pick the matching card below.</span>
+            <span>Operating system not recognised. Pick the matching card below.</span>
           </p>
         )}
 
