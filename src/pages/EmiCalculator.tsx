@@ -66,7 +66,7 @@ const cardClass =
 const labelClass =
   'block text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1.5';
 const inputClass =
-  'w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 text-gray-900 dark:text-white tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent';
+  'w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 text-gray-900 dark:text-white tabular-nums focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent';
 const rangeClass =
   'w-full h-1.5 rounded-lg appearance-none cursor-pointer bg-gray-200 dark:bg-gray-700 accent-blue-600';
 const ghostButton =
@@ -742,7 +742,7 @@ const EmiCalculator = () => {
                       value={scenario.name}
                       onChange={(e) => renameScenario(scenario.id, e.target.value)}
                       aria-label={`Name of scenario ${scenario.name}`}
-                      className="min-w-0 flex-1 bg-transparent text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-1 -mx-1"
+                      className="min-w-0 flex-1 bg-transparent text-sm font-semibold focus:outline-hidden focus:ring-2 focus:ring-blue-500 rounded-sm px-1 -mx-1"
                     />
                     {isBaseline && (
                       <span className="shrink-0 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-300">
@@ -755,7 +755,7 @@ const EmiCalculator = () => {
                     {describeInputs(scenario.inputs).map((chip) => (
                       <span
                         key={chip}
-                        className="rounded bg-gray-100 dark:bg-gray-700/60 px-1.5 py-0.5 text-[10px] font-medium text-gray-600 dark:text-gray-300"
+                        className="rounded-sm bg-gray-100 dark:bg-gray-700/60 px-1.5 py-0.5 text-[10px] font-medium text-gray-600 dark:text-gray-300"
                       >
                         {chip}
                       </span>
@@ -977,7 +977,7 @@ const EmiCalculator = () => {
                 {visible.map((s) => (
                   <li key={s.id} className="inline-flex items-center gap-1.5">
                     <span
-                      className="h-0.5 w-4 rounded"
+                      className="h-0.5 w-4 rounded-sm"
                       style={{ background: seriesColor(s.colorIndex) }}
                       aria-hidden="true"
                     />

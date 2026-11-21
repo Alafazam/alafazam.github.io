@@ -149,7 +149,7 @@ const CommandBlock = ({ command, contextLabel, onAnnounce }: CommandBlockProps) 
     <div className="flex items-stretch gap-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
       {/* Wrapped, not scrolled: the whole command stays visible on a phone.
           min-w-0 lets the pre shrink below its content width. */}
-      <pre className="flex-1 min-w-0 whitespace-pre-wrap break-all px-3 py-2.5 text-xs sm:text-sm leading-relaxed text-gray-800 dark:text-gray-100">
+      <pre className="flex-1 min-w-0 whitespace-pre-wrap break-all px-3 py-2.5 text-xs sm:text-sm leading-relaxed sm:leading-5 text-gray-800 dark:text-gray-100">
         <code>{command}</code>
       </pre>
       <button
@@ -157,7 +157,7 @@ const CommandBlock = ({ command, contextLabel, onAnnounce }: CommandBlockProps) 
         onClick={handleCopy}
         aria-label={copied ? `Copied ${contextLabel}` : `Copy ${contextLabel}`}
         title={copied ? 'Copied' : 'Copy'}
-        className="shrink-0 self-start m-1.5 inline-flex items-center justify-center rounded-md p-2 border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-offset-gray-900 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800"
+        className="shrink-0 self-start m-1.5 inline-flex items-center justify-center rounded-md p-2 border transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 dark:focus-visible:ring-offset-gray-900 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800"
       >
         {copied ? (
           <Check className="h-4 w-4 text-green-700 dark:text-green-400" aria-hidden="true" />

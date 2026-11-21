@@ -27,7 +27,7 @@ const AchievementNavigation: React.FC = () => {
           <button
             key={category.id}
             onClick={() => scrollToCategory(category.id)}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-sm font-medium text-muted-foreground shadow-xs hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <category.Icon className="w-4 h-4" />
             {category.label}

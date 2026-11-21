@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ basics, hero }) => {
         rel="noopener noreferrer"
         aria-label={`View ${basics.name}'s LinkedIn profile`}
         title="View LinkedIn profile"
-        className="rounded-full focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+        className="rounded-full focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
       >
         <picture>
           <source srcSet={basics.avatarWebpUrl} type="image/webp" />
@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ basics, hero }) => {
         {hero.eyebrow}
       </p>
 
-      <h2 className="mt-6 max-w-2xl text-2xl sm:text-3xl font-bold tracking-tight leading-snug">
+      <h2 className="mt-6 max-w-2xl text-2xl sm:text-3xl font-bold tracking-tight leading-snug sm:leading-9">
         {hero.headline}
       </h2>
       <p className="mt-3 max-w-2xl text-muted-foreground leading-relaxed">

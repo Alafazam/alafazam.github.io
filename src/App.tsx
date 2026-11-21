@@ -113,7 +113,7 @@ export function AppShell() {
       {/* Theme toggle — visible on all pages */}
       <button
         onClick={toggleTheme}
-        className="no-print fixed bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full border border-border bg-background/95 shadow-sm hover:bg-accent transition-colors z-50"
+        className="no-print fixed bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full border border-border bg-background/95 shadow-xs hover:bg-accent transition-colors z-50"
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         {isDarkMode ? (
