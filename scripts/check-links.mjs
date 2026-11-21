@@ -38,10 +38,15 @@ function resolvePath(pathname) {
   return isFile(join(target, 'index.html')) ? 'redirect' : 'missing';
 }
 
+// Paths on this domain served by other repos' GitHub Pages (project sites), not by this build.
+const PROJECT_SITES = ['/mf-portfolio-analyser/'];
+
 /** Site-relative pathname for a URL this site serves, or null if external. */
 function internalPath(value) {
   if (value.startsWith(`${SITE_ORIGIN}/`) || value === SITE_ORIGIN) {
-    return new URL(value).pathname;
+    const { pathname } = new URL(value);
+    if (PROJECT_SITES.some((p) => pathname.startsWith(p))) return null;
+    return pathname;
   }
   if (value.startsWith('/') && !value.startsWith('//')) {
     return new URL(value, SITE_ORIGIN).pathname;
