@@ -2106,7 +2106,26 @@ and check every change with a screenshot from the TV.</pre>
 <h2>Built on other people’s work</h2>
 <p>The launcher, the prompt and the tools come from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> by Gathin (MIT licence). The prayer-times screen was inspired by <a href="https://github.com/majnioui/CleanXiaomiTV">CleanXiaomiTV</a> by majnioui. The wallpapers are free photos from <a href="https://unsplash.com">Unsplash</a>; the photographers are listed in my fork’s notes.</p>
 <p>My changes are open source at <a href="https://github.com/Alafazam/cleanyourtv">github.com/Alafazam/cleanyourtv</a>. I sent back what fit the original: my TV’s app list, a <a href="https://github.com/Gathin23/cleanyourtv/pull/204">showcase entry</a> (merged) and a <a href="https://github.com/Gathin23/cleanyourtv/issues/207">bug report</a>.</p>
-`,excerpt:"I used Claude to take my TV's home screen apart and rebuild it for my family: no ads, our apps in one row, our photos and the day's prayer times. What changed, how to do it yourself, and the supply-chain risk that comes with it."},d=null,c={frontmatter:{title:"15 Must-Have GNOME Extensions for Anyone Switching to Linux",date:"2026-10-06",description:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac.",tags:["linux","gnome","productivity","macos"]},html:`<p>Switching to a GNOME-based distro — Ubuntu, Fedora, Pop!_OS, Debian — from Windows or macOS? Stock GNOME is clean and fast, but within an hour you’ll reach for something that isn’t there: a clipboard history, snap layouts, a hot corner that shows your windows, dark mode that follows the sun.</p>
+`,excerpt:"I used Claude to take my TV's home screen apart and rebuild it for my family: no ads, our apps in one row, our photos and the day's prayer times. What changed, how to do it yourself, and the supply-chain risk that comes with it."},d=null,c={frontmatter:{title:"I built a Claude Code plugin to check which of my mutual funds earn their place",date:"2026-11-21",description:"MF Portfolio Analyser is a free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from a CAS statement, locally: benchmarks, overlaps, a consolidation plan and a tax calendar on real purchase lots.",tags:["personal-finance","claude-code","side-project","india"]},html:`<p>A free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from your CAS statement: every fund against its benchmark and against every other fund in its category, duplicates, and a year-by-year plan for switches that keeps the gains inside the ₹1.25L tax-free room. It runs on your computer, and Claude never sees the statement.</p>
+<p><strong>Educational sample, not advice.</strong> I built it to review my own portfolio and am sharing it as an example. It is not investment, tax or legal advice, and I’m not a SEBI-registered adviser.</p>
+<h2>Why I built it</h2>
+<p>Fund pages tell you how one fund did. The questions I actually had were about the whole set: which funds lag their index, which ones overlap, where the money should go instead, and what moving it costs in tax. Answering that by hand meant spreadsheets, NAV downloads and a lot of date arithmetic on purchase lots. So I wrote the rules down and turned them into a tool.</p>
+<h2>What it does</h2>
+<ul>
+<li><strong>Scorecard:</strong> each fund against its category index over 3 years, for its direct and regular plan, plotted on a return-vs-volatility 2×2</li>
+<li><strong>Whole-market screen:</strong> every open-ended direct-growth fund in your categories from AMFI’s list, scored 0–100 within its category</li>
+<li><strong>Consolidation plan:</strong> one fund per job, with a case-for-change score and break-even time for every move, and the index fund always an option</li>
+<li><strong>Tax calendar on real purchase lots:</strong> oldest units first, only long-term and unlocked lots, within each year’s ₹1.25L room after gains already booked</li>
+<li><strong>SIP review, falls and recoveries, peer check,</strong> and one offline HTML report</li>
+</ul>
+<h2>Privacy by design</h2>
+<p>The statement holds your name, PAN, address and phone number, so only a local script reads it. It writes a redacted summary, deletes the raw text even when a run fails, keeps every file owner-only, and never puts the PDF password on a command line. The report it produces makes no network requests.</p>
+<h2>Rules, not a model</h2>
+<p>Every score, flag and plan rule is written down and versioned, and the plugin ships with a sample report on a made-up investor holding real funds. It went through an adversarial review round before release, and that review, with what was done about each finding, is in the repo’s spec.</p>
+<p><a href="https://alafazam.com/mf-portfolio-analyser/sample-report.html">Open the sample report</a> · <a href="https://github.com/Alafazam/mf-portfolio-analyser">Source on GitHub</a></p>
+<h2>Try it</h2>
+<p>The <a href="https://alafazam.com/mf-portfolio-analyser/">landing page</a> has the setup steps, and the source is <a href="https://github.com/Alafazam/mf-portfolio-analyser">on GitHub</a>.</p>
+`,excerpt:"MF Portfolio Analyser is a free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from a CAS statement, locally: benchmarks, overlaps, a consolidation plan and a tax calendar on real purchase lots."},h={frontmatter:{title:"15 Must-Have GNOME Extensions for Anyone Switching to Linux",date:"2026-10-06",description:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac.",tags:["linux","gnome","productivity","macos"]},html:`<p>Switching to a GNOME-based distro — Ubuntu, Fedora, Pop!_OS, Debian — from Windows or macOS? Stock GNOME is clean and fast, but within an hour you’ll reach for something that isn’t there: a clipboard history, snap layouts, a hot corner that shows your windows, dark mode that follows the sun.</p>
 <p>These 15 extensions fill those gaps. The list leans toward a <strong>Mac-like feel</strong>, because I use a Mac at work and wanted my Linux machine to work the same way. I could have installed Zorin OS, which ships a Mac-style layout out of the box, but I went with Ubuntu for its faster updates and much bigger community. A handful of extensions closes the gap anyway.</p>
 <div class="story-lede">
 <p class="story-lede-label">Before the list: try Handy</p>
@@ -2272,7 +2291,7 @@ and check every change with a screenshot from the TV.</pre>
 <li><strong>Anything you wouldn’t notice was gone.</strong> Every extension is one more thing that can break on the next GNOME release. If you can’t name the habit an extension serves, skip it.</li>
 </ul>
 <p>Start with the TL;DR table, install the five that match your oldest habits, and add the rest when you miss them.</p>
-`,excerpt:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac."},h={frontmatter:{title:"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.",date:"2026-10-10",description:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug.",tags:["linux","nvidia","ai","hardware"]},html:`<figure class="shot">
+`,excerpt:"Moving to Ubuntu, Fedora or any GNOME-based distro? These 15 extensions fill the gaps on day one — with a bias toward making Linux feel like a Mac."},p={frontmatter:{title:"My Old Laptop Felt Sluggish. Its GPU Was Stuck in Slow Mode.",date:"2026-10-10",description:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug.",tags:["linux","nvidia","ai","hardware"]},html:`<figure class="shot">
 <img src="/images/blog/old-nvidia-gpu/cover.webp" alt="A person with bright orange hair, seen from behind, frustrated in front of a colourful video game on a TV" width="1600" height="686" />
 <figcaption>That feeling when the graphics just won't keep up. Still from <a href="https://coverr.co/">Coverr</a>.</figcaption>
 </figure>
@@ -2373,210 +2392,21 @@ and check every change with a screenshot from the TV.</pre>
 <li><strong><a href="/tools/gpu-test-bench/gpu-test-bench.zip">Download it</a></strong> (2.6 MB) to get the live temperature graphs on your own machine: unzip, run <code>python3 serve.py</code>, and open <code>http://127.0.0.1:8767</code>. It needs only Python 3 and never leaves your computer.</li>
 <li>Got a Kepler-era NVIDIA card (GeForce 600 or 700 series) on nouveau? The <a href="/tools/gpu-test-bench/gpu-clock-guard">temperature guard script</a> and its <a href="/tools/gpu-test-bench/gpu-clock-guard.service">service file</a> are there too. Read them first, and test your own levels with a revert in place before making anything permanent.</li>
 </ul>
-`,excerpt:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."},p=null,g={frontmatter:{title:"The Day I Stopped Prioritizing Features",date:"2025-12-14",description:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention.",tags:["prioritization","roadmap","leadership"]},html:`<p>A few years ago, I was leading a team of four PMs across six products at Increff — a B2B retail-tech SaaS company serving over a hundred enterprise customers. My backlog looked like every PM’s nightmare.</p>
-<p>Sales wanted features to close deals. Customer Success wanted features to retain accounts. Onboarding wanted features to cut implementation time. Engineering wanted architectural cleanup. Founders had strategic bets they wanted placed. Customers had urgent, contract-threatening asks. And every single request came with data attached, proving why it deserved to go first.</p>
-<p>I did what most PMs do. I went looking for a better prioritization framework.</p>
-<p>RICE. MoSCoW. Value vs. Effort. Opportunity scoring. I tried variations of all of them.</p>
-<p>They worked — for about a sprint. Then they quietly stopped working, and I couldn’t immediately tell why.</p>
-<p>It took me a while to see it clearly: I wasn’t struggling to prioritize. I was struggling to <em>compare</em>. I was putting apples, oranges, and satellites on the same scoring sheet and asking a formula to tell me which one mattered more. No framework fixes a comparison problem — it just hides it behind a number.</p>
-<h2>The Real Shape of the Problem</h2>
-<p>I stopped trying to score features and started trying to understand the <em>shape</em> of the chaos instead. I looked at it through three lenses — Company, People, and Tech — and in each one, there was an external face and an internal face.</p>
-<p><strong>Company.</strong> Externally: every one of our hundred-plus customers was a company at a different stage of life. Some scaling fast. Some cutting costs. Some just funded and eager to experiment. Some mature and optimizing for stability. The same feature could be mission-critical for one and irrelevant for another. Internally: we ran six products, each at a different point in its own life — some 0-to-1, some 1-to-10, some 10-to-100 — each with a different pace, a different relationship with its founders, a different definition of success.</p>
-<p><strong>People.</strong> Externally: the old B2B line is “the buyer isn’t the user.” I’d go further — there isn’t even <em>one</em> user. A single enterprise account has operations teams, finance, warehouse managers, analytics teams, and leadership, all touching the same product for completely different reasons. Internally: requests came from Sales, Success, Onboarding, Product, Legal, DevOps — every function pursuing a goal that was completely legitimate on its own terms.</p>
-<p><strong>Tech.</strong> Externally: a customer asking for “a feature” might really be migrating to a new ERP, or need a different payload shape, or care about retry logic, or latency, or compliance — five different problems wearing the same request. Internally: our own six products ran on different architectures, some OLTP-heavy, some OLAP, each with its own tech leads and its own idea of “the right way to build.”</p>
-<p>Once I laid that grid out, the real insight arrived: <strong>the scarce resource in this system was never engineering hours or money. It was attention</strong> — leadership attention, department-head attention, my own attention as the person supposedly holding the whole map in my head. Every framework I’d tried was trying to optimize <em>feature selection</em>. None of them touched the actual bottleneck, which was <em>where human attention got spent, and how often it had to be spent again</em>.</p>
-<h2>Where This Came From</h2>
-<p>I want to be precise about the origin of this, because it matters for how much weight to give it.</p>
-<p>I’d taken Shreyas Doshi’s course and learned his LNO framework there — Leverage, Neutral, Overhead — a way of deciding how much effort a given task deserves. It shaped how I thought about my own time. But LNO is about an individual’s effort allocation. It doesn’t tell you how a department head’s list should relate to a founder’s vision, or how six products at six different life stages should share one engineering org’s attention.</p>
-<p>I hadn’t read Herbert Simon’s work on the attention economy, or the academic literature on attention as an organizational resource, when I built this. I only found out about it later, after I’d already been running this system for months and started researching whether anyone had written about it formally. Turns out economists have been describing pieces of this idea since the 1970s. That was a genuinely interesting discovery, but it’s not where this came from — I found the research after the framework, not before it.</p>
-<p>This came from first principles, under pressure, with four PMs and me trying to make sense of a demand curve that had no ceiling and a bandwidth curve that very much did. <strong>Unlimited demand. Limited capacity.</strong> Every conventional framework I threw at that mismatch dissolved into arguments about whose request mattered more. None of them addressed the actual constraint.</p>
-<h2>The Question That Changed Everything</h2>
-<p>Once the shape of the problem was clear, we stopped asking:</p>
-<p><em>“Which feature should we build next?”</em></p>
-<p>And started asking:</p>
-<p><em>“How do we build a system that consistently makes good prioritization decisions — without me, or any single PM, being the bottleneck?”</em></p>
-<p>That single reframe is what became <strong>Return on Attention</strong>: not a scoring model for features, but a model for deciding where the organization’s scarcest resource — attention — gets deployed, so that spending it once pays out for a long time afterward, instead of needing to be spent again every sprint.</p>
-<h2>The System, Mechanically</h2>
-<p>Here’s what we actually built. It has four moving parts, and each one earned its place the hard way — by breaking first, then getting fixed.</p>
-<p><strong>Every department head owns one prioritized list, and it’s never static.</strong> Sales owns the Sales list. Success owns the Success list. Onboarding owns its own. Engineering owns its own. Each list is ranked by what creates the highest impact for that function. Critically, these lists aren’t set once and left alone — department heads re-rank them continuously, and re-ranking happens as a natural side effect of preparing for the next sprint, not on some separate calendar reminder. If a deal falls through, a competitor launches something, or the market shifts mid-quarter, that shows up the next time a department head sits down to plan — because re-ranking isn’t an event, it’s a habit built into how they already operate.</p>
-<p><strong>Theme-setting happens across a rolling window, not in one high-stakes meeting.</strong> This is the part I didn’t get right in earlier versions of this system, and it’s the part that made the biggest difference once we fixed it. Instead of negotiating bandwidth fresh every single sprint — which turns into exactly the kind of political scramble you’d expect when everyone shows up wanting their fair share right now — we plan theme and bandwidth across the next three sprints at once. We might commit some capacity to next sprint and a smaller slice to the sprint after that, and the one after that. Each time we sit down again, we’re not starting from zero — we already know what’s been committed, and we’re just filling in what’s left. Spreading the negotiation across the quarter instead of concentrating it at each sprint boundary took most of the heat out of the room. It’s not that the negotiation disappeared. It’s that nobody’s negotiating under time pressure anymore.</p>
-<p><strong>Cross-functional resource contention mostly doesn’t happen — by design, not by process.</strong> Early critiques of this system rightly asked: what happens when two department heads’ top priorities both need the same specialized engineer this sprint? Our answer turned out to be structural rather than procedural — most engineers are mapped to a single product, so the kind of contention that looks scary on paper almost never shows up in practice. When it does — usually around shared platform components that serve more than one product — we resolve it explicitly during theme-setting, and if a team’s bandwidth is being spent on something that benefits every product, we say so out loud and push them to build it that way deliberately, not by accident. Disagreements that can’t get resolved there come to me as the product head. If I can’t resolve it, it goes to the founders, anchored in company vision. That’s the actual chain, and it’s short on purpose.</p>
-<p><strong>Selection is mechanical, but the tail is a judgment call, not a guarantee.</strong> Engineering does t-shirt sizing or story-pointing against the agreed bandwidth, and the team fills each bucket from the top of the relevant department’s list. Most of the time, that’s the whole story. But I want to be honest about the one place this system doesn’t fully solve the problem it was built for: long-tail and edge-case items. What sits at the bottom of Engineering’s list sometimes sits at the top of Sales’ list, and we do catch that — but we catch it because it happens to surface during theme-setting, when two lists visibly disagree about something. A genuinely niche item that never collides with anything on anyone else’s list can sit near the bottom indefinitely. We handle this today through department-head judgment, not through an automatic safeguard. That’s a real limitation, and I’d rather say so than pretend the system quietly solves the exact problem it was named after.</p>
-<h2>Why I Didn’t Just Pick One Off the Shelf</h2>
-<p>I want to pause on something before I get to results, because I think it’s the more useful takeaway than the framework itself.</p>
-<p>There is no shortage of product frameworks in the world. Search for “prioritization framework” and you’ll get RICE, MoSCoW, Kano, Opportunity Scoring, Weighted Scoring, ICE, and a dozen others, each with a slide deck and a case study from a company that isn’t yours. Every one of them is well-reasoned. Every one of them has genuinely worked — for the team, the domain, and the specific pressures that existed when it was built. None of that means it will work for you.</p>
-<p>That’s the trap I want to name plainly: treating a framework’s popularity, or its logo-studded case-study list, as evidence it will transfer into your context. A framework isn’t a law of physics. It’s someone else’s answer to their own specific mix of company stage, team maturity, market structure, and org politics. RICE assumes you can meaningfully estimate reach and confidence — that’s a real assumption, not a neutral default. MoSCoW assumes your stakeholders can agree on what “must” means — also not neutral. These frameworks aren’t wrong. They’re <em>someone else’s fit</em>.</p>
-<p>I tried several of them here, honestly, before building this. They didn’t fail because they were bad frameworks. They failed because Increff’s specific shape — six products at wildly different maturity stages, a hundred-plus B2B accounts each with their own internal politics, engineering teams split across OLTP and OLAP paradigms — wasn’t the shape any of those frameworks were built to fit. My team, my company’s stage, my engineering setup, my specific blend of art and politics and architecture, were different from whatever context produced those frameworks. So I stopped trying to make my problem fit someone else’s answer, and started building something for the actual shape of what I had.</p>
-<p>That’s the real instruction I’d give anyone reading this, more than the mechanics of Return on Attention itself: read the frameworks, learn from them, take what’s genuinely useful — but don’t adopt one wholesale out of fear that you need “a real framework” to be legitimate. You are not in the same company, with the same team, the same stage, the same politics, or the same technical debt as whoever wrote the framework you’re reading about. Build your own operating method for your own context. Run it. Take feedback. Break it on purpose by asking people to attack it. Improve it. Run it again. That loop — not the specific mechanism — is the actual transferable skill.</p>
-<h2>What Changed at Increff</h2>
-<p>This wasn’t a thought experiment. It ran, and it’s still running, across six products and a hundred-plus customers.</p>
-<p>The clearest signal: the volume of ad-hoc, “drop everything” critical requests dropped sharply. Not because customers stopped having urgent needs — they still do — but because most of what used to arrive as a fire actually had a home in someone’s prioritized list already. It just needed a theme and a bandwidth slot, not a crisis meeting.</p>
-<p>The second, quieter shift mattered more to me. Teams across different pods and products now know which direction we’re moving in — and <em>why</em> — because the “why” was settled upstream, by the leaders who own those goals, in a negotiation spread calmly across the quarter instead of relitigated under pressure every two weeks.</p>
-<h2>The One Lesson</h2>
-<p>I’ve come to believe prioritization was never the real skill I needed. Alignment was — and alignment that holds up under pressure needs its negotiation spread out in time, not concentrated at the one moment everyone’s watching the clock.</p>
-<p>When company goals, product goals, departmental goals, and engineering capacity all point in the same direction <em>before</em> a feature ever gets discussed, the backlog effectively prioritizes itself. The scoring model you use to pick between two aligned features barely matters. The system that gets you to alignment in the first place is the whole game — and the timing of when that alignment gets negotiated matters almost as much as the alignment itself.</p>
-<p>So if you’re leading product at any real scale and you feel like you’re drowning in incompatible, well-justified, urgent requests — my honest suggestion is: stop looking for a better prioritization framework. Ask where your organization’s attention is actually being spent, whether it’s being spent once, upstream, in a way that keeps paying out, and whether that negotiation is happening calmly ahead of time or frantically under a deadline.</p>
-<p>That’s Return on Attention. Not a framework for ranking features. A model for where judgment gets deployed, and when — so that features stop needing to be fought over at all, and the long tail becomes a conscious trade-off instead of an accident.</p>
-<p>And to be clear — I’m not asking you to adopt Return on Attention either, at least not as-is. I’m asking you to do what building it forced me to do: look honestly at your own company, your own team, your own stage, your own politics, and your own technical constraints, and build something that fits <em>that</em> — not a framework that fit someone else’s. Mine will keep changing as Increff changes. Yours should too.</p>
-<hr>
-<p><em>The operating mechanics of the framework — lists, theme-setting, the escalation chain — are also summarized in <a href="/projects/roa-prioritization">my work section</a>.</em></p>
-<p><em>If you’re running into a version of this in your own org, I’d genuinely like to hear how you’re solving it — reach out on <a href="https://www.linkedin.com/in/alafazam">LinkedIn</a>.</em></p>
-`,excerpt:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention."},m={frontmatter:{title:"The Demo Is the Spec",date:"2026-08-29",description:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides.",tags:["product","prototyping","ai","design"]},html:`<!-- The opening scene uses the story-lede treatment; the argument resumes below it. -->
-<div class="story-lede">
-<p class="story-lede-label">From the work</p>
-<p>We had a clean story for each user.</p>
-<p>The planner saw an overdue cluster approval. The team lead saw the same delay blocking downstream work. The VP saw the financial consequence at portfolio level. Each view made sense on its own.</p>
-<p>The contradiction appeared only when we clicked through all three views in the same running product.</p>
-<p>The blocker was technically the same, but the framing, urgency, and next action did not connect. Three individually reasonable specifications had produced one incoherent experience. We had reviewed the documents. We had approved the screens. None of that surfaced the problem.</p>
-<p class="story-lede-turn">Using the product did.</p>
-</div>
-<p>That changed how I think about product specifications:</p>
+`,excerpt:"An evening of tinkering with a 2013 NVIDIA GPU on Linux, together with Claude Opus 5.5: finding out it ran at its slowest speed, testing faster speeds one careful step at a time, and a side quest that ended in an open bug."},g={frontmatter:{title:"The platform as an intelligent backend",date:"2026-07-05",description:"Exposing a merchandising platform as MCP tools plus a skills layer, so enterprise AI assistants drive it in natural language instead of clicks.",tags:["ai","platform","mcp"]},html:`<p>Powerful platforms still bottleneck on the UI. Every workflow means training users on screens; the value of a deep feature set is gated behind knowing where to click. For a merchandising platform with years of algorithms inside it, that’s an absurd tax.</p>
+<p>So the bet I’m making: treat the platform as an <strong>intelligent backend</strong>. Expose it as a set of well-described tools — MCP servers plus a skills layer — that an enterprise AI assistant can call. The interface becomes conversational; the platform’s algorithms stay the source of truth.</p>
+<h2>What changes</h2>
+<p>A merchandiser asks for what they want in plain language — “rebalance next month’s OTB for the stores that under-sold this range” — and the assistant orchestrates the underlying platform: the right tools, in the right order, with the platform’s own optimization doing the heavy lifting.</p>
+<p>Three design principles have mattered most:</p>
+<ul>
+<li><strong>The tools carry the semantics.</strong> An MCP tool description is product surface now. Writing “what this tool is for, when to use it, what it returns” well is the new UX design.</li>
+<li><strong>Skills encode the workflows.</strong> Individual tools are verbs; skills are the sentences — the encoded judgment of how an experienced merchandiser sequences a decision.</li>
+<li><strong>The platform stays authoritative.</strong> The assistant never invents a number. It routes intent to algorithms that were already trusted before AI arrived.</li>
+</ul>
+<p>The strategic effect is bigger than convenience: it decouples the platform’s value from its screens. Clients can bring their own assistant, and the deep feature set becomes something you can just <em>talk to</em>.</p>
+<p>This one is early. Expect follow-ups as real client workflows land.</p>
+`,excerpt:"Exposing a merchandising platform as MCP tools plus a skills layer, so enterprise AI assistants drive it in natural language instead of clicks."},u={frontmatter:{title:"Return on Attention: how the framework runs",date:"2026-07-03",description:"The reference manual for Return on Attention: the ranked lists, rolling theme-setting and two-hop escalation chain I use to prioritize across six products, four PMs and 100+ enterprise customers.",tags:["prioritization","roadmap","leadership"]},html:`<p><strong>Return on Attention (ROA)</strong> is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus enterprise customers. Its core claim is simple: the scarce resource in a product organization is not engineering hours or money. It’s <strong>attention</strong> — leadership attention, department-head attention, PM attention. ROA is a system for deciding where that attention gets deployed, so that spending it <em>once, upstream</em> keeps paying out for months, instead of being re-spent in a crisis meeting every two weeks.</p>
 <blockquote>
-<p>A PRD can describe what a product should do. A demo can reveal whether the product makes sense.</p>
-</blockquote>
-<p>When building a working prototype becomes nearly as cheap as writing a thorough document, the prototype should stop being an illustration of the spec. For interaction-heavy products, the demo should become the primary spec.</p>
-<h2>Prose cannot feel wrong</h2>
-<p>A document is read linearly. A product is not.</p>
-<p>Users move between pages, roles, decisions, and states. They arrive with history. They leave work half-finished. They see the same business event at different levels of detail. The hardest product problems often live in the gaps between individually correct requirements:</p>
-<ul>
-<li>Does the action on one page create a believable state on the next?</li>
-<li>Do two personas understand the same event consistently?</li>
-<li>Does the system explain why a number changed, not merely show that it changed?</li>
-<li>Can a user recover when they enter a workflow from somewhere other than the happy path?</li>
-</ul>
-<p>A PRD can mention all four and still hide the contradictions. Prose is unusually tolerant of seams. A running interface is not.</p>
-<p>In our merchandising-platform work, the prototype grew to 41 pages across planner, team-lead, executive, and administrator roles. It used a live simulation engine so approvals, scenarios, blockers, and downstream tasks changed together. That detail mattered. Static screens would have shown visual consistency. Shared state showed product consistency—or its absence.</p>
-<p>The same overdue approval had to remain the same business fact everywhere, while changing altitude appropriately:</p>
-<ul>
-<li>The planner needed the next action.</li>
-<li>The team lead needed the dependency and owner.</li>
-<li>The VP needed the consequence and escalation threshold.</li>
-</ul>
-<p>That is difficult to validate in three sections of a document. It is obvious after thirty seconds of clicking.</p>
-<h2>AI changed the economics, not the standard</h2>
-<p>“Prototype before building” is not new advice. What changed is the cost.</p>
-<p>Historically, a realistic prototype could require enough design and engineering effort that teams reserved it for high-risk flows. The PRD remained the source of truth because it was cheap to edit, easy to circulate, and broad enough to cover the whole product.</p>
-<p>AI has compressed the cost of the working version. A runnable, data-driven prototype can now cost roughly what a thorough PRD used to cost. That changes the sensible default.</p>
-<p>It does not lower the quality bar. In fact, it raises it.</p>
-<p>AI can generate an impressive amount of plausible UI very quickly. Plausible is dangerous. A polished screen can make an unresolved workflow look finished. If the prototype is going to carry specification authority, it needs the same discipline we expect from a serious document:</p>
-<ul>
-<li>Named user and business states, not disconnected screens</li>
-<li>Deterministic fixtures for important paths</li>
-<li>A simulation model that propagates meaningful changes</li>
-<li>A route and journey inventory</li>
-<li>A QA checklist tied to the actual demo flow</li>
-<li>Explicit maturity gates for unfinished areas</li>
-</ul>
-<p>We made the working UI a formal design deliverable, not a disposable mock. The demo script doubled as a QA path. The same structured flow later drove guided playback and video capture. One source described the intended journey; several tools consumed it.</p>
-<p>Without that rigor, “the demo is the spec” becomes “the prettiest artifact wins.” That is worse than a PRD.</p>
-<h2>Let artifacts settle taste debates</h2>
-<p>One homepage discussion had stalled around two competing directions. Both had reasonable arguments. Neither side lacked vocabulary; more discussion was not going to create evidence.</p>
-<p>So we built both.</p>
-<p>We then expanded the comparison to six variants, scored them against a ten-dimension rubric, and combined the strongest parts into a new direction. The synthesis scored 46 out of 50—higher than either original.</p>
-<p>The useful move was not “run a design competition.” It was converting an opinion loop into an artifact loop:</p>
-<ol>
-<li>Make the alternatives concrete.</li>
-<li>Define the evaluation criteria before choosing.</li>
-<li>Score what exists, not what each advocate imagines.</li>
-<li>Allow synthesis instead of forcing a false binary.</li>
-</ol>
-<p>Documents are excellent at preserving arguments. Prototypes are better at ending them.</p>
-<h2>A prototype should also kill features</h2>
-<p>The highest-value outcome of a prototype is sometimes a smaller product.</p>
-<p>We had started designing a flexible visual pipeline builder for data onboarding. It looked like the platform-grade answer: drag-and-drop nodes, open-ended composition, room for future transformations.</p>
-<p>Then the workflow became real enough to interrogate.</p>
-<p>The recurring problem was not authoring arbitrary pipelines. It was mapping messy customer headers into a known target schema, reviewing the proposed mapping, and activating it safely. The canvas solved a generality problem we did not actually have.</p>
-<p>We killed it.</p>
-<p>The replacement was a declarative mapping specification: an agent could propose it, a human could review the diff, and the system could enforce that the agent never activated it. The estimated build dropped from large to medium. The result was easier to audit and closer to the real job.</p>
-<p>A prose spec often rewards completeness. Once a feature has a heading, requirements, and acceptance criteria, removing it feels like lost work. A prototype rewards usefulness. If nobody needs the flexibility when the workflow is in front of them, the abstraction has nowhere to hide.</p>
-<h2>Where this model breaks</h2>
-<p>The demo is not the whole specification.</p>
-<p>It is weak at things that do not become visible through interaction: scale limits, security boundaries, tenant isolation, recovery guarantees, data retention, observability, accessibility details, and unusual edge cases. A happy-path prototype can actively conceal these concerns.</p>
-<p>I use a simple boundary:</p>
-<blockquote>
-<p>The demo owns experiential truth. Written contracts own invisible constraints.</p>
-</blockquote>
-<p>The prototype should be authoritative for journeys, states, hierarchy, language, and cross-role coherence. Architecture decisions, API contracts, threat models, non-functional requirements, and failure semantics still belong in explicit written artifacts and tests.</p>
-<p>There is another cost: keeping the prototype trustworthy. Once people use it as the spec, stale behavior becomes misinformation. Shared fixtures, automated journey checks, and clear “implemented versus simulated” labels are not polish. They are maintenance of the specification itself.</p>
-<h2>What to change on Monday</h2>
-<p>Do not begin by replacing every PRD with code. Pick one workflow where the risk lives between screens or roles.</p>
-<p>Build the thinnest version that can answer three questions:</p>
-<ol>
-<li>Can the user complete the job from entry to outcome?</li>
-<li>Does every state transition remain believable across pages?</li>
-<li>Do different roles see the same underlying business truth at the right altitude?</li>
-</ol>
-<p>Give the prototype deterministic data. Write the critical journey as a replayable checklist. Record unresolved non-functional constraints beside it rather than pretending the UI answers them.</p>
-<p>Then review by using it.</p>
-<p>Stop asking whether each screen matches its section of the document. Ask whether the product feels coherent when the user refuses to follow the document’s order.</p>
-<p>That is the standard prose cannot meet.</p>
-<p>Ship the demo, and let the thing that can feel wrong become the spec.</p>
-`,excerpt:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides."},u=null,y={frontmatter:{name:"AI-First Interface Strategy",tagline:"The platform as an intelligent backend",category:"Builds",status:"Active",impact:"Merchandising decisions in natural language",icon:"bot",order:"2",tags:["AI","Platform","MCP"]},html:`<p>Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural language instead of clicking through screens.</p>
-<h2>Problem</h2>
-<p>Powerful platforms still bottleneck on the UI. Every workflow means training users on screens, and the value is gated behind knowing where to click.</p>
-<h2>Approach</h2>
-<p>Treat the platform as a set of well-described tools (MCP servers + a skills layer) that an AI assistant can call. The interface becomes conversational; the platform’s algorithms stay the source of truth.</p>
-<h2>Outcome</h2>
-<p>Clients can ask for merchandising decisions in plain language, and the AI orchestrates the underlying platform — turning a deep feature set into something you can just talk to.</p>
-<h2>Design principles</h2>
-<ul>
-<li><strong>The tools carry the semantics.</strong> An MCP tool description is now product surface. Writing what a tool is for, when to use it and what it returns is the new UX design.</li>
-<li><strong>Skills encode the workflows.</strong> Tools are verbs; skills are the sentences: the encoded judgment of how an experienced merchandiser sequences a decision.</li>
-<li><strong>The platform stays authoritative.</strong> The assistant never invents a number. It routes intent to algorithms that were trusted before AI arrived.</li>
-</ul>
-<p>A merchandiser can ask, “rebalance next month’s OTB for the stores that under-sold this range”, and the assistant calls the right tools in the right order, with the platform’s own optimization doing the heavy lifting.</p>
-<h2>Why it matters</h2>
-<p>It decouples the platform’s value from its screens. Clients can bring their own assistant, and years of merchandising algorithms become something you can just talk to.</p>
-`,excerpt:"Exposing the merchandising platform as an intelligent backend — an MCP + skills layer — so enterprise AI assistants can drive merchandising decisions in natural"},f={frontmatter:{name:"GAN Thinking Mode",tagline:"Adversarial reasoning framework",category:"Frameworks & Processes",status:"Active",impact:"Kills weak ideas before they ship",icon:"brain",order:"5",tags:["Methodology","Product thinking","Notion"]},html:`<p>GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A “generator” proposes, a “discriminator” attacks, and only ideas that survive the adversarial loop move forward — surfacing weak assumptions early.</p>
-<h2>The idea</h2>
-<p>Most product decisions die from unexamined assumptions, not bad execution. Borrowing from generative adversarial networks, I made the critique an explicit, structured step rather than an afterthought.</p>
-<h2>How it works</h2>
-<ol>
-<li><strong>Generator</strong> — draft the idea, the bet, the plan</li>
-<li><strong>Discriminator</strong> — attack it: where does it break, what would have to be true</li>
-<li><strong>Iterate</strong> — only refined ideas that survive the loop graduate to a spec</li>
-</ol>
-<h2>Why step two is the whole method</h2>
-<p>The discriminator isn’t devil’s-advocate theater in a meeting. It’s a written artifact with the same effort budget as the proposal itself. When critique is structured and mandatory, weak ideas fail cheaply on paper instead of expensively in production.</p>
-<h2>What I’ve learned running it</h2>
-<ul>
-<li>The generator and discriminator should ideally be <strong>different people</strong>. Even solo, switching roles in writing catches most of the load-bearing assumptions.</li>
-<li>The best discriminator prompts are boring: <em>what breaks at 10× scale? what does Sales promise that this doesn’t do? what’s the migration story?</em></li>
-<li>Surviving the loop is a signal a team can rally behind. “This got attacked and lived” builds more conviction than any pitch deck.</li>
-</ul>
-`,excerpt:'GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A "generator" proposes, a "discriminator" attacks, an'},v={frontmatter:{name:"KidQueue",tagline:"Parent-controlled video curation",category:"Builds",status:"In progress",impact:"Safety by curation, not moderation",icon:"play",order:"1",tags:["Consumer","Product design","Safety-first"]},html:`<p>KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and queue it up — safety by design rather than by moderation.</p>
-<h2>Why I’m building it</h2>
-<p>The default video experience for kids optimizes for watch time, not for the values a parent actually has. KidQueue flips that: the parent is the curator, and the algorithm is out of the loop.</p>
-<h2>What it does</h2>
-<ul>
-<li>Parents build and order a personal watchlist</li>
-<li>Kids get a simple, distraction-free player</li>
-<li>No recommendations, no autoplay rabbit holes</li>
-</ul>
-<h2>Curation beats moderation</h2>
-<p>“Kids mode” usually means moderation: filtering the worst content out of an infinite feed. Moderation asks <em>is this bad enough to block?</em>, an unwinnable game against an endless catalog. Curation asks <em>is this good enough to include?</em>, a game a parent can win in ten minutes a week. When the queue ends, it ends, and that’s a feature rather than a bug.</p>
-<h2>Why it matters beyond kids’ video</h2>
-<p>It’s the same argument I make in enterprise software: defaults are the real product, and whoever controls the default controls the outcome. KidQueue moves the default from “the platform decides what plays next” to “the parent already decided.”</p>
-`,excerpt:"KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and"},w={frontmatter:{name:"MF Portfolio Analyser",tagline:"Which of your mutual funds earn their place?",category:"Builds",status:"Active",impact:"Open source Claude Code plugin",icon:"chart",order:"0",link:"https://alafazam.com/mf-portfolio-analyser/",tags:["Personal finance","Claude Code","India"]},html:`<p>A free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from your CAS statement: every fund against its benchmark and against every other fund in its category, duplicates, and a year-by-year plan for switches that keeps the gains inside the ₹1.25L tax-free room. It runs on your computer, and Claude never sees the statement.</p>
-<p><strong>Educational sample, not advice.</strong> I built it to review my own portfolio and am sharing it as an example. It is not investment, tax or legal advice, and I’m not a SEBI-registered adviser.</p>
-<h2>Why I built it</h2>
-<p>Fund pages tell you how one fund did. The questions I actually had were about the whole set: which funds lag their index, which ones overlap, where the money should go instead, and what moving it costs in tax. Answering that by hand meant spreadsheets, NAV downloads and a lot of date arithmetic on purchase lots. So I wrote the rules down and turned them into a tool.</p>
-<h2>What it does</h2>
-<ul>
-<li><strong>Scorecard:</strong> each fund against its category index over 3 years, for its direct and regular plan, plotted on a return-vs-volatility 2×2</li>
-<li><strong>Whole-market screen:</strong> every open-ended direct-growth fund in your categories from AMFI’s list, scored 0–100 within its category</li>
-<li><strong>Consolidation plan:</strong> one fund per job, with a case-for-change score and break-even time for every move, and the index fund always an option</li>
-<li><strong>Tax calendar on real purchase lots:</strong> oldest units first, only long-term and unlocked lots, within each year’s ₹1.25L room after gains already booked</li>
-<li><strong>SIP review, falls and recoveries, peer check,</strong> and one offline HTML report</li>
-</ul>
-<h2>Privacy by design</h2>
-<p>The statement holds your name, PAN, address and phone number, so only a local script reads it. It writes a redacted summary, deletes the raw text even when a run fails, keeps every file owner-only, and never puts the PDF password on a command line. The report it produces makes no network requests.</p>
-<h2>Rules, not a model</h2>
-<p>Every score, flag and plan rule is written down and versioned, and the plugin ships with a sample report on a made-up investor holding real funds. It went through an adversarial review round before release, and that review, with what was done about each finding, is in the repo’s spec.</p>
-<p><a href="https://alafazam.com/mf-portfolio-analyser/sample-report.html">Open the sample report</a> · <a href="https://github.com/Alafazam/mf-portfolio-analyser">Source on GitHub</a></p>
-`,excerpt:"A free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from your CAS statement: every fund against its benchmark and against e"},b={frontmatter:{name:"Return-on-Attention (ROA) Prioritization",tagline:"One lens to align focus across teams",category:"Frameworks & Processes",impact:"Urgent-critical asks → 0 per sprint",icon:"target",order:"4",tags:["Prioritization","Roadmap","Alignment"]},html:`<p><strong>Return on Attention (ROA)</strong> is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus enterprise customers. Its core claim is simple: the scarce resource in a product organization is not engineering hours or money. It’s <strong>attention</strong> — leadership attention, department-head attention, PM attention. ROA is a system for deciding where that attention gets deployed, so that spending it <em>once, upstream</em> keeps paying out for months, instead of being re-spent in a crisis meeting every two weeks.</p>
-<blockquote>
-<p>The origin story — why RICE, MoSCoW, and friends kept failing me, and how this emerged from first principles — is in the essay <a href="/blog/return-on-attention">The Day I Stopped Prioritizing Features</a>. This page is the reference manual: what the framework is and how it works.</p>
+<p>The origin story — why RICE, MoSCoW, and friends kept failing me, and how this emerged from first principles — is in the essay <a href="/blog/return-on-attention">The Day I Stopped Prioritizing Features</a>. This post is the reference manual: what the framework is and how it works.</p>
 </blockquote>
 <h2>The problem it solves</h2>
 <p>Every function sends requests, every request arrives with data proving it should go first, and demand has no ceiling while capacity very much does. A typical Monday looked like this:</p>
@@ -2766,14 +2596,218 @@ and check every change with a screenshot from the TV.</pre>
 <li><strong>Not portable as-is.</strong> It fits Increff’s shape: multi-product, B2B, engineers mapped to products. Steal the reasoning — attention is the constraint; negotiate upstream, on a rolling window — and rebuild the mechanics for your own org. That loop is the transferable part.</li>
 </ul>
 <p><em>Full narrative version, including everything that broke before this worked: <a href="/blog/return-on-attention">The Day I Stopped Prioritizing Features</a>.</em></p>
-`,excerpt:"Return on Attention (ROA) is an operating system for prioritization that I built and still run at Increff — across six products, four PMs, and a hundred-plus en"},x={frontmatter:{name:"Two-Clock Release & Delivery",tagline:"Continuous merge, controlled client releases",category:"Frameworks & Processes",impact:"Eliminated pod blocking & unsafe rollbacks",icon:"clock",order:"3",tags:["Delivery","Feature flags","Release management"]},html:`<p>Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on release cadence and clients never get surprised.</p>
-<h2>Problem</h2>
-<p>When merge and release are the same clock, pods block each other waiting for a release train, and rollbacks are risky because half-finished work is already merged.</p>
-<h2>Approach</h2>
-<p>Decouple the two. Engineers merge continuously behind feature flags (the fast clock); clients receive controlled, predictable monthly releases (the slow clock). Flags decide what’s on for whom.</p>
-<h2>Outcome</h2>
-<p>Pods stop blocking each other, rollbacks become flag flips instead of reverts, and clients get a stable, predictable release rhythm.</p>
-<h2>The part that’s cultural, not technical</h2>
-<p>Feature flags have to be owned as a <em>product</em> tool. Which flag turns on for which client, in which release, is a product decision. The flag system is really a client-communication system wearing an engineering costume.</p>
-<p>Enterprise clients don’t want surprises; they want a predictable cadence they can plan training and change management around. The slow clock gives them that, while the fast clock keeps engineering from ever waiting on a release train.</p>
-`,excerpt:"Feature-flag-gated continuous merge paired with controlled monthly client releases — two clocks running at different speeds so engineering never blocks on relea"};function a(t){return Object.entries(t).flatMap(([e,s])=>s?[{slug:e.split("/").pop().replace(/\.md$/,""),...s}]:[])}const k=Object.assign({"../content/blog/ai-product-layers.md":i,"../content/blog/building-kidqueue.md":o,"../content/blog/building-with-claude.md":l,"../content/blog/era-of-personal-software.md":r,"../content/blog/gan-thinking-mode.md":d,"../content/blog/must-have-gnome-extensions.md":c,"../content/blog/old-nvidia-gpu-linux.md":h,"../content/blog/platform-as-intelligent-backend.md":p,"../content/blog/return-on-attention.md":g,"../content/blog/the-demo-is-the-spec.md":m,"../content/blog/two-clock-delivery.md":u}),A=Object.assign({"../content/projects/ai-first-interface.md":y,"../content/projects/gan-thinking-mode.md":f,"../content/projects/kidqueue.md":v,"../content/projects/mf-portfolio-analyser.md":w,"../content/projects/roa-prioritization.md":b,"../content/projects/two-clock-delivery.md":x}),I=a(k).sort((t,e)=>(e.frontmatter.date||"").localeCompare(t.frontmatter.date||"")),n=a(A).sort((t,e)=>Number(t.frontmatter.order||0)-Number(e.frontmatter.order||0)),S=t=>I.find(e=>e.slug===t),L=t=>n.find(e=>e.slug===t),C=["Builds","Frameworks & Processes"],T={Builds:"Products and systems I've designed and shipped.","Frameworks & Processes":"Operating frameworks and processes I've designed and run at scale."},M=()=>C.map(e=>({category:e,description:T[e]||"",items:n.filter(s=>(s.frontmatter.category||"Builds")===e)})).filter(e=>e.items.length>0),P=[{href:"/projects/emi-calculator",name:"EMI Scenario Planner",tagline:"Loan what-ifs, side by side",description:"Build home-loan repayment scenarios and compare them: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI, a one-off prepayment — and what each one saves in interest and years.",tags:["Personal finance","Home loan","India"],icon:"calculator"}],E=t=>t?new Date(t).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"";export{P as T,S as a,I as b,E as f,L as g,M as p};
+`,excerpt:"The reference manual for Return on Attention: the ranked lists, rolling theme-setting and two-hop escalation chain I use to prioritize across six products, four PMs and 100+ enterprise customers."},m={frontmatter:{title:"The Day I Stopped Prioritizing Features",date:"2025-12-14",description:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention.",tags:["prioritization","roadmap","leadership"]},html:`<p>A few years ago, I was leading a team of four PMs across six products at Increff — a B2B retail-tech SaaS company serving over a hundred enterprise customers. My backlog looked like every PM’s nightmare.</p>
+<p>Sales wanted features to close deals. Customer Success wanted features to retain accounts. Onboarding wanted features to cut implementation time. Engineering wanted architectural cleanup. Founders had strategic bets they wanted placed. Customers had urgent, contract-threatening asks. And every single request came with data attached, proving why it deserved to go first.</p>
+<p>I did what most PMs do. I went looking for a better prioritization framework.</p>
+<p>RICE. MoSCoW. Value vs. Effort. Opportunity scoring. I tried variations of all of them.</p>
+<p>They worked — for about a sprint. Then they quietly stopped working, and I couldn’t immediately tell why.</p>
+<p>It took me a while to see it clearly: I wasn’t struggling to prioritize. I was struggling to <em>compare</em>. I was putting apples, oranges, and satellites on the same scoring sheet and asking a formula to tell me which one mattered more. No framework fixes a comparison problem — it just hides it behind a number.</p>
+<h2>The Real Shape of the Problem</h2>
+<p>I stopped trying to score features and started trying to understand the <em>shape</em> of the chaos instead. I looked at it through three lenses — Company, People, and Tech — and in each one, there was an external face and an internal face.</p>
+<p><strong>Company.</strong> Externally: every one of our hundred-plus customers was a company at a different stage of life. Some scaling fast. Some cutting costs. Some just funded and eager to experiment. Some mature and optimizing for stability. The same feature could be mission-critical for one and irrelevant for another. Internally: we ran six products, each at a different point in its own life — some 0-to-1, some 1-to-10, some 10-to-100 — each with a different pace, a different relationship with its founders, a different definition of success.</p>
+<p><strong>People.</strong> Externally: the old B2B line is “the buyer isn’t the user.” I’d go further — there isn’t even <em>one</em> user. A single enterprise account has operations teams, finance, warehouse managers, analytics teams, and leadership, all touching the same product for completely different reasons. Internally: requests came from Sales, Success, Onboarding, Product, Legal, DevOps — every function pursuing a goal that was completely legitimate on its own terms.</p>
+<p><strong>Tech.</strong> Externally: a customer asking for “a feature” might really be migrating to a new ERP, or need a different payload shape, or care about retry logic, or latency, or compliance — five different problems wearing the same request. Internally: our own six products ran on different architectures, some OLTP-heavy, some OLAP, each with its own tech leads and its own idea of “the right way to build.”</p>
+<p>Once I laid that grid out, the real insight arrived: <strong>the scarce resource in this system was never engineering hours or money. It was attention</strong> — leadership attention, department-head attention, my own attention as the person supposedly holding the whole map in my head. Every framework I’d tried was trying to optimize <em>feature selection</em>. None of them touched the actual bottleneck, which was <em>where human attention got spent, and how often it had to be spent again</em>.</p>
+<h2>Where This Came From</h2>
+<p>I want to be precise about the origin of this, because it matters for how much weight to give it.</p>
+<p>I’d taken Shreyas Doshi’s course and learned his LNO framework there — Leverage, Neutral, Overhead — a way of deciding how much effort a given task deserves. It shaped how I thought about my own time. But LNO is about an individual’s effort allocation. It doesn’t tell you how a department head’s list should relate to a founder’s vision, or how six products at six different life stages should share one engineering org’s attention.</p>
+<p>I hadn’t read Herbert Simon’s work on the attention economy, or the academic literature on attention as an organizational resource, when I built this. I only found out about it later, after I’d already been running this system for months and started researching whether anyone had written about it formally. Turns out economists have been describing pieces of this idea since the 1970s. That was a genuinely interesting discovery, but it’s not where this came from — I found the research after the framework, not before it.</p>
+<p>This came from first principles, under pressure, with four PMs and me trying to make sense of a demand curve that had no ceiling and a bandwidth curve that very much did. <strong>Unlimited demand. Limited capacity.</strong> Every conventional framework I threw at that mismatch dissolved into arguments about whose request mattered more. None of them addressed the actual constraint.</p>
+<h2>The Question That Changed Everything</h2>
+<p>Once the shape of the problem was clear, we stopped asking:</p>
+<p><em>“Which feature should we build next?”</em></p>
+<p>And started asking:</p>
+<p><em>“How do we build a system that consistently makes good prioritization decisions — without me, or any single PM, being the bottleneck?”</em></p>
+<p>That single reframe is what became <strong>Return on Attention</strong>: not a scoring model for features, but a model for deciding where the organization’s scarcest resource — attention — gets deployed, so that spending it once pays out for a long time afterward, instead of needing to be spent again every sprint.</p>
+<h2>The System, Mechanically</h2>
+<p>Here’s what we actually built. It has four moving parts, and each one earned its place the hard way — by breaking first, then getting fixed.</p>
+<p><strong>Every department head owns one prioritized list, and it’s never static.</strong> Sales owns the Sales list. Success owns the Success list. Onboarding owns its own. Engineering owns its own. Each list is ranked by what creates the highest impact for that function. Critically, these lists aren’t set once and left alone — department heads re-rank them continuously, and re-ranking happens as a natural side effect of preparing for the next sprint, not on some separate calendar reminder. If a deal falls through, a competitor launches something, or the market shifts mid-quarter, that shows up the next time a department head sits down to plan — because re-ranking isn’t an event, it’s a habit built into how they already operate.</p>
+<p><strong>Theme-setting happens across a rolling window, not in one high-stakes meeting.</strong> This is the part I didn’t get right in earlier versions of this system, and it’s the part that made the biggest difference once we fixed it. Instead of negotiating bandwidth fresh every single sprint — which turns into exactly the kind of political scramble you’d expect when everyone shows up wanting their fair share right now — we plan theme and bandwidth across the next three sprints at once. We might commit some capacity to next sprint and a smaller slice to the sprint after that, and the one after that. Each time we sit down again, we’re not starting from zero — we already know what’s been committed, and we’re just filling in what’s left. Spreading the negotiation across the quarter instead of concentrating it at each sprint boundary took most of the heat out of the room. It’s not that the negotiation disappeared. It’s that nobody’s negotiating under time pressure anymore.</p>
+<p><strong>Cross-functional resource contention mostly doesn’t happen — by design, not by process.</strong> Early critiques of this system rightly asked: what happens when two department heads’ top priorities both need the same specialized engineer this sprint? Our answer turned out to be structural rather than procedural — most engineers are mapped to a single product, so the kind of contention that looks scary on paper almost never shows up in practice. When it does — usually around shared platform components that serve more than one product — we resolve it explicitly during theme-setting, and if a team’s bandwidth is being spent on something that benefits every product, we say so out loud and push them to build it that way deliberately, not by accident. Disagreements that can’t get resolved there come to me as the product head. If I can’t resolve it, it goes to the founders, anchored in company vision. That’s the actual chain, and it’s short on purpose.</p>
+<p><strong>Selection is mechanical, but the tail is a judgment call, not a guarantee.</strong> Engineering does t-shirt sizing or story-pointing against the agreed bandwidth, and the team fills each bucket from the top of the relevant department’s list. Most of the time, that’s the whole story. But I want to be honest about the one place this system doesn’t fully solve the problem it was built for: long-tail and edge-case items. What sits at the bottom of Engineering’s list sometimes sits at the top of Sales’ list, and we do catch that — but we catch it because it happens to surface during theme-setting, when two lists visibly disagree about something. A genuinely niche item that never collides with anything on anyone else’s list can sit near the bottom indefinitely. We handle this today through department-head judgment, not through an automatic safeguard. That’s a real limitation, and I’d rather say so than pretend the system quietly solves the exact problem it was named after.</p>
+<h2>Why I Didn’t Just Pick One Off the Shelf</h2>
+<p>I want to pause on something before I get to results, because I think it’s the more useful takeaway than the framework itself.</p>
+<p>There is no shortage of product frameworks in the world. Search for “prioritization framework” and you’ll get RICE, MoSCoW, Kano, Opportunity Scoring, Weighted Scoring, ICE, and a dozen others, each with a slide deck and a case study from a company that isn’t yours. Every one of them is well-reasoned. Every one of them has genuinely worked — for the team, the domain, and the specific pressures that existed when it was built. None of that means it will work for you.</p>
+<p>That’s the trap I want to name plainly: treating a framework’s popularity, or its logo-studded case-study list, as evidence it will transfer into your context. A framework isn’t a law of physics. It’s someone else’s answer to their own specific mix of company stage, team maturity, market structure, and org politics. RICE assumes you can meaningfully estimate reach and confidence — that’s a real assumption, not a neutral default. MoSCoW assumes your stakeholders can agree on what “must” means — also not neutral. These frameworks aren’t wrong. They’re <em>someone else’s fit</em>.</p>
+<p>I tried several of them here, honestly, before building this. They didn’t fail because they were bad frameworks. They failed because Increff’s specific shape — six products at wildly different maturity stages, a hundred-plus B2B accounts each with their own internal politics, engineering teams split across OLTP and OLAP paradigms — wasn’t the shape any of those frameworks were built to fit. My team, my company’s stage, my engineering setup, my specific blend of art and politics and architecture, were different from whatever context produced those frameworks. So I stopped trying to make my problem fit someone else’s answer, and started building something for the actual shape of what I had.</p>
+<p>That’s the real instruction I’d give anyone reading this, more than the mechanics of Return on Attention itself: read the frameworks, learn from them, take what’s genuinely useful — but don’t adopt one wholesale out of fear that you need “a real framework” to be legitimate. You are not in the same company, with the same team, the same stage, the same politics, or the same technical debt as whoever wrote the framework you’re reading about. Build your own operating method for your own context. Run it. Take feedback. Break it on purpose by asking people to attack it. Improve it. Run it again. That loop — not the specific mechanism — is the actual transferable skill.</p>
+<h2>What Changed at Increff</h2>
+<p>This wasn’t a thought experiment. It ran, and it’s still running, across six products and a hundred-plus customers.</p>
+<p>The clearest signal: the volume of ad-hoc, “drop everything” critical requests dropped sharply. Not because customers stopped having urgent needs — they still do — but because most of what used to arrive as a fire actually had a home in someone’s prioritized list already. It just needed a theme and a bandwidth slot, not a crisis meeting.</p>
+<p>The second, quieter shift mattered more to me. Teams across different pods and products now know which direction we’re moving in — and <em>why</em> — because the “why” was settled upstream, by the leaders who own those goals, in a negotiation spread calmly across the quarter instead of relitigated under pressure every two weeks.</p>
+<h2>The One Lesson</h2>
+<p>I’ve come to believe prioritization was never the real skill I needed. Alignment was — and alignment that holds up under pressure needs its negotiation spread out in time, not concentrated at the one moment everyone’s watching the clock.</p>
+<p>When company goals, product goals, departmental goals, and engineering capacity all point in the same direction <em>before</em> a feature ever gets discussed, the backlog effectively prioritizes itself. The scoring model you use to pick between two aligned features barely matters. The system that gets you to alignment in the first place is the whole game — and the timing of when that alignment gets negotiated matters almost as much as the alignment itself.</p>
+<p>So if you’re leading product at any real scale and you feel like you’re drowning in incompatible, well-justified, urgent requests — my honest suggestion is: stop looking for a better prioritization framework. Ask where your organization’s attention is actually being spent, whether it’s being spent once, upstream, in a way that keeps paying out, and whether that negotiation is happening calmly ahead of time or frantically under a deadline.</p>
+<p>That’s Return on Attention. Not a framework for ranking features. A model for where judgment gets deployed, and when — so that features stop needing to be fought over at all, and the long tail becomes a conscious trade-off instead of an accident.</p>
+<p>And to be clear — I’m not asking you to adopt Return on Attention either, at least not as-is. I’m asking you to do what building it forced me to do: look honestly at your own company, your own team, your own stage, your own politics, and your own technical constraints, and build something that fits <em>that</em> — not a framework that fit someone else’s. Mine will keep changing as Increff changes. Yours should too.</p>
+<hr>
+<p><em>The operating mechanics of the framework (lists, theme-setting, the escalation chain) are in the companion post, <a href="/blog/return-on-attention-framework">Return on Attention: how the framework runs</a>.</em></p>
+<p><em>If you’re running into a version of this in your own org, I’d genuinely like to hear how you’re solving it — reach out on <a href="https://www.linkedin.com/in/alafazam">LinkedIn</a>.</em></p>
+`,excerpt:"Why every prioritization framework kept failing me across six products — and how treating attention, not engineering hours, as the scarce resource became Return on Attention."},y={frontmatter:{title:"ScreenReel: a product demo that lives in the repository",date:"2026-07-04",description:"Why I built ScreenReel, an open-source demo recorder: record a walkthrough by using your app, commit it as readable JSON, then play it live in the product, share it as a link, or render it as video.",tags:["side-project","open-source","product-demos","developer-tools"]},html:`<p>Product demos rot. A screen recording is out of date the week the UI changes, and a click-through built in a separate demo tool is a second copy of the product that nobody maintains. The demo that matters most, the one a salesperson runs live, depends on someone remembering where to click.</p>
+<p>So I built <strong>ScreenReel</strong>: an open-source demo recorder whose output is a plain file that sits next to the code it explains.</p>
+<h2>Record by using the app</h2>
+<p>You record a flow in ScreenReel Studio by using your app normally. Studio turns typing, selects, toggles, sliders, clicks, scrolling and navigation into editable actions. Each scene gets a title, talking points and a pace, and the result exports as a <code>screenreel.json</code> file you commit with the app.</p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;overview&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;route&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/dashboard?team=sales&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Start with the outcome&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;talkingPoints&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Explain what changed and why it matters.&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;actions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;glow&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;selector&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;.kpi-card&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sequence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;click&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;selector&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;[data-action=\\&quot;open-review\\&quot;]&quot;</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p>Because it is plain JSON, a demo can be reviewed, diffed and versioned like any other change.</p>
+<h2>One flow, three outputs</h2>
+<ul>
+<li><strong>Live inside the product.</strong> The Projector plays the flow in the real app: it moves a cursor to each target, clicks, types, highlights and shows presenter notes, without replacing anything in the application.</li>
+<li><strong>A self-playing link.</strong> The same flow plays for a prospect as a video, an autoplay with cards, or a guided tour they step through.</li>
+<li><strong>A rendered video.</strong> The Capture CLI replays the flow in Chrome with Playwright and FFmpeg and writes an MP4, so the final cut never has to be recorded by hand again.</li>
+</ul>
+<p>Setup is one script tag and one element:</p>
+<pre class="hljs"><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/screenreel@0.4.0/dist/projector/screenreel.js&quot;</span> <span class="hljs-attr">defer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">screenreel-projector</span> <span class="hljs-attr">project-id</span>=<span class="hljs-string">&quot;my-app&quot;</span> <span class="hljs-attr">flow-src</span>=<span class="hljs-string">&quot;/demos/my-demo.json&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">screenreel-projector</span>&gt;</span>
+</code></pre>
+<h2>Keeping demos working</h2>
+<p>The point of keeping the demo in the repository is that it can break loudly instead of quietly. Validation catches a selector that no longer matches, and <code>flow doctor</code> repairs safe selector changes before a customer sees the break. It can run in CI like any other test.</p>
+<h2>No platform</h2>
+<p>ScreenReel is Apache 2.0 and framework independent. It needs no backend, no account and no analytics service, and no data leaves the page unless you configure it.</p>
+<p>The <a href="https://alafazam.com/screenreels/">live demo</a> runs ScreenReel on its own landing page, and the source is <a href="https://github.com/Alafazam/screenreels">on GitHub</a>.</p>
+<p><em>Updated for v0.4.0: the setup snippet, playback modes and flow doctor arrived after the first release.</em></p>
+`,excerpt:"Why I built ScreenReel, an open-source demo recorder: record a walkthrough by using your app, commit it as readable JSON, then play it live in the product, share it as a link, or render it as video."},f={frontmatter:{title:"The Demo Is the Spec",date:"2026-08-29",description:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides.",tags:["product","prototyping","ai","design"]},html:`<!-- The opening scene uses the story-lede treatment; the argument resumes below it. -->
+<div class="story-lede">
+<p class="story-lede-label">From the work</p>
+<p>We had a clean story for each user.</p>
+<p>The planner saw an overdue cluster approval. The team lead saw the same delay blocking downstream work. The VP saw the financial consequence at portfolio level. Each view made sense on its own.</p>
+<p>The contradiction appeared only when we clicked through all three views in the same running product.</p>
+<p>The blocker was technically the same, but the framing, urgency, and next action did not connect. Three individually reasonable specifications had produced one incoherent experience. We had reviewed the documents. We had approved the screens. None of that surfaced the problem.</p>
+<p class="story-lede-turn">Using the product did.</p>
+</div>
+<p>That changed how I think about product specifications:</p>
+<blockquote>
+<p>A PRD can describe what a product should do. A demo can reveal whether the product makes sense.</p>
+</blockquote>
+<p>When building a working prototype becomes nearly as cheap as writing a thorough document, the prototype should stop being an illustration of the spec. For interaction-heavy products, the demo should become the primary spec.</p>
+<h2>Prose cannot feel wrong</h2>
+<p>A document is read linearly. A product is not.</p>
+<p>Users move between pages, roles, decisions, and states. They arrive with history. They leave work half-finished. They see the same business event at different levels of detail. The hardest product problems often live in the gaps between individually correct requirements:</p>
+<ul>
+<li>Does the action on one page create a believable state on the next?</li>
+<li>Do two personas understand the same event consistently?</li>
+<li>Does the system explain why a number changed, not merely show that it changed?</li>
+<li>Can a user recover when they enter a workflow from somewhere other than the happy path?</li>
+</ul>
+<p>A PRD can mention all four and still hide the contradictions. Prose is unusually tolerant of seams. A running interface is not.</p>
+<p>In our merchandising-platform work, the prototype grew to 41 pages across planner, team-lead, executive, and administrator roles. It used a live simulation engine so approvals, scenarios, blockers, and downstream tasks changed together. That detail mattered. Static screens would have shown visual consistency. Shared state showed product consistency—or its absence.</p>
+<p>The same overdue approval had to remain the same business fact everywhere, while changing altitude appropriately:</p>
+<ul>
+<li>The planner needed the next action.</li>
+<li>The team lead needed the dependency and owner.</li>
+<li>The VP needed the consequence and escalation threshold.</li>
+</ul>
+<p>That is difficult to validate in three sections of a document. It is obvious after thirty seconds of clicking.</p>
+<h2>AI changed the economics, not the standard</h2>
+<p>“Prototype before building” is not new advice. What changed is the cost.</p>
+<p>Historically, a realistic prototype could require enough design and engineering effort that teams reserved it for high-risk flows. The PRD remained the source of truth because it was cheap to edit, easy to circulate, and broad enough to cover the whole product.</p>
+<p>AI has compressed the cost of the working version. A runnable, data-driven prototype can now cost roughly what a thorough PRD used to cost. That changes the sensible default.</p>
+<p>It does not lower the quality bar. In fact, it raises it.</p>
+<p>AI can generate an impressive amount of plausible UI very quickly. Plausible is dangerous. A polished screen can make an unresolved workflow look finished. If the prototype is going to carry specification authority, it needs the same discipline we expect from a serious document:</p>
+<ul>
+<li>Named user and business states, not disconnected screens</li>
+<li>Deterministic fixtures for important paths</li>
+<li>A simulation model that propagates meaningful changes</li>
+<li>A route and journey inventory</li>
+<li>A QA checklist tied to the actual demo flow</li>
+<li>Explicit maturity gates for unfinished areas</li>
+</ul>
+<p>We made the working UI a formal design deliverable, not a disposable mock. The demo script doubled as a QA path. The same structured flow later drove guided playback and video capture. One source described the intended journey; several tools consumed it.</p>
+<p>Without that rigor, “the demo is the spec” becomes “the prettiest artifact wins.” That is worse than a PRD.</p>
+<h2>Let artifacts settle taste debates</h2>
+<p>One homepage discussion had stalled around two competing directions. Both had reasonable arguments. Neither side lacked vocabulary; more discussion was not going to create evidence.</p>
+<p>So we built both.</p>
+<p>We then expanded the comparison to six variants, scored them against a ten-dimension rubric, and combined the strongest parts into a new direction. The synthesis scored 46 out of 50—higher than either original.</p>
+<p>The useful move was not “run a design competition.” It was converting an opinion loop into an artifact loop:</p>
+<ol>
+<li>Make the alternatives concrete.</li>
+<li>Define the evaluation criteria before choosing.</li>
+<li>Score what exists, not what each advocate imagines.</li>
+<li>Allow synthesis instead of forcing a false binary.</li>
+</ol>
+<p>Documents are excellent at preserving arguments. Prototypes are better at ending them.</p>
+<h2>A prototype should also kill features</h2>
+<p>The highest-value outcome of a prototype is sometimes a smaller product.</p>
+<p>We had started designing a flexible visual pipeline builder for data onboarding. It looked like the platform-grade answer: drag-and-drop nodes, open-ended composition, room for future transformations.</p>
+<p>Then the workflow became real enough to interrogate.</p>
+<p>The recurring problem was not authoring arbitrary pipelines. It was mapping messy customer headers into a known target schema, reviewing the proposed mapping, and activating it safely. The canvas solved a generality problem we did not actually have.</p>
+<p>We killed it.</p>
+<p>The replacement was a declarative mapping specification: an agent could propose it, a human could review the diff, and the system could enforce that the agent never activated it. The estimated build dropped from large to medium. The result was easier to audit and closer to the real job.</p>
+<p>A prose spec often rewards completeness. Once a feature has a heading, requirements, and acceptance criteria, removing it feels like lost work. A prototype rewards usefulness. If nobody needs the flexibility when the workflow is in front of them, the abstraction has nowhere to hide.</p>
+<h2>Where this model breaks</h2>
+<p>The demo is not the whole specification.</p>
+<p>It is weak at things that do not become visible through interaction: scale limits, security boundaries, tenant isolation, recovery guarantees, data retention, observability, accessibility details, and unusual edge cases. A happy-path prototype can actively conceal these concerns.</p>
+<p>I use a simple boundary:</p>
+<blockquote>
+<p>The demo owns experiential truth. Written contracts own invisible constraints.</p>
+</blockquote>
+<p>The prototype should be authoritative for journeys, states, hierarchy, language, and cross-role coherence. Architecture decisions, API contracts, threat models, non-functional requirements, and failure semantics still belong in explicit written artifacts and tests.</p>
+<p>There is another cost: keeping the prototype trustworthy. Once people use it as the spec, stale behavior becomes misinformation. Shared fixtures, automated journey checks, and clear “implemented versus simulated” labels are not polish. They are maintenance of the specification itself.</p>
+<h2>What to change on Monday</h2>
+<p>Do not begin by replacing every PRD with code. Pick one workflow where the risk lives between screens or roles.</p>
+<p>Build the thinnest version that can answer three questions:</p>
+<ol>
+<li>Can the user complete the job from entry to outcome?</li>
+<li>Does every state transition remain believable across pages?</li>
+<li>Do different roles see the same underlying business truth at the right altitude?</li>
+</ol>
+<p>Give the prototype deterministic data. Write the critical journey as a replayable checklist. Record unresolved non-functional constraints beside it rather than pretending the UI answers them.</p>
+<p>Then review by using it.</p>
+<p>Stop asking whether each screen matches its section of the document. Ask whether the product feels coherent when the user refuses to follow the document’s order.</p>
+<p>That is the standard prose cannot meet.</p>
+<p>Ship the demo, and let the thing that can feel wrong become the spec.</p>
+`,excerpt:"A PRD can be internally consistent and still describe an incoherent product. A working prototype can feel the contradictions that prose hides."},v={frontmatter:{title:"Two clocks: continuous merge, monthly releases",date:"2026-02-08",description:"Decoupling how fast engineers merge from how often clients see change — feature flags as a release-management tool, not an engineering toy.",tags:["delivery","feature-flags","release-management"]},html:`<p>Most delivery pain comes from running engineering and clients on the same clock. When merge and release are the same event, pods block each other waiting for a release train, half-finished work sits in long-lived branches, and rollbacks are terrifying because everything is entangled.</p>
+<p>The fix we landed on: run <strong>two clocks at different speeds</strong>.</p>
+<h2>The fast clock and the slow clock</h2>
+<p>Engineers merge continuously behind feature flags — that’s the fast clock. Nothing waits for a train; work integrates the day it’s ready. Clients receive controlled, predictable monthly releases — that’s the slow clock. Flags decide what’s on, for whom, and when.</p>
+<p>What this bought us:</p>
+<ul>
+<li><strong>Pods stopped blocking each other.</strong> No more “we can’t merge until the release cuts.”</li>
+<li><strong>Rollbacks became flag flips instead of reverts.</strong> A bad feature turns off in seconds; the code stays merged.</li>
+<li><strong>Clients got a stable rhythm.</strong> Enterprise customers don’t want surprises; they want a predictable cadence they can plan training and change management around.</li>
+</ul>
+<p>The subtle part is cultural, not technical: feature flags have to be owned as a <em>product</em> tool. Which flag turns on for which client, in which release, is a product decision — the flag system is really a client-communication system wearing an engineering costume.</p>
+<p>If you’re fighting release-train gridlock, start by separating the two clocks. Everything else follows.</p>
+`,excerpt:"Decoupling how fast engineers merge from how often clients see change — feature flags as a release-management tool, not an engineering toy."},w={frontmatter:{name:"GAN Thinking Mode",tagline:"Adversarial reasoning framework",category:"Frameworks & Processes",status:"Active",impact:"Kills weak ideas before they ship",icon:"brain",order:"5",tags:["Methodology","Product thinking","Notion"]},html:`<p>GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A “generator” proposes, a “discriminator” attacks, and only ideas that survive the adversarial loop move forward — surfacing weak assumptions early.</p>
+<h2>The idea</h2>
+<p>Most product decisions die from unexamined assumptions, not bad execution. Borrowing from generative adversarial networks, I made the critique an explicit, structured step rather than an afterthought.</p>
+<h2>How it works</h2>
+<ol>
+<li><strong>Generator</strong> — draft the idea, the bet, the plan</li>
+<li><strong>Discriminator</strong> — attack it: where does it break, what would have to be true</li>
+<li><strong>Iterate</strong> — only refined ideas that survive the loop graduate to a spec</li>
+</ol>
+<h2>Why step two is the whole method</h2>
+<p>The discriminator isn’t devil’s-advocate theater in a meeting. It’s a written artifact with the same effort budget as the proposal itself. When critique is structured and mandatory, weak ideas fail cheaply on paper instead of expensively in production.</p>
+<h2>What I’ve learned running it</h2>
+<ul>
+<li>The generator and discriminator should ideally be <strong>different people</strong>. Even solo, switching roles in writing catches most of the load-bearing assumptions.</li>
+<li>The best discriminator prompts are boring: <em>what breaks at 10× scale? what does Sales promise that this doesn’t do? what’s the migration story?</em></li>
+<li>Surviving the loop is a signal a team can rally behind. “This got attacked and lived” builds more conviction than any pitch deck.</li>
+</ul>
+`,excerpt:'GAN Thinking Mode is a reasoning framework I built in Notion that stress-tests every idea before it ships. A "generator" proposes, a "discriminator" attacks, an'},b={frontmatter:{name:"KidQueue",tagline:"Parent-controlled video curation",category:"Builds",status:"In progress",impact:"Safety by curation, not moderation",icon:"play",order:"2",tags:["Consumer","Product design","Safety-first"]},html:`<p>KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and queue it up — safety by design rather than by moderation.</p>
+<h2>Why I’m building it</h2>
+<p>The default video experience for kids optimizes for watch time, not for the values a parent actually has. KidQueue flips that: the parent is the curator, and the algorithm is out of the loop.</p>
+<h2>What it does</h2>
+<ul>
+<li>Parents build and order a personal watchlist</li>
+<li>Kids get a simple, distraction-free player</li>
+<li>No recommendations, no autoplay rabbit holes</li>
+</ul>
+<h2>Curation beats moderation</h2>
+<p>“Kids mode” usually means moderation: filtering the worst content out of an infinite feed. Moderation asks <em>is this bad enough to block?</em>, an unwinnable game against an endless catalog. Curation asks <em>is this good enough to include?</em>, a game a parent can win in ten minutes a week. When the queue ends, it ends, and that’s a feature rather than a bug.</p>
+<h2>Why it matters beyond kids’ video</h2>
+<p>It’s the same argument I make in enterprise software: defaults are the real product, and whoever controls the default controls the outcome. KidQueue moves the default from “the platform decides what plays next” to “the parent already decided.”</p>
+`,excerpt:"KidQueue is a parent-first app that replaces algorithmic autoplay with an intentional, hand-picked library. Parents choose exactly what their kids can watch and"},x={frontmatter:{name:"MF Portfolio Analyser",tagline:"Which of your mutual funds earn their place?",category:"Builds",status:"Active",impact:"Open source Claude Code plugin",icon:"chart",order:"0",link:"https://alafazam.com/mf-portfolio-analyser/",tags:["Personal finance","Claude Code","India"]},html:`<p>A free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from your CAS statement: every fund against its benchmark and against every other fund in its category, duplicates, and a year-by-year plan for switches that keeps the gains inside the ₹1.25L tax-free room. It runs on your computer, and Claude never sees the statement.</p>
+`,excerpt:"A free, open-source Claude Code plugin that reviews a whole Indian mutual fund portfolio from your CAS statement: every fund against its benchmark and against e"},k={frontmatter:{name:"ScreenReel",tagline:"A demo recorder that ships with your product",category:"Builds",status:"Active",impact:"Open source, Apache 2.0",icon:"video",order:"1",link:"https://alafazam.com/screenreels/",tags:["Developer tool","Product demos","Open source"]},html:`<p>An open-source product demo recorder. Record a walkthrough by using your app, keep it as a readable flow file in the repository, then play it live inside the product, share it as a self-playing link, or render the same flow as an MP4.</p>
+`,excerpt:"An open-source product demo recorder. Record a walkthrough by using your app, keep it as a readable flow file in the repository, then play it live inside the pr"};function a(t){return Object.entries(t).flatMap(([e,s])=>s?[{slug:e.split("/").pop().replace(/\.md$/,""),...s}]:[])}const A=Object.assign({"../content/blog/ai-product-layers.md":i,"../content/blog/building-kidqueue.md":o,"../content/blog/building-with-claude.md":l,"../content/blog/era-of-personal-software.md":r,"../content/blog/gan-thinking-mode.md":d,"../content/blog/mf-portfolio-analyser.md":c,"../content/blog/must-have-gnome-extensions.md":h,"../content/blog/old-nvidia-gpu-linux.md":p,"../content/blog/platform-as-intelligent-backend.md":g,"../content/blog/return-on-attention-framework.md":u,"../content/blog/return-on-attention.md":m,"../content/blog/screenreel.md":y,"../content/blog/the-demo-is-the-spec.md":f,"../content/blog/two-clock-delivery.md":v}),I=Object.assign({"../content/projects/gan-thinking-mode.md":w,"../content/projects/kidqueue.md":b,"../content/projects/mf-portfolio-analyser.md":x,"../content/projects/screenreel.md":k}),C=a(A).sort((t,e)=>(e.frontmatter.date||"").localeCompare(t.frontmatter.date||"")),n=a(I).sort((t,e)=>Number(t.frontmatter.order||0)-Number(e.frontmatter.order||0)),L=t=>C.find(e=>e.slug===t),M=t=>n.find(e=>e.slug===t),T=["Builds","Frameworks & Processes"],S={Builds:"Products and systems I've designed and shipped.","Frameworks & Processes":"Operating frameworks and processes I've designed and run at scale."},P=()=>T.map(e=>({category:e,description:S[e]||"",items:n.filter(s=>(s.frontmatter.category||"Builds")===e)})).filter(e=>e.items.length>0),j=[{href:"/projects/emi-calculator",name:"EMI Scenario Planner",tagline:"Loan what-ifs, side by side",description:"Build home-loan repayment scenarios and compare them: a higher EMI, a longer or shorter tenure, an annual step-up, a 13th EMI, a one-off prepayment — and what each one saves in interest and years.",tags:["Personal finance","Home loan","India"],icon:"calculator"}],E=t=>t?new Date(t).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}):"";export{j as T,L as a,C as b,E as f,M as g,P as p};

@@ -13,22 +13,14 @@
     <loc>https://alafazam.com/blog</loc>
   </url>
   <url>
-    <loc>https://alafazam.com/projects/mf-portfolio-analyser</loc>
-  </url>
-  <url>
     <loc>https://alafazam.com/projects/kidqueue</loc>
   </url>
   <url>
-    <loc>https://alafazam.com/projects/ai-first-interface</loc>
-  </url>
-  <url>
-    <loc>https://alafazam.com/projects/two-clock-delivery</loc>
-  </url>
-  <url>
-    <loc>https://alafazam.com/projects/roa-prioritization</loc>
-  </url>
-  <url>
     <loc>https://alafazam.com/projects/gan-thinking-mode</loc>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/mf-portfolio-analyser</loc>
+    <lastmod>2026-11-21</lastmod>
   </url>
   <url>
     <loc>https://alafazam.com/blog/ai-product-layers</loc>
@@ -53,6 +45,22 @@
   <url>
     <loc>https://alafazam.com/blog/the-demo-is-the-spec</loc>
     <lastmod>2026-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/platform-as-intelligent-backend</loc>
+    <lastmod>2026-07-05</lastmod>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/screenreel</loc>
+    <lastmod>2026-07-04</lastmod>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/return-on-attention-framework</loc>
+    <lastmod>2026-07-03</lastmod>
+  </url>
+  <url>
+    <loc>https://alafazam.com/blog/two-clock-delivery</loc>
+    <lastmod>2026-02-08</lastmod>
   </url>
   <url>
     <loc>https://alafazam.com/blog/return-on-attention</loc>
