@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({ basics, hero }) => {
 
       {/* Audience-segmented CTAs */}
       <div className="no-print mt-7 flex flex-wrap items-center justify-center gap-3">
-        <Link to="/projects" className="btn-primary">
+        <Link to="/projects" className="btn-outline">
           See my work
         </Link>
         <Link to="/blog" className="btn-outline">
