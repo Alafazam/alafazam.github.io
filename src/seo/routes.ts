@@ -70,6 +70,13 @@ export const STATIC_ROUTES: StaticRoute[] = [
     description: 'Network audit scripts for campus hiring proctoring.',
     indexable: false,
   },
+  // Phone remote for slide decks, opened from the QR code a deck shows.
+  {
+    path: '/remote',
+    title: `Deck Remote${TITLE_SUFFIX}`,
+    description: 'Phone remote for slide decks on this site: pair by QR code, then swipe to move between slides.',
+    indexable: false,
+  },
   // Becomes 404.html, which GitHub Pages serves for any unknown path.
   {
     path: '/404',

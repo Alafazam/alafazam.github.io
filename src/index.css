@@ -469,9 +469,10 @@
  * site nav, and its stage uses the page background so slides read as part of
  * the page in both themes.
  */
+/* SiteNav is h-11 (2.75rem) plus a 1px bottom border. Pages that fill the viewport under it use this. */
+.deck, .deck-remote { --site-nav-height: calc(2.75rem + 1px); }
+
 .deck {
-  /* SiteNav is h-11 (2.75rem) plus a 1px bottom border. */
-  --site-nav-height: calc(2.75rem + 1px);
   /* Deck top bar + bottom bar + their gaps and padding, reserved when sizing the 16:9 stage. */
   --deck-chrome-height: 140px;
   /* App's fixed theme toggle sits bottom-right (right-4, 40px wide); keep the bottom bar clear of it. */
@@ -513,6 +514,34 @@
 .deck-progress { flex: 1; height: 4px; background: var(--dk-line); border-radius: 9999px; overflow: hidden; }
 .deck-progress div { width: 100%; height: 100%; background: var(--dk-accent); border-radius: 9999px; transform-origin: left center; transition: transform 200ms ease; }
 .deck-hint { font-size: 12px; color: var(--dk-muted); white-space: nowrap; }
+.deck-bottombar button[data-remote-status="connected"] { color: var(--dk-accent); border-color: var(--dk-accent); }
+
+/* Phone remote: pairing panel on the deck (src/components/DeckRemotePanel.tsx) */
+.deck-remote, .deck-remote-panel { --remote-ok: hsl(142 70% 40%); --remote-bad: hsl(0 72% 50%); }
+.deck .slide aside.notes { display: none; }
+.deck-remote-panel { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgb(0 0 0 / 0.6); padding: 16px; }
+.deck-remote-card { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 360px; padding: 24px; border-radius: 16px; background: var(--dk-panel); border: 1px solid var(--dk-line); color: var(--dk-ink); text-align: center; }
+.deck-remote-card h2 { margin: 0; font-size: 18px; font-weight: 700; }
+.deck-remote-card img { border-radius: 8px; background: #fff; }
+.deck-remote-status { margin: 0; font-size: 14px; color: var(--dk-muted); }
+.deck-remote-error { margin: 0; font-size: 13px; color: var(--remote-bad); }
+.deck-remote-link { font-size: 12px; color: var(--dk-muted); word-break: break-all; }
+.deck-remote-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+/* Phone remote: the phone page (src/pages/DeckRemote.tsx) */
+.deck-remote { display: flex; flex-direction: column; gap: 12px; height: calc(100dvh - var(--site-nav-height)); padding: 12px 16px 72px; }
+.deck-remote-head { display: flex; align-items: center; gap: 8px; font-size: 13px; color: hsl(var(--muted-foreground)); }
+.deck-remote-dot { width: 10px; height: 10px; flex: none; border-radius: 9999px; background: hsl(var(--muted-foreground)); }
+.deck-remote-dot[data-status="connected"] { background: var(--remote-ok); }
+.deck-remote-dot[data-status="disconnected"] { background: var(--remote-bad); }
+.deck-remote-count { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; color: hsl(var(--foreground)); }
+.deck-remote-pad { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; padding: 20px; overflow-y: auto; border: 1px solid hsl(var(--border)); border-radius: 16px; background: hsl(var(--card)); touch-action: pan-y; user-select: none; }
+.deck-remote-deck { margin: 0; font-size: 12px; color: hsl(var(--muted-foreground)); }
+.deck-remote-title { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.25; }
+.deck-remote-notes { margin: 0; font-size: 17px; line-height: 1.5; white-space: pre-line; }
+.deck-remote-hint { margin: auto 0 0; font-size: 12px; text-align: center; color: hsl(var(--muted-foreground)); }
+.deck-remote-buttons { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
+.deck-remote-buttons button { min-height: 64px; font-size: 18px; }
 
 .deck-viewport { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
 .deck .stage {

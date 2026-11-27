@@ -24,6 +24,8 @@ const SideProjects = lazy(() => import('./pages/SideProjects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+// Phone remote for slide decks; carries PeerJS, so it stays out of other bundles.
+const DeckRemote = lazy(() => import('./pages/DeckRemote'));
 
 // Job-search perspective pages: noindexed and reached only by direct link, so
 // the homepage bundle shouldn't carry them.
@@ -138,6 +140,7 @@ export function AppShell() {
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/remote" element={<DeckRemote />} />
           <Route path="/recruiter" element={<RecruiterPerspective />} />
           <Route path="/hiring-manager" element={<HiringManagerPerspective />} />
           <Route path="/interviewer" element={<InterviewerPerspective />} />

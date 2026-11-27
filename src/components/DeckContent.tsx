@@ -1,5 +1,8 @@
-import { RotateCcw } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState, type TouchEvent as ReactTouchEvent } from 'react';
+import { RotateCcw, Smartphone } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState, type TouchEvent as ReactTouchEvent } from 'react';
+import { applyCommand, type RemoteCommand } from '../remote/protocol';
+import { useDeckRemoteHost, type DeckSnapshot } from '../remote/useDeckRemoteHost';
+import DeckRemotePanel from './DeckRemotePanel';
 
 interface DeckContentProps {
   title: string;
@@ -18,6 +21,9 @@ const INTRO_PART_ID = '0';
 const INTRO_PART_TITLE = 'Introduction';
 // Elements that animate when their slide becomes active (see the AI layer styles in index.css).
 const ANIMATED_SELECTOR = '.ga, .gd, .gs, .gx';
+// Optional speaker notes inside a slide: <aside class="notes">…</aside>. Hidden on the deck,
+// shown on the phone remote.
+const NOTES_SELECTOR = 'aside.notes';
 
 const slideIndexFromHash = (total: number): number => {
   const n = parseInt(window.location.hash.slice(1), 10);
@@ -42,7 +48,7 @@ const buildSlideFoot = (slides: HTMLElement[], index: number, partTitles: Map<st
 };
 
 // Renders a `layout: deck` post as a slide deck: one <section class="slide"> per slide,
-// moved through with Previous/Next, arrow keys, swipes or the part tabs. The slide number
+// moved through with Previous/Next, arrow keys, swipes, the part tabs or a paired phone. The slide number
 // is kept in the URL hash (#3) so a link can point at a specific slide.
 const DeckContent = ({ title, html }: DeckContentProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -51,6 +57,7 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
   const [slides, setSlides] = useState<HTMLElement[]>([]);
   const [parts, setParts] = useState<DeckPart[]>([]);
   const [current, setCurrent] = useState(0);
+  const [remotePanelOpen, setRemotePanelOpen] = useState(false);
   const total = slides.length;
 
   // Collect the slides once the HTML is in the DOM, and give each one its footer.
@@ -136,6 +143,39 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
       window.removeEventListener('hashchange', onHashChange);
     };
   }, [total, step, toggleFullscreen]);
+
+  // What the phone remote shows: where we are, the slide's title and its speaker notes.
+  const remoteSnapshot = useMemo<DeckSnapshot | null>(() => {
+    const slide = slides[current];
+    if (!slide) return null;
+    return {
+      deckTitle: title,
+      current,
+      total,
+      slideTitle: slide.querySelector('h2')?.textContent?.trim() || slide.getAttribute('aria-label') || '',
+      notes: slide.querySelector(NOTES_SELECTOR)?.textContent?.trim() ?? '',
+    };
+  }, [slides, current, total, title]);
+
+  const onRemoteCommand = useCallback(
+    (command: RemoteCommand) => setCurrent((c) => (total > 0 ? applyCommand(command, c, total) : c)),
+    [total]
+  );
+  const remote = useDeckRemoteHost(remoteSnapshot, onRemoteCommand);
+
+  // Get the QR code out of the audience's way once a phone has paired.
+  useEffect(() => {
+    if (remote.status === 'connected') setRemotePanelOpen(false);
+  }, [remote.status]);
+
+  const openRemote = () => {
+    setRemotePanelOpen(true);
+    remote.start();
+  };
+  const retryRemote = () => {
+    remote.stop();
+    remote.start();
+  };
 
   const onTouchStart = (e: ReactTouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -226,10 +266,31 @@ const DeckContent = ({ title, html }: DeckContentProps) => {
             <RotateCcw className="h-4 w-4" aria-hidden="true" />
           </button>
         )}
+        <button
+          type="button"
+          className="btn-outline px-3"
+          aria-label="Phone remote"
+          title={remote.status === 'connected' ? 'Phone remote: connected' : 'Phone remote'}
+          data-remote-status={remote.status}
+          onClick={openRemote}
+        >
+          <Smartphone className="h-4 w-4" aria-hidden="true" />
+        </button>
         <button type="button" className="btn-outline" onClick={toggleFullscreen}>
           Full screen
         </button>
       </div>
+
+      {remotePanelOpen && (
+        <DeckRemotePanel
+          status={remote.status}
+          pairingUrl={remote.pairingUrl}
+          error={remote.error}
+          onRetry={retryRemote}
+          onStop={remote.stop}
+          onClose={() => setRemotePanelOpen(false)}
+        />
+      )}
     </div>
   );
 };
