@@ -56,6 +56,8 @@ const useWakeLock = (active: boolean) => {
 const DeckRemote = () => {
   const [status, setStatus] = useState<Status>('connecting');
   const [deck, setDeck] = useState<DeckState | null>(null);
+  // Last connection problem, shown on screen: a phone has no console to read during a talk.
+  const [lastError, setLastError] = useState<string | null>(null);
   const connectionRef = useRef<DataConnection | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
@@ -86,6 +88,7 @@ const DeckRemote = () => {
       const connection = peer.connect(deckPeerId, { reliable: true });
       connectionRef.current = connection;
       connection.on('open', () => {
+        setLastError(null);
         setStatus('connected');
         console.info('[deck-remote] connected to deck');
       });
@@ -102,7 +105,10 @@ const DeckRemote = () => {
         console.info('[deck-remote] deck connection closed');
         scheduleRetry();
       });
-      connection.on('error', (e) => console.error('[deck-remote] connection error', e));
+      connection.on('error', (e) => {
+        console.error('[deck-remote] connection error', e);
+        setLastError(`connection: ${e.type} ${e.message}`);
+      });
     }
 
     createPeer()
@@ -115,11 +121,13 @@ const DeckRemote = () => {
         p.on('open', connect);
         p.on('error', (e) => {
           console.error('[deck-remote] remote error', e.type, e);
+          setLastError(`${e.type}: ${e.message}`);
           scheduleRetry();
         });
       })
       .catch((e: unknown) => {
         console.error('[deck-remote] could not start the remote', e);
+        setLastError(e instanceof Error ? e.message : String(e));
         setStatus('disconnected');
       });
 
@@ -169,6 +177,7 @@ const DeckRemote = () => {
         <span aria-live="polite">{STATUS_TEXT[status]}</span>
         {deck && <span className="deck-remote-count">{`${deck.current + 1} / ${deck.total}`}</span>}
       </header>
+      {lastError && status !== 'connected' && <p className="deck-remote-error">{lastError}</p>}
 
       <section
         className="deck-remote-pad"
