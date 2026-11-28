@@ -24,7 +24,7 @@ const SideProjects = lazy(() => import('./pages/SideProjects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
-// Phone remote for slide decks; carries PeerJS, so it stays out of other bundles.
+// Phone remote for slide decks; loaded only when visited.
 const DeckRemote = lazy(() => import('./pages/DeckRemote'));
 
 // Job-search perspective pages: noindexed and reached only by direct link, so

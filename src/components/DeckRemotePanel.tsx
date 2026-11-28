@@ -18,7 +18,7 @@ const STATUS_TEXT: Record<HostStatus, string> = {
   starting: 'Starting the remote…',
   waiting: 'Scan with your phone camera to pair.',
   connected: 'Phone connected. Swipe on the phone to move slides.',
-  error: 'The remote could not start.',
+  error: "Can't reach the remote relay. Retrying…",
 };
 
 // Overlay inside the deck (so it also shows in full screen) with the pairing QR code.

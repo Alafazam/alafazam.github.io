@@ -25,33 +25,43 @@ Put notes inside a slide. They are hidden on the deck and shown on the phone:
 
 ## How it works
 
-- The site is static (GitHub Pages), so there is no backend of our own. [PeerJS](https://peerjs.com) opens a WebRTC data channel straight between the laptop and the phone.
-- The free PeerJS cloud server (`0.peerjs.com`) is used only for the handshake. Slide commands travel peer to peer, encrypted (DTLS).
-- The deck registers as `alafazam-deck-<16 random chars>`. Only someone holding that session ID, which is in the QR code, can drive it.
-- PeerJS and the QR library load only when the remote is started, so pages that don't use it don't download them.
+```
+Laptop deck ──WebSocket──┐
+                         ├── Cloudflare Worker "deck-relay" → one Durable Object per session
+Phone remote ──WebSocket─┘     (passes each message to the other side; stores nothing)
+```
+
+- The site is static (GitHub Pages). The relay is a small Cloudflare Worker in `relay/`, on the Workers Free plan.
+- Both devices make an ordinary outgoing secure WebSocket connection to Cloudflare, so it works on any network, including mobile data with the laptop on home or venue Wi-Fi.
+- The Worker accepts only connections from the origins in `relay/wrangler.toml` (`ALLOWED_ORIGINS`), checks the session ID, allows at most 6 sockets per session, and forwards deck → phones and phone → deck. It also tells both sides who is connected ("presence").
+- The deck uses a random 16-character session ID, carried only in the QR code.
+- Keepalive: clients send `ping` every 15 s, and Cloudflare answers `pong` without waking the object. Both sides reconnect on their own after a drop or a locked screen.
+- Free plan cost: incoming WebSocket messages count as 1 request per 20, against a 100,000 requests/day free limit. A one-hour talk uses a few dozen.
 
 | File | Role |
 |---|---|
-| `src/remote/protocol.ts` | Message shapes, validation, session IDs, swipe rules (pure, unit tested) |
-| `src/remote/peer.ts` | The only place that creates PeerJS peers; signalling config |
-| `src/remote/useDeckRemoteHost.ts` | Deck side: registers, accepts phones, pushes state, applies commands |
+| `src/remote/protocol.ts` | Message shapes, validation, session IDs, swipe rules (pure, shared with the Worker, unit tested) |
+| `src/remote/relay.ts` | The only browser code that opens the relay WebSocket; reconnect and keepalive |
+| `src/remote/useDeckRemoteHost.ts` | Deck side: joins the relay, pushes state, applies commands |
 | `src/components/DeckRemotePanel.tsx` | QR pairing overlay on the deck |
 | `src/pages/DeckRemote.tsx` | The phone page at `/remote` |
+| `relay/src/rules.ts` | Worker rules: request validation, routing (pure, unit tested) |
+| `relay/src/index.ts` | The Worker and the `DeckSession` Durable Object |
 
-## Limits
-
-- Very strict venue or corporate networks can block peer-to-peer traffic. That is rare when the phone is on mobile data, but carry a USB clicker as a fallback.
-- If the PeerJS cloud is down, the deck shows "The remote could not start" with a **Try again** button.
-
-## Self-hosted signalling (optional)
-
-To use your own [PeerServer](https://github.com/peers/peerjs-server) instead of the PeerJS cloud, set these at build time:
+## Deploying the relay (one time)
 
 ```
-VITE_PEER_HOST=peer.example.com VITE_PEER_PORT=443 VITE_PEER_PATH=/ VITE_PEER_SECURE=true pnpm build
+cd relay
+pnpm install
+pnpm exec wrangler login    # opens the browser to sign in to Cloudflare
+pnpm run deploy             # prints https://deck-relay.<account>.workers.dev
 ```
+
+Put that URL in `.env.production` at the repo root as `VITE_RELAY_URL=https://deck-relay.<account>.workers.dev`, then build and deploy the site. The site build reads it; without it, the remote shows "VITE_RELAY_URL is not set".
+
+To allow another site (or a local dev server) to connect, add its origin to `ALLOWED_ORIGINS` in `relay/wrangler.toml` and run `pnpm run deploy` again.
 
 ## Testing
 
-- `pnpm test` runs the protocol unit tests.
-- End to end: run a local PeerServer on 127.0.0.1:9000, build with `VITE_PEER_HOST=127.0.0.1 VITE_PEER_PORT=9000`, run `vite preview`, open the deck, and pair a second browser window, or a phone on the same network if you use the laptop's LAN IP.
+- `pnpm test` runs the protocol and relay rule tests.
+- End to end, locally: in `relay/`, run `pnpm exec wrangler dev --port 8787 --var ALLOWED_ORIGINS:http://localhost:4173`. Build the site with `VITE_RELAY_URL=http://localhost:8787 pnpm build:preview`, run `pnpm preview --port 4173`, open the deck and pair a second browser window.

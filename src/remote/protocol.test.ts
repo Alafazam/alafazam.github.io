@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import {
-  PEER_ID_PREFIX,
   PROTOCOL_VERSION,
   SESSION_ID_LENGTH,
   applyCommand,
@@ -9,7 +8,7 @@ import {
   isValidSessionId,
   parseDeckState,
   parseRemoteCommand,
-  peerIdForSession,
+  parsePresence,
   sessionIdFromHash,
   swipeDirection,
 } from './protocol';
@@ -43,9 +42,8 @@ describe('session IDs', () => {
     expect(isValidSessionId('abcdefghij01234-')).toBe(false);
   });
 
-  it('prefixes the peer ID and refuses invalid sessions', () => {
-    expect(peerIdForSession(SAMPLE_ID)).toBe(`${PEER_ID_PREFIX}${SAMPLE_ID}`);
-    expect(() => peerIdForSession('nope')).toThrow(/Invalid remote session ID/);
+  it('refuses to build a pairing URL for an invalid session', () => {
+    expect(() => buildPairingUrl('https://example.com/remote', 'nope')).toThrow(/Invalid remote session ID/);
   });
 
   it('round-trips through the pairing URL hash', () => {
@@ -138,5 +136,22 @@ describe('message parsing', () => {
     { ...state, type: 'next' },
   ])('rejects deck state %j', (data) => {
     expect(() => parseDeckState(data)).toThrow(/Unrecognised deck state/);
+  });
+});
+
+describe('parsePresence', () => {
+  it('reads presence and ignores other messages', () => {
+    expect(parsePresence({ v: PROTOCOL_VERSION, type: 'presence', decks: 1, phones: 2 })).toEqual({
+      v: PROTOCOL_VERSION,
+      type: 'presence',
+      decks: 1,
+      phones: 2,
+    });
+    expect(parsePresence({ v: PROTOCOL_VERSION, type: 'next' })).toBeNull();
+    expect(parsePresence('pong')).toBeNull();
+  });
+
+  it('fails loudly on a malformed presence message', () => {
+    expect(() => parsePresence({ v: PROTOCOL_VERSION, type: 'presence', decks: -1, phones: 0 })).toThrow(/presence/);
   });
 });

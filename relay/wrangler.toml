@@ -1,0 +1,17 @@
+# Deck relay Worker. Deploy: cd relay && pnpm install && pnpm run deploy (see docs/deck-remote.md).
+name = "deck-relay"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Pages allowed to connect. Add an origin here to use the remote from another site.
+ALLOWED_ORIGINS = "https://alafazam.com,https://www.alafazam.com"
+
+[[durable_objects.bindings]]
+name = "DECK_SESSION"
+class_name = "DeckSession"
+
+# The Workers Free plan supports SQLite-backed Durable Objects only.
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["DeckSession"]
