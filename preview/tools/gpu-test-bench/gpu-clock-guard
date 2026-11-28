@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# gpu-clock-guard — keep a nouveau GPU at a tested clock level, step down when it runs hot,
+# step back up when it cools. nouveau has temperature thresholds but never implemented the
+# "downclock" action, so nothing slows the GPU between ~85°C and the 135°C emergency shutdown.
+#
+# Settings: /etc/default/gpu-clock-guard (LEVEL, HOT, CRITICAL, COOL, COOL_SECS, INTERVAL).
+#   gpu-clock-guard           run the guard (the systemd service does this)
+#   gpu-clock-guard --reset   put the GPU back on its lowest (boot) level
+# Logs: journalctl -u gpu-clock-guard
+set -u
+
+[[ -r /etc/default/gpu-clock-guard ]] && . /etc/default/gpu-clock-guard
+LEVEL="${LEVEL:-0f}"         # target level (tested stable: 0f on the GT 750M, peak 69°C under load)
+HOT="${HOT:-85}"             # °C: step down one level
+CRITICAL="${CRITICAL:-92}"   # °C: drop straight to the lowest level
+COOL="${COOL:-70}"           # °C: below this for COOL_SECS, step back up one level
+COOL_SECS="${COOL_SECS:-60}"
+INTERVAL="${INTERVAL:-5}"    # seconds between checks
+DWELL="${DWELL:-30}"         # seconds to wait after a step down before the next one (unless CRITICAL)
+
+log() { echo "$*"; }
+
+# PSTATE / TEMP_FILE / PSTATE_OUT can be overridden to test the logic without a GPU
+find_files() {
+  local f
+  for f in /sys/kernel/debug/dri/0000:*/pstate; do [[ -e "$f" ]] && PSTATE="${PSTATE:-$f}" && break; done
+  for f in /sys/class/drm/card*/device/hwmon/hwmon*/temp1_input; do
+    [[ "$(cat "${f%/*}/name" 2>/dev/null)" == nouveau ]] && TEMP_FILE="${TEMP_FILE:-$f}" && break
+  done
+  [[ -n "${PSTATE:-}" && -n "${TEMP_FILE:-}" ]]
+}
+
+# nouveau is loaded early, but debugfs/hwmon may appear a moment after the service starts
+for _ in $(seq 60); do find_files && break; sleep 1; done
+find_files || { log "no nouveau pstate/temperature found — is nouveau loaded and debugfs mounted?"; exit 1; }
+
+# Levels as listed by nouveau, lowest first, e.g. "07 0a 0f"; and each level's memory clock
+mapfile -t LEVELS < <(grep -oE '^[0-9a-f]{2}:' "$PSTATE" | tr -d :)
+declare -A MEM
+while read -r id rest; do MEM[${id%:}]="$(grep -oE 'memory [0-9]+' <<<"$rest" | grep -oE '[0-9]+')"; done \
+  < <(grep -E '^[0-9a-f]{2}:' "$PSTATE")
+(( ${#LEVELS[@]} )) || { log "no clock levels in $PSTATE"; exit 1; }
+PSTATE_OUT="${PSTATE_OUT:-$PSTATE}"
+
+if [[ "${1:-}" == --reset ]]; then
+  echo "${LEVELS[0]}" > "$PSTATE_OUT" && log "reset to level ${LEVELS[0]}"
+  exit 0
+fi
+
+top=-1
+for i in "${!LEVELS[@]}"; do [[ "${LEVELS[$i]}" == "$LEVEL" ]] && top=$i; done
+(( top >= 0 )) || { log "level '$LEVEL' not available (have: ${LEVELS[*]})"; exit 1; }
+
+temp() { echo $(( $(cat "$TEMP_FILE") / 1000 )); }
+current_mem() { grep -E '^AC:' "$PSTATE" | grep -oE 'memory [0-9]+' | grep -oE '[0-9]+'; }
+
+idx=$top
+set_level() {  # set_level INDEX REASON
+  idx=$1
+  echo "${LEVELS[$idx]}" > "$PSTATE_OUT"
+  log "level ${LEVELS[$idx]} ($2) — now: $(grep -E '^AC:' "$PSTATE" | sed 's/^AC: //')"
+}
+
+trap 'exit 0' TERM INT   # ExecStopPost runs --reset
+
+set_level "$top" "start, $(temp)°C"
+cool_since=0 last_down=0
+while sleep "$INTERVAL"; do
+  t=$(temp) now=$(date +%s)
+  if (( t >= CRITICAL && idx > 0 )); then
+    set_level 0 "${t}°C ≥ ${CRITICAL}°C critical"; cool_since=0 last_down=$now
+  elif (( t >= HOT && idx > 0 && now - last_down >= DWELL )); then
+    set_level $((idx - 1)) "${t}°C ≥ ${HOT}°C hot"; cool_since=0 last_down=$now
+  elif (( t < COOL && idx < top )); then
+    (( cool_since )) || cool_since=$now
+    if (( now - cool_since >= COOL_SECS )); then
+      set_level $((idx + 1)) "${t}°C < ${COOL}°C for ${COOL_SECS}s"; cool_since=0
+    fi
+  else
+    (( t >= COOL )) && cool_since=0
+    # After suspend/resume nouveau comes back on its boot clocks — re-apply our level if so
+    [[ -n "${MEM[${LEVELS[$idx]}]}" && "$(current_mem)" != "${MEM[${LEVELS[$idx]}]}" ]] &&
+      set_level "$idx" "clocks changed underneath us (resume?)"
+  fi
+done

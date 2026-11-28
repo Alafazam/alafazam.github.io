@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPU Test Bench</title>
+<meta name="description" content="Test your GPU in the browser: video playback smoothness, a GPU benchmark score and what your browser knows about your graphics. Nothing to install.">
+<style>
+  :root {
+    --bg:#f6f6f4; --fg:#1d1d1f; --muted:#6b6b70; --card:#fff; --line:#e3e3e0;
+    --ok:#1f8a4c; --warn:#b26a00; --bad:#c0392b; --accent:#3b6fd8; --accent2:#c2410c; --accent-fg:#fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#161618; --fg:#ececee; --muted:#9a9aa0; --card:#1f1f22; --line:#2e2e33;
+      --ok:#4cc483; --warn:#f0a43a; --bad:#ff6b5b; --accent:#7aa2ff; --accent2:#ff8a4c; --accent-fg:#0d1530;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#161618; --fg:#ececee; --muted:#9a9aa0; --card:#1f1f22; --line:#2e2e33;
+    --ok:#4cc483; --warn:#f0a43a; --bad:#ff6b5b; --accent:#7aa2ff; --accent2:#ff8a4c; --accent-fg:#0d1530;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; padding:28px 16px 48px; }
+  main { max-width:980px; margin:0 auto; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  h2 { font-size:16px; margin:32px 0 8px; }
+  p { color:var(--muted); margin:0 0 14px; }
+  a { color:var(--accent); }
+  code { background:var(--card); border:1px solid var(--line); border-radius:5px; padding:1px 5px; font-size:13px; }
+  video, #gl { width:100%; border-radius:10px; background:#000; display:block; }
+  #gl { aspect-ratio:16/9; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0; }
+  button, select { font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--line); border-radius:8px; padding:6px 12px; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:default; }
+  .primary { background:var(--accent); color:var(--accent-fg); border-color:transparent; font-weight:600; padding:10px 18px; font-size:16px; }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin:12px 0; }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:0; }
+  .tile b { display:block; font-size:22px; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile span { color:var(--muted); font-size:13px; }
+  .tile canvas { width:100%; height:36px; display:block; margin-top:6px; }
+  .tile.big b { font-size:30px; }
+  .ok { color:var(--ok); } .warn { color:var(--warn); } .bad { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  td { padding:8px 12px; border-top:1px solid var(--line); vertical-align:top; overflow-wrap:anywhere; }
+  tr:first-child td { border-top:0; }
+  td:first-child { color:var(--muted); width:38%; }
+  .note { background:var(--card); border:1px dashed var(--line); border-radius:10px; padding:10px 12px; color:var(--muted); }
+  .runner { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .progress { height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin:12px 0 6px; }
+  .progress i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s; }
+  #status { color:var(--muted); font-size:14px; min-height:21px; }
+  #testVideo { max-height:200px; width:auto; max-width:100%; margin-top:10px; }
+  .ref { font-size:13px; color:var(--muted); margin-top:4px; }
+  [hidden] { display:none !important; }
+  /* Embedded in an article: just the runner and the results */
+  body.embed { padding:12px; background:transparent; }
+  body.embed .full { display:none !important; }
+  body.embed .runner { border:0; padding:0; background:transparent; }
+  body.embed #rInfo { display:none; }
+  body.embed .tile.big b { font-size:26px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="full">
+    <h1>GPU Test Bench</h1>
+    <p>See how your laptop or phone handles video and 3D graphics. Everything runs in your browser — nothing to install, nothing uploaded.
+      Built while tuning a GeForce GT 750M on Linux: <a href="/blog/old-nvidia-gpu-linux">my old laptop's GPU was stuck in slow mode</a>.</p>
+  </div>
+
+  <!-- ───────────── One-button test ───────────── -->
+  <section class="runner">
+    <div class="row" style="margin:0">
+      <button id="run" class="primary">Run the test</button>
+      <span class="muted" style="color:var(--muted);font-size:14px">About 20 seconds · plays a short muted video, then works the GPU</span>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div id="status">Ready.</div>
+    <video id="testVideo" src="sample.mp4" muted playsinline preload="none" hidden></video>
+
+    <div id="results" hidden>
+      <div class="tiles">
+        <div class="tile big"><b id="rScore">–</b><span>GPU score (frames/s at 540p, uncapped — higher is better)</span><div class="ref" id="rRef"></div></div>
+        <div class="tile"><b id="rFps">–</b><span>Video frames/s (1080p)</span></div>
+        <div class="tile"><b id="rDropped">–</b><span>Dropped video frames</span></div>
+        <div class="tile"><b id="rHw">–</b><span>Video decoded on the GPU?</span></div>
+        <div class="tile"><b id="rPressure">–</b><span>CPU load during the test</span></div>
+      </div>
+      <p id="rGpu" style="margin:0 0 10px;font-size:14px"></p>
+      <table id="rInfo"></table>
+      <div class="row"><button id="copy">Copy results</button><span id="copied" style="color:var(--muted);font-size:13px"></span></div>
+    </div>
+  </section>
+
+  <div class="full">
+    <!-- ───────────── Live 3D ───────────── -->
+    <h2>Live 3D view</h2>
+    <p>The same kind of shader, on screen. Your display caps this at its refresh rate (usually 60), so the benchmark above runs off-screen instead.</p>
+    <canvas id="gl" width="960" height="540"></canvas>
+    <div class="row">
+      <button id="glToggle">Start</button>
+      <select id="glLevel">
+        <option value="128">Light</option>
+        <option value="512" selected>Heavy</option>
+        <option value="1500">Extreme</option>
+      </select>
+    </div>
+    <div class="tiles">
+      <div class="tile"><b id="glFps">–</b><span>Frames / second</span><canvas id="glFpsSpark"></canvas></div>
+      <div class="tile"><b id="glMs">–</b><span>ms per frame</span></div>
+      <div class="tile"><b id="livePressure">–</b><span>CPU load (Chrome/Edge)</span></div>
+    </div>
+
+    <!-- ───────────── Browser view ───────────── -->
+    <h2>What your browser knows about your GPU</h2>
+    <table id="browser"><tr><td>Checking…</td><td></td></tr></table>
+
+    <!-- ───────────── Local live stats ───────────── -->
+    <h2>Temperatures (local version only)</h2>
+    <div id="noLive" class="note" hidden>Websites can't read your hardware's temperature sensors. To see live GPU/CPU temperatures,
+      <a href="gpu-test-bench.zip" download>download the bench</a> (page + a tiny Python server + the sample video), unzip it,
+      run <code>python3 serve.py</code> and open <code>http://127.0.0.1:8767</code>. Linux only for now.</div>
+    <div id="live" hidden>
+      <div class="tiles">
+        <div class="tile"><b id="gpuTemp">–</b><span>GPU temperature</span><canvas id="gpuTempSpark"></canvas></div>
+        <div class="tile"><b id="cpuTemp">–</b><span>CPU temperature</span><canvas id="cpuTempSpark"></canvas></div>
+        <div class="tile"><b id="cpuPct">–</b><span>CPU usage</span><canvas id="cpuPctSpark"></canvas></div>
+        <div class="tile"><b id="memPct">–</b><span>Memory used</span><canvas id="memPctSpark"></canvas></div>
+      </div>
+      <table id="sys"></table>
+    </div>
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const esc = s => String(s ?? '–').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+// Embedded in an article (?embed): tell the parent page our height, and take its light/dark theme
+if (new URLSearchParams(location.search).has('embed') && parent !== window) {
+  document.body.classList.add('embed');
+  const report = () => parent.postMessage({ embedHeight: document.documentElement.scrollHeight }, location.origin);
+  new ResizeObserver(report).observe(document.body);
+  addEventListener('message', e => {
+    if (e.origin === location.origin && e.data && (e.data.theme === 'dark' || e.data.theme === 'light'))
+      document.documentElement.dataset.theme = e.data.theme;
+  });
+  parent.postMessage({ embedReady: true }, location.origin);
+}
+
+// Reference numbers from the article's laptop (GeForce GT 750M, nouveau, Chrome on Ubuntu)
+const REF = { slow: 50, fast: 110 };   // measured 2026-10-10: 07 → 47–52, 0f → 103–115
+
+function spark(canvas, values, min, max, color) {
+  const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+  if (!w) return;
+  if (canvas.width !== w * dpr) { canvas.width = w * dpr; canvas.height = h * dpr; }
+  const c = canvas.getContext('2d');
+  c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
+  if (values.length < 2) return;
+  const lo = Math.min(min, ...values), hi = Math.max(max, ...values), n = 90;
+  c.beginPath();
+  values.forEach((v, i) => {
+    const x = w - (values.length - 1 - i) * (w / (n - 1)), y = h - 2 - (v - lo) / (hi - lo || 1) * (h - 4);
+    i ? c.lineTo(x, y) : c.moveTo(x, y);
+  });
+  c.strokeStyle = color; c.lineWidth = 1.5; c.stroke();
+}
+const push = (arr, v) => { arr.push(v); if (arr.length > 90) arr.shift(); };
+
+/* ───────────── Shared shader ───────────── */
+const FRAG = `precision highp float;
+  uniform float t; uniform float iter; uniform float zoom; uniform vec2 res;
+  void main(){
+    vec2 uv=(gl_FragCoord.xy-.5*res)/res.y;
+    vec2 c=vec2(-.7436,.1318)+uv*zoom, w=vec2(0.); float k=0.;
+    for(int i=0;i<1500;i++){ if(float(i)>=iter||dot(w,w)>4.) break; w=vec2(w.x*w.x-w.y*w.y,2.*w.x*w.y)+c; k++; }
+    float m=k/iter; gl_FragColor=vec4(.5+.5*cos(6.28*(m+vec3(0.,.33,.67))+t*.3)*step(m,.999),1.);
+  }`;
+function makeGL(canvas) {
+  const gl = canvas.getContext('webgl', { antialias: false, powerPreference: 'high-performance' });
+  if (!gl) return null;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform2f(gl.getUniformLocation(prog, 'res'), canvas.width, canvas.height);
+  const u = n => gl.getUniformLocation(prog, n);
+  return { gl, uT: u('t'), uIter: u('iter'), uZoom: u('zoom') };
+}
+
+/* ───────────── CPU pressure (Chrome/Edge 125+) ───────────── */
+const PRESSURE = ['nominal', 'fair', 'serious', 'critical'];
+let pressureNow = null, pressureMax = -1;
+(async () => {
+  if (!('PressureObserver' in window)) { $('livePressure').textContent = 'n/a'; return; }
+  try {
+    const obs = new PressureObserver(recs => {
+      pressureNow = recs[recs.length - 1].state;
+      pressureMax = Math.max(pressureMax, PRESSURE.indexOf(pressureNow));
+      $('livePressure').textContent = pressureNow;
+      $('livePressure').className = ['ok', 'ok', 'warn', 'bad'][PRESSURE.indexOf(pressureNow)];
+    });
+    await obs.observe('cpu', { sampleInterval: 1000 });
+  } catch { $('livePressure').textContent = 'n/a'; }
+})();
+
+/* ───────────── Browser / device info ───────────── */
+async function gpuInfo() {
+  const rows = [];
+  const c = document.createElement('canvas'), g = c.getContext('webgl2') || c.getContext('webgl');
+  if (g) {
+    const dbg = g.getExtension('WEBGL_debug_renderer_info');
+    rows.push(['GPU (as WebGL sees it)', dbg ? g.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : g.getParameter(g.RENDERER)]);
+    rows.push(['Graphics vendor', dbg ? g.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : g.getParameter(g.VENDOR)]);
+    rows.push(['WebGL version', g.getParameter(g.VERSION)]);
+    rows.push(['Max texture size', g.getParameter(g.MAX_TEXTURE_SIZE) + ' px']);
+  } else rows.push(['WebGL', 'Not available (software rendering?)']);
+  if (navigator.gpu) {
+    try {
+      const a = await navigator.gpu.requestAdapter();
+      const i = a && (a.info || (a.requestAdapterInfo && await a.requestAdapterInfo()));
+      rows.push(['WebGPU', a ? [i?.vendor, i?.architecture, i?.description].filter(Boolean).join(' · ') || 'Available' : 'No adapter']);
+    } catch { rows.push(['WebGPU', 'Error']); }
+  } else rows.push(['WebGPU', 'Not available in this browser']);
+  rows.push(['CPU threads', navigator.hardwareConcurrency || '–']);
+  if (navigator.deviceMemory) rows.push(['Memory (approx.)', `${navigator.deviceMemory} GB or more`]);
+  rows.push(['Screen', `${screen.width}×${screen.height} @ ${devicePixelRatio}x`]);
+  return rows;
+}
+const tableHTML = rows => rows.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('');
+gpuInfo().then(rows => { $('browser').innerHTML = tableHTML(rows); });
+
+/* ───────────── One-button test ───────────── */
+let results = null;
+const setStatus = (text, pct) => { $('status').textContent = text; if (pct != null) $('bar').style.width = pct + '%'; };
+
+async function videoTest(onProgress) {
+  const v = $('testVideo');
+  v.hidden = false; v.currentTime = 0; v.loop = false;
+  const start = v.getVideoPlaybackQuality ? v.getVideoPlaybackQuality() : null;
+  const startFrames = start ? start.totalVideoFrames : 0, startDropped = start ? start.droppedVideoFrames : 0;
+  try { await v.play(); } catch (e) { v.hidden = true; return { error: 'Video could not play here' }; }
+  const t0 = performance.now();
+  await new Promise(res => {
+    const tick = () => {
+      const p = Math.min(1, v.currentTime / (v.duration || 10));
+      onProgress(p);
+      if (v.ended || performance.now() - t0 > 15000) res(); else setTimeout(tick, 200);
+    };
+    tick();
+  });
+  const secs = (performance.now() - t0) / 1000;
+  const q = v.getVideoPlaybackQuality ? v.getVideoPlaybackQuality() : null;
+  v.pause(); v.hidden = true;
+  let hw = null;
+  try {
+    const r = await navigator.mediaCapabilities.decodingInfo({ type: 'file', video: {
+      contentType: 'video/mp4; codecs="avc1.640028"', width: 1920, height: 1080, bitrate: 2e6, framerate: 30 } });
+    hw = r.supported ? r.powerEfficient : null;
+  } catch {}
+  if (!q) return { hw };
+  const frames = q.totalVideoFrames - startFrames, dropped = q.droppedVideoFrames - startDropped;
+  return { fps: frames / secs, frames, dropped, hw };
+}
+
+// Off-screen benchmark: fixed scene, 256 iterations at 960×540, one 1-pixel readback per frame so each
+// frame really finishes. Only time spent rendering counts, so throttled background tabs don't skew it.
+async function gpuBench(ms, onProgress) {
+  const canvas = document.createElement('canvas'); canvas.width = 960; canvas.height = 540;
+  const g = makeGL(canvas); if (!g) return null;
+  const { gl } = g, px = new Uint8Array(4);
+  gl.uniform1f(g.uIter, 256); gl.uniform1f(g.uZoom, 0.05);
+  const frame = n => { gl.uniform1f(g.uT, n * 0.02); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); };
+  for (let i = 0; i < 5; i++) frame(i);                        // warm-up: shader compile, clocks ramp
+  let frames = 0, busy = 0;
+  while (busy < ms) {
+    const t0 = performance.now();
+    do { frame(frames++); } while (performance.now() - t0 < 40); // render in ~40 ms slices…
+    busy += performance.now() - t0;
+    onProgress(busy / ms);
+    await sleep(0);                                             // …then let the page breathe
+  }
+  return frames / (busy / 1000);
+}
+
+$('run').addEventListener('click', async () => {
+  $('run').disabled = true; $('results').hidden = true; pressureMax = -1;
+  setStatus('Step 1 of 2 — playing a 10-second 1080p video…', 0);
+  const video = await videoTest(p => setStatus('Step 1 of 2 — playing a 10-second 1080p video…', p * 45));
+  setStatus('Step 2 of 2 — benchmarking the GPU…', 50);
+  const score = await gpuBench(6000, p => setStatus('Step 2 of 2 — benchmarking the GPU…', 50 + p * 50));
+  setStatus('Done.', 100);
+
+  const info = await gpuInfo();
+  results = { score, video, pressure: pressureMax >= 0 ? PRESSURE[pressureMax] : null, info };
+  $('rScore').textContent = score ? Math.round(score).toLocaleString() : 'No WebGL';
+  $('rRef').textContent = REF.fast ? `GT 750M (2013): ${REF.slow} in slow mode → ${REF.fast} at full speed` : '';
+  $('rFps').textContent = video.fps ? video.fps.toFixed(0) : (video.error || '–');
+  $('rDropped').textContent = video.frames ? `${video.dropped} of ${video.frames}` : '–';
+  $('rDropped').className = video.frames && video.dropped / video.frames > 0.01 ? 'bad' : 'ok';
+  $('rHw').textContent = video.hw == null ? 'Unknown' : video.hw ? 'Yes' : 'No (CPU)';
+  $('rHw').className = video.hw ? 'ok' : 'warn';
+  $('rPressure').textContent = results.pressure || 'n/a';
+  $('rPressure').className = results.pressure ? ['ok', 'ok', 'warn', 'bad'][pressureMax] : '';
+  $('rGpu').textContent = 'GPU: ' + ((info.find(([k]) => k.startsWith('GPU')) || [])[1] || 'unknown');
+  $('rInfo').innerHTML = tableHTML(info.filter(([k]) => /vendor|threads|Memory|WebGPU/.test(k)));
+  $('results').hidden = false; $('run').disabled = false; $('run').textContent = 'Run again';
+});
+
+$('copy').addEventListener('click', async () => {
+  if (!results) return;
+  const v = results.video, gpu = (results.info.find(([k]) => k.startsWith('GPU')) || [])[1];
+  const text = [`GPU Test Bench — ${location.origin}${location.pathname}`,
+    `GPU: ${gpu}`, `GPU score: ${Math.round(results.score || 0)} (frames/s at 540p)`,
+    `Video: ${v.fps ? v.fps.toFixed(0) + ' fps, ' + v.dropped + '/' + v.frames + ' dropped' : '–'}, GPU decode: ${v.hw == null ? 'unknown' : v.hw ? 'yes' : 'no'}`,
+    `CPU load: ${results.pressure || 'n/a'}`].join('\n');
+  try { await navigator.clipboard.writeText(text); $('copied').textContent = 'Copied.'; }
+  catch { $('copied').textContent = 'Copy failed — select and copy manually.'; }
+});
+
+/* ───────────── Live 3D view ───────────── */
+const live = $('gl') && makeGL($('gl'));
+let glRun = false, glFrames = 0, glT0 = 0, glStart = 0, glFpsHist = [];
+function frame(now) {
+  if (!glRun) return;
+  const t = ((now - glStart) / 1000) % 20;
+  live.gl.uniform1f(live.uT, t); live.gl.uniform1f(live.uZoom, 1.6 / (1 + t * .25));
+  live.gl.uniform1f(live.uIter, +$('glLevel').value);
+  live.gl.drawArrays(live.gl.TRIANGLE_STRIP, 0, 4);
+  glFrames++;
+  if (now - glT0 >= 1000) {
+    const fps = glFrames * 1000 / (now - glT0);
+    $('glFps').textContent = fps.toFixed(0); $('glMs').textContent = (1000 / fps).toFixed(1);
+    push(glFpsHist, fps); spark($('glFpsSpark'), glFpsHist, 0, 60, css('--accent'));
+    glFrames = 0; glT0 = now;
+  }
+  requestAnimationFrame(frame);
+}
+$('glToggle').addEventListener('click', () => {
+  if (!live) { $('glFps').textContent = 'No WebGL'; return; }
+  glRun = !glRun; $('glToggle').textContent = glRun ? 'Stop' : 'Start';
+  if (glRun) { glT0 = glStart = performance.now(); glFrames = 0; requestAnimationFrame(frame); }
+});
+
+/* ───────────── Local live stats (serve.py) ───────────── */
+const hist = { gpu: [], cpuT: [], cpu: [], mem: [] };
+let liveOk = false, infoShown = false;
+const tempClass = t => t >= 85 ? 'bad' : t >= 70 ? 'warn' : 'ok';
+async function poll() {
+  if (document.body.classList.contains('embed')) return;
+  try {
+    const r = await fetch('stats.json', { cache: 'no-store' });
+    if (!r.ok || !(r.headers.get('content-type') || '').includes('json')) throw 0;
+    const s = await r.json();
+    if (!liveOk) { liveOk = true; $('live').hidden = false; $('noLive').hidden = true; }
+    if (s.gpu_temp != null) { $('gpuTemp').textContent = s.gpu_temp + '°C'; $('gpuTemp').className = tempClass(s.gpu_temp); push(hist.gpu, s.gpu_temp); }
+    if (s.cpu_temp != null) { $('cpuTemp').textContent = s.cpu_temp + '°C'; $('cpuTemp').className = tempClass(s.cpu_temp); push(hist.cpuT, s.cpu_temp); }
+    if (s.cpu_percent != null) { $('cpuPct').textContent = s.cpu_percent.toFixed(0) + '%'; push(hist.cpu, s.cpu_percent); }
+    if (s.mem_percent != null) { $('memPct').textContent = s.mem_percent.toFixed(0) + '%'; push(hist.mem, s.mem_percent); }
+    spark($('gpuTempSpark'), hist.gpu, 40, 90, css('--accent2'));
+    spark($('cpuTempSpark'), hist.cpuT, 40, 90, css('--accent2'));
+    spark($('cpuPctSpark'), hist.cpu, 0, 100, css('--accent'));
+    spark($('memPctSpark'), hist.mem, 0, 100, css('--accent'));
+    if (!infoShown) {
+      infoShown = true; const i = s.info;
+      $('sys').innerHTML = tableHTML([['GPU', i.gpu], ['Kernel driver', i.driver], ['OpenGL renderer', i.renderer], ['Mesa', i.mesa],
+        ['Kernel', i.kernel], ['CPU', `${i.cpu} (${i.threads} threads)`], ['GPU power state', s.gpu_power]]);
+    }
+  } catch {
+    if (!liveOk) { $('noLive').hidden = false; return; }   // hosted copy: no local server, stop polling
+  }
+  setTimeout(poll, 1000);
+}
+poll();
+</script>
+</body>
+</html>
